@@ -34,6 +34,7 @@ public class AdminProductController {
     private ProductSizeRepository productSizeRepository;
     @Autowired
     private ProductImageRepository productImageRepository;
+    
 
     @RequestMapping("/addProduct")
     public Map<String,Object> addProduct(){
