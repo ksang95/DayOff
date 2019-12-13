@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="Grade")
+@Table(name="grade")
 public class Grade {
     @Id
     private String level;

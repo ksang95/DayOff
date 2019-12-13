@@ -1,7 +1,6 @@
 package com.team4.dayoff.controller;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.team4.dayoff.entity.Users;
@@ -60,9 +59,10 @@ public class UsersController {
 //		storesS.lsm();
 //		return "lsm good";
 //	}
+
 	@GetMapping(value = "/list1")
-	public List<com.team4.dayoff.entity.Users> UserList() {
-		List<com.team4.dayoff.entity.Users> st = new ArrayList<Users>();
+	public List<Users> userList() {
+		List<Users> st = null;
 		st = urepo.findAll();
 		System.out.println(st);
 		return st;
