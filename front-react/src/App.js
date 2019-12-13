@@ -1,24 +1,18 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {Route, Switch} from 'react-router-dom';
+import Commons from './component/common/Commons';
+import ProductForm from './component/admin/product/ProductForm';
+import DeleteProduct from './component/admin/product/DeleteProduct';
+import Menu from './component/admin/product/Menu';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Route pathh="/" component={Menu}/>
+      <Switch>
+        <Route path="/admin/addProduct" component={ProductForm} />
+        <Route path="/admin/deleteProduct" component={DeleteProduct}/>
+      </Switch>
     </div>
   );
 }
