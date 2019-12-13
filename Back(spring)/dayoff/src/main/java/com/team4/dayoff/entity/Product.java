@@ -33,10 +33,10 @@ import lombok.NoArgsConstructor;
 public class Product{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     private String name;
-    private int price;
+    private Integer price;
     private String detailImage;
 
     @Column(updatable = false,insertable = false)
@@ -45,7 +45,7 @@ public class Product{
 
     @Column(insertable = false)
     @ColumnDefault("1")
-    private int isAvailable;
+    private Integer isAvailable;
 
     @ManyToOne
     @JoinColumn(name="categoryId")

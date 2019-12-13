@@ -7,5 +7,5 @@ import lombok.Data;
 @Data
 public class ProductSizePK implements Serializable{
     private String size;
-    private int product;
+    private Integer product;
 }

@@ -25,7 +25,7 @@ import lombok.ToString;
 public class ProductImage{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     private String url;
     private String originalName;
