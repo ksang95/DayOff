@@ -1,6 +1,5 @@
 package com.team4.dayoff.repository;
 
-import java.util.Date;
 
 import com.team4.dayoff.entity.Product;
 
@@ -13,7 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
  * ProductRepository
  */
 public interface ProductRepository extends JpaRepository<Product,Integer>{
-    public int countByRegisterDateBetween(Date from, Date to);
+
+    @Query(value="SELECT COUNT(*) FROM product WHERE registerDate > DATE_SUB(NOW(), INTERVAL 24 HOUR)",nativeQuery = true)
+    public int countByRegisterDatein24Hours();
 
     @Transactional
     @Modifying

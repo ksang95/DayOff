@@ -1,5 +1,8 @@
 package com.team4.dayoff.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,11 +52,12 @@ public class AdminProductController {
     }
 
     @PostMapping("/addProductProcess")
-    public void addProductProcess(String json, @RequestParam("file") List<MultipartFile> files) {
-
+    public Map<String,Object> addProductProcess(String json, @RequestParam("file") List<MultipartFile> files) {
+        Map<String,Object> map=new HashMap<String,Object>();
         try {
             Product product = new ObjectMapper().readValue(json, Product.class);
             Product savedProduct = productRepository.save(product);
+            int productId=savedProduct.getId();
             List<ProductSize> productSizes = savedProduct.getProductSize();
             productSizes.forEach(i -> {
                 i.setProduct(savedProduct);
@@ -66,15 +70,13 @@ public class AdminProductController {
                     System.out.println(url);
                     if(i==0){
                         savedProduct.setDetailImage(url);
-                        System.out.println(productRepository.findById(savedProduct.getId()));
                         productRepository.save(savedProduct);
-                        System.out.println(productRepository.findById(savedProduct.getId()));
                     }
                     else{
                         ProductImage productImage=new ProductImage();
                         productImage.setOriginalName(file.getOriginalFilename());
                         productImage.setUrl(url);
-                        productImage.setProduct(product);
+                        productImage.setProduct(savedProduct);
                         productImageRepository.save(productImage);
                     }
                 } catch (IllegalStateException e) {
@@ -87,9 +89,15 @@ public class AdminProductController {
 
             }
 
+            ProductImage latestProduct=productImageRepository.findByProduct_IdOrderById(productId);
+            
+            int productCount=productRepository.countByRegisterDatein24Hours();
+            map.put("latestProduct", latestProduct);
+            map.put("productCount",productCount);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+        return map;
     }
 
     @GetMapping("/getProduct")

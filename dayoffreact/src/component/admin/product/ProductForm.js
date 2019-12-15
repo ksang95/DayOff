@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import SelectPreview from './SelectPreview';
 import ProductImageForm from './ProductImageForm';
+import ProductAddMessage from './ProductAddMessage';
 
 class ProductForm extends Component {
     state = {
@@ -20,7 +21,9 @@ class ProductForm extends Component {
         selectedDetailImage: [],
         selectedProductImage: [],
         error: '',
-        post: false
+        post: false,
+        latestProduct:null,
+        productCount:null
     }
 
     handleSelect = (e) => {
@@ -111,7 +114,11 @@ class ProductForm extends Component {
                 url: '/addProductProcess',
                 data: params
             }).then(success => {
-                console.log(success);
+                const data=success.data;
+                this.setState({
+                    latestProduct:data.latestProduct.url,
+                    productCount:data.productCount
+                })
             }).catch(
                 error => console.log(error)
             );
@@ -179,7 +186,7 @@ class ProductForm extends Component {
 
     render() {
         const { name, price, color, productSize, category } = this.state.product;
-        const { colors, categories, selectedColor, selectedSize, selectedCategory, error, post } = this.state;
+        const { colors, categories, selectedColor, selectedSize, selectedCategory, error, post, latestProduct, productCount } = this.state;
         const { handleChange, handleClick, handleAdd, handleSelect, handleDelete, handleFileAdd, handleFileRemove } = this;
         const colorsOp = colors.map((c, index) => (<option key={c.id} value={index}>{c.color}</option>));
         const categoriesOp = categories.map((c, index) => (<option key={c.id} value={index}>{c.subName}</option>));
@@ -201,6 +208,7 @@ class ProductForm extends Component {
                 <ProductImageForm onAdd={handleFileAdd} onRemove={handleFileRemove} post={post} stateKey="selectedProductImage" name="상품 이미지"></ProductImageForm>
                 <div>{error}</div>
                 <button onClick={handleClick}> 등록</button>
+                <ProductAddMessage latestProduct={latestProduct} productCount={productCount}></ProductAddMessage>
             </div>
         );
     };
