@@ -19,6 +19,7 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,6 +32,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name="product")
 @DynamicInsert
+@DynamicUpdate
 public class Product{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
