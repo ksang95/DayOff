@@ -1,14 +1,10 @@
-package com.team4.dayoff.storage;
+package com.team4.dayoff.api.googleStorageAPI;
 
 import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import com.google.cloud.storage.Blob;
-import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
@@ -49,7 +45,7 @@ public class GoogleCloudStorageUpload {
 		 		.create(BlobInfo.newBuilder(bucketName, fileName).setContentType("image/" + type).build(), stream);
 		return blobInfo.getMediaLink();
 
-		//https://storage.googleapis.com/my_test_bucket_01/1574158295_0-2019-12-15-105555545.jpg : 아무나 볼 수 있는 url
+		//https://storage.googleapis.com/bit-jaehoon/image.jpg : 아무나 볼 수 있는 url
 		// the inputstream is closed by default, so we don't need to close it here
 	
 	}
@@ -57,15 +53,15 @@ public class GoogleCloudStorageUpload {
 	public static String saveFile(MultipartFile file) {
 		// [START storage_upload_file]
 		Storage storage = StorageOptions.getDefaultInstance().getService();
-		String url = null;
+		String name=null;
 		try {
-			url = getImageUrl(file, "my_test_bucket_01", storage);
-			url=url.substring(url.lastIndexOf('/')+1,url.lastIndexOf('?'));
+			String url = getImageUrl(file, "bit-jaehoon", storage);
+			name=url.substring(url.lastIndexOf('/')+1,url.lastIndexOf('?'));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		// [END storage_upload_file]
-		return url;
+		return name;
 	}
 }

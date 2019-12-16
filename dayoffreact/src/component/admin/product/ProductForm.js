@@ -15,9 +15,11 @@ class ProductForm extends Component {
         },
         colors: [],
         categories: [],
+        subCategories: [],
         selectedColor: '',
         selectedSize: '',
         selectedCategory: '',
+        selectedSubCategory:'',
         selectedDetailImage: [],
         selectedProductImage: [],
         error: '',
@@ -31,7 +33,7 @@ class ProductForm extends Component {
             [e.target.name]: e.target.value,
             error: ''
         });
-        if (e.target.name === "selectedCategory") {
+        if (e.target.name === "selectedSubCategory") {
             this.setState({
                 product: {
                     ...this.state.product,
@@ -115,9 +117,10 @@ class ProductForm extends Component {
                 data: params
             }).then(success => {
                 const data=success.data;
+                console.log(data);
                 this.setState({
-                    latestProduct:data.latestProduct.url,
-                    productCount:data.productCount
+                    latestProduct:data.latestProduct.name,
+                    productCount:this.state.productCount+data.productCount
                 })
             }).catch(
                 error => console.log(error)
@@ -130,9 +133,11 @@ class ProductForm extends Component {
                     color: [],
                     productSize: []
                 },
+                subCategories: [],
                 selectedColor: '',
                 selectedSize: '',
                 selectedCategory: '',
+                selectedSubCategory:'',
                 selectedDetailImage: [],
                 selectedProductImage: [],
                 error: '',
@@ -170,6 +175,12 @@ class ProductForm extends Component {
         });
     }
 
+    handleSub=(e)=>{
+        this.setState({
+            selectedCategory:e.target.value,
+            subCategories:this.state.categories.filter((c,index)=>{return e.target.value===c.name})
+        });
+    }
 
     async getForm() {
         const response = await axios.get("/addProduct");
@@ -186,16 +197,22 @@ class ProductForm extends Component {
 
     render() {
         const { name, price, color, productSize, category } = this.state.product;
-        const { colors, categories, selectedColor, selectedSize, selectedCategory, error, post, latestProduct, productCount } = this.state;
-        const { handleChange, handleClick, handleAdd, handleSelect, handleDelete, handleFileAdd, handleFileRemove } = this;
+        const { colors, categories, subCategories, selectedColor, selectedSize, selectedCategory, selectedSubCategory, error, post, latestProduct, productCount } = this.state;
+        const { handleChange, handleClick, handleAdd, handleSelect, handleSub, handleDelete, handleFileAdd, handleFileRemove } = this;
         const colorsOp = colors.map((c, index) => (<option key={c.id} value={index}>{c.color}</option>));
-        const categoriesOp = categories.map((c, index) => (<option key={c.id} value={index}>{c.subName}</option>));
+        const categoriesOp = categories.reduce((pre,value)=>{if(!pre.includes(value.name)) pre.push(value.name); return pre;},[]).map((c, index) => (<option key={index} value={c}>{c}</option>));
+        const subCategoriesOp=subCategories.map((c, index) => (<option key={c.id} value={index}>{c.subName}</option>));
         return (
             <div className="Form">
-                <select name="selectedCategory" value={selectedCategory} onChange={handleSelect}>
-                    <option value="-1">카테고리 선택</option>
+                <select name="selectedCategory" value={selectedCategory} onChange={handleSub}>
+                    <option value="-1">상위 카테고리 선택</option>
                     {categoriesOp}
-                </select><br></br>
+                </select>
+                <select name="selectedSubCategory" value={selectedSubCategory} onChange={handleSelect}>
+                    <option value="-1">하위 카테고리 선택</option>
+                    {subCategoriesOp}
+                </select>
+                <br></br>
                 <input name="name" placeholder="name" value={name} onChange={handleChange} /><br></br>
                 <input name="price" placeholder="price" value={price} onChange={handleChange} /><br></br>
                 <select name="selectedColor" value={selectedColor} onChange={handleSelect}>

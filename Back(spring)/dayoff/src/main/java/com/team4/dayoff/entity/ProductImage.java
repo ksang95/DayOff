@@ -27,7 +27,7 @@ public class ProductImage{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String url;
+    private String name;
     private String originalName;
 
     @ManyToOne(cascade = CascadeType.PERSIST)

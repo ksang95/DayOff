@@ -8,5 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * ProductImageRepository
  */
 public interface ProductImageRepository extends JpaRepository<ProductImage,Integer>{
-    ProductImage findByProduct_IdOrderById(int productId);
+    ProductImage findTop1ByProduct_IdOrderById(int productId);
 }

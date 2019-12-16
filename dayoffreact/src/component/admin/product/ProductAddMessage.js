@@ -1,20 +1,28 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-const ProductAddMessage= ({latestProduct,productCount})=>{
-    let completeMessage=null;
-    if(latestProduct)
-     completeMessage=
-            (<div>
-                <img style={{width:"60px", height:"60px"}} src={latestProduct&&"https://storage.googleapis.com/my_test_bucket_01/"+latestProduct}></img>
-            <span>{productCount}</span>
-            </div>);
-    
-    return(
-        <div className="completeMessage">
+class ProductAddMessage extends Component {
 
-        {completeMessage}
-        </div>
-    );
+    shouldComponentUpdate(nextProps,nextState){
+        return nextProps.latestProduct!==this.props.latestProduct;
+    }
+
+    render() {
+        const { latestProduct, productCount } = this.props;
+        const completeMessage = 
+                (<div>
+                    <img style={{ width: "60px", height: "60px" }} src={latestProduct && "https://storage.googleapis.com/bit-jaehoon/" + latestProduct}></img>
+                    <span>{productCount}</span>
+                </div>);
+
+        return (
+            <div className="completeMessage">
+
+                {completeMessage}
+            </div>
+        );
+    }
+
+
 }
 
 export default ProductAddMessage;

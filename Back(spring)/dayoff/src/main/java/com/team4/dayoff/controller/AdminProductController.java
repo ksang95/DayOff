@@ -1,13 +1,11 @@
 package com.team4.dayoff.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.team4.dayoff.api.googleStorageAPI.GoogleCloudStorageUpload;
 import com.team4.dayoff.entity.Category;
 import com.team4.dayoff.entity.Color;
 import com.team4.dayoff.entity.Product;
@@ -18,7 +16,6 @@ import com.team4.dayoff.repository.ColorRepository;
 import com.team4.dayoff.repository.ProductImageRepository;
 import com.team4.dayoff.repository.ProductRepository;
 import com.team4.dayoff.repository.ProductSizeRepository;
-import com.team4.dayoff.storage.GoogleCloudStorageUpload;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -52,48 +49,46 @@ public class AdminProductController {
     }
 
     @PostMapping("/addProductProcess")
-    public Map<String,Object> addProductProcess(String json, @RequestParam("file") List<MultipartFile> files) {
-        Map<String,Object> map=new HashMap<String,Object>();
+    public Map<String, Object> addProductProcess(String json, @RequestParam("file") MultipartFile[] files) {
+        Map<String, Object> map = new HashMap<String, Object>();
         try {
             Product product = new ObjectMapper().readValue(json, Product.class);
             Product savedProduct = productRepository.save(product);
-            int productId=savedProduct.getId();
+            int productId = savedProduct.getId();
             List<ProductSize> productSizes = savedProduct.getProductSize();
             productSizes.forEach(i -> {
                 i.setProduct(savedProduct);
             });
             productSizeRepository.saveAll(productSizes);
-            for (int i=0; i<files.size(); i++) {
-                MultipartFile file =files.get(i);
-                try {
-                    String url = GoogleCloudStorageUpload.saveFile(file);
-                    System.out.println(url);
-                    if(i==0){
-                        savedProduct.setDetailImage(url);
-                        productRepository.save(savedProduct);
-                    }
-                    else{
-                        ProductImage productImage=new ProductImage();
-                        productImage.setOriginalName(file.getOriginalFilename());
-                        productImage.setUrl(url);
-                        productImage.setProduct(savedProduct);
-                        productImageRepository.save(productImage);
-                    }
-                } catch (IllegalStateException e) {
-                    // TODO Auto-generated catch block
-                    System.out.println(e.getMessage());
-                } catch (Exception e) {
-                    // TODO Auto-generated catch block
-                    System.out.println(e.getMessage());
-                }
 
+            try {
+                String name = GoogleCloudStorageUpload.saveFile(files[0]);
+                savedProduct.setDetailImage(name);
+                productRepository.save(savedProduct);
+                System.out.println(files.length);
+                for (int i = 1; i < files.length; i++) {
+                    MultipartFile file = files[i];
+                    name = GoogleCloudStorageUpload.saveFile(file);
+                    ProductImage productImage = new ProductImage();
+                    productImage.setOriginalName(file.getOriginalFilename());
+                    productImage.setName(name);
+                    productImage.setProduct(savedProduct);
+                    productImageRepository.save(productImage);
+
+                }
+            } catch (IllegalStateException e) {
+                // TODO Auto-generated catch block
+                System.out.println(e.getMessage());
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                System.out.println(e.getMessage());
             }
 
-            ProductImage latestProduct=productImageRepository.findByProduct_IdOrderById(productId);
-            
-            int productCount=productRepository.countByRegisterDatein24Hours();
+            ProductImage latestProduct = productImageRepository.findTop1ByProduct_IdOrderById(productId);
+
+            // int productCount=productRepository.countByRegisterDatein24Hours();
             map.put("latestProduct", latestProduct);
-            map.put("productCount",productCount);
+            map.put("productCount", 1);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
