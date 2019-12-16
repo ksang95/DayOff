@@ -19,7 +19,7 @@ class DeleteProduct extends Component {
     async deleteProduct(id) {
         const params = new URLSearchParams();
         params.append('id', id);
-        axios({
+        await axios({
             method: 'post',
             url: '/deleteProduct',
             data: params
@@ -45,7 +45,7 @@ class DeleteProduct extends Component {
     render() {
         const { product, id } = this.state;
         const { handleSearch, handleDelete, handleChange } = this;
-        const detail = product ? (<tr><td>{product.name}</td><td>{product.price}</td><td>{product.category.subName}</td><td>{product.isAvailable==0?'판매중지':'판매중'}</td></tr>) : null;
+        const detail = product ? (<tr><td>{product.name}</td><td>{product.price}</td><td>{product.category.subName}</td><td>{product.isAvailable===0?'판매중지':'판매중'}</td></tr>) : null;
         const disabled=product?(product.isAvailable?false:true):false;
         return (
             <div>
