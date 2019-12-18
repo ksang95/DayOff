@@ -3,7 +3,6 @@ import DropzoneComponent from 'react-dropzone-component';
 import 'react-dropzone-component/styles/filepicker.css';
 
 class ProductImageForm extends Component {
-    id = 0;
 
     constructor(props) {
         super(props);
@@ -11,6 +10,7 @@ class ProductImageForm extends Component {
         const {maxFile}=this.props;
         // For a full list of possible configurations,
         // please consult http://www.dropzonejs.com/#configuration
+
         this.djsConfig = {
             acceptedFiles: "image/jpg, image/jpeg, image/png, image/gif",
             autoProcessQueue: false,
@@ -26,7 +26,7 @@ class ProductImageForm extends Component {
                 </div>
               )
         };
-
+        
         this.componentConfig = {
             iconFiletypes: ['.jpg', '.jpeg', '.png', '.gif'],
             showFiletypeIcon: true,
