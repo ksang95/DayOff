@@ -5,6 +5,7 @@ yarn add cross-env
 yarn add query-string
 yarn add axios
 yarn add react-dropzone-component
+yarn add react-input-mask
 
 =====================================
 
