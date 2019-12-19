@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
 import '../css/login.css';
-import google from '../image/구글.jpg'
-import facebook from '../image/페이스북.png'
 
 const Login = () => {
     return (
@@ -21,7 +19,7 @@ const Login = () => {
 class SocialLogin extends Component {
     render() {
         const login = () => {
-            window.location.href = "https://kauth.kakao.com/oauth/authorize?client_id=6ba5e46b99c26e457c268cb8ea3bc5da&redirect_uri=http://localhost:3000/login/process/kakao&response_type=code";
+            window.location.href = "https://kauth.kakao.com/oauth/authorize?client_id=&redirect_uri=http://localhost:3000/login/process/kakao&response_type=code";
         
         }
         const style = {
@@ -30,10 +28,12 @@ class SocialLogin extends Component {
     return (
         <div className="social-login">
             <a style={style} className="btn btn-block social-btn google" href='http://localhost:8080/oauth2/authorization/google'>
-                 <img  src={google}></img>Log in with Google</a>
+                 <img  src="/images/google.jpg"></img>Log in with Google</a>
             <a style={style} className="btn btn-block social-btn facebook" href='http://localhost:8080/oauth2/authorization/facebook'>
-               <img src={facebook}></img>Log in with Facebook</a>
-<img src="/images/kakao_account_login_btn_medium_wide.png" name="kakao" onClick={login} />
+               <img src="/images/facebook.png"></img>Log in with Facebook</a>
+               <a  className="btn btn-block social-btn kakao" href='http://localhost:8080/oauth2/authorization/kakao'>
+                <img src="/images/kakao_account_login_btn_medium_wide.png" name="kakao"/>
+               </a>
         </div>
     );
 }

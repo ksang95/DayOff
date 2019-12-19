@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.team4.dayoff.api.loginAPI.KakaoAPI;
 import com.team4.dayoff.api.loginAPI.LoginAPI;
 import com.team4.dayoff.entity.Code;
@@ -22,9 +24,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -47,6 +52,7 @@ public class UsersController {
 
 	@Autowired
 	private CodeRepository codeRepository;
+
 
 	private String mapping = "";
 
@@ -111,7 +117,7 @@ public class UsersController {
 
 	@GetMapping("/withdraw")
 	public List<Code> withdrawUsers() {
-		List<Code> list = codeRepository.findByCodeLike("02%");
+		List<Code> list = codeRepository.findByCodeLikeOrderByCode("02%");
 		return list;
 	}
 
@@ -161,7 +167,9 @@ public class UsersController {
 
 	}
 	@GetMapping("/loginSuccess")
-  public ModelAndView getLoginInfo(Model model, Authentication authentication) {
+  public ModelAndView getLoginInfo(@PathVariable(value="location",required = false) String location,Model model, Authentication authentication, OAuth2AuthenticationToken authenticationToken, HttpServletRequest request) {
+	System.out.println(authenticationToken.getAuthorizedClientRegistrationId()); //소셜 구별용
+	System.out.println(request.getHeader("referer")); //이전 페이지 주소
 
     if(authentication.getName().equals("2337851999660197")){
 
@@ -179,7 +187,9 @@ public class UsersController {
     }
 
     System.out.println(authentication.getAuthorities()); //어디서 로그인했는지
-
+	System.out.println(authentication.getDetails());
+	System.out.println(authentication.getCredentials());
+	System.out.println(authentication.getPrincipal()); //userinfo
 
     
     return new ModelAndView("redirect:http://localhost:3000/"+mapping);
