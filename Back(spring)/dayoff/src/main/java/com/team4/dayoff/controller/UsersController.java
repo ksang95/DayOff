@@ -1,11 +1,9 @@
 package com.team4.dayoff.controller;
 
 import java.security.Principal;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
 
 import com.team4.dayoff.api.loginAPI.KakaoAPI;
 import com.team4.dayoff.api.loginAPI.LoginAPI;
@@ -19,12 +17,22 @@ import com.team4.dayoff.repository.UsersRepository;
 import com.team4.dayoff.repository.WithdrawHistoryRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
+
+@CrossOrigin("*")
 @RestController
 public class UsersController {
 
@@ -39,6 +47,9 @@ public class UsersController {
 
 	@Autowired
 	private CodeRepository codeRepository;
+
+	private String mapping = "";
+
 
 	@GetMapping(value = "/list1")
 	public List<Users> userList() {
@@ -149,4 +160,27 @@ public class UsersController {
 		// 세션 객체 삭제
 
 	}
+	@GetMapping("/loginSuccess")
+  public ModelAndView getLoginInfo(Model model, Authentication authentication) {
+
+    if(authentication.getName().equals("2337851999660197")){
+
+
+	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	
+
+    List<GrantedAuthority> updatedAuthorities = new ArrayList<>(auth.getAuthorities());
+    
+    updatedAuthorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+    authentication = new UsernamePasswordAuthenticationToken(auth.getPrincipal(), auth.getCredentials(), updatedAuthorities);
+    
+	SecurityContextHolder.getContext().setAuthentication(authentication);
+	
+    }
+
+    System.out.println(authentication.getAuthorities()); //어디서 로그인했는지
+
+
+    
+    return new ModelAndView("redirect:http://localhost:3000/"+mapping);
 }
