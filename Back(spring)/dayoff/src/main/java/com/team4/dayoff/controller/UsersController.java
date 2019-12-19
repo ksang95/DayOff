@@ -29,16 +29,16 @@ import org.springframework.web.bind.annotation.RestController;
 public class UsersController {
 
 	@Autowired
-	UsersRepository usersRepository;
+	private UsersRepository usersRepository;
 
 	@Autowired
-	LoginHistoryRepository loginHistoryRepository;
+	private LoginHistoryRepository loginHistoryRepository;
 
 	@Autowired
-	WithdrawHistoryRepository withdrawHistoryRepository;
+	private WithdrawHistoryRepository withdrawHistoryRepository;
 
 	@Autowired
-	CodeRepository codeRepository;
+	private CodeRepository codeRepository;
 
 	@GetMapping(value = "/list1")
 	public List<Users> userList() {
@@ -64,10 +64,9 @@ public class UsersController {
 		String accessToken = token.get("access_token");
 		String refreshToken = token.get("refresh_token");
 
-		Map<String, Object> map = login.getUserInfo(accessToken);
-		System.out.println(map);
-		String socialId = socialType + "_" + map.get("id");
-		Users users = usersRepository.findBySocialIdAndRoleNot(socialId, "withdraw");
+		Users userInfo = login.getUserInfo(accessToken);
+		System.out.println(userInfo);
+		Users users = usersRepository.findBySocialIdAndRoleNot(userInfo.getSocialId(), "withdraw");
 		System.out.println("db:" + users);
 		if (users != null) {
 			users.setAccessToken(accessToken);
@@ -79,17 +78,9 @@ public class UsersController {
 			// 세션 객체 생성
 			return users;
 		}
-		String sex = (String) map.get("sex");
-		Date birth = (Date) map.get("birth");
-		String name = (String) map.get("name");
-
-		users = new Users();
+		users = userInfo;
 		users.setAccessToken(accessToken);
 		users.setRefreshToken(refreshToken);
-		users.setSex(sex);
-		users.setBirth(birth);
-		users.setName(name);
-		users.setSocialId(socialId);
 		System.out.println("new:" + users);
 
 		return users;

@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.team4.dayoff.entity.Users;
 
 
 
@@ -74,8 +75,8 @@ public class KakaoAPI implements LoginAPI {
 		return map;
 	}
 
-	public Map<String, Object> getUserInfo(String accessToken) {
-		Map<String, Object> userInfo = new HashMap<>();
+	public Users getUserInfo(String accessToken) {
+		Users userInfo = new Users();
 		String reqURL = "https://kapi.kakao.com/v2/user/me";
 		try {
 			URL url = new URL(reqURL);
@@ -101,10 +102,17 @@ public class KakaoAPI implements LoginAPI {
 			ObjectMapper objectMapper=new ObjectMapper();
 			Map<String,Object> map=objectMapper.readValue(result, Map.class);
 			
-			int id = (int)(map.get("id"));
+			String socialId = "kakao_" + map.get("id");
 			Map<String,Object> properties = (Map<String,Object>)map.get("properties");
+			Map<String,Object> kakaoAccount =  (Map<String,Object>)map.get("kakao_account");
 
-			userInfo.put("id", id);
+			userInfo.setSocialId(socialId);;
+			if((boolean)kakaoAccount.get("has_gender")){
+				String gender=(String)kakaoAccount.get("gender");
+				userInfo.setSex(gender.substring(0,1).toLowerCase());
+			};
+
+			System.out.println(properties);
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
