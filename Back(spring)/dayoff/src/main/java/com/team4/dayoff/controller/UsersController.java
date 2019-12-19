@@ -184,3 +184,8 @@ public class UsersController {
     
     return new ModelAndView("redirect:http://localhost:3000/"+mapping);
 }
+@GetMapping("/loginReal")
+public ModelAndView getMethodName2() {
+return new ModelAndView("redirect:http://localhost:3000/");
+}
+}

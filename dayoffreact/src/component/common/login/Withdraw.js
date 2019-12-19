@@ -14,6 +14,7 @@ class Withdraw extends Component {
 
     async getCode(){
         const response=await axios.get('/withdraw');
+        console.log(response)
         this.setState({
             code:response.data
         })
