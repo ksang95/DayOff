@@ -13,6 +13,7 @@
     "react-dropzone-component": "^3.2.0",
     "react-flip-move": "^3.0.4",
     "react-html-parser": "^2.0.2",
+    "react-input-mask": "^2.0.4",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.3.0"
   },
