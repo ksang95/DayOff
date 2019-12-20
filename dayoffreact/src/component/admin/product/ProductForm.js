@@ -107,7 +107,7 @@ class ProductForm extends Component {
             let params = new FormData();
             params.append('json', JSON.stringify(this.state.product));
             const file = this.state.selectedDetailImage.concat(this.state.selectedProductImage);
-
+            
             file.forEach((f) => {
                 params.append('file', f);
             })

@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.oauth2.client.CommonOAuth2Provider;
-import org.springframework.security.oauth2.client.endpoint.DefaultRefreshTokenTokenResponseClient;
 import org.springframework.security.oauth2.client.endpoint.NimbusAuthorizationCodeTokenResponseClient;
 import org.springframework.security.oauth2.client.endpoint.OAuth2AccessTokenResponseClient;
 import org.springframework.security.oauth2.client.endpoint.OAuth2AuthorizationCodeGrantRequest;
@@ -19,7 +18,6 @@ import org.springframework.security.oauth2.client.registration.ClientRegistratio
 import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
 import org.springframework.security.oauth2.client.web.AuthorizationRequestRepository;
 import org.springframework.security.oauth2.client.web.HttpSessionOAuth2AuthorizationRequestRepository;
-import org.springframework.security.oauth2.core.OAuth2RefreshToken;
 import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest;
 
 @Configuration
@@ -27,7 +25,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
  
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
+
+       http
         .csrf().disable()
         .authorizeRequests()
         .antMatchers("/mapping","/login")
@@ -52,40 +51,48 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .logoutUrl("/logout")
         .logoutSuccessUrl("/login");
     }
+
+
 @Bean
 public AuthorizationRequestRepository<OAuth2AuthorizationRequest> 
   authorizationRequestRepository() {
   
     return new HttpSessionOAuth2AuthorizationRequestRepository();
 }
+
 @Bean
 public OAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest> 
   accessTokenResponseClient() {
   
     return new NimbusAuthorizationCodeTokenResponseClient();
 }
+
 @Bean
-public ClientRegistrationRepository clientRegistrationRepository(OAuth2ClientProperties oAuth2ClientProperties, @Value("6e489d6a40ced2894a89a17f260b14ad") String kakaoClientId, @Value("6Mm2iW8cCLzOrKFT073ptfy8dVdGm16c") String kakaoClientSecret){
+public ClientRegistrationRepository clientRegistrationRepository(OAuth2ClientProperties oAuth2ClientProperties, @Value("") String kakaoClientId, @Value("") String kakaoClientSecret){
   List<ClientRegistration> registrations=new ArrayList<ClientRegistration>();
   registrations.add(CustomOAuth2Provider.KAKAO.getBuilder("kakao")
   .clientId(kakaoClientId)
   .clientSecret(kakaoClientSecret)
   .jwkSetUri("temp")
   .build());
-  registrations.add(CommonOAuth2Provider.GOOGLE.getBuilder("google")
-  .clientId("191899458571-uk5f9j3d6hpt2vkds51301tvg263ueoh.apps.googleusercontent.com")
-  .clientSecret("w_fZV-FqQ_QSalCrpSscLLTg")
-  .scope("email","profile","https://www.googleapis.com/auth/user.birthday.read", "https://www.googleapis.com/auth/user.phonenumbers.read")
+ registrations.add(CommonOAuth2Provider.GOOGLE.getBuilder("google")
+  .clientId("")
+  .clientSecret("")
+  .scope("email","profile","https://www.googleapis.com/auth/user.phonenumbers.read","https://www.googleapis.com/auth/user.birthday.read")
   .build());
   registrations.add(CommonOAuth2Provider.FACEBOOK.getBuilder("facebook")
-  .clientId("2473764549612950")
-  .clientSecret("2dd047a9afaf5fe157e09d41f8676ae1")
+  .clientId("")
+  .clientSecret("")
   .redirectUriTemplate("https://localhost:8443/login/oauth2/code/facebook")
   .userInfoUri("https://graph.facebook.com/me?fields=id,name,email,link")
-  .scope("email")
+  .scope("email","profile")
   .build());
+  //user_birthday,user_gender
+
 
 
   return new InMemoryClientRegistrationRepository(registrations);
 }
+
+
 }

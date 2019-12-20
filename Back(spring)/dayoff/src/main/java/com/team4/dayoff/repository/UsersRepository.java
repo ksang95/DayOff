@@ -16,5 +16,5 @@ public interface UsersRepository extends JpaRepository<Users, Integer> {
     @Transactional
     @Modifying
 	@Query("UPDATE Users SET role='withdraw' WHERE id= :userId")
-    public void withdrawUser(int userId);
+    void withdrawUser(int userId);
 }

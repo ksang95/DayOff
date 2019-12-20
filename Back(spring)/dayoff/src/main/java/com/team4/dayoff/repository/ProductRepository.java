@@ -14,11 +14,11 @@ import org.springframework.transaction.annotation.Transactional;
 public interface ProductRepository extends JpaRepository<Product,Integer>{
 
     @Query(value="SELECT COUNT(*) FROM product WHERE registerDate > DATE_SUB(NOW(), INTERVAL 24 HOUR)",nativeQuery = true)
-    public int countByRegisterDatein24Hours();
+    int countByRegisterDatein24Hours();
 
     @Transactional
     @Modifying
     @Query("UPDATE Product p SET p.isAvailable=0 WHERE p.id= :productId")
-    public void disableProduct(int productId);
+    void disableProduct(int productId);
     
 }

@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
 import axios from 'axios';
-import { Link, Route } from 'react-router-dom';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import Login from '../../common/login/Login';
-import LoginProcess from '../../common/login/LoginProcess';
 
 class Menu extends Component {
     state={
@@ -64,10 +63,12 @@ class Menu extends Component {
 
                 <ul>
                     <li><div onClick={this.handleLogin}>{login}</div></li>
+                    <li><Link to="/signUp">회원가입</Link></li>
                     <li><Link to="/admin/addProduct">상품 등록</Link></li>
                     <li><Link to="/admin/deleteProduct">상품 삭제</Link></li>
                     <li><Link to="/admin/updateInvoice">송장번호 등록</Link></li>
                     <li><Link to="/admin/userList">유저리스트</Link></li>
+                    <li><Link to="/admin/usersAnalysis">회원 통계</Link></li>
                     <li><Link to="/withdraw">탈퇴하기</Link></li>
                     <li><button onClick={this.logout2.bind(this)}>로그아웃</button></li>
 
