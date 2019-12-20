@@ -10,6 +10,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * CodeRepository
  */
 public interface CodeRepository extends JpaRepository<Code, String>{
-    List<Code> findByCodeLike(String code);
+    List<Code> findByCodeLikeOrderByCode(String code);
     
 }
