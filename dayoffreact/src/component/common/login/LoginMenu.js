@@ -10,7 +10,6 @@ const LoginMenu = () => {
             <Login></Login>
             <Withdraw></Withdraw>
         </div>
-
     );
 
 }
