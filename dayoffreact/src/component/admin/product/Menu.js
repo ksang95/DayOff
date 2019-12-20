@@ -31,6 +31,16 @@ class Menu extends Component {
         }
     }
 
+    async logout2(){
+        const res = await axios.get("/logout", {
+        }
+        )
+        console.log(res.data)
+        if(res.data===1){
+            this.props.history.push("/login")
+        }
+    }
+
     logout = async () => {
         const params = new URLSearchParams();
         params.append("userId", sessionStorage.getItem("userId"));
@@ -59,6 +69,7 @@ class Menu extends Component {
                     <li><Link to="/admin/updateInvoice">송장번호 등록</Link></li>
                     <li><Link to="/admin/userList">유저리스트</Link></li>
                     <li><Link to="/withdraw">탈퇴하기</Link></li>
+                    <li><button onClick={this.logout2.bind(this)}>로그아웃</button></li>
 
                 </ul>
                 <div className="loginFrame" id="loginFrame" style={{ visibility: "hidden" }}>

@@ -2,11 +2,17 @@ package com.team4.dayoff.controller;
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import com.nimbusds.oauth2.sdk.AccessTokenResponse;
+import com.nimbusds.oauth2.sdk.id.Issuer;
+import com.nimbusds.oauth2.sdk.token.RefreshToken;
+import com.nimbusds.oauth2.sdk.util.StringUtils;
 import com.team4.dayoff.api.loginAPI.KakaoAPI;
 import com.team4.dayoff.api.loginAPI.LoginAPI;
 import com.team4.dayoff.entity.Code;
@@ -19,26 +25,39 @@ import com.team4.dayoff.repository.UsersRepository;
 import com.team4.dayoff.repository.WithdrawHistoryRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.oauth2.core.AuthorizationGrantType;
+import org.springframework.security.oauth2.core.OAuth2RefreshToken;
+import org.springframework.security.oauth2.core.endpoint.OAuth2AccessTokenResponse;
+import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
 
-@CrossOrigin("*")
 @RestController
+@CrossOrigin("*")
 public class UsersController {
 
 	@Autowired
@@ -53,6 +72,8 @@ public class UsersController {
 	@Autowired
 	private CodeRepository codeRepository;
 
+	 @Autowired
+  	private OAuth2AuthorizedClientService authorizedClientService;
 
 	private String mapping = "";
 
@@ -65,43 +86,43 @@ public class UsersController {
 		return st;
 	}
 
-	@PostMapping("/login")
-	public Users loginUsers(@RequestParam String code, @RequestParam String socialType) {
-		LoginAPI login = null;
-		switch (socialType) {
-		case "kakao":
-			login = new KakaoAPI();
-			break;
-		case "naver":
-			break;
-		case "google":
-			break;
-		}
-		Map<String, String> token = login.getToken(code);
-		String accessToken = token.get("access_token");
-		String refreshToken = token.get("refresh_token");
+	// @PostMapping("/login")
+	// public Users loginUsers(@RequestParam String code, @RequestParam String socialType) {
+	// 	LoginAPI login = null;
+	// 	switch (socialType) {
+	// 	case "kakao":
+	// 		login = new KakaoAPI();
+	// 		break;
+	// 	case "naver":
+	// 		break;
+	// 	case "google":
+	// 		break;
+	// 	}
+	// 	Map<String, String> token = login.getToken(code);
+	// 	String accessToken = token.get("access_token");
+	// 	String refreshToken = token.get("refresh_token");
 
-		Users userInfo = login.getUserInfo(accessToken);
-		System.out.println(userInfo);
-		Users users = usersRepository.findBySocialIdAndRoleNot(userInfo.getSocialId(), "withdraw");
-		System.out.println("db:" + users);
-		if (users != null) {
-			users.setAccessToken(accessToken);
-			users.setRefreshToken(refreshToken);
-			usersRepository.save(users);
-			LoginHistory loginHistory = new LoginHistory();
-			loginHistory.setUsers(users);
-			loginHistoryRepository.save(loginHistory);
-			// 세션 객체 생성
-			return users;
-		}
-		users = userInfo;
-		users.setAccessToken(accessToken);
-		users.setRefreshToken(refreshToken);
-		System.out.println("new:" + users);
+	// 	Users userInfo = login.getUserInfo(accessToken);
+	// 	System.out.println(userInfo);
+	// 	Users users = usersRepository.findBySocialIdAndRoleNot(userInfo.getSocialId(), "withdraw");
+	// 	System.out.println("db:" + users);
+	// 	if (users != null) {
+	// 		users.setAccessToken(accessToken);
+	// 		users.setRefreshToken(refreshToken);
+	// 		usersRepository.save(users);
+	// 		LoginHistory loginHistory = new LoginHistory();
+	// 		loginHistory.setUsers(users);
+	// 		loginHistoryRepository.save(loginHistory);
+	// 		// 세션 객체 생성
+	// 		return users;
+	// 	}
+	// 	users = userInfo;
+	// 	users.setAccessToken(accessToken);
+	// 	users.setRefreshToken(refreshToken);
+	// 	System.out.println("new:" + users);
 
-		return users;
-	}
+	// 	return users;
+	// }
 
 	@PostMapping("/signUp")
 	public Users signUpProcess(@RequestBody Users users) {
@@ -146,33 +167,32 @@ public class UsersController {
 
 	}
 
-	@PostMapping("/logout")
-	public void logoutUsers(Principal principal, @RequestParam("userId") Integer id) {
-		//int id = Integer.parseInt(principal.getName());
-		// Users users = usersRepository.findById(id).get();
-		// String socialId = users.getSocialId();
-		// LoginAPI login = null;
-		// switch (socialId.substring(0, socialId.indexOf('_'))) {
-		// case "kakao":
-		// 	login = new KakaoAPI(); //로그아웃시켜도 로그인할때 아이디 비번 입력 창은 다시 나오지 않음. 왜?? 안나오면 굳이 api쓰는 의미가 없음
-		// 	break;
-		// case "naver":
-		// 	// 네이버는 로그아웃 api가 없는 걸로 알고있음. 여기서 로그아웃 불가하다고 네이버 가서 로그아웃하라고 메시지 뿌리던가 하자.
-		// 	break;
-		// case "google":
-		// 	break;
-		// }
-		// System.out.println(login.logoutUser(users.getAccessToken()));
-		// 세션 객체 삭제
-
-	}
+	
 	@GetMapping("/loginSuccess")
   public ModelAndView getLoginInfo(@PathVariable(value="location",required = false) String location,Model model, Authentication authentication, OAuth2AuthenticationToken authenticationToken, HttpServletRequest request) {
 	System.out.println(authenticationToken.getAuthorizedClientRegistrationId()); //소셜 구별용
 	System.out.println(request.getHeader("referer")); //이전 페이지 주소
 
-    if(authentication.getName().equals("2337851999660197")){
+	OAuth2AuthorizedClient client = authorizedClientService.loadAuthorizedClient(authenticationToken.getAuthorizedClientRegistrationId(), authentication.getName());
+	String userInfoEndpointUri = client.getClientRegistration()
+	.getProviderDetails().getUserInfoEndpoint().getUri();
+   
+	System.out.println("test================"+client.getAccessToken().getTokenValue());
+	if (!org.springframework.util.StringUtils.isEmpty(userInfoEndpointUri)) {
+		RestTemplate restTemplate = new RestTemplate();
+		HttpHeaders headers = new HttpHeaders();
+		headers.add(HttpHeaders.AUTHORIZATION, "Bearer " + client.getAccessToken()
+		  .getTokenValue());
+		HttpEntity entity = new HttpEntity("", headers);
+		ResponseEntity <Map>response = restTemplate
+		  .exchange(userInfoEndpointUri, HttpMethod.GET, entity, Map.class);
+		Map userAttributes = response.getBody();
+		System.out.println(headers+"/"+entity+"/////"+response);
+		model.addAttribute("name", userAttributes.get("name"));
+	}
 
+
+    if(authentication.getName().equals("2337851999660197")){
 
 	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	
@@ -181,11 +201,10 @@ public class UsersController {
     
     updatedAuthorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
     authentication = new UsernamePasswordAuthenticationToken(auth.getPrincipal(), auth.getCredentials(), updatedAuthorities);
-    
 	SecurityContextHolder.getContext().setAuthentication(authentication);
 	
-    }
-
+}
+System.out.println(authentication);
     System.out.println(authentication.getAuthorities()); //어디서 로그인했는지
 	System.out.println(authentication.getDetails());
 	System.out.println(authentication.getCredentials());
@@ -194,8 +213,18 @@ public class UsersController {
     
     return new ModelAndView("redirect:http://localhost:3000/"+mapping);
 }
-@GetMapping("/loginReal")
+@GetMapping("/login")
 public ModelAndView getMethodName2() {
-return new ModelAndView("redirect:http://localhost:3000/");
+	System.out.println(123);
+	return new ModelAndView("redirect:https://localhost:4000/oauth2/authorization/google");
+}
+@RequestMapping(value = "/logout", method = RequestMethod.GET)
+public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
+Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+System.out.println(request.getHeader("referer"));
+if (auth != null){
+new SecurityContextLogoutHandler().logout(request, response, auth);
+}
+return new ModelAndView("redirect:"+request.getHeader("referer"));
 }
 }
