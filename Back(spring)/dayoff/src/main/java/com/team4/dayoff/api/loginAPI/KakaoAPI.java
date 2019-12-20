@@ -35,7 +35,7 @@ public class KakaoAPI implements LoginAPI {
 			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
 			StringBuilder sb = new StringBuilder();
 			sb.append("grant_type=authorization_code");
-			sb.append("&client_id=6ba5e46b99c26e457c268cb8ea3bc5da");
+			sb.append("&client_id=");
 			sb.append("&redirect_uri=http://localhost:3000/login/process/kakao");
 			sb.append("&code=" + authorizeCode);
 			bw.write(sb.toString());
