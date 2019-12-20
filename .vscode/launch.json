@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-DemoApplication<dayoff>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.team4.dayoff.DemoApplication",
+            "projectName": "dayoff",
+            "args": ""
+        }
+    ]
+}

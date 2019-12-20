@@ -204,6 +204,8 @@ public class UsersController {
 	SecurityContextHolder.getContext().setAuthentication(authentication);
 	
 }
+
+
 System.out.println(authentication);
     System.out.println(authentication.getAuthorities()); //어디서 로그인했는지
 	System.out.println(authentication.getDetails());
@@ -211,12 +213,11 @@ System.out.println(authentication);
 	System.out.println(authentication.getPrincipal()); //userinfo
 
     
-    return new ModelAndView("redirect:http://localhost:3000/"+mapping);
+    return new ModelAndView("redirect:https://localhost:3000/"+mapping);
 }
 @GetMapping("/login")
-public ModelAndView getMethodName2() {
+public void getMethodName2() {
 	System.out.println(123);
-	return new ModelAndView("redirect:https://localhost:4000/oauth2/authorization/google");
 }
 @RequestMapping(value = "/logout", method = RequestMethod.GET)
 public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) throws Exception {

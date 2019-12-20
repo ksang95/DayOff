@@ -24,38 +24,48 @@ import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequ
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
-  @Override
-  protected void configure(HttpSecurity http) throws Exception {
-    System.out.println(1);
-
-    // http
-    // .portMapper()
-    // .http(8080).mapsTo(8443);
-    http
-    .csrf().disable().authorizeRequests().antMatchers("/mapping", "/login").permitAll().antMatchers("/path")
-        .hasRole("ADMIN").anyRequest().authenticated().and().oauth2Login().loginPage("/login").tokenEndpoint()
-        .accessTokenResponseClient(accessTokenResponseClient()).and().defaultSuccessUrl("/loginSuccess")
-        .failureUrl("/loginFailure").and().exceptionHandling().accessDeniedPage("/deny").and().logout()
-        .logoutUrl("/logoutReal").logoutSuccessUrl("/login");
-  }
-
-  @Bean
-  public AuthorizationRequestRepository<OAuth2AuthorizationRequest> authorizationRequestRepository() {
-
-    return new HttpSessionOAuth2AuthorizationRequestRepository();
-  }
-
-  @Bean
-  public OAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest> accessTokenResponseClient() {
-
-    return new NimbusAuthorizationCodeTokenResponseClient();
-  }
-
-
-
+ 
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+        .csrf().disable()
+        .authorizeRequests()
+        .antMatchers("/mapping","/login")
+        .permitAll()
+        .antMatchers("/path")
+        .hasRole("ADMIN")
+        .anyRequest()
+        .authenticated()
+        .and()
+        .oauth2Login()
+        .defaultSuccessUrl("/loginSuccess")
+        .tokenEndpoint()
+        .accessTokenResponseClient(accessTokenResponseClient())
+        .and()
+        .failureUrl("/loginFailure")
+        .loginPage("/login")
+        .and()
+        .exceptionHandling()
+        .accessDeniedPage("/deny")
+        .and()
+        .logout()
+        .logoutUrl("/logout")
+        .logoutSuccessUrl("/login");
+    }
 @Bean
-public ClientRegistrationRepository clientRegistrationRepository(OAuth2ClientProperties oAuth2ClientProperties, @Value("") String kakaoClientId, @Value("") String kakaoClientSecret){
+public AuthorizationRequestRepository<OAuth2AuthorizationRequest> 
+  authorizationRequestRepository() {
+  
+    return new HttpSessionOAuth2AuthorizationRequestRepository();
+}
+@Bean
+public OAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest> 
+  accessTokenResponseClient() {
+  
+    return new NimbusAuthorizationCodeTokenResponseClient();
+}
+@Bean
+public ClientRegistrationRepository clientRegistrationRepository(OAuth2ClientProperties oAuth2ClientProperties, @Value("6e489d6a40ced2894a89a17f260b14ad") String kakaoClientId, @Value("6Mm2iW8cCLzOrKFT073ptfy8dVdGm16c") String kakaoClientSecret){
   List<ClientRegistration> registrations=new ArrayList<ClientRegistration>();
   registrations.add(CustomOAuth2Provider.KAKAO.getBuilder("kakao")
   .clientId(kakaoClientId)
@@ -63,7 +73,6 @@ public ClientRegistrationRepository clientRegistrationRepository(OAuth2ClientPro
   .jwkSetUri("temp")
   .build());
   registrations.add(CommonOAuth2Provider.GOOGLE.getBuilder("google")
-<<<<<<< HEAD
   .clientId("191899458571-uk5f9j3d6hpt2vkds51301tvg263ueoh.apps.googleusercontent.com")
   .clientSecret("w_fZV-FqQ_QSalCrpSscLLTg")
   .scope("email","profile","https://www.googleapis.com/auth/user.birthday.read", "https://www.googleapis.com/auth/user.phonenumbers.read")
@@ -71,16 +80,7 @@ public ClientRegistrationRepository clientRegistrationRepository(OAuth2ClientPro
   registrations.add(CommonOAuth2Provider.FACEBOOK.getBuilder("facebook")
   .clientId("2473764549612950")
   .clientSecret("2dd047a9afaf5fe157e09d41f8676ae1")
-  .redirectUriTemplate("https://localhost:8080/login/oauth2/code/facebook")
-=======
-  .clientId("")
-  .clientSecret("")
-  .scope("email","profile")
-  .build());
-  registrations.add(CommonOAuth2Provider.FACEBOOK.getBuilder("facebook")
-  .clientId("")
-  .clientSecret("")
->>>>>>> 8c5be1fed77e7c579677489d2d7c51c4f9a24f9c
+  .redirectUriTemplate("https://localhost:8443/login/oauth2/code/facebook")
   .userInfoUri("https://graph.facebook.com/me?fields=id,name,email,link")
   .scope("email")
   .build());
@@ -88,6 +88,4 @@ public ClientRegistrationRepository clientRegistrationRepository(OAuth2ClientPro
 
   return new InMemoryClientRegistrationRepository(registrations);
 }
-
-
 }
