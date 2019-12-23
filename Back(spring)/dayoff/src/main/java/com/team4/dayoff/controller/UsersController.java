@@ -186,7 +186,7 @@ public class UsersController {
 	}
 
 	@PostMapping("/withdrawProcess")
-	public void withdrawUsersProcess(OAuth2AuthenticationToken authenticationToken, Code code) {
+	public void withdrawUsersProcess(OAuth2AuthenticationToken authenticationToken, @RequestBody Code code) {
 		String socialType=authenticationToken.getAuthorizedClientRegistrationId();
 		String socialId=socialType+"_"+(authenticationToken.getName());
 		Users users = usersRepository.findBySocialIdAndRoleNot(socialId, "withdraw");
@@ -208,7 +208,6 @@ public class UsersController {
 		withdrawHistory.setUsers(users);
 		withdrawHistoryRepository.save(withdrawHistory);
 		authorizedClientService.removeAuthorizedClient(socialType, authenticationToken.getName());
-		System.out.println(authenticationToken.getName());
 	}
 
 	//@PostMapping("/logout")

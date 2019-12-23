@@ -26,14 +26,8 @@ class Withdraw extends Component {
         const code = this.state.code[this.state.selectedCode];
         if (code) {
 
-            params.append("code", code);
-            //params.append("userId", sessionStorage.getItem("userId"));
             sessionStorage.removeItem("userId");
-            const response = await axios({
-                method: 'post',
-                url: '/withdrawProcess',
-                data: params
-            });
+            const response = await axios.post('/withdrawProcess',code);
             this.props.history.push('/');
         } else {
             this.setState({

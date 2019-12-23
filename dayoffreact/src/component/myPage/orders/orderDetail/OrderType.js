@@ -6,6 +6,9 @@ class OrderType extends Component {
     }
 
 
+    onClick=()=>{
+        window.open("https://tracker.delivery/#/kr.cjlogistics/" + this.props.info.invoice, '', 'width=400, height=430');
+    }
     render() {
         const { info } = this.props;
         if (info.deliverId) {
@@ -29,7 +32,7 @@ class OrderType extends Component {
                                 <td>연락처</td><td>{deliverPhone}</td>
                             </tr>
                             <tr>
-                                <td>송장번호</td><td>CJ대한통운 {invoice} <a href={"https://tracker.delivery/#/kr.cjlogistics/" + invoice} target="_blank">배송조회</a></td>
+                                <td>송장번호</td><td>CJ대한통운 {invoice} <a href="#" onClick={this.onClick}>배송조회</a></td>
                             </tr>
                         </tbody>
                     </table>

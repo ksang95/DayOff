@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import OrderInfo from './OrderInfo';
+import React, { Component } from 'react';
+import RefundInfo from './RefundInfo';
 
 class RefundList extends Component{
     static defaultProps={
@@ -12,7 +12,7 @@ class RefundList extends Component{
             (order,index) => {
                 const thisOrder=order.orderId===this.props.orderId&&true;
                 return (
-                    <OrderInfo key={order.orderId} order={order} thisOrder={thisOrder}/>
+                    <RefundInfo key={order.orderId} order={order} thisOrder={thisOrder}/>
                 )
             }
         );
@@ -21,7 +21,7 @@ class RefundList extends Component{
             <div>
                 환불 내역
             <table>
-                <thead><tr><th>번호</th><th>상품명</th><th>색상</th><th>사이즈</th><th>수량</th><th>주문가격</th></tr></thead>
+                <thead><tr><th>번호</th><th>상품명</th><th>환불금액</th><th>환불신청날짜</th><th>환불날짜</th></tr></thead>
                 <tbody>{list}</tbody>
             </table>
             </div>
