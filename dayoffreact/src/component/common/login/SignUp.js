@@ -13,7 +13,6 @@ class SignUp extends Component {
 
 
     componentDidMount() {
-
         this.signUp();
     }
 
@@ -81,6 +80,8 @@ class SignUp extends Component {
                         signUp: true
                     });
                     sessionStorage.setItem("userId", users.id);
+                    sessionStorage.setItem("userRole", users.role);
+
                 });
 
         } else {
@@ -95,6 +96,7 @@ class SignUp extends Component {
         // sessionStorage.setItem("userId", socialId.subString(socialId.indexOf("_")+1));
         // sessionStorage.setItem("userRole", "");
         //this.props.history.push(sessionStorage.getItem("currentUrl"));
+
         this.props.history.push("/loginSuccess");
     }
 

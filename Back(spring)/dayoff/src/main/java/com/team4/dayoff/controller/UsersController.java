@@ -115,15 +115,12 @@ public class UsersController {
 	}
 
 	@GetMapping("/getUser")
-	public Map<String,Object> getUser(Authentication authentication){
-		Map<String,Object> map=new HashMap<String,Object>();
-		String id=authentication.getName();
-		List<Object> role=new ArrayList<Object>();
-		authentication.getAuthorities().forEach(i->role.add(i.getAuthority()));
-		map.put("userId",id);
-		map.put("userRole",role);
+	public Users getUser(OAuth2AuthenticationToken authenticationToken){
+		String socialId=authenticationToken.getAuthorizedClientRegistrationId()+"_"+authenticationToken.getName();
+		Users users=usersRepository.findBySocialIdAndRoleNot(socialId,"withdraw");
 		
-		return map;
+		
+		return users;
 	}
 
 	@GetMapping("/signUp")
@@ -175,7 +172,10 @@ public class UsersController {
 		LoginHistory loginHistory = new LoginHistory();
 		loginHistory.setUsers(savedUsers);
 		loginHistoryRepository.save(loginHistory);
-		// 세션 객체 생성
+		
+		//시큐리티 role업뎃
+
+
 		return savedUsers;
 	}
 
