@@ -46,7 +46,7 @@ public interface WithdrawHistoryRepository extends JpaRepository<WithdrawHistory
     List<String[]> countAllUser();
 
     @Query(value="SELECT c.content reason, IFNULL(COUNT(w.userId),0) count FROM (SELECT * FROM withdrawHistory WHERE DATE_FORMAT(withdrawDate,'%Y')=:year) w RIGHT JOIN (SELECT * FROM code WHERE code LIKE '02%') c ON w.code=c.code  GROUP BY c.code",nativeQuery = true)
-    List<String[]> countReasonByYear(String year);
+    List<String[]> countReasonByYear(@Param("year") String year);
 
     @Query(value="SELECT yearMonth FROM ( "+
         "SELECT DISTINCT DATE_FORMAT(signUpDate,'%Y-%m') yearMonth FROM users "+

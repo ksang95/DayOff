@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import '../css/login.css';
 
 const Login = () => {
@@ -7,7 +7,7 @@ const Login = () => {
             <div className="login-content">
                 <h1 className="login-title">Login to SpringSocial</h1>
                 {/* <SocialLogin /> */}
-               <SocialLogin></SocialLogin>
+                <SocialLogin></SocialLogin>
                 <div className="or-separator">
                 </div>
             </div>
@@ -17,27 +17,41 @@ const Login = () => {
 
 
 class SocialLogin extends Component {
-    render() {
-        const login = () => {
-            window.location.href = "https://kauth.kakao.com/oauth/authorize?client_id=&redirect_uri=http://localhost:3000/login/process/kakao&response_type=code";
-        
+    onClick = (e) => {
+        const name = e.target.getAttribute("name");
+        console.log(name);
+        sessionStorage.setItem("currentUrl",document.location.href.substring(document.location.href.lastIndexOf(":")+5))
+        switch (name) {
+            case "google":
+                window.location.href = 'https://localhost:8443/oauth2/authorization/google'
+                break;
+            case "facebook":
+                window.location.href = 'https://localhost:8443/oauth2/authorization/facebook'
+                break;
+            case "kakao":
+                window.location.href = 'https://localhost:8443/oauth2/authorization/kakao'
+                break;
         }
-        const style = {
-        display : 'block'
     }
-    return (
-        <div className="social-login">
-            <a style={style} className="btn btn-block social-btn google" href='https://localhost:8443/oauth2/authorization/google'>
-                 <img  src="/images/google.jpg"></img>Log in with Google</a>
-            <a style={style} className="btn btn-block social-btn facebook" href='https://localhost:8443/oauth2/authorization/facebook'>
-               <img src="/images/facebook.png"></img>Log in with Facebook</a>
-               <a  className="btn btn-block social-btn kakao" href='https://localhost:8443/oauth2/authorization/kakao'>
-                <img src="/images/kakao_account_login_btn_medium_wide.png" name="kakao"/>
-               </a>
-        </div>
-    );
-}
-    
+
+    render() {
+        const { onClick } = this;
+        const style = {
+            display: 'block'
+        }
+        return (
+            <div className="social-login">
+                <div style={style} className="btn btn-block social-btn google" onClick={onClick}>
+                    <img src="/images/google.jpg" name="google"></img>Log in with Google</div>
+                <div style={style} className="btn btn-block social-btn facebook" onClick={onClick}>
+                    <img src="/images/facebook.png" name="facebook"></img>Log in with Facebook</div>
+                <div className="btn btn-block social-btn kakao" onClick={onClick}>
+                    <img src="/images/kakao_account_login_btn_medium_wide.png" name="kakao" />
+                </div>
+            </div>
+        );
+    }
+
 }
 
 export default Login;
