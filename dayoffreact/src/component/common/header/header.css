@@ -1,0 +1,48 @@
+.Header {
+  height: 125px;
+  /* background-color: blue; */
+  padding: 0px;
+  border-bottom: 1px solid #c9c9c9;
+}
+
+.logo {
+  height: 64px;
+  width: 222px;
+  margin: 35px 44px;
+  float: left;
+}
+
+.cartlogo {
+  height: 17px;
+  width: 17px;
+}
+
+.HeaderSearch {
+  padding: 6px;
+  width: 400px;
+  display: inline-block;
+  margin-top: 20px;  
+}
+
+.headerA{
+  font-size: 18px;
+  width: 400px;
+  margin-left: 200px;
+}
+
+.headerA a {
+  text-decoration:none;
+}
+
+.ContentsHeader_aa {
+  font-size: 40px;
+  color: red;
+  margin-right: 20px;
+}
+
+.ContentsHeader_box {
+  border-Bottom: 5px solid #EAEAEA;
+  padding : 3px;
+  margin: 8px 17px 10px;
+  height: 70px;
+}
