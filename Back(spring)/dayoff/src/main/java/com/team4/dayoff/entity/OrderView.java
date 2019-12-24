@@ -19,31 +19,34 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="OrderView")
+@Table(name="orderView")
 public class OrderView {
     @Id
     Integer orderId;
 
-    Integer productId;
-    String productThumbnailName;
-    String productName;
-    Integer productIsAvailable;
-    String orderColor;
-    String orderSize;
-    Integer orderQuantity;
-    Integer orderPrice;
-    Integer groupId;
-    Integer userId;
-    String userName;
-    Integer gradeDiscount;
-    Integer couponDiscount;
-    Integer pointUse;
-    Integer totalPay;
+    private Integer productId;
+    private String productThumbnailName;
+    private String productName;
+    private Integer productIsAvailable;
+    private String orderColor;
+    private String orderSize;
+    private Integer orderQuantity;
+    private Integer orderPrice;
+    private Integer groupId;
+    private Integer userId;
+    private String userName;
+    private Integer gradeDiscount;
+    private Integer couponDiscount;
+    private Integer pointUse;
+    private Integer totalPay;
+    private Integer deliverId;
+    private Integer storesId;
+
 
     @Temporal(TemporalType.TIMESTAMP)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone =  "Asia/Seoul")
     private Date orderDate;
-    private Integer invoice;
+    private String invoice;
     String code;
     String codeContent;
 

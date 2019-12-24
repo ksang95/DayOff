@@ -1,0 +1,69 @@
+
+.drop-n-crop {
+    position: relative;
+    left: 5%;
+    width : 400px;
+    display: inline-block !important;
+}
+/* .cropper-container {
+    width : 700px !important;
+    left : 20% !important;
+
+}
+.cropper-canvas, .cropper-crop-box{
+    left : 20% !important;
+} */
+
+.cropper-container {
+}
+.cropper-bg{
+    background-image: none !important;
+}
+.cropper-modal{
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAAA3NCS…Jld29ya3MgQ1M26LyyjAAAABFJREFUCJlj+M/AgBVhF/0PAH6/D/HkDxOGAAAAAElFTkSuQmCC) !important;
+}
+.cropper-drag-box{
+    
+
+
+
+}
+#preview{
+    position: relative;
+    left:5%;
+    width: 400px;
+    float: left;
+}
+.previewDiv{
+    position: relative;
+    display: inline-block;
+    width: 90%;
+    height: 400px;
+    left : 5%;
+}
+.buttonDiv{
+    position: relative;
+    width : 400px;
+    float: left;
+    height: 400px;
+    top : 25%;
+}
+button{
+    position: relative;
+    display: block;
+    left : 45%;
+    width: 120px;
+    height: 40px;
+    margin-bottom : 40px;
+}
+.info{
+    position: relative;
+    float: left;
+    left : 100%;
+    height: 400px;
+    bottom : 60%;
+}
+.listDiv{
+    display: inline-block;
+    margin-left: 50px;
+}

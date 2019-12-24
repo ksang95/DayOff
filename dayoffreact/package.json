@@ -5,6 +5,7 @@
   "dependencies": {
     "@synapsestudios/react-drop-n-crop": "^0.2.0",
     "axios": "^0.19.0",
+    "chart": "^0.1.2",
     "chart.js": "^2.9.3",
     "chartjs-plugin-datalabels": "^0.7.0",
     "dropzone": "^5.5.1",
@@ -17,7 +18,8 @@
     "react-html-parser": "^2.0.2",
     "react-input-mask": "^2.0.4",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.3.0"
+    "react-scripts": "3.3.0",
+    "react-slide-toggle": "^0.3.3"
   },
   "scripts": {
     "start": "cross-env NODE_PATH=src HTTPS=true react-scripts start",
@@ -40,7 +42,7 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://localhost:8080",
+  "proxy": "https://localhost:8443",
   "devDependencies": {
     "cross-env": "^6.0.3"
   }

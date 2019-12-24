@@ -3,6 +3,7 @@ package com.team4.dayoff.entity;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -18,6 +19,7 @@ import javax.persistence.TemporalType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -49,11 +51,12 @@ public class OrderGroup {
 
     @Temporal(TemporalType.TIMESTAMP)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone =  "Asia/Seoul")
+    @Column(updatable = false)
     private Date orderDate;
 
     private Integer gradeDiscount;
     private Integer couponDiscount;
-    private Integer pointUser;
+    private Integer pointUse;
 
     //@ManyToOne
     //@JoinColumn("deliverId")
@@ -63,7 +66,7 @@ public class OrderGroup {
     //@JoinColumn("storesId")
     //private Stores stores;
 
-    private Integer invoice;
+    private String invoice;
     private Integer aid;
     private Integer cid;
 

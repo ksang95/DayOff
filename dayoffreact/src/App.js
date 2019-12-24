@@ -12,6 +12,10 @@ import Withdraw from './component/common/login/Withdraw';
 import OrderDetail from './component/myPage/orders/orderDetail/OrderDetail';
 import RefundRequest from './component/myPage/orders/RefundRequest';
 import LoginSuccess from './component/common/login/LoginSuccess';
+import Orders from './component/admin/orders/orders';
+import Vision from './component/vision/vision';
+import Myorders from './component/myPage/orders/Myorders'
+
 class App extends Component {
   render() {
 
@@ -32,6 +36,9 @@ class App extends Component {
           <Route path="/refundRequest" component={RefundRequest}/>
           <Route path="/withdraw" component={Withdraw} />
           <Route path="/signUp" component={SignUp}/>
+          <Route path="/admin/orders" component={Orders}/>
+          <Route path="/vision" component={Vision}/>
+          <Route path="/mypage/myorders" component={Myorders}/>
         </Switch>
       </div>
     );

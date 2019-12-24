@@ -1,11 +1,14 @@
 package com.team4.dayoff.repository;
 
 
+import java.util.List;
+
 import com.team4.dayoff.entity.Product;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -21,4 +24,6 @@ public interface ProductRepository extends JpaRepository<Product,Integer>{
     @Query("UPDATE Product p SET p.isAvailable=0 WHERE p.id= :productId")
     void disableProduct(int productId);
     
+    @Query(value="select  distinct p.id ,p.name, pic.uri from (select ogresult.tid, ogresult.productId from (select distinct og.tid, o.id , o.productId from product p join orders o on p.id = o.productId join orderGroup og on o.groupId = og.tid join users user on og.userId = user.id where user.id in (select distinct u.id from users u join orderGroup og on u.id = og.userid join orders o on o.groupId = og.tid join product p on p.id = o.productId where p.id = :productId)) ogresult where ogresult.productId = :productId) finalresult join orders o on finalresult.tid = o.groupId join product p on p.id = o.productId join (SELECT pib.* FROM (SELECT productId, MIN(id) id FROM productImage GROUP BY productId) pia INNER JOIN productImage pib ON pia.id=pib.id) pic ON p.id=pic.productId where o.productId not in(:productId)", nativeQuery=true)
+    List<Object[]> testView(@Param("productId") int productId);
 }
