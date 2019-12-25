@@ -18,14 +18,13 @@ export default class orders extends Component {
 
   
 
-  async orderList(code,page,name){
+  async orderList(userId,page){
     const params = new URLSearchParams();
-    params.append("code", code)
-    params.append("name", name)
+    params.append("userId", sessionStorage.getItem("userId"))
     await Axios({
       method : "post",
       data : params,
-      url : "/orderList?page="+page+"&size="+this.state.size
+      url : "/myOrderLIst?page="+page+"&size="+this.state.size
     }).then((res)=>{
       console.log(this.state.value)
       console.log(res.data)
@@ -51,56 +50,15 @@ export default class orders extends Component {
     })
   }
 
-  async updateInvoice(invoice, groupId,orderId){
-    console.log(invoice)
-    const params = new URLSearchParams();
-    params.append("invoice", invoice);
-    params.append("groupId", groupId);
-    params.append("orderId", orderId)
-    await Axios({
-      method : "post",
-      data : params,
-      url : "/updateInvoice"
-    }).then((res)=>{
-      console.log("222222222222222222222222222222222222222222222222222")
-      this.orderList(this.state.value, this.state.page, this.state.name);
-    })
-  }
+ 
 
 
-
-  handleChangeInput2(e) {
-    this.setState({
-      [e.target.name] : e.target.value
-    })
-  }
-
-  handleChangeInput(e) {
-    this.setState({
-      name : e.target.value
-    })
-    this.orderList(this.state.value, 0, e.target.value);
-  }
+ 
 
   componentDidMount(){
-    this.orderList("all",this.state.page, this.state.name)
+    this.orderList(sessionStorage.getItem("userId"),this.state.page)
   }
 
-  handleChange(event) {
-    this.setState({
-      value : event.target.value,
-    });
-
-    this.orderList(event.target.value,0,this.state.name)
-  }
-  
-  handleKeyPress(e){
-    console.log(e.keyCode)
-    if(e.keyCode === 0){ 
-      console.log(this.state.name)
-      this.orderList(this.state.value, 0, this.state.name);
-    }
-  }
 
   openPopup(url){
     window.open(url,"name","width=700px, height=500px, left=500px ,top=200px")
@@ -108,7 +66,7 @@ export default class orders extends Component {
 
 
   render() {
-    console.log(this.state.name)
+    console.log(sessionStorage.getItem("userId"))
     const {list} = this.state
       const detail = "/detail/"
       const detailOrder = "/orderDetail/"
@@ -148,7 +106,7 @@ export default class orders extends Component {
       {data.codeContent === "구매확정" ? <Link to={{
                         pathname:"/refundRequest",
                         state:{
-                            orderCount: this.state.count, //해당 order가 있는 orderGroup에 속한 order개수 넘겨주시오
+                            //해당 order가 있는 orderGroup에 속한 order개수 넘겨주시오
                             orderView:{
                                 userId:data.userId,
                                 userName: data.userName,

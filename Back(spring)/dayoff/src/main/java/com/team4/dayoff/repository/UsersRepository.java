@@ -12,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 public interface UsersRepository extends JpaRepository<Users, Integer> {
 
     Users findBySocialIdAndRoleNot(String socialId, String role);
+
+    Users findBySocialIdAndRole(String socialId, String role);
     
     @Transactional
     @Modifying

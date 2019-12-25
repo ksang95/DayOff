@@ -186,11 +186,11 @@ export default class orders extends Component {
           <colgroup>
             <col style={{width: + '*'}}></col>
             <col style={{width: + 10+'%'}}></col>
-            <col style={{width: + 14.2+'%'}}></col>
-            <col style={{width: + 14.2+'%'}}></col>
-            <col style={{width: + 14.2+'%'}}></col>
-            <col style={{width: + 10.2+'%'}}></col>
-            <col style={{width: + 11+'%'}}></col>
+            <col style={{width: + 10+'%'}}></col>
+            <col style={{width: + 10+'%'}}></col>
+            <col style={{width: + 10+'%'}}></col>
+            <col style={{width: + 10+'%'}}></col>
+            <col style={{width: + 10+'%'}}></col>
           </colgroup>
           <tr >
               <th>상품정보</th>

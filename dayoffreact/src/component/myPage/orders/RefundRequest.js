@@ -41,32 +41,54 @@ class RefundRequest extends Component {
         }
     }
 
+    orderCount = async () => {
+        const params = new URLSearchParams();
+        params.append("groupId", this.state.orderView.groupId)
+        await axios({
+            method : "post",
+            data : params,
+            url : "/orderCount"
+        }).then((res)=>{
+            const { orderView } = this.state;
+        
+            const { gradeDiscount, couponDiscount, pointUse, orderPrice, totalPay } = orderView;
+            const ratio = orderPrice / (totalPay+gradeDiscount + couponDiscount+pointUse);
+            const refundAmount = parseInt(orderPrice - ratio * (gradeDiscount + couponDiscount) - pointUse / res.data);
+            const info={
+                totalRefund: refundAmount,
+                orderDate: orderView.orderDate, 
+                gradeDiscount: ratio*gradeDiscount, 
+                couponDiscount: ratio*couponDiscount, 
+                pointUse: pointUse/res.data
+            }
+            this.setState({
+                orderView: orderView,
+                info:info,
+                orderPrice:orderPrice
+            })
+            this.getCode();
+        })
+    }
+
+
     handleSelect = (e) => {
         this.setState({
-            error:'',
             selectedCode: e.target.value
         })
 
     }
-
-    componentDidMount() {
-        const { orderView, orderCount } = this.props.location.state;
-        const { gradeDiscount, couponDiscount, pointUse, orderPrice, totalPay } = orderView;
-        const ratio = orderPrice / (totalPay+gradeDiscount + couponDiscount+pointUse);
-        const refundAmount = parseInt(orderPrice - ratio * (gradeDiscount + couponDiscount) - pointUse / orderCount);
-        const info={
-            totalRefund: refundAmount,
-            orderDate: orderView.orderDate, 
-            gradeDiscount: ratio*gradeDiscount, 
-            couponDiscount: ratio*couponDiscount, 
-            pointUse: pointUse/orderCount
-        }
+    componentWillMount(){
+        const { orderView } = this.props.location.state;
         this.setState({
-            orderView: orderView,
-            info:info,
-            orderPrice:orderPrice
+           orderView : orderView
         })
-        this.getCode();
+
+    }
+    
+    componentDidMount() {
+        this.orderCount();
+
+       
     }
 
     render() {

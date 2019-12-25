@@ -2,12 +2,11 @@
     width : 100%;
     text-align: center;
     border-spacing: 2px;
-    -webkit-border-horizontal-spacing: 0px;
-    -webkit-border-vertical-spacing: 2px;
+    -webkit-border-horizontal-spacing: 0px !important;
+    -webkit-border-vertical-spacing: 2px !important;
 }
 
 .n-table td {
-    max-height: 135px !important;
     padding: 10px;
     box-sizing: border-box;
     border-bottom: 1px solid #E4E4E4;
@@ -21,6 +20,7 @@
 }
 
 .infoDiv {
+    height: 100px;
     display: table;
     min-height: 96px;
     font-family: 'Gulim','Apple SD Gothic',Auto,sans-serif;
@@ -47,6 +47,7 @@
 .infoDiv a {
     font-weight: 300;
     display: block;
+    overflow: hidden;
 }
 
 .nameColor{

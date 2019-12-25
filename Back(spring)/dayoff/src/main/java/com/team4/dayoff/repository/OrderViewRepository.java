@@ -1,5 +1,7 @@
 package com.team4.dayoff.repository;
 
+import java.util.List;
+
 import com.team4.dayoff.entity.OrderView;
 
 import org.springframework.data.domain.Page;
@@ -20,4 +22,9 @@ public interface OrderViewRepository extends JpaRepository<OrderView,Integer>{
     
     @Query(value= "select * from orderView where userName like %:name% and code = :code", nativeQuery = true)
     Page<OrderView> findByUserNameAndCode(@Param("name") String name, @Param("code") String code, Pageable pageable);
+
+    @Query(value= "select * from orderView where userId = :userId", nativeQuery = true)
+    Page<OrderView> findByIdpage(@Param("userId") Integer userId, Pageable pageable);
+
+    List<OrderView> findByCode(String code);
 }

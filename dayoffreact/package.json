@@ -18,8 +18,8 @@
     "react-input-mask": "^2.0.4",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.3.0",
-    "xlsx": "^0.15.4",
-    "react-slide-toggle": "^0.3.3"
+    "react-slide-toggle": "^0.3.3",
+    "xlsx": "^0.15.4"
   },
   "scripts": {
     "start": "cross-env NODE_PATH=src HTTPS=true react-scripts start",

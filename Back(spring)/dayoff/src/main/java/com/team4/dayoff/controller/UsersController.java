@@ -112,11 +112,25 @@ public class UsersController {
 	}
 
 	@GetMapping("/getUser")
-	public Users getUser(OAuth2AuthenticationToken authenticationToken){
+	public Users getUser(OAuth2AuthenticationToken authenticationToken, Authentication authentication){
 		String socialId=authenticationToken.getAuthorizedClientRegistrationId()+"_"+authenticationToken.getName();
 		Users users=usersRepository.findBySocialIdAndRoleNot(socialId,"withdraw");
 		System.out.println(users);
+
+		OAuth2AuthenticationToken auth = (OAuth2AuthenticationToken) SecurityContextHolder.getContext()
+					.getAuthentication();
+	
+
+    List<GrantedAuthority> updatedAuthorities = new ArrayList<>(auth.getAuthorities());
+    
+    updatedAuthorities.add(new SimpleGrantedAuthority("ROLE_REALUSER"));
+	authentication = new UsernamePasswordAuthenticationToken(auth.getPrincipal(), auth.getCredentials(), updatedAuthorities);
+    
+	SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 		
+	System.out.println(authentication.getAuthorities()+"123");
+
+
 		return users;
 	}
 
@@ -264,31 +278,48 @@ public class UsersController {
 		Map userAttributes = response.getBody();
 		System.out.println(headers+"/"+entity+"/////"+response);
 		model.addAttribute("name", userAttributes.get("name"));
+		System.out.println(userAttributes);
 	}
 	
-    if(authentication.getName().equals("2337851999660197")){
+    if(authentication.getName().equals("104752701619594840987")){
 
 
-	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		OAuth2AuthenticationToken auth = (OAuth2AuthenticationToken) SecurityContextHolder.getContext()
+					.getAuthentication();
 	
 
     List<GrantedAuthority> updatedAuthorities = new ArrayList<>(auth.getAuthorities());
     
     updatedAuthorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-    authentication = new UsernamePasswordAuthenticationToken(auth.getPrincipal(), auth.getCredentials(), updatedAuthorities);
+	authentication = new UsernamePasswordAuthenticationToken(auth.getPrincipal(), auth.getCredentials(), updatedAuthorities);
     
-	SecurityContextHolder.getContext().setAuthentication(authentication);
+	SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 	
     }
 
-    System.out.println(authentication.getAuthorities()); //어디서 로그인했는지
+    System.out.println(authentication.getAuthorities()+"123"); //어디서 로그인했는지
 	System.out.println(authentication.getDetails());
 	System.out.println(authentication.getCredentials());
 	System.out.println(authentication.getPrincipal()); //userinfo
 
+	String socialId=authenticationToken.getAuthorizedClientRegistrationId()+"_"+authenticationToken.getName();
+
+	if(usersRepository.findBySocialIdAndRole(socialId, "withdraw")!=null){
+		return new ModelAndView("redirect:https://localhost:3000/signUpAgain");
+	}
+
+	if(usersRepository.findBySocialIdAndRoleNot(socialId, "withdraw")==null){
+
+		return new ModelAndView("redirect:https://localhost:3000/signUp");
+	}else{
+
+		return new ModelAndView("redirect:https://localhost:3000/loginSuccess");
+	}
+
+
+
 
 	//등록된 사용자면 loginSuccess로, 아니면 signUp으로.
-    return new ModelAndView("redirect:https://localhost:3000/loginSuccess");
 }
 
 @GetMapping("/login")
