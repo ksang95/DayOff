@@ -50,9 +50,9 @@ class visionMain extends Component {
          {result ? <div className="previewDiv">
          <img id="preview"width="400px" height="400px" alt="" src={this.props.result}></img>
           <div className="buttonDiv">
-             <button onClick={() => window.location.reload(false)}>다시하기</button>
+             <button className="buttonVision" onClick={() => window.location.reload(false)}>다시하기</button>
           <br></br>
-          <button onClick={this.aaaa.bind(this)}>검색하기</button>
+          <button className="buttonVision" onClick={this.aaaa.bind(this)}>검색하기</button>
           <div className="info"><h3>인공지능으로 똑똑하게!</h3>
           <br></br>
           SNS나 인터넷에서 봤던 옷들을 보다 쉽게 저희 쇼핑몰에서 찾을 수 있습니다.

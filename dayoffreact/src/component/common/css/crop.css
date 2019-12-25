@@ -48,7 +48,7 @@
     height: 400px;
     top : 25%;
 }
-button{
+.buttonVision{
     position: relative;
     display: block;
     left : 45%;
