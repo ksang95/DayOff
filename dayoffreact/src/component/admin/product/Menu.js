@@ -67,7 +67,7 @@ class Menu extends Component {
                     <li><div onClick={this.handleLogin}>{login}</div></li>
                     <li><Link to="/signUp">회원가입</Link></li>
                     <li><Link to="/admin/addProduct">상품 등록</Link></li>
-                    <li><Link to="/admin/deleteProduct/1">상품 삭제</Link></li>
+                    <li><Link to="/admin/stopProductSale/1">상품 판매중지</Link></li>
                     <li><Link to="/admin/updateInvoice">송장번호 등록</Link></li>
                     <li><Link to="/admin/userList">유저리스트</Link></li>
                     <li><Link to="/admin/usersAnalysis">회원 통계</Link></li>
@@ -95,13 +95,12 @@ class Menu extends Component {
                                 pointUse:1000,
                                 totalPay:65080,
                                 invoice:1,
-                                storesId:1,
-                                deliverId:null,
                                 code:'0001',
                                 codeContent:'배송준비중'
                             }
                         }
                     }}>환불 신청</Link></li>
+                    <li><Link to="/updateUser">회원정보 수정</Link></li>
                     <li><Link to="/withdraw">탈퇴하기</Link></li>
 
                 </ul>

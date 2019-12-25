@@ -1,15 +1,11 @@
 package com.team4.dayoff.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.team4.dayoff.entity.Code;
-import com.team4.dayoff.entity.OrderView;
 import com.team4.dayoff.entity.Orders;
 import com.team4.dayoff.entity.Refunds;
 import com.team4.dayoff.repository.CodeRepository;
-import com.team4.dayoff.repository.OrderViewRepository;
 import com.team4.dayoff.repository.OrdersRepository;
 import com.team4.dayoff.repository.RefundsRepository;
 
@@ -18,7 +14,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 /**
  * RefundsController
@@ -26,17 +21,17 @@ import org.springframework.web.servlet.ModelAndView;
 @RestController
 public class RefundsController {
 
-    @Autowired
-    OrderViewRepository orderViewRepository;
+    // @Autowired
+    // private OrderViewRepository orderViewRepository;
 
     @Autowired
-    OrdersRepository ordersRepository;
+    private OrdersRepository ordersRepository;
 
     @Autowired
-    RefundsRepository refundsRepository;
+    private RefundsRepository refundsRepository;
 
     @Autowired
-    CodeRepository codeRepository;
+    private CodeRepository codeRepository;
 
 
     @GetMapping("/refundRequest")

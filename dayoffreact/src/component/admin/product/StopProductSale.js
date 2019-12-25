@@ -1,34 +1,34 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-class DeleteProduct extends Component {
+class StopProductSale extends Component {
 
     componentDidMount(){
     }
 
-    async deleteProduct(id) {
+    async stopProductSale(id) {
         const params = new URLSearchParams();
         params.append('id', id);
         await axios({
             method: 'post',
-            url: '/deleteProduct',
+            url: '/stopProductSale',
             data: params
         });
     }
 
    
-    handleDelete = () => {
+    handleStopSale = () => {
         const productId=this.props.match.params.productId;
-        this.deleteProduct(productId);
+        this.stopProductSale(productId);
     }
 
 
     render() {
-        const { handleDelete } = this;
+        const { handleStopSale } = this;
         return (
-                <button onClick={handleDelete}>삭제</button>
+                <button onClick={handleStopSale}>판매중지</button>
         );
     }
 }
 
-export default DeleteProduct;
+export default StopProductSale;

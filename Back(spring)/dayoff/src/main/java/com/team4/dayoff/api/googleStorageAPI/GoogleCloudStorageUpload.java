@@ -14,7 +14,14 @@ import org.springframework.web.multipart.MultipartFile;
 /** A snippet for Google Cloud Storage showing how to create a blob. */
 public class GoogleCloudStorageUpload {
 
-	public static String getImageUrl(MultipartFile file, final String bucketName, final Storage storage)
+	private static Storage storage = null;
+
+	// [START init]
+	static {
+		storage = StorageOptions.getDefaultInstance().getService();
+	}
+
+	public static String getImageUrl(MultipartFile file, final String bucketName)
 			throws IOException {
 		final String fileName = file.getOriginalFilename();
 		// Check extension of file
@@ -23,7 +30,7 @@ public class GoogleCloudStorageUpload {
 			String[] allowedExt = { "jpg", "jpeg", "png", "gif" };
 			for (String s : allowedExt) {
 				if (extension.equals(s)) {
-					return uploadFile(file, bucketName, storage, s);
+					return uploadFile(file, bucketName, s);
 				}
 			}
 		}
@@ -31,32 +38,30 @@ public class GoogleCloudStorageUpload {
 	}
 
 	@SuppressWarnings("deprecation")
-	public static String uploadFile(MultipartFile file, final String bucketName, final Storage storage, String type)
+	public static String uploadFile(MultipartFile file, final String bucketName, String type)
 			throws IOException {
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("-YYYY-MM-dd-HHmmssSSS");
 		String date = simpleDateFormat.format(new Date());
 		String filen = file.getOriginalFilename();
 		final String fileName = filen.substring(0, filen.lastIndexOf('.')) + date
 				+ filen.substring(filen.lastIndexOf('.'));
-				System.out.println(1);
-
+		System.out.println("1111111111111111111");
 		BufferedInputStream stream = new BufferedInputStream(file.getInputStream());
 		BlobInfo blobInfo = storage
-		 		.create(BlobInfo.newBuilder(bucketName, fileName).setContentType("image/" + type).build(), stream);
+				.create(BlobInfo.newBuilder(bucketName, fileName).setContentType("image/" + type).build(), stream);
+		System.out.println("22222222222222222222222");
 		return blobInfo.getMediaLink();
 
-		//https://storage.googleapis.com/bit-jaehoon/image.jpg : 아무나 볼 수 있는 url
+		// https://storage.googleapis.com/bit-jaehoon/image.jpg : 아무나 볼 수 있는 url
 		// the inputstream is closed by default, so we don't need to close it here
-	
+
 	}
 
 	public static String saveFile(MultipartFile file) {
-		// [START storage_upload_file]
-		Storage storage = StorageOptions.getDefaultInstance().getService();
-		String name=null;
+		String name = null;
 		try {
-			String url = getImageUrl(file, "bit-jaehoon", storage);
-			name=url.substring(url.lastIndexOf('/')+1,url.lastIndexOf('?'));
+			String url = getImageUrl(file, "bit-jaehoon");
+			name = url.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('?'));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 public interface RecommendRepository extends JpaRepository<RecommendByCategory,Integer>{
  List<RecommendByCategory> findByCategoryName(@Param("categoryName") String categoryName);
 
- RecommendByCategory findByUrl(@Param("url")String url);
+ RecommendByCategory findByProductThumbnailName(@Param("productThumbnailName")String productThumbnailName);
 
  RecommendByCategory findByProductId(@Param("id") int id);
 

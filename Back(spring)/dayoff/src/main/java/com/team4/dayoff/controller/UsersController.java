@@ -2,7 +2,6 @@ package com.team4.dayoff.controller;
 
 import java.security.Principal;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -66,8 +65,6 @@ public class UsersController {
 	@Autowired
 	private OAuth2AuthorizedClientService authorizedClientService;
 
-	private String mapping = "";
-
 	@GetMapping(value = "/list1")
 	public List<Users> userList() {
 		List<Users> st = null;
@@ -118,7 +115,7 @@ public class UsersController {
 	public Users getUser(OAuth2AuthenticationToken authenticationToken){
 		String socialId=authenticationToken.getAuthorizedClientRegistrationId()+"_"+authenticationToken.getName();
 		Users users=usersRepository.findBySocialIdAndRoleNot(socialId,"withdraw");
-		
+		System.out.println(users);
 		
 		return users;
 	}
@@ -139,8 +136,7 @@ public class UsersController {
 			break;
 		}
 		String accessToken = client.getAccessToken().getTokenValue();
-		String refreshToken=null;
-		//String refreshToken = client.getRefreshToken().getTokenValue();
+		String refreshToken = client.getRefreshToken()!=null?client.getRefreshToken().getTokenValue():null;
 
 		Users userInfo = login.getUserInfo(accessToken);
 		System.out.println(userInfo);
@@ -210,6 +206,13 @@ public class UsersController {
 		authorizedClientService.removeAuthorizedClient(socialType, authenticationToken.getName());
 	}
 
+	@PostMapping("/updateUserProcess")
+	public void updateUsersProcess(@RequestBody Users users){
+		Users savedUsers = usersRepository.save(users);
+		System.out.println(savedUsers);
+
+	}
+
 	//@PostMapping("/logout")
 	public void logoutUsers(Principal principal, @RequestParam("userId") Integer id) {
 		// int id = Integer.parseInt(principal.getName());
@@ -236,7 +239,9 @@ public class UsersController {
 	public ModelAndView getLoginInfo(Model model,
 			Authentication authentication, OAuth2AuthenticationToken authenticationToken, HttpServletRequest request) {
 		// String referer=request.getHeader("referer"); // 이전 페이지 주소
-		// System.out.println(referer);
+
+		//로그인 시 등록된 사용자면 기존의 token 업데이트&loginHistory insert할것!
+
 		String socialType=authenticationToken.getAuthorizedClientRegistrationId();
 		System.out.println(socialType); // 소셜 구별용
 		System.out.println(authenticationToken.getDetails());
@@ -281,7 +286,7 @@ public class UsersController {
 	System.out.println(authentication.getCredentials());
 	System.out.println(authentication.getPrincipal()); //userinfo
 
-	//if(referer==null)referer="https://localhost:3000/";
+
 	//등록된 사용자면 loginSuccess로, 아니면 signUp으로.
     return new ModelAndView("redirect:https://localhost:3000/loginSuccess");
 }

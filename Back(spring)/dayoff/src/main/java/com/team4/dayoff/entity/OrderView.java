@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 @Table(name="orderView")
 public class OrderView {
     @Id
-    Integer orderId;
+    private Integer orderId;
 
     private Integer productId;
     private String productThumbnailName;
@@ -39,16 +39,14 @@ public class OrderView {
     private Integer couponDiscount;
     private Integer pointUse;
     private Integer totalPay;
-    private Integer deliverId;
-    private Integer storesId;
 
 
     @Temporal(TemporalType.TIMESTAMP)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone =  "Asia/Seoul")
     private Date orderDate;
     private String invoice;
-    String code;
-    String codeContent;
+    private String code;
+    private String codeContent;
 
 
 }

@@ -43,6 +43,7 @@ class RefundRequest extends Component {
 
     handleSelect = (e) => {
         this.setState({
+            error:'',
             selectedCode: e.target.value
         })
 

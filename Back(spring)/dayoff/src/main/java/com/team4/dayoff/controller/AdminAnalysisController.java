@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.team4.dayoff.entity.Code;
-import com.team4.dayoff.entity.OrderGroup;
 import com.team4.dayoff.repository.CodeRepository;
 import com.team4.dayoff.repository.LoginHistoryRepository;
 import com.team4.dayoff.repository.OrderGroupRepository;

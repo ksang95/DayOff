@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import DropzoneComponent from 'react-dropzone-component';
-import 'react-dropzone-component/styles/filepicker.css';
+import './filepicker.css';
 
 class ProductImageForm extends Component {
 
@@ -67,7 +67,7 @@ class ProductImageForm extends Component {
         }
 
         return (
-            <div>
+            <div className="productImageForm">
                 <span>{name}</span>
                 <DropzoneComponent config={config} eventHandlers={eventHandlers} djsConfig={djsConfig} />
             </div>

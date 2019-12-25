@@ -24,8 +24,6 @@ class ProductForm extends Component {
         selectedProductImage: [],
         error: '',
         post: false,
-        latestProduct:null,
-        productCount:null
     }
 
     handleSelect = (e) => {
@@ -117,11 +115,10 @@ class ProductForm extends Component {
                 data: params
             }).then(success => {
                 const data=success.data;
-                console.log(data);
-                this.setState({
+                this.props.createMessage({
                     latestProduct:data.latestProduct.name,
-                    productCount:this.state.productCount+data.productCount
-                })
+                    productCount:data.productCount
+                });
             }).catch(
                 error => console.log(error)
             );
@@ -197,7 +194,7 @@ class ProductForm extends Component {
 
     render() {
         const { name, price, color, productSize, category } = this.state.product;
-        const { colors, categories, subCategories, selectedColor, selectedSize, selectedCategory, selectedSubCategory, error, post, latestProduct, productCount } = this.state;
+        const { colors, categories, subCategories, selectedColor, selectedSize, selectedCategory, selectedSubCategory, error, post} = this.state;
         const { handleChange, handleClick, handleAdd, handleSelect, handleSub, handleDelete, handleFileAdd, handleFileRemove } = this;
         const colorsOp = colors.map((c, index) => (<option key={c.id} value={index}>{c.color}</option>));
         const categoriesOp = categories.reduce((pre,value)=>{if(!pre.includes(value.name)) pre.push(value.name); return pre;},[]).map((c, index) => (<option key={index} value={c}>{c}</option>));
@@ -225,7 +222,6 @@ class ProductForm extends Component {
                 <ProductImageForm onAdd={handleFileAdd} onRemove={handleFileRemove} post={post} stateKey="selectedProductImage" name="상품 이미지"></ProductImageForm>
                 <div>{error}</div>
                 <button onClick={handleClick}> 등록</button>
-                <ProductAddMessage latestProduct={latestProduct} productCount={productCount}></ProductAddMessage>
             </div>
         );
     };

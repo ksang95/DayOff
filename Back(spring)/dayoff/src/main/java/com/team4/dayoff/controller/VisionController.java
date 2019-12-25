@@ -4,34 +4,23 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.awt.image.BufferedImage;
+
 import javax.imageio.ImageIO;
-import javax.servlet.http.HttpServletRequest;
 import javax.xml.bind.DatatypeConverter;
-
-
-
-import javax.imageio.ImageIO;
 
 import com.team4.dayoff.api.visionAPI.ProductManagement;
 import com.team4.dayoff.entity.RecommendByCategory;
 import com.team4.dayoff.repository.RecommendRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 /**
  * VisionController
@@ -110,7 +99,7 @@ public class VisionController {
 		}
 
 		for (String data : List) {
-			realList.add(recommendRepository.findByUrl(data));
+			realList.add(recommendRepository.findByProductThumbnailName(data));
 		}
 		// for (String data : realList) {
 		// 	data = data.replace("gs://", "https://storage.googleapis.com/");

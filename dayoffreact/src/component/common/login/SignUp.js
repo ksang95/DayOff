@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import queryString from 'query-string';
 import axios from 'axios';
 import SignUpForm from './SignUpForm';
 
@@ -8,7 +7,7 @@ class SignUp extends Component {
     state = {
         users: null,
         signUp: false,
-        error: null
+        error: ''
     }
 
 
@@ -17,7 +16,7 @@ class SignUp extends Component {
     }
 
     signUp = async () => {
-        const response = await axios({
+        await axios({
             method: 'get',
             url: '/signUp'
         }).then(success => {
@@ -36,7 +35,7 @@ class SignUp extends Component {
                 refreshToken: users.refreshToken
             }
             for (let u of Object.keys(users)) {
-                users[u] = users[u] ? users[u] : '';
+                users[u] = users[u]!==null ? users[u] : '';
             }
             this.setState({
                 users: users
@@ -51,28 +50,22 @@ class SignUp extends Component {
             users: {
                 ...this.state.users,
                 [e.target.name]: e.target.value
-            }
+            },
+            error:''
         })
     }
 
     handleClick = async () => {
         let flag = true;
-        const users = this.state.users;
+        const users = {...this.state.users};
         for (let key of Object.keys(users)) {
-            if (!(key === 'height' || key === 'weight' || key === 'refreshToken') && (users[key].length === 0)) {
-                console.log(key)
+            users[key]=users[key]!==''?users[key]:null;
+            if (!(key === 'height' || key === 'weight' || key === 'refreshToken') && !(users[key])) {
                 flag = false;
-                break;
             }
         }
         if (flag) {
-
-            const { users } = this.state;
-            users.phone = users.phone.replace(/-/gi, "");
-            const params = new URLSearchParams();
-            for (let u of Object.keys(users)) {
-                params.append(u, users[u] ? users[u] : null);
-            }
+            
             await axios.post('/signUpProcess', users)
                 .then(success => {
                     this.setState({
@@ -113,9 +106,8 @@ class SignUp extends Component {
                 </div>
             );
         } else {
-
             return (
-                <SignUpForm users={users} onChange={handleChange} onClick={handleClick} error={error}></SignUpForm>
+                <SignUpForm users={users} onChange={handleChange} onClick={handleClick} error={error} button="확인"></SignUpForm>
             );
         }
     }

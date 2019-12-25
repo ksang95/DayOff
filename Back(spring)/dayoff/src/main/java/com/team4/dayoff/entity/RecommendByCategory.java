@@ -7,12 +7,12 @@ import javax.persistence.Table;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 /**
  * recommandByCategory
  */
 @Entity
+@Table(name="recommendByCategory")
 @Getter
 @Setter
 public class RecommendByCategory {
@@ -28,12 +28,12 @@ public class RecommendByCategory {
     private int productId;
 
     @Column
-    private String url;
+    private String productThumbnailName;
 
     @Override
     public String toString() {
         return "recommendByCategory [categoryName=" + categoryName + ", productId=" + productId + ", productName="
-                + productName + ", url=" + url + "]";
+                + productName + ", productThumbnailName=" + productThumbnailName + "]";
     }
     
     

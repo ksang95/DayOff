@@ -8,6 +8,7 @@ yarn add react-dropzone-component
 yarn add react-input-mask
 yarn add chart.js
 yarn add chartjs-plugin-datalabels
+yarn add xlsx
 
 =====================================
 

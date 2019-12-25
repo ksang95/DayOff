@@ -15,12 +15,12 @@ class visionList extends Component {
         const {list,recommendlist} = this.props;
         if( list!=null){
          result1 = list.map(
-                  (data1,index) => (<div className="listDiv"><Link to={detail+data1.productId}><img className="imglist" width="200px" height="250px" alt="" src={data1.url}></img><p>{data1.productName}</p></Link></div>)
+                  (data1,index) => (<div className="listDiv"><Link to={detail+data1.productId}><img className="imglist" width="200px" height="250px" alt="" src={data1.productThumbnailName}></img><p>{data1.productName}</p></Link></div>)
                   )}
                   
         if(recommendlist !=null){
              resultRecommend = recommendlist.map(
-        (data,index) => (<div className="listDiv"><Link to={detail+data.productId}><img className="imglist" width="200px" height="250px" alt="" src={data.url}></img><p>{data.productName}</p></Link></div>)
+        (data,index) => (<div className="listDiv"><Link to={detail+data.productId}><img className="imglist" width="200px" height="250px" alt="" src={data.productThumbnailName}></img><p>{data.productName}</p></Link></div>)
                    )}          
         return (
          <div> 

@@ -16,13 +16,10 @@ import org.springframework.transaction.annotation.Transactional;
  */
 public interface ProductRepository extends JpaRepository<Product,Integer>{
 
-    @Query(value="SELECT COUNT(*) FROM product WHERE registerDate > DATE_SUB(NOW(), INTERVAL 24 HOUR)",nativeQuery = true)
-    int countByRegisterDatein24Hours();
-
     @Transactional
     @Modifying
-    @Query("UPDATE Product p SET p.isAvailable=0 WHERE p.id= :productId")
-    void disableProduct(int productId);
+    @Query("UPDATE Product p SET p.isAvailable=:isAvailable WHERE p.id= :productId")
+    void changeAvailabilityOfProduct(@Param("productId") int productId, @Param("isAvailable") int isAvailable);
     
     @Query(value="select  distinct p.id ,p.name, pic.uri from (select ogresult.tid, ogresult.productId from (select distinct og.tid, o.id , o.productId from product p join orders o on p.id = o.productId join orderGroup og on o.groupId = og.tid join users user on og.userId = user.id where user.id in (select distinct u.id from users u join orderGroup og on u.id = og.userid join orders o on o.groupId = og.tid join product p on p.id = o.productId where p.id = :productId)) ogresult where ogresult.productId = :productId) finalresult join orders o on finalresult.tid = o.groupId join product p on p.id = o.productId join (SELECT pib.* FROM (SELECT productId, MIN(id) id FROM productImage GROUP BY productId) pia INNER JOIN productImage pib ON pia.id=pib.id) pic ON p.id=pic.productId where o.productId not in(:productId)", nativeQuery=true)
     List<Object[]> testView(@Param("productId") int productId);
