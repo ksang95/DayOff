@@ -19,4 +19,7 @@ public interface OrdersRepository extends JpaRepository<Orders,Integer>{
 
     @Query(value="select * from orders where groupId = :groupId", nativeQuery = true)
     List<Orders> findByOrderGroup(@Param("groupId") Integer groupId);
+
+    @Query(value="select * from orders where id = :orderId",  nativeQuery = true)
+    Orders findByOrderId(@Param("orderId") Integer orderId);
 }
