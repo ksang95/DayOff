@@ -112,11 +112,15 @@ public class UsersController {
 	}
 
 	@GetMapping("/getUser")
-	public Users getUser(OAuth2AuthenticationToken authenticationToken, Authentication authentication){
-		String socialId=authenticationToken.getAuthorizedClientRegistrationId()+"_"+authenticationToken.getName();
+	public Users getUser( Authentication authentication){
+		
+		Users users2 = usersRepository.findBySocialId2(authentication.getName());
+		int idx = users2.getSocialId().indexOf("_");
+		
+		String socialType= users2.getSocialId().substring(0,idx);
+		System.out.println(socialType);
+		String socialId=socialType+"_"+(authentication.getName());
 		Users users=usersRepository.findBySocialIdAndRoleNot(socialId,"withdraw");
-		System.out.println(users);
-
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		List<GrantedAuthority> updatedAuthorities = new ArrayList<>(auth.getAuthorities());
@@ -197,7 +201,6 @@ public class UsersController {
 		updatedAuthorities.add(new SimpleGrantedAuthority("ROLE_REALUSER"));    
 		authentication = new UsernamePasswordAuthenticationToken(auth.getPrincipal(), auth.getCredentials(), updatedAuthorities);
 		SecurityContextHolder.getContext().setAuthentication(authentication);
-		System.out.println(authenticationToken.getAuthorities()+"123");
 		System.out.println(authentication.getAuthorities()+"1245");
 
 		return savedUsers;
