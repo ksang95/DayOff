@@ -1,5 +1,6 @@
 package com.team4.dayoff.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,13 +56,13 @@ public class AdminProductController {
         Map<String, Object> map = new HashMap<String, Object>();
         try {
             Product product = new ObjectMapper().readValue(json, Product.class);
-            int productId = -1;
+            Product latestProduct=null;
             try {
                 String name = GoogleCloudStorageUpload.saveFile(files.get(0));
                 product.setDetailImage(name);
                 Product savedProduct = productRepository.save(product);
+                latestProduct=savedProduct;
                 System.out.println(product);
-                productId = savedProduct.getId();
                 List<ProductSize> productSizes = savedProduct.getProductSize();
                 productSizes.forEach(i -> {
                     i.setProduct(savedProduct);
@@ -85,9 +86,11 @@ public class AdminProductController {
                 System.out.println(e.getMessage());
             }
 
-            ProductImage latestProduct = productImageRepository.findTop1ByProduct_IdOrderById(productId);
-
-            // int productCount=productRepository.countByRegisterDatein24Hours();
+            ProductImage latestProductImg = productImageRepository.findTop1ByProduct_IdOrderById(latestProduct.getId());
+            List<ProductImage> imgList=new ArrayList<ProductImage>();
+            imgList.add(latestProductImg);
+            latestProduct.setProductImage(imgList);
+            System.out.println(latestProduct);
             map.put("latestProduct", latestProduct);
             map.put("productCount", 1);
         } catch (Exception e) {
@@ -100,7 +103,7 @@ public class AdminProductController {
     public Map<String, Object> addSeveralProductProcess(String json, @RequestParam("file") List<MultipartFile> files) {
         Map<String, Object> map = new HashMap<String, Object>();
 
-        int productId = -1;
+        Product latestProduct=null;
         JsonArray array = new Gson().fromJson(json, JsonArray.class);
         for(int i=0; i<array.size(); i++){
             Product product = new Gson().fromJson(array.get(i), Product.class);
@@ -115,7 +118,7 @@ public class AdminProductController {
             }
 
             Product savedProduct = productRepository.save(product);
-            productId = savedProduct.getId();
+            latestProduct = savedProduct;
             
             List<ProductSize> productSizes = savedProduct.getProductSize();
             productSizes.forEach(size -> {
@@ -139,8 +142,11 @@ public class AdminProductController {
             });
 
         }
-        ProductImage latestProduct = productImageRepository.findTop1ByProduct_IdOrderById(productId);
-
+        ProductImage latestProductImg = productImageRepository.findTop1ByProduct_IdOrderById(latestProduct.getId());
+        List<ProductImage> imgList=new ArrayList<ProductImage>();
+        imgList.add(latestProductImg);
+        latestProduct.setProductImage(imgList);
+        System.out.println(latestProduct);
         map.put("latestProduct", latestProduct);
         map.put("productCount", array.size());
 

@@ -8,14 +8,18 @@ class ProductAddMessage extends Component {
 
     render() {
         const { latestProduct, productCount } = this.props;
+        console.log(latestProduct);
         const completeMessage = latestProduct?
-                (<div>
-                    <img style={{ width: "60px", height: "60px" }} src={latestProduct && "https://storage.googleapis.com/bit-jaehoon/" + latestProduct}></img>
-                    <span>{productCount}</span>
+                (<div className="ProductAddMessage">
+                    <div className="latestProduct">
+                        <img src={"https://storage.googleapis.com/bit-jaehoon/" + latestProduct.productImage[0].name}></img>
+                    </div>
+                    <span className="productCount">{productCount}</span>
+                    <span className="completeMessage">등록 완료</span>
                 </div>):null;
 
         return (
-            <div className="completeMessage">
+            <div>
 
                 {completeMessage}
             </div>

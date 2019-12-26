@@ -3,6 +3,8 @@ import axios from 'axios';
 import SelectPreview from './SelectPreview';
 import ProductImageForm from './ProductImageForm';
 import ProductAddMessage from './ProductAddMessage';
+import { Button, ButtonToolbar, Form, Row, Col } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 class ProductForm extends Component {
     state = {
@@ -19,7 +21,7 @@ class ProductForm extends Component {
         selectedColor: '',
         selectedSize: '',
         selectedCategory: '',
-        selectedSubCategory:'',
+        selectedSubCategory: '',
         selectedDetailImage: [],
         selectedProductImage: [],
         error: '',
@@ -92,33 +94,38 @@ class ProductForm extends Component {
     handleClick = async () => {
         let flag = true;
         for (let key of Object.keys(this.state.product)) {
-            if(this.state.product[key]===undefined || this.state.product[key].length===0){
+            if (this.state.product[key] === undefined || this.state.product[key].length === 0) {
+                console.log(key)
                 flag = false;
                 break;
             }
         }
-        if (this.state.selectedDetailImage.length === 0 || this.state.selectedProductImage.length === 0){
+        if (this.state.selectedDetailImage.length === 0 || this.state.selectedProductImage.length === 0) {
+            console.log("img");
             flag = false;
         }
         if (flag) {
-
+            document.getElementById("productLoading").style.display = "block";
+            console.log(document.getElementById("productLoading"))
             let params = new FormData();
             params.append('json', JSON.stringify(this.state.product));
             const file = this.state.selectedDetailImage.concat(this.state.selectedProductImage);
-            
+
             file.forEach((f) => {
                 params.append('file', f);
             })
+
             await axios({
                 method: 'post',
                 url: '/addProductProcess',
                 data: params
             }).then(success => {
-                const data=success.data;
+                const data = success.data;
                 this.props.createMessage({
-                    latestProduct:data.latestProduct.name,
-                    productCount:data.productCount
+                    latestProduct: data.latestProduct,
+                    productCount: data.productCount
                 });
+                document.getElementById("productLoading").style.display = "none";
             }).catch(
                 error => console.log(error)
             );
@@ -134,11 +141,11 @@ class ProductForm extends Component {
                 selectedColor: '',
                 selectedSize: '',
                 selectedCategory: '',
-                selectedSubCategory:'',
+                selectedSubCategory: '',
                 selectedDetailImage: [],
                 selectedProductImage: [],
                 error: '',
-                post:true
+                post: true
             });
         } else {
             this.setState({
@@ -162,7 +169,7 @@ class ProductForm extends Component {
         this.setState({
             [stateKey]: this.state[stateKey].concat(file),
             error: '',
-            post:false
+            post: false
         });
     };
 
@@ -172,56 +179,121 @@ class ProductForm extends Component {
         });
     }
 
-    handleSub=(e)=>{
+    handleSub = (e) => {
         this.setState({
-            selectedCategory:e.target.value,
-            subCategories:this.state.categories.filter((c,index)=>{return e.target.value===c.name})
+            selectedCategory: e.target.value,
+            subCategories: this.state.categories.filter((c, index) => { return e.target.value === c.name })
         });
     }
 
-    async getForm() {
-        const response = await axios.get("/addProduct");
-        const { color, category } = response.data;
+    componentWillReceiveProps(nextProps) {
         this.setState({
-            colors: color,
-            categories: category
-        });
+            colors: this.props.colors,
+            categories: this.props.categories
+        })
     }
 
-    componentDidMount() {
-        this.getForm();
-    }
 
     render() {
         const { name, price, color, productSize, category } = this.state.product;
-        const { colors, categories, subCategories, selectedColor, selectedSize, selectedCategory, selectedSubCategory, error, post} = this.state;
+        const { colors, categories, subCategories, selectedColor, selectedSize, selectedCategory, selectedSubCategory, error, post } = this.state;
         const { handleChange, handleClick, handleAdd, handleSelect, handleSub, handleDelete, handleFileAdd, handleFileRemove } = this;
         const colorsOp = colors.map((c, index) => (<option key={c.id} value={index}>{c.color}</option>));
-        const categoriesOp = categories.reduce((pre,value)=>{if(!pre.includes(value.name)) pre.push(value.name); return pre;},[]).map((c, index) => (<option key={index} value={c}>{c}</option>));
-        const subCategoriesOp=subCategories.map((c, index) => (<option key={c.id} value={index}>{c.subName}</option>));
+        const categoriesOp = categories.reduce((pre, value) => { if (!pre.includes(value.name)) pre.push(value.name); return pre; }, []).map((c, index) => (<option key={index} value={c}>{c}</option>));
+        const subCategoriesOp = subCategories.map((c, index) => (<option key={c.id} value={index}>{c.subName}</option>));
         return (
-            <div className="Form">
-                <select name="selectedCategory" value={selectedCategory} onChange={handleSub}>
-                    <option value="-1">상위 카테고리 선택</option>
-                    {categoriesOp}
-                </select>
-                <select name="selectedSubCategory" value={selectedSubCategory} onChange={handleSelect}>
-                    <option value="-1">하위 카테고리 선택</option>
-                    {subCategoriesOp}
-                </select>
-                <br></br>
-                <input name="name" placeholder="name" value={name} onChange={handleChange} /><br></br>
-                <input name="price" placeholder="price" value={price} onChange={handleChange} /><br></br>
-                <select name="selectedColor" value={selectedColor} onChange={handleSelect}>
-                    <option value="-1">색상 선택</option>
+            <div className="ProductForm OneProductForm">
+                <Form.Group as={Row}>
+                <Form.Label column sm="2">
+                    카테고리
+                </Form.Label>
+                    <Col sm="3">
+                        <Form.Control as="select" name="selectedCategory" value={selectedCategory} onChange={handleSub}>
+                            <option value="-1">상위 카테고리 선택</option>
+                            {categoriesOp}
+                        </Form.Control>
+                    </Col>
+                    <Col sm="3" >
+                        <Form.Control as="select" name="selectedSubCategory" value={selectedSubCategory} onChange={handleSelect}>
+                            <option value="-1">하위 카테고리 선택</option>
+                            {subCategoriesOp}
+                        </Form.Control>
+                    </Col>
+                </Form.Group>
+                <Form.Group as={Row}>
+
+                <Form.Label column sm="2">
+                    상품명
+                </Form.Label>
+                <Col sm="6">
+                    <Form.Control type="input" name="name" placeholder="name" value={name} onChange={handleChange}/>
+                </Col>
+                </Form.Group>
+                <Form.Group as={Row}>
+
+                <Form.Label column sm="2">
+                    가격
+                </Form.Label>
+                <Col sm="6">
+                    <Form.Control type="input"  name="price" placeholder="price" value={price} onChange={handleChange}/>
+                </Col>
+                </Form.Group>
+                <Form.Group as={Row}>
+                <Form.Label column sm="2">
+                    색상계열
+                </Form.Label>
+                    <Col sm="3">
+                        <Form.Control as="select" name="selectedColor" value={selectedColor} onChange={handleSelect}>
+                        <option value="-1">색상 선택</option>
                     {colorsOp}
-                </select>
-                <button name="colorBtn" onClick={handleAdd}>+</button><SelectPreview selects={color} deleteName="color" name="color" onClick={handleDelete} /><br></br>
-                <input name="selectedSize" placeholder="size" value={selectedSize} onChange={handleSelect} /><button name="sizeBtn" onClick={handleAdd}>+</button><SelectPreview selects={productSize} deleteName="productSize" name="size" onClick={handleDelete} /><br></br>
+                        </Form.Control>
+                    </Col>
+                    <Col sm="1">
+                    <ButtonToolbar>
+                    <Button variant="secondary" name="colorBtn" onClick={handleAdd}>+</Button>
+                    </ButtonToolbar>
+                    </Col>
+                    <Col>
+                    <SelectPreview selects={color} deleteName="color" name="color" onClick={handleDelete} /><br></br>
+                    </Col>
+                </Form.Group>
+                <Form.Group as={Row}>
+                <Form.Label column sm="2">
+                    사이즈
+                </Form.Label>
+                    <Col sm="3">
+                    <Form.Control type="input" name="selectedSize" placeholder="size" value={selectedSize} onChange={handleSelect}/>
+                </Col>
+                    <Col sm="1">
+                    <ButtonToolbar>
+                    <Button variant="secondary" name="sizeBtn" onClick={handleAdd}>+</Button>
+                    </ButtonToolbar>
+                    </Col>
+                    <Col>
+                    <SelectPreview selects={productSize} deleteName="productSize" name="size" onClick={handleDelete} /><br></br>
+                    </Col>
+                </Form.Group>
+                <Row className="mb-4">
+                <Form.Label column sm="2">
+                    상세 설명 이미지
+                </Form.Label>
+                <Col>
                 <ProductImageForm onAdd={handleFileAdd} onRemove={handleFileRemove} post={post} stateKey="selectedDetailImage" name="상세 설명 이미지" maxFile="1"></ProductImageForm>
+                </Col>
+                </Row>
+                <Row>
+                <Form.Label column sm="2">
+                    상품 이미지
+                </Form.Label>
+                <Col>
                 <ProductImageForm onAdd={handleFileAdd} onRemove={handleFileRemove} post={post} stateKey="selectedProductImage" name="상품 이미지"></ProductImageForm>
-                <div>{error}</div>
-                <button onClick={handleClick}> 등록</button>
+                </Col>
+                </Row>
+                <div className="error pt-4">{error}</div>
+                <div className="loading pt-4" id="productLoading"><img src="/images/loading25.gif"></img></div>
+                <ButtonToolbar className="justify-content-center mt-4 pb-4 mb-4">
+                    <Button variant="outline-dark" size="lg" className="formButton" onClick={handleClick}> 등록</Button>
+                </ButtonToolbar>
             </div>
         );
     };

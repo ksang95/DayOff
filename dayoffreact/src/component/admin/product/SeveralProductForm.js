@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { Component } from 'react';
+import { Button, ButtonToolbar, Row, Col, Form } from 'react-bootstrap';
 import ProductImageForm from './ProductImageForm';
 import ProductsFileForm from './ProductsFileForm';
 
@@ -9,7 +10,9 @@ class SeveralProductForm extends Component {
         error: '',
         post: false,
         selectedProductImage: [],
-        typeError: ''
+        typeError: '',
+        colors:[],
+        categories:[]
     }
 
     handleProductAdd = (products) => {
@@ -31,6 +34,7 @@ class SeveralProductForm extends Component {
             flag = false;
         }
         if (flag) {
+            document.getElementById("severalProductLoading").style.display = "block";
 
             let params = new FormData();
             params.append('json', JSON.stringify(this.state.products));
@@ -46,9 +50,10 @@ class SeveralProductForm extends Component {
             }).then(success => {
                 const data = success.data;
                 this.props.createMessage({
-                    latestProduct: data.latestProduct.name,
+                    latestProduct: data.latestProduct,
                     productCount: data.productCount
                 });
+                document.getElementById("severalProductLoading").style.display = "none";
             }).catch(
                 error => console.log(error)
             );
@@ -81,15 +86,31 @@ class SeveralProductForm extends Component {
         });
     }
 
+    componentWillReceiveProps(nextProps){
+        this.setState({
+            colors:this.props.colors,
+            categories:this.props.categories
+        })
+    }
     render() {
-        const { error, post, typeError } = this.state;
+        const { error, post, typeError, colors, categories } = this.state;
         const { handleClick, handleProductAdd, handleFileAdd, handleFileRemove, setTypeError } = this;
         return (
-            <div className="Form">
-                <ProductsFileForm addProduct={handleProductAdd} typeError={typeError} setTypeError={setTypeError}></ProductsFileForm>
+            <div className="ProductForm SeveralProductForm">
+                <ProductsFileForm addProduct={handleProductAdd} typeError={typeError} setTypeError={setTypeError} colors={colors} categories={categories}></ProductsFileForm>
+                <Row>
+                <Form.Label column sm="2">
+                    이미지 파일
+                </Form.Label>
+                <Col>
                 <ProductImageForm onAdd={handleFileAdd} onRemove={handleFileRemove} post={post} stateKey="selectedProductImage" name="상품 이미지"></ProductImageForm>
-                <div>{error}</div>
-                <button onClick={handleClick}> 등록</button>
+                </Col>
+                </Row>
+                <div className="error pt-4">{error}</div>
+                <div className="loading pt-4" id="severalProductLoading"><img src="/images/loading25.gif"></img></div>
+                <ButtonToolbar className="justify-content-center mt-4 pb-4 mb-4">
+                    <Button variant="outline-dark" size="lg" className="formButton" onClick={handleClick}> 등록</Button>
+                </ButtonToolbar>
             </div>
         );
     };

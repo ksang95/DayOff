@@ -46,30 +46,7 @@ class MyordersTable extends Component {
       {data.codeContent === "배송완료" ? <Link to={{
                         pathname:"/refundRequest",
                         state:{
-                            //해당 order가 있는 orderGroup에 속한 order개수 넘겨주시오
-                            orderView:{
-                                userId:data.userId,
-                                userName: data.userName,
-                                groupId: data.groupId,
-                                orderId: data.orderId,
-                                orderColor: data.orderColor,
-                                orderSize: data.orderSize,
-                                orderQuantity: data.orderQuantity,
-                                productId: data.productId,
-                                productName: data.productName,
-                                productThumbnailName: data.productThumbnailName,
-                                orderDate: data.orderDate,
-                                orderPrice: data.orderPrice,
-                                gradeDiscount: data.gradeDiscount,
-                                couponDiscount: data.couponDiscount,
-                                pointUse: data.pointUse,
-                                totalPay: data.totalPay,
-                                invoice: data.invoice,
-                                storesId: data.storesId,
-                                deliverId: data.deliverId,
-                                code: data.code,
-                                codeContent: data.codeContent
-                            }
+                            orderView:data
                         }
                       }}>환불 신청</Link>  : ""}
       </td>

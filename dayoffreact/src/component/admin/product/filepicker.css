@@ -1,4 +1,3 @@
-/* Filepicker CSS */
 .filepicker {
     font-family: sans-serif;
 }
@@ -6,13 +5,11 @@
 div.filepicker {
     text-align: center;
     padding: 5px;
-    background-color: #E1E1E1;
+    background-color: white;
     border-radius: 5px;
-    min-height: 60px;
     border: 2px dashed #C7C7C7;
 }
 
-/* Icon */
 .filepicker-file-icon
 {
     position: relative;
@@ -73,5 +70,74 @@ div.filepicker {
 }
 
 .productImageForm .dropzone{
+    min-height: 150px;
     display:block;
+    padding: 54px 54px;
+}
+
+
+.productImageForm .dropzone .dz-remove{
+    position: absolute;
+    top:10px;
+    right:10px;
+    background-color: white;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    vertical-align: middle;
+    text-align: center;
+    border-radius: 20%;
+    font-weight: bold;
+    box-shadow: 0px 0px 5px gray;
+}
+
+.productImageForm .dropzone .dz-image:hover img{
+    opacity: 0.5;
+}
+
+.productImageForm .dropzone .dz-image:hover .dz-remove{
+    box-shadow: 0px 0px 5px black;
+}
+
+.productImageForm .dropzone .dz-preview{
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    margin: 16px;
+    min-height: 100px;
+}
+
+.productImageForm .dropzone .dz-preview .dz-image{
+    border-radius: 20px;
+    width: 120px;
+    height: 120px;
+    position: relative;
+    display: block;
+    z-index: 10;
+}
+
+.productImageForm .dropzone .dz-error-message{
+    max-width: 120px;
+    color:red;
+}
+
+.productImageForm .dropzone .dz-preview .dz-image img{
+    border-radius: 20px;
+}
+
+.productImageForm .dropzone .dz-preview.dz-file-preview .dz-image {
+    border-radius: 20px;
+    background: #999;
+    background: linear-gradient(to bottom, #eee, #ddd);
+}
+
+.productImageForm .filepicker .dz-message{
+    position: relative;
+    display: block;
+    margin: 3.0em 0 2.5em 0;
+
+}
+
+.productImageForm .dropzone.dz-started .dz-message {
+    display: none;
 }

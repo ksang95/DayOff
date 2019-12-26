@@ -1,61 +1,7 @@
-import axios from 'axios';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Login from '../../common/login/Login';
 
 class Menu extends Component {
-    state={
-        login:false
-    }
-
-
-    componentDidMount(){
-        if(sessionStorage.getItem("userId")){
-            this.setState({
-                login:true
-            })
-        }
-        else{
-            this.setState({
-                login:false
-            })
-        }
-    }
-
-    shouldComponentUpdate(nextProps, nextState){
-        if(nextState.login!==this.state.login){
-            if(!nextState.login)
-            this.props.history.push("/");
-        };
-
-        return true;
-    }
-
-
-    handleLogin = (e) => {
-        switch (e.target.innerHTML) {
-            case '로그아웃':
-                this.logout();
-                break;
-            case '로그인':
-                document.getElementById("loginFrame").style.visibility = "visible";
-                break;
-        }
-    }
-
-    logout=async ()=>{
-        sessionStorage.removeItem("userId");
-        sessionStorage.removeItem("userRole");
-        this.setState({
-            login:false
-        })
-        const res = await axios.get("/logout")
-        console.log(res.data)
-
-        if(res.data===1){
-            this.props.history.push("/")
-        }
-    }
     
 
     render() {
@@ -64,7 +10,6 @@ class Menu extends Component {
             <div>
 
                 <ul>
-                    <li><div onClick={this.handleLogin}>{login}</div></li>
                     <li><Link to="/signUp">회원가입</Link></li>
                     <li><Link to="/admin/addProduct">상품 등록</Link></li>
                     <li><Link to="/admin/stopProductSale/1">상품 판매중지</Link></li>
@@ -104,9 +49,6 @@ class Menu extends Component {
                     <li><Link to="/withdraw">탈퇴하기</Link></li>
 
                 </ul>
-                <div className="loginFrame" id="loginFrame" style={{ visibility: "hidden" }}>
-                    <Login></Login>
-                </div>
 
             </div>
 

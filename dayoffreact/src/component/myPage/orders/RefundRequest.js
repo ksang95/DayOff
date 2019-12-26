@@ -49,46 +49,39 @@ class RefundRequest extends Component {
             data : params,
             url : "/orderCount"
         }).then((res)=>{
-            const { orderView } = this.state;
-        
+            const orderCount=res.data;
+            const { orderView } = this.props.location.state;
+
             const { gradeDiscount, couponDiscount, pointUse, orderPrice, totalPay } = orderView;
             const ratio = orderPrice / (totalPay+gradeDiscount + couponDiscount+pointUse);
-            const refundAmount = parseInt(orderPrice - ratio * (gradeDiscount + couponDiscount) - pointUse / res.data);
+            const refundAmount = parseInt(orderPrice - ratio * (gradeDiscount + couponDiscount) - pointUse / orderCount);
             const info={
                 totalRefund: refundAmount,
                 orderDate: orderView.orderDate, 
                 gradeDiscount: ratio*gradeDiscount, 
                 couponDiscount: ratio*couponDiscount, 
-                pointUse: pointUse/res.data
+                pointUse: pointUse/orderCount
             }
             this.setState({
                 orderView: orderView,
                 info:info,
                 orderPrice:orderPrice
             })
-            this.getCode();
-        })
+        });
     }
-
 
     handleSelect = (e) => {
         this.setState({
+            error:'',
             selectedCode: e.target.value
         })
 
     }
-    componentWillMount(){
-        const { orderView } = this.props.location.state;
-        this.setState({
-           orderView : orderView
-        })
 
-    }
-    
     componentDidMount() {
-        this.orderCount();
-
-       
+        
+        this.orderCount();       
+        this.getCode();
     }
 
     render() {

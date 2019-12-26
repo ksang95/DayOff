@@ -17,6 +17,10 @@ import Vision from './component/vision/vision';
 import Myorders from './component/myPage/orders/Myorders'
 import StopProductSale from './component/admin/product/StopProductSale';
 import Header from './component/common/header/Header.js'
+import Main from './component/main/Main';
+import Footer from './component/common/footer/Footer';
+import LoginPage from './component/common/login/LoginPage';
+import ErrorPage from './component/common/login/ErrorPage';
 
 class App extends Component {
   render() {
@@ -29,6 +33,9 @@ class App extends Component {
         {/* <Route path="/" component={Menu} /> */}
         </Switch>
         <Switch>
+          <Route exact path="/" component={Main}/>
+          <Route path="/login" component={LoginPage}/>
+          <Route path="/error" component={ErrorPage}/>
           <Route path="/admin/updateInvoice" component={UpdateInvoice} />
           <Route path="/admin/addProduct" component={ProductAdd} />
           <Route path="/admin/stopProductSale/:productId" component={StopProductSale} />
@@ -44,6 +51,7 @@ class App extends Component {
           <Route path="/vision" component={Vision}/>
           <Route path="/mypage/myorders" component={Myorders}/>
         </Switch>
+        <Footer></Footer>
       </div>
     );
   }

@@ -14,6 +14,12 @@ class OrderDetail extends Component {
         info:null,
         totalPrice:null
     }
+
+    constructor(props){
+        super(props);
+        this.getData=this.getData.bind(this);
+    }
+
     async getData(){
         const groupId=this.props.match.params.groupId;
         const orderId = parseInt(queryString.parse(this.props.location.search).orderId);
@@ -53,7 +59,8 @@ class OrderDetail extends Component {
                 <Fragment>
                 주문 상세정보
                 {isAdmin&&<div><span>회원: {this.state.userName}</span> <span>(ID: {this.state.userId})</span></div>}
-                <OrderGroupList data={this.state.data} orderId={this.state.orderId}></OrderGroupList>
+                <div>주문번호: {this.state.info.groupId}</div>
+                <OrderGroupList data={this.state.data} orderId={this.state.orderId} isAdmin={isAdmin} getData={this.getData}></OrderGroupList>
                 {refundData&&<RefundList data={refundData} orderId={this.state.orderId}></RefundList>}
                 <OrderType info={this.state.info} />
                 <PayInfo totalPrice={this.state.totalPrice} info={this.state.info} />

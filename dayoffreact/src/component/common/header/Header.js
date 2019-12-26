@@ -8,11 +8,16 @@ import Category from './category/Category';
 export default class Header extends Component {
     render() {
         return (
+            <div>
             <div className="Header">
                 <img className='logo' src='https://66girls.co.kr/web/upload/images/2018/logo_kr1.png' alt='' />
+            
                 <Category />
                 {/* <HeaderSearchch /> */}
                 <HeaderSearch history={this.props.history}/>
+                
+            </div>
+            <div className="headerNone"></div>
             </div>
         )
     }

@@ -7,12 +7,13 @@ class OrderGroupList extends Component{
     }
 
     render(){
-        const {data}=this.props;
+        const {data, isAdmin, getData}=this.props;
+        console.log(isAdmin)
         const list = data.map(
             (order,index) => {
                 const thisOrder=order.orderId===this.props.orderId&&true;
                 return (
-                    <OrderInfo key={order.orderId} order={order} thisOrder={thisOrder}/>
+                    <OrderInfo key={order.orderId} order={order} thisOrder={thisOrder} isAdmin={isAdmin} getData={getData}/>
                 )
             }
         );
@@ -21,7 +22,7 @@ class OrderGroupList extends Component{
             <div>
                 주문 내역
             <table>
-                <thead><tr><th>번호</th><th>상품명</th><th>색상</th><th>사이즈</th><th>수량</th><th>주문가격</th></tr></thead>
+                <thead><tr><th>번호</th><th>상품정보</th><th>색상</th><th>사이즈</th><th>수량</th><th>주문금액</th><th>주문상태</th></tr></thead>
                 <tbody>{list}</tbody>
             </table>
             </div>
