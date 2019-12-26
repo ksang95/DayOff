@@ -117,23 +117,26 @@ public class UsersController {
 		Users users=usersRepository.findBySocialIdAndRoleNot(socialId,"withdraw");
 		System.out.println(users);
 
-		OAuth2AuthenticationToken auth = (OAuth2AuthenticationToken) SecurityContextHolder.getContext()
-					.getAuthentication();
-	
 
-    List<GrantedAuthority> updatedAuthorities = new ArrayList<>(auth.getAuthorities());
-    
-    updatedAuthorities.add(new SimpleGrantedAuthority("ROLE_REALUSER"));
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		List<GrantedAuthority> updatedAuthorities = new ArrayList<>(auth.getAuthorities());
+
+		if(authenticationToken.getName().equals("104752701619594840987")){
+	
+			updatedAuthorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+
+		}
+		updatedAuthorities.add(new SimpleGrantedAuthority("ROLE_REALUSER"));    
 	authentication = new UsernamePasswordAuthenticationToken(auth.getPrincipal(), auth.getCredentials(), updatedAuthorities);
-    
-	SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-		
-	System.out.println(authentication.getAuthorities()+"123");
+	SecurityContextHolder.getContext().setAuthentication(authentication);
+	System.out.println(authenticationToken.getAuthorities()+"123");
+	System.out.println(authentication.getAuthorities()+"1245");
 
 
 		return users;
 	}
 
+	
 	@GetMapping("/signUp")
 	public Users signUp(OAuth2AuthenticationToken authenticationToken) {
 		OAuth2AuthorizedClient client=authorizedClientService.loadAuthorizedClient(authenticationToken.getAuthorizedClientRegistrationId(), authenticationToken.getPrincipal().getName());
@@ -281,21 +284,7 @@ public class UsersController {
 		System.out.println(userAttributes);
 	}
 	
-    if(authentication.getName().equals("104752701619594840987")){
-
-
-		OAuth2AuthenticationToken auth = (OAuth2AuthenticationToken) SecurityContextHolder.getContext()
-					.getAuthentication();
-	
-
-    List<GrantedAuthority> updatedAuthorities = new ArrayList<>(auth.getAuthorities());
     
-    updatedAuthorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-	authentication = new UsernamePasswordAuthenticationToken(auth.getPrincipal(), auth.getCredentials(), updatedAuthorities);
-    
-	SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-	
-    }
 
     System.out.println(authentication.getAuthorities()+"123"); //어디서 로그인했는지
 	System.out.println(authentication.getDetails());
@@ -304,10 +293,7 @@ public class UsersController {
 
 	String socialId=authenticationToken.getAuthorizedClientRegistrationId()+"_"+authenticationToken.getName();
 
-	if(usersRepository.findBySocialIdAndRole(socialId, "withdraw")!=null){
-		return new ModelAndView("redirect:https://localhost:3000/signUpAgain");
-	}
-
+	
 	if(usersRepository.findBySocialIdAndRoleNot(socialId, "withdraw")==null){
 
 		return new ModelAndView("redirect:https://localhost:3000/signUp");
@@ -322,10 +308,10 @@ public class UsersController {
 	//등록된 사용자면 loginSuccess로, 아니면 signUp으로.
 }
 
-@GetMapping("/login")
-public void getMethodName2() {
-	System.out.println(123);
-	//return new ModelAndView("redirect:https://localhost:3000/oauth2/authorization/google");
+@GetMapping("/loginPage")
+public String getMethodName2() {
+	System.out.println(1232222);
+	return "1";
 }
 
 @RequestMapping(value = "/logout", method = RequestMethod.GET)
@@ -336,5 +322,11 @@ if (auth != null){
 new SecurityContextLogoutHandler().logout(request, response, auth);
 }
 return new ModelAndView("redirect:"+request.getHeader("referer"));
+}
+
+@PostMapping("/deny")
+public String deny(){
+	System.out.println("access denied");
+	return "1";
 }
 }

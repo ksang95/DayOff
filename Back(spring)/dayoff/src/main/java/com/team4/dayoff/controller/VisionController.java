@@ -92,15 +92,18 @@ public class VisionController {
 		"./newfile");
 		System.out.println(List.get(0));
 		if(!List.get(0).contains("https")){
+			System.out.println("11111111111111111111111111111111111111");
 			System.out.println(recommendRepository.findByCategoryName(List.get(0)));
 			map.put("recommend", recommendRepository.findByCategoryName(List.get(0)));
 
 			return map;
 		}
 
+		System.out.println(List+"22222222222222222222222222222222222222222222222");
 		for (String data : List) {
 			realList.add(recommendRepository.findByProductThumbnailName(data));
 		}
+		System.out.println(realList+"=====================================");
 		// for (String data : realList) {
 		// 	data = data.replace("gs://", "https://storage.googleapis.com/");
 		// 	System.out.println(data);

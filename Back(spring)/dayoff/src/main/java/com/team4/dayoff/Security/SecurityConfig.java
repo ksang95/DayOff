@@ -29,17 +29,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
        http
         .csrf().disable()
         .authorizeRequests()
-        .antMatchers("/mapping","/login")
-        .permitAll()
-        .antMatchers("/path")
+        .antMatchers("/updateInvoice", "/orderList","/usersAnalysis","/usersAnalysis/user/sexAndAge/{yearMonth}",
+        "/usersAnalysis/user/month/{year}","/usersAnalysis/user/withdrawReasons/{year}","/usersAnalysis/login/sexAndAge/{yearMonth}"
+        ,"/usersAnalysis/login/month/{year}","/ordersAnalysis","/ordersAnalysis/order/sexAndAge/{yearMonth}","/ordersAnalysis/order/month/{year}"
+        ,"/ordersAnalysis/order/refundReasons/{year}","/addProduct","/addProductProcess","/addSeveralProductProcess",
+        "/getProduct", "/stopProductSale","/resaleProduct")
         .hasRole("ADMIN")
+        .antMatchers("/orderDetail/{groupId}","/myOrderLIst")
+        .hasRole("REALUSER")
         .anyRequest()
-        .authenticated()
+        .permitAll()
         .and()
         .oauth2Login()
         .defaultSuccessUrl("/loginSuccess")
         .failureUrl("/loginFailure")
-        .loginPage("/login")
+        .loginPage("/loginPage")
         .and()
         .exceptionHandling()
         .accessDeniedPage("/deny")
