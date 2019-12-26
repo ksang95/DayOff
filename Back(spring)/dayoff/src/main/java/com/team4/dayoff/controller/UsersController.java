@@ -210,10 +210,16 @@ public class UsersController {
 	}
 
 	@PostMapping("/withdrawProcess")
-	public void withdrawUsersProcess(OAuth2AuthenticationToken authenticationToken, @RequestBody Code code) {
-		String socialType=authenticationToken.getAuthorizedClientRegistrationId();
-		String socialId=socialType+"_"+(authenticationToken.getName());
+	public void withdrawUsersProcess(Authentication authentication, @RequestBody Code code) {
+		System.out.println("=========================================================1");
+		Users users2 = usersRepository.findBySocialId2(authentication.getName());
+		int idx = users2.getSocialId().indexOf("_");
+
+		String socialType= users2.getSocialId().substring(0,idx);
+		System.out.println(socialType);
+		String socialId=socialType+"_"+(authentication.getName());
 		Users users = usersRepository.findBySocialIdAndRoleNot(socialId, "withdraw");
+		System.out.println("=========================================================2");
 		LoginAPI login = null;
 		switch (socialType) {
 		case "kakao":
@@ -225,13 +231,14 @@ public class UsersController {
 			login=new GoogleAPI();
 			break;
 		}
+		System.out.println("=========================================================3");
 		System.out.println(login.withdrawUser(users.getAccessToken()));
 		usersRepository.withdrawUser(users.getId());
 		WithdrawHistory withdrawHistory = new WithdrawHistory();
 		withdrawHistory.setCode(code);
 		withdrawHistory.setUsers(users);
 		withdrawHistoryRepository.save(withdrawHistory);
-		authorizedClientService.removeAuthorizedClient(socialType, authenticationToken.getName());
+		authorizedClientService.removeAuthorizedClient(socialType, authentication.getName());
 	}
 
 	@PostMapping("/updateUserProcess")
@@ -295,7 +302,7 @@ public class UsersController {
 		System.out.println(userAttributes);
 	}
 	
-    
+    System.out.println(authentication);
 
     System.out.println(authentication.getAuthorities()+"123"); //어디서 로그인했는지
 	System.out.println(authentication.getDetails());
