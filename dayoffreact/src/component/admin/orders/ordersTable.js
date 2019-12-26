@@ -25,7 +25,7 @@ class ordersTable extends Component {
       </td>
     
       
-      <td><Link to={userinfo+data.userName}>{data.userName}</Link></td>
+      <td><Link to={userinfo+data.userId}>{data.userName}</Link></td>
 
       <td>{data.orderDate}</td>
 

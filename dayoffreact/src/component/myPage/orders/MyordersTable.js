@@ -77,9 +77,10 @@ class MyordersTable extends Component {
 
         return (
             <div>
+            <h1>주문내역</h1>
+            <hr width="97%"></hr>
            <table className="n-table">
           <colgroup>
-            <col style={{width: + '*'}}></col>
             <col style={{width: + 10+'%'}}></col>
             <col style={{width: + 10+'%'}}></col>
             <col style={{width: + 10+'%'}}></col>
@@ -89,7 +90,6 @@ class MyordersTable extends Component {
           </colgroup>
           <tr >
               <th>상품정보</th>
-              <th>회원정보</th>
               <th>주문일자</th>
               <th>주문번호</th>
               <th>주문금액(수량)</th>
