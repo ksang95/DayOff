@@ -121,16 +121,19 @@ public class UsersController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		List<GrantedAuthority> updatedAuthorities = new ArrayList<>(auth.getAuthorities());
 
-		if(authenticationToken.getName().equals("104752701619594840987")){
-	
-			updatedAuthorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
 
+
+		if(users.getRole().equals("user")||users.getRole().equals("admin")){
+	
+			updatedAuthorities.add(new SimpleGrantedAuthority("ROLE_REALUSER"));    
+		authentication = new UsernamePasswordAuthenticationToken(auth.getPrincipal(), auth.getCredentials(), updatedAuthorities);
+		SecurityContextHolder.getContext().setAuthentication(authentication);
 		}
-		updatedAuthorities.add(new SimpleGrantedAuthority("ROLE_REALUSER"));    
-	authentication = new UsernamePasswordAuthenticationToken(auth.getPrincipal(), auth.getCredentials(), updatedAuthorities);
-	SecurityContextHolder.getContext().setAuthentication(authentication);
-	System.out.println(authenticationToken.getAuthorities()+"123");
-	System.out.println(authentication.getAuthorities()+"1245");
+		if(users.getRole().equals("admin")){
+			updatedAuthorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));    
+		}
+		authentication = new UsernamePasswordAuthenticationToken(auth.getPrincipal(), auth.getCredentials(), updatedAuthorities);
+		SecurityContextHolder.getContext().setAuthentication(authentication);
 
 
 		return users;
@@ -178,7 +181,7 @@ public class UsersController {
 	} 
 
 	@PostMapping("/signUpProcess")
-	public Users signUpProcess(@RequestBody Users users) {
+	public Users signUpProcess(@RequestBody Users users,Authentication authentication, OAuth2AuthenticationToken authenticationToken) {
 
 		Users savedUsers = usersRepository.save(users);
 		System.out.println(savedUsers);
@@ -188,6 +191,14 @@ public class UsersController {
 		
 		//시큐리티 role업뎃
 
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		List<GrantedAuthority> updatedAuthorities = new ArrayList<>(auth.getAuthorities());
+
+		updatedAuthorities.add(new SimpleGrantedAuthority("ROLE_REALUSER"));    
+		authentication = new UsernamePasswordAuthenticationToken(auth.getPrincipal(), auth.getCredentials(), updatedAuthorities);
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		System.out.println(authenticationToken.getAuthorities()+"123");
+		System.out.println(authentication.getAuthorities()+"1245");
 
 		return savedUsers;
 	}
