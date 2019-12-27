@@ -73,7 +73,7 @@ public class UsersController {
 		return st;
 	}
 
-	//@PostMapping("/login")
+	// @PostMapping("/login")
 	public Users loginUsers(@RequestParam String code, @RequestParam String socialType) {
 		LoginAPI login = null;
 		switch (socialType) {
@@ -112,11 +112,12 @@ public class UsersController {
 	}
 
 	@GetMapping("/getUser")
-	public Users getUser( Authentication authentication){
-		
-		OAuth2AuthenticationToken token=(OAuth2AuthenticationToken)authentication;
+	public Users getUser(Authentication authentication) {
+
+		OAuth2AuthenticationToken token = (OAuth2AuthenticationToken) authentication;
 		System.out.println(token.getAuthorizedClientRegistrationId());
-		Users users=usersRepository.findBySocialIdAndRoleNot(token.getAuthorizedClientRegistrationId()+"_"+authentication.getName(),"withdraw");
+		Users users = usersRepository.findBySocialIdAndRoleNot(
+				token.getAuthorizedClientRegistrationId() + "_" + authentication.getName(), "withdraw");
 		// Users users2 = usersRepository.findBySocialId2(authentication.getName());
 		// int idx = users2.getSocialId().indexOf("_");
 		// String socialType= users2.getSocialId().substring(0,idx);
@@ -127,29 +128,28 @@ public class UsersController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		List<GrantedAuthority> updatedAuthorities = new ArrayList<>(auth.getAuthorities());
 
+		if (users.getRole().equals("user") || users.getRole().equals("admin")) {
 
-
-		if(users.getRole().equals("user")||users.getRole().equals("admin")){
-	
-			updatedAuthorities.add(new SimpleGrantedAuthority("ROLE_REALUSER"));    
-		authentication = new UsernamePasswordAuthenticationToken(auth.getPrincipal(), auth.getCredentials(), updatedAuthorities);
-		SecurityContextHolder.getContext().setAuthentication(authentication);
+			updatedAuthorities.add(new SimpleGrantedAuthority("ROLE_REALUSER"));
+			authentication = new UsernamePasswordAuthenticationToken(auth.getPrincipal(), auth.getCredentials(),
+					updatedAuthorities);
+			SecurityContextHolder.getContext().setAuthentication(authentication);
 		}
-		if(users.getRole().equals("admin")){
-			updatedAuthorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));    
+		if (users.getRole().equals("admin")) {
+			updatedAuthorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
 		}
-		authentication = new UsernamePasswordAuthenticationToken(auth.getPrincipal(), auth.getCredentials(), updatedAuthorities);
+		authentication = new UsernamePasswordAuthenticationToken(auth.getPrincipal(), auth.getCredentials(),
+				updatedAuthorities);
 		SecurityContextHolder.getContext().setAuthentication(authentication);
-
 
 		return users;
 	}
 
-	
 	@GetMapping("/signUp")
 	public Users signUp(OAuth2AuthenticationToken authenticationToken) {
-		OAuth2AuthorizedClient client=authorizedClientService.loadAuthorizedClient(authenticationToken.getAuthorizedClientRegistrationId(), authenticationToken.getPrincipal().getName());
-		String socialType=authenticationToken.getAuthorizedClientRegistrationId();
+		OAuth2AuthorizedClient client = authorizedClientService.loadAuthorizedClient(
+				authenticationToken.getAuthorizedClientRegistrationId(), authenticationToken.getPrincipal().getName());
+		String socialType = authenticationToken.getAuthorizedClientRegistrationId();
 		LoginAPI login = null;
 		switch (socialType) {
 		case "kakao":
@@ -158,25 +158,26 @@ public class UsersController {
 		case "naver":
 			break;
 		case "google":
-			login=new GoogleAPI();
+			login = new GoogleAPI();
 			break;
 		}
 		String accessToken = client.getAccessToken().getTokenValue();
-		String refreshToken = client.getRefreshToken()!=null?client.getRefreshToken().getTokenValue():null;
+		String refreshToken = client.getRefreshToken() != null ? client.getRefreshToken().getTokenValue() : null;
 
 		Users userInfo = login.getUserInfo(accessToken);
 		System.out.println(userInfo);
-		//Users users = usersRepository.findBySocialIdAndRoleNot(userInfo.getSocialId(), "withdraw");
-		//System.out.println("db:" + users);
+		// Users users =
+		// usersRepository.findBySocialIdAndRoleNot(userInfo.getSocialId(), "withdraw");
+		// System.out.println("db:" + users);
 		// if (users != null) {
-		// 	users.setAccessToken(accessToken);
-		// 	users.setRefreshToken(refreshToken);
-		// 	usersRepository.save(users);
-		// 	LoginHistory loginHistory = new LoginHistory();
-		// 	loginHistory.setUsers(users);
-		// 	loginHistoryRepository.save(loginHistory);
-		// 	// 세션 객체 생성
-		// 	return users;
+		// users.setAccessToken(accessToken);
+		// users.setRefreshToken(refreshToken);
+		// usersRepository.save(users);
+		// LoginHistory loginHistory = new LoginHistory();
+		// loginHistory.setUsers(users);
+		// loginHistoryRepository.save(loginHistory);
+		// // 세션 객체 생성
+		// return users;
 		// }
 		Users users = userInfo;
 		users.setAccessToken(accessToken);
@@ -184,26 +185,28 @@ public class UsersController {
 		System.out.println("new:" + users);
 
 		return users;
-	} 
+	}
 
 	@PostMapping("/signUpProcess")
-	public Users signUpProcess(@RequestBody Users users,Authentication authentication, OAuth2AuthenticationToken authenticationToken) {
+	public Users signUpProcess(@RequestBody Users users, Authentication authentication,
+			OAuth2AuthenticationToken authenticationToken) {
 
 		Users savedUsers = usersRepository.save(users);
 		System.out.println(savedUsers);
 		LoginHistory loginHistory = new LoginHistory();
 		loginHistory.setUsers(savedUsers);
 		loginHistoryRepository.save(loginHistory);
-		
-		//시큐리티 role업뎃
+
+		// 시큐리티 role업뎃
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		List<GrantedAuthority> updatedAuthorities = new ArrayList<>(auth.getAuthorities());
 
-		updatedAuthorities.add(new SimpleGrantedAuthority("ROLE_REALUSER"));    
-		authentication = new UsernamePasswordAuthenticationToken(auth.getPrincipal(), auth.getCredentials(), updatedAuthorities);
+		updatedAuthorities.add(new SimpleGrantedAuthority("ROLE_REALUSER"));
+		authentication = new UsernamePasswordAuthenticationToken(auth.getPrincipal(), auth.getCredentials(),
+				updatedAuthorities);
 		SecurityContextHolder.getContext().setAuthentication(authentication);
-		System.out.println(authentication.getAuthorities()+"1245");
+		System.out.println(authentication.getAuthorities() + "1245");
 
 		return savedUsers;
 	}
@@ -217,13 +220,17 @@ public class UsersController {
 	@PostMapping("/withdrawProcess")
 	public void withdrawUsersProcess(Authentication authentication, @RequestBody Code code) {
 		System.out.println("=========================================================1");
-		Users users2 = usersRepository.findBySocialId2(authentication.getName());
-		int idx = users2.getSocialId().indexOf("_");
+		// Users users2 = usersRepository.findBySocialId2(authentication.getName());
+		// int idx = users2.getSocialId().indexOf("_");
 
-		String socialType= users2.getSocialId().substring(0,idx);
-		System.out.println(socialType);
-		String socialId=socialType+"_"+(authentication.getName());
-		Users users = usersRepository.findBySocialIdAndRoleNot(socialId, "withdraw");
+		// String socialType= users2.getSocialId().substring(0,idx);
+		// System.out.println(socialType);
+		// String socialId=socialType+"_"+(authentication.getName());
+		// Users users = usersRepository.findBySocialIdAndRoleNot(socialId, "withdraw");
+		OAuth2AuthenticationToken token = (OAuth2AuthenticationToken) authentication;
+		System.out.println(token.getAuthorizedClientRegistrationId());
+		String socialType = token.getAuthorizedClientRegistrationId();
+		Users users = usersRepository.findBySocialIdAndRoleNot(socialType + "_" + authentication.getName(), "withdraw");
 		System.out.println("=========================================================2");
 		LoginAPI login = null;
 		switch (socialType) {
@@ -233,7 +240,7 @@ public class UsersController {
 		case "naver":
 			break;
 		case "google":
-			login=new GoogleAPI();
+			login = new GoogleAPI();
 			break;
 		}
 		System.out.println("=========================================================3");
@@ -247,13 +254,13 @@ public class UsersController {
 	}
 
 	@PostMapping("/updateUserProcess")
-	public void updateUsersProcess(@RequestBody Users users){
+	public void updateUsersProcess(@RequestBody Users users) {
 		Users savedUsers = usersRepository.save(users);
 		System.out.println(savedUsers);
 
 	}
 
-	//@PostMapping("/logout")
+	// @PostMapping("/logout")
 	public void logoutUsers(Principal principal, @RequestParam("userId") Integer id) {
 		// int id = Integer.parseInt(principal.getName());
 		// Users users = usersRepository.findById(id).get();
@@ -276,80 +283,83 @@ public class UsersController {
 	}
 
 	@GetMapping("/loginSuccess")
-	public ModelAndView getLoginInfo(Model model,
-			Authentication authentication, OAuth2AuthenticationToken authenticationToken, HttpServletRequest request) {
+	public ModelAndView getLoginInfo(Model model, Authentication authentication,
+			OAuth2AuthenticationToken authenticationToken, HttpServletRequest request) {
 		// String referer=request.getHeader("referer"); // 이전 페이지 주소
 
-		//로그인 시 등록된 사용자면 기존의 token 업데이트&loginHistory insert할것!
+		// 로그인 시 등록된 사용자면 기존의 token 업데이트&loginHistory insert할것!
 
-		String socialType=authenticationToken.getAuthorizedClientRegistrationId();
+		String socialType = authenticationToken.getAuthorizedClientRegistrationId();
 		System.out.println(socialType); // 소셜 구별용
 		System.out.println(authenticationToken.getDetails());
 
-		
-		OAuth2AuthorizedClient client=authorizedClientService.loadAuthorizedClient(authenticationToken.getAuthorizedClientRegistrationId(), authenticationToken.getPrincipal().getName());
+		OAuth2AuthorizedClient client = authorizedClientService.loadAuthorizedClient(
+				authenticationToken.getAuthorizedClientRegistrationId(), authenticationToken.getPrincipal().getName());
 
-		String userInfoEndpointUri = client.getClientRegistration()
-	.getProviderDetails().getUserInfoEndpoint().getUri();
-   
-	System.out.println("test================"+client.getAccessToken().getTokenValue());
-	if (!org.springframework.util.StringUtils.isEmpty(userInfoEndpointUri)) {
-		RestTemplate restTemplate = new RestTemplate();
-		HttpHeaders headers = new HttpHeaders();
-		headers.add(HttpHeaders.AUTHORIZATION, "Bearer " + client.getAccessToken()
-		  .getTokenValue());
-		HttpEntity entity = new HttpEntity("", headers);
-		ResponseEntity <Map>response = restTemplate
-		  .exchange(userInfoEndpointUri, HttpMethod.GET, entity, Map.class);
-		Map userAttributes = response.getBody();
-		System.out.println(headers+"/"+entity+"/////"+response);
-		model.addAttribute("name", userAttributes.get("name"));
-		System.out.println(userAttributes);
+		String userInfoEndpointUri = client.getClientRegistration().getProviderDetails().getUserInfoEndpoint().getUri();
+
+		System.out.println("test================" + client.getAccessToken().getTokenValue());
+		if (!org.springframework.util.StringUtils.isEmpty(userInfoEndpointUri)) {
+			RestTemplate restTemplate = new RestTemplate();
+			HttpHeaders headers = new HttpHeaders();
+			headers.add(HttpHeaders.AUTHORIZATION, "Bearer " + client.getAccessToken().getTokenValue());
+			HttpEntity entity = new HttpEntity("", headers);
+			ResponseEntity<Map> response = restTemplate.exchange(userInfoEndpointUri, HttpMethod.GET, entity,
+					Map.class);
+			Map userAttributes = response.getBody();
+			System.out.println(headers + "/" + entity + "/////" + response);
+			model.addAttribute("name", userAttributes.get("name"));
+			System.out.println(userAttributes);
+		}
+
+		System.out.println(authentication);
+
+		System.out.println(authentication.getAuthorities() + "123"); // 어디서 로그인했는지
+		System.out.println(authentication.getDetails());
+		System.out.println(authentication.getCredentials());
+		System.out.println(authentication.getPrincipal()); // userinfo
+
+		String socialId = authenticationToken.getAuthorizedClientRegistrationId() + "_" + authenticationToken.getName();
+
+		Users users = usersRepository.findBySocialIdAndRoleNot(socialId, "withdraw");
+		if (users == null) {
+
+			return new ModelAndView("redirect:https://localhost:3000/signUp");
+		} else {
+			String accessToken = client.getAccessToken().getTokenValue();
+			String refreshToken = client.getRefreshToken() != null ? client.getRefreshToken().getTokenValue() : null;
+			users.setAccessToken(accessToken);
+			users.setRefreshToken(refreshToken);
+			usersRepository.save(users);
+			LoginHistory loginHistory = new LoginHistory();
+			loginHistory.setUsers(users);
+			loginHistoryRepository.save(loginHistory);
+			
+			return new ModelAndView("redirect:https://localhost:3000/loginSuccess");
+		}
+
+		// 등록된 사용자면 loginSuccess로, 아니면 signUp으로.
 	}
-	
-    System.out.println(authentication);
 
-    System.out.println(authentication.getAuthorities()+"123"); //어디서 로그인했는지
-	System.out.println(authentication.getDetails());
-	System.out.println(authentication.getCredentials());
-	System.out.println(authentication.getPrincipal()); //userinfo
-
-	String socialId=authenticationToken.getAuthorizedClientRegistrationId()+"_"+authenticationToken.getName();
-
-	
-	if(usersRepository.findBySocialIdAndRoleNot(socialId, "withdraw")==null){
-
-		return new ModelAndView("redirect:https://localhost:3000/signUp");
-	}else{
-
-		return new ModelAndView("redirect:https://localhost:3000/loginSuccess");
+	@GetMapping("/loginPage")
+	public String getMethodName2() {
+		System.out.println(1232222);
+		return "1";
 	}
 
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println(request.getHeader("referer"));
+		if (auth != null) {
+			new SecurityContextLogoutHandler().logout(request, response, auth);
+		}
+		return new ModelAndView("redirect:" + request.getHeader("referer"));
+	}
 
-
-
-	//등록된 사용자면 loginSuccess로, 아니면 signUp으로.
-}
-
-@GetMapping("/loginPage")
-public String getMethodName2() {
-	System.out.println(1232222);
-	return "1";
-}
-
-@RequestMapping(value = "/logout", method = RequestMethod.GET)
-public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
-Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-System.out.println(request.getHeader("referer"));
-if (auth != null){
-new SecurityContextLogoutHandler().logout(request, response, auth);
-}
-return new ModelAndView("redirect:"+request.getHeader("referer"));
-}
-
-@PostMapping("/deny")
-public String deny(){
-	System.out.println("access denied");
-	return "1";
-}
+	@PostMapping("/deny")
+	public String deny() {
+		System.out.println("access denied");
+		return "1";
+	}
 }

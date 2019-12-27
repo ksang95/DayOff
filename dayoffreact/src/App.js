@@ -44,8 +44,8 @@ class App extends Component {
           <Route path="/admin/userList" component={UserAxios} />
           <Route path="/admin/usersAnalysis" component={UserAnalysis} />
           <Route path="/admin/ordersAnalysis" component={OrderAnalysis} />
-          <Route path="/mypage/orderDetail/:groupId" component={OrderDetail}/>
-          <Route path="/admin/orderDetail/:groupId" component={OrderDetail}/>
+          <Route path="/mypage/myorders/orderDetail/:groupId" component={OrderDetail}/>
+          <Route path="/admin/orders/orderDetail/:groupId" component={OrderDetail}/>
           <Route path="/mypage/refundRequest" component={RefundRequest}/>
           <Route path="/mypage/myInfo" component={UpdateUser}/>
           <Route path="/mypage/withdraw" component={Withdraw} />
