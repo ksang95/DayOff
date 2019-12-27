@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import OrderCancle from './orderCancle';
-import Deliver from './deliver';
-import OrderConfirm from './orderConfirm';
+import OrderCancel from './OrderCancel';
+import Deliver from './Deliver';
+import OrderConfirm from './OrderConfirm';
 
 class MyordersTable extends Component {
     render() {
@@ -38,10 +38,10 @@ class MyordersTable extends Component {
       <td>{data.codeContent}
 
       <br></br>
-      {data.codeContent === "배송준비중" ? <OrderCancle orderId={data.orderId}></OrderCancle> : ""}
+      {data.codeContent === "배송준비중" ? <OrderCancel order={data}></OrderCancel> : ""}
       {data.codeContent === "배송중" ?<Deliver invoice={data.invoice}></Deliver> : ""}
       {data.codeContent === "구매확정" ? <Link to={review+data.productId}>후기 작성</Link> : ""}
-      {data.codeContent === "배송완료" ? <OrderConfirm groupId={data.orderId}></OrderConfirm>  : ""}
+      {data.codeContent === "배송완료" ? <OrderConfirm groupId={data.groupId}></OrderConfirm>  : ""}
       <br></br>
       {data.codeContent === "배송완료" ? <Link to={{
                         pathname:"/mypage/refundRequest",

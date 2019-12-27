@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
 
-class orderConfirm extends Component {
+class OrderConfirm extends Component {
 
     async confirm(orderId){
         const params = new URLSearchParams();
@@ -30,4 +30,4 @@ class orderConfirm extends Component {
     }
 }
 
-export default orderConfirm;
+export default OrderConfirm;

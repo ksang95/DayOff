@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import SlideToggle from "react-slide-toggle";
 import UpdateInvoice from './updateInvoice';
-import Deliver from '../../myPage/orders/deliver';
+import Deliver from '../../myPage/orders/Deliver';
 
 
 class ordersTable extends Component {

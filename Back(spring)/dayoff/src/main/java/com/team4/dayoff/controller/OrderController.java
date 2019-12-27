@@ -42,55 +42,51 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-
 /**
  * OrderController
  */
 @RestController
 public class OrderController {
 
-
     @Autowired
     private OrderGroupRepository orderGroupRepository;
 
     @Autowired
     private OrderDetailViewRepository orderDetailViewRepository;
-   
+
     @Autowired
     private OrderViewRepository orderViewRepository;
 
+    @Autowired
+    private RecommendRepository recommendRepository;
 
     @Autowired
-    private RecommendRepository recommendRepository;  
-
-    @Autowired
-    private ProductRepository productReporitory; 
+    private ProductRepository productReporitory;
 
     @Autowired
     private OrdersRepository orderRepository;
 
-    
     private static String readAll(Reader rd) throws IOException {
-	    StringBuilder sb = new StringBuilder();
-	    int cp;
-	    while ((cp = rd.read()) != -1) {
-	      sb.append((char) cp);
-	    }
-	    return sb.toString();
-	  }
+        StringBuilder sb = new StringBuilder();
+        int cp;
+        while ((cp = rd.read()) != -1) {
+            sb.append((char) cp);
+        }
+        return sb.toString();
+    }
 
-      public static JSONObject readJsonFromUrl(String url) throws IOException, JSONException {
-	    InputStream is = new URL(url).openStream();
-	    try {
-	      BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
-	      String jsonText = readAll(rd);
-	      JSONObject json = new JSONObject(jsonText);
-	      return json;
-	    } finally {
-	      is.close();
-	    }
-      }
-      
+    public static JSONObject readJsonFromUrl(String url) throws IOException, JSONException {
+        InputStream is = new URL(url).openStream();
+        try {
+            BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+            String jsonText = readAll(rd);
+            JSONObject json = new JSONObject(jsonText);
+            return json;
+        } finally {
+            is.close();
+        }
+    }
+
     @PostMapping("/confirm")
     public void confirm(@RequestParam("orderId") Integer orderId){
         Orders orders = new Orders();
@@ -102,18 +98,7 @@ public class OrderController {
             orders.setCode(code);
             orderRepository.save(orders);
     }
-    @PostMapping("/cancleOrder")
-    public void cancleOrder(@RequestParam("orderId") Integer orderId){
-        System.out.println(orderId);
-        Orders orders = new Orders();
-        orders = orderRepository.findByOrderId(orderId);
-        Code code = new Code();
-        code.setCode("0006");
-        code.setContent("취소완료");
-        
-            orders.setCode(code);
-            orderRepository.save(orders);
-    }
+
     @PostMapping("/myOrderLIst")
     public Page<OrderView> myOrderList(@RequestParam("userId") Integer userId, Pageable pageable)
             throws JSONException, IOException {
@@ -169,7 +154,6 @@ public class OrderController {
         
     }
 
-
     @PostMapping("/orderCount")
     public int orderCount(@RequestParam("groupId") Integer groupId){
 
@@ -179,7 +163,6 @@ public class OrderController {
         return  orderRepository.countGroup(groupId);
         
     }
-
 
     @PostMapping("/updateInvoice")
     public String  updateInvoice(@RequestParam("invoice") String invoice, @RequestParam("groupId") Integer groupId, @RequestParam("orderId") Integer orderId){
@@ -210,7 +193,6 @@ public class OrderController {
 
         return "1";
     }
-
 
     @PostMapping("/orderList")
     public Page<OrderView> orderList(@RequestParam("code") String code,@RequestParam("name") String name, Pageable pageable){
@@ -316,17 +298,11 @@ public class OrderController {
 
     }
 
-
-
-
     @GetMapping("/orderDetail/{groupId}")
     public List<OrderDetailView> orderDetail(@PathVariable Integer groupId) {
         List<OrderDetailView> list = orderDetailViewRepository.findByGroupId(groupId);
-        
+
         return list;
     }
-
-    
-
 
 }

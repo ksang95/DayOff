@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class deliver extends Component {
+class Deliver extends Component {
     openPopup(url){
         window.open(url,"name","width=700px, height=500px, left=500px ,top=200px")
       }
@@ -14,4 +14,4 @@ class deliver extends Component {
     }
 }
 
-export default deliver;
+export default Deliver;

@@ -1,8 +1,10 @@
 package com.team4.dayoff.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import com.team4.dayoff.entity.Code;
+import com.team4.dayoff.entity.OrderGroup;
 import com.team4.dayoff.entity.Orders;
 import com.team4.dayoff.entity.Refunds;
 import com.team4.dayoff.repository.CodeRepository;
@@ -13,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -43,10 +46,23 @@ public class RefundsController {
 
     @PostMapping("/refundRequestProcess")
     public void refundRequestProcess(@RequestBody Refunds refunds) {
-        Orders orders=ordersRepository.findById(refunds.getId()).get();
+        Orders orders=ordersRepository.findById(refunds.getOrders().getId()).get();
         orders.setCode(new Code("0004","환불신청완료"));
         refunds.setOrders(orders);
-        refunds.setId(null);
         Refunds savedRefunds=refundsRepository.save(refunds);
+        System.out.println(savedRefunds);
+    }
+
+    @PostMapping("/cancelOrder")
+    public void cancelOrder(@RequestBody Refunds refunds) {
+        System.out.println(refunds);
+        Orders orders=ordersRepository.findById(refunds.getOrders().getId()).get();
+        refunds.setRefundAmount(refunds.getRefundAmount());
+        orders.setCode(new Code("0005","환불완료"));
+        refunds.setOrders(orders);
+        refunds.setRefundDate(new Date());
+        Refunds savedRefunds=refundsRepository.save(refunds);
+        System.out.println(savedRefunds);
+        
     }
 }
