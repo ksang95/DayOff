@@ -3,6 +3,7 @@ import './header.css';
 import HeaderSearch from './HeaderSearch';
 import Category from './category/Category';
 import LogoImg from './category/Img/DAYOFF_logo3.png'
+import Login from '../login/Login'
 
 export default class Header extends Component {
     state = {

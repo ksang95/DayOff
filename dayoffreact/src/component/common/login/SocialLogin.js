@@ -26,10 +26,10 @@ class SocialLogin extends Component {
         }
         return (
             <div className="social-login">
-                <div style={style} className="btn btn-block social-btn google" onClick={onClick}>
-                    <img src="/images/google.jpg" name="google"></img>Log in with Google</div>
-                <div style={style} className="btn btn-block social-btn facebook" onClick={onClick}>
-                    <img src="/images/facebook.png" name="facebook"></img>Log in with Facebook</div>
+                <div style={style} className="btn btn-block social-btn google" name="google" onClick={onClick}>
+                    <img src="/images/google.jpg" name="google" ></img>Log in with Google</div>
+                <div style={style} className="btn btn-block social-btn facebook" name="facebook" onClick={onClick}>
+                    <img src="/images/facebook.png"name="facebook" ></img>Log in with Facebook</div>
                 <div className="btn btn-block social-btn kakao" onClick={onClick}>
                     <img src="/images/kakao_account_login_btn_medium_wide.png" name="kakao" />
                 </div>
