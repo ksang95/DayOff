@@ -9,6 +9,8 @@ yarn add react-input-mask
 yarn add chart.js
 yarn add chartjs-plugin-datalabels
 yarn add xlsx
+yarn add react-bootstrap bootstrap
+yarn add react-slide-toggle
 
 =====================================
 
@@ -34,4 +36,9 @@ GCP Support
 <dependency>
 	<groupId>org.springframework.security</groupId>
 	<artifactId>spring-security-oauth2-jose</artifactId>
+</dependency>
+<dependency>
+	<groupId>org.json</groupId>
+	<artifactId>json</artifactId>
+	<version>20160810</version>
 </dependency>
