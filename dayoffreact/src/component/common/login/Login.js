@@ -44,13 +44,14 @@ class Login extends Component {
     }
 
     logout=async ()=>{
+        console.log("로그아웃")
+        const res = await axios.get("/logout")
+        console.log(res.data)
         sessionStorage.removeItem("userId");
         sessionStorage.removeItem("userRole");
         this.setState({
             login:false
         })
-        const res = await axios.get("/logout")
-        console.log(res.data)
 
         if(res.data===1){
             this.props.history.push("/")

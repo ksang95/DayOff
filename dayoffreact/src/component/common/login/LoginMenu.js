@@ -7,7 +7,7 @@ const LoginMenu = ({onExit}) => {
         <div className="login-container">
             <div className="login-content">
                 <span className="login-exit" onClick={onExit}>&times;</span>
-                <h1 className="login-title">Login to SpringSocial</h1>
+                <h1 className="login-title">소셜 계정으로 로그인</h1>
                 <SocialLogin currentUrl={document.location.href.substring(document.location.href.lastIndexOf(":")+5)}></SocialLogin>
                 <div className="or-separator">
                 </div>

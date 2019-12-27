@@ -18,7 +18,6 @@ class SocialLogin extends Component {
         }
     }
 
-
     render() {
         const { onClick } = this;
         const style = {
@@ -26,13 +25,17 @@ class SocialLogin extends Component {
         }
         return (
             <div className="social-login">
-                <div style={style} className="btn btn-block social-btn google" name="google" onClick={onClick}>
-                    <img src="/images/google.jpg" name="google" ></img>Log in with Google</div>
-                <div style={style} className="btn btn-block social-btn facebook" name="facebook" onClick={onClick}>
-                    <img src="/images/facebook.png"name="facebook" ></img>Log in with Facebook</div>
-                <div className="btn btn-block social-btn kakao" onClick={onClick}>
-                    <img src="/images/kakao_account_login_btn_medium_wide.png" name="kakao" />
+                <div style={style} className="btn btn-block social-btn google" onClick={onClick}>
+                    <img src="/images/btn_google_signin_light_normal_web@2x.png" name="google"></img></div>
+                <div style={style} className="btn btn-block social-btn facebook" onClick={onClick}>
+                <img src="/images/facebook.png" name="facebook" ></img>
                 </div>
+                <div className="btn btn-block social-btn kakao" onClick={onClick}>
+                <img src="/images/kakao_account_login_btn_large_wide.png" name="kakao" />
+
+                </div>
+                
+                
             </div>
         );
     }

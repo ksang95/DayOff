@@ -49,8 +49,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .accessDeniedPage("/deny")
         .and()
         .logout()
-        .logoutUrl("/logout")
-        .logoutSuccessUrl("/login");
+        .logoutUrl("/logout");
+        //.logoutSuccessUrl("/login");
     }
 
 
@@ -76,7 +76,7 @@ public ClientRegistrationRepository clientRegistrationRepository(OAuth2ClientPro
   .clientSecret(kakaoClientSecret)
   .jwkSetUri("temp")
   .build());
- registrations.add(CommonOAuth2Provider.GOOGLE.getBuilder("google")
+  registrations.add(CommonOAuth2Provider.GOOGLE.getBuilder("google")
   .clientId("")
   .clientSecret("")
   .scope("email","profile","https://www.googleapis.com/auth/user.phonenumbers.read","https://www.googleapis.com/auth/user.birthday.read")

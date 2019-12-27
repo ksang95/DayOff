@@ -73,7 +73,7 @@ class UpdateUser extends Component {
         const { handleChange, handleClick } = this;
 
         return (
-            <div>
+            <div className="UpdateUser">
                 {users &&
                     <SignUpForm users={users} onChange={handleChange} onClick={handleClick} error={error} button="회원정보 수정"></SignUpForm>
                 }

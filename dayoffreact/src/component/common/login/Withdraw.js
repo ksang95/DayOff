@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Button, ButtonToolbar, Form, Row, Col, Container } from 'react-bootstrap';
 
 class Withdraw extends Component {
 
@@ -46,15 +47,34 @@ class Withdraw extends Component {
     render() {
         const { selectedCode, code } = this.state;
         const { handleSelect, withdraw } = this;
-        const codeOp = code.map((c, index) => (<option key={c.code} value={index}>{c.content}</option>))
+        const codeOp = code.map((c, index) => (<Form.Check key={c.code} type="radio" value={index} name="code" id={c.content} label={c.content} onChange={handleSelect}/>))
         return (
-            <div>
-                <select value={selectedCode} onChange={handleSelect}>
-                    <option value="-1">탈퇴 사유 선택</option>
-                    {codeOp}
-                </select>
-                <div>{this.state.error}</div>
-                <div><button onClick={withdraw}>탈퇴하기</button></div>
+            <div className="Withdraw">
+                <Container>
+                    <div className="withdrawInfo">
+                    <div>
+                        회원 탈퇴 후에는 회원님의 모든 정보가 삭제됩니다.
+                    </div>
+                    <div>
+                        탈퇴하시려면 아래의 탈퇴 사유를 선택해주세요.
+                    </div>
+                    </div>
+                <Form.Group as={Row} className="withdrawCode" className="w-75 p-3 m-auto">
+                    <Form.Label column sm="3">
+                        탈퇴 사유
+                    </Form.Label>
+                    <Col sm="6">
+                        <Form>
+                            {codeOp}
+                        </Form>
+                    </Col>
+                </Form.Group>
+                <div className="mb-4"></div>
+                <div className="error pt-4">{this.state.error}</div>
+                <ButtonToolbar className="justify-content-center pt-4 mt-4 pb-4 mb-4">
+                    <Button variant="outline-dark" onClick={withdraw}>탈퇴하기</Button>
+                </ButtonToolbar>
+                </Container>
             </div>
 
         );
