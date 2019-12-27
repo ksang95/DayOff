@@ -1,0 +1,87 @@
+.MContents {
+  display: inline-block;
+  width: 100%;
+}
+.MContentItem_box {
+  margin-left: 130px;
+  display: inline-block;
+}
+.MContentItem {
+  width: 330px;
+  height: 470px;
+  border: 1px solid #c9c9c9;
+  display: inline-block;
+  border-radius: 4px;
+  box-shadow: 0px 0px 4px 4px #EAEAEA;
+  margin-left: 50px;
+  margin-bottom: 40px;
+  margin-top: 10px;
+}
+
+.MContentItem img {
+  width: 100%;
+  height: 300px;
+  border-bottom: 1px solid #c9c9c9;
+}
+
+.MContentItem h4{
+  max-height: 20px;
+  margin-left: 10px;
+}
+
+
+.MContentItem h2 {
+  margin: 4px 0px;
+  margin-left: 10px;
+
+}
+
+.MContentItem p {
+  overflow: hidden;
+  margin: 4px 0px;
+  color: #666;
+  margin-left: 10px;
+}
+
+.MLocationButton {
+  cursor: pointer;
+}
+
+.MDropButton {
+  margin-left: 1530px;
+}
+
+.MDropButton select{
+  background-color: #ffffff;
+  border-color: #ffffff;
+  width: 120px;
+  height: 40px;
+  font-size: 18px;
+}
+
+.MDropButton select option {
+  font-size: 20px;
+}
+
+.MContentsHeader_aa {
+  font-size: 40px;
+  color: red;
+  margin-right: 20px;
+}
+
+.MContentsHeader_box {
+  border-Bottom: 5px solid #EAEAEA;
+  display: inline-block;
+  height: 70px;
+  width: 1470px;
+  margin-left: 180px;
+}
+
+.MeditButton{
+  float: right;
+  background-color: transparent !important;
+  background-image: none !important;
+  border-color: transparent;
+  border: none;
+  height: 20px;
+}

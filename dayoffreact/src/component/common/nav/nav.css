@@ -1,0 +1,19 @@
+.Nav {
+  height: 100vh;
+  width: 180px;
+  display: inline-block;
+  border-right: 1px solid #c9c9c9;
+  padding: 8px;
+  margin-left: 35px;
+  float: left;
+}
+
+.NavItem {
+  padding: 16px 3px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.NavItem:hover {
+  background: #C9C9C9;
+}

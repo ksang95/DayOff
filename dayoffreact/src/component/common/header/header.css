@@ -1,15 +1,20 @@
 .Header {
-  height: 125px;
+  width: 100%;
+  height: 110px;
   /* background-color: blue; */
   padding: 0px;
   border-bottom: 1px solid #c9c9c9;
+  border-top: 1px solid #c9c9c9;
+  display: inline-block;
+  position: relative;
 }
 
 .logo {
-  height: 64px;
+  height: 49px;
   width: 222px;
-  margin: 35px 44px;
+  margin: 29px 70px;
   float: left;
+  display: inline-block;
 }
 
 .cartlogo {
@@ -21,17 +26,7 @@
   padding: 6px;
   width: 400px;
   display: inline-block;
-  margin-top: 20px;  
-}
-
-.headerA{
-  font-size: 18px;
-  width: 400px;
-  margin-left: 100px;
-}
-
-.headerA a {
-  text-decoration:none;
+  margin-top: 12px;
 }
 
 .ContentsHeader_aa {
@@ -40,13 +35,19 @@
   margin-right: 20px;
 }
 
-.ContentsHeader_box {
-  border-Bottom: 5px solid #EAEAEA;
-  padding : 3px;
-  margin: 8px 17px 10px;
-  height: 70px;
+.Header_Top {
+  height: 40px;
+  font-size: 20px;
+  float: right;
+  margin-top: 13px;
+  margin-right: 50px;
 }
 
-.headerNone{
-  clear: both;
+.Header_Top > a{
+  text-decoration:none;
+}
+
+.TotalHeader{
+  float: right;
+  width: 100%;
 }

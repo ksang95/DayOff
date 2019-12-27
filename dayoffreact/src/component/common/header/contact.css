@@ -1,0 +1,30 @@
+
+.search_box {
+  width: 300px;
+  height: 100px;
+  margin-left: 100px;
+  margin-top: 5px;
+}
+
+.search_input {
+  width: 250px;
+  height: 40px;
+  border-radius: 3px;
+  padding: 4px;
+  margin-top: 10px;
+}
+  
+.search_button {
+  height: 51px;
+  background: #fff;
+  padding: 4px 12px;
+  border-radius: 4px;
+  position: absolute;
+  margin-top: 9px;
+  width: 51px;
+}
+
+  .search_button img {
+    height: 20px;
+    width: 20px;
+  }

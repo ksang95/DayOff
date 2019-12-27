@@ -1,0 +1,26 @@
+.Banner {
+    width:100%;
+    height: 700px;
+    display: inline-block;
+}
+.GestureGallery {
+    width : 80% !important;
+    height: 800px !important;
+    margin-left: 180px !important;
+}
+.GalleryImage {
+    width: 100% !important;
+    height: 700px !important;
+}
+
+.GalleryImage img{
+    margin-top: 40px !important;
+    object-fit: fill !important;
+    width: 100% !important;
+    height: 700px !important;
+}
+
+.Gesture-view {
+    width : 100% !important;
+    height: 100% !important;
+}
