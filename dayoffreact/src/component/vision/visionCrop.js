@@ -2,8 +2,12 @@ import React, { Component } from 'react';
 import DropNCrop from '@synapsestudios/react-drop-n-crop';
 import '@synapsestudios/react-drop-n-crop/lib/react-drop-n-crop.min.css';
 import '../common/css/crop.css'
-import VisionMain from './visionMain'
+import VisionList from './visionList'
+import { Button } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import axios from 'axios';
 class visionCrop extends Component {
+
     state = {
         result: null,
         filename: null,
@@ -13,7 +17,23 @@ class visionCrop extends Component {
         list : null,
       };
      
-     
+      aaaa() {
+        axios.post('/crop', {
+          result : this.state.result
+          
+        })
+        .then(response => { 
+          console.log(response.data)
+          this.setState({
+            list : response.data.list,
+            recommendlist : response.data.recommend
+          })
+        })
+        .catch(error => {
+            console.log(error.response)
+        });
+        
+      }
       
       onChange = value => {
         this.setState(value);
@@ -29,9 +49,12 @@ class visionCrop extends Component {
            <br></br>
            <h1>인공지능을 통해 상품을 찾아보세요. </h1>
            <br></br><br></br>
-           <div style={{text}}>
+           <div style={{textAlign : "center"}}>
+             
            <img src="/images/AI.png" width="70%" height="300px"></img>
            </div>
+           <br></br>
+           <br></br>
                  <DropNCrop onChange={this.onChange} value={this.state} />
                  <div className="info"><h3>인공지능으로 똑똑하게!</h3>
           <br></br>
@@ -40,8 +63,21 @@ class visionCrop extends Component {
           <br></br>
           일치하는 상품이 없더라도 똑똑한 인공지능이 해당 제품의 카테고리를
           분석하여 같은 종류의 의류들을 추천해줍니다.
+
+
+          {this.state.result ? <div className="previewDiv">
+          <div className="buttonDiv">
+             <Button className="buttonVision" onClick={() => window.location.reload(false)}>다시하기</Button>
+          <br></br>
+          <Button className="buttonVision" onClick={this.aaaa.bind(this)}>검색하기</Button>
+         
+          
+         
+          
           </div>
-                 <VisionMain result={this.state.result}></VisionMain>
+          </div> : <div><br></br></div>}
+          </div>
+          <VisionList recommendlist={this.state.recommendlist} list={this.state.list}></VisionList>
             </div>
         );
     }
