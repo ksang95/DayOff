@@ -29,35 +29,37 @@ class App extends Component {
 
     return (
       <div>
+
         <Switch>
-        <Route path="/loginSuccess" component={LoginSuccess}/>
-        <Route path="/" component={Header} />
-        {/* <Route path="/" component={Menu} /> */}
+          <Route path="/loginSuccess" component={LoginSuccess} />
+          <Route path="/" component={Header} />
         </Switch>
         <Switch>
-          <Route exact path="/" component={Main}/>
-          <Route path="/login" component={LoginPage}/>
-          <Route path="/error" component={ErrorPage}/>
+          <Route exact path="/" component={Main} />
+          <Route path="/login" component={LoginPage} />
+          <Route path="/error" component={ErrorPage} />
           <Route path="/admin/updateInvoice" component={UpdateInvoice} />
           <Route path="/admin/addProduct" component={ProductAdd} />
           <Route path="/admin/stopProductSale/:productId" component={StopProductSale} />
           <Route path="/admin/userList" component={UserAxios} />
           <Route path="/admin/usersAnalysis" component={UserAnalysis} />
           <Route path="/admin/ordersAnalysis" component={OrderAnalysis} />
-          <Route path="/mypage/myorders/orderDetail/:groupId" component={OrderDetail}/>
-          <Route path="/admin/orders/orderDetail/:groupId" component={OrderDetail}/>
-          <Route path="/mypage/refundRequest" component={RefundRequest}/>
-          <Route path="/mypage/myInfo" component={UpdateUser}/>
+          <Route path="/mypage/myorders/orderDetail/:groupId" component={OrderDetail} />
+          <Route path="/admin/orders/orderDetail/:groupId" component={OrderDetail} />
+          <Route path="/mypage/refundRequest" component={RefundRequest} />
+          <Route path="/mypage/myInfo" component={UpdateUser} />
           <Route path="/mypage/withdraw" component={Withdraw} />
-          <Route path="/signUp" component={SignUp}/>
-          <Route path="/admin/orders" component={Orders}/>
-          <Route path="/vision" component={Vision}/>
-          <Route path="/mypage/myorders" component={Myorders}/>
-          <Route path="/cart" component={CartView} /> 
+          <Route path="/signUp" component={SignUp} />
+          <Route path="/admin/orders" component={Orders} />
+          <Route path="/vision" component={Vision} />
+          <Route path="/mypage/myorders" component={Myorders} />
+          <Route path="/cart" component={CartView} />
           <Route path="/product" component={ProductInfo} />
+          <Route path="/product/:productId" component={ProductInfo} />
 
 
         </Switch>
+        <Footer></Footer>
       </div>
     );
   }

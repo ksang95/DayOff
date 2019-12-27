@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Link} from 'react-router-dom';
 
 class ProductAddMessage extends Component {
 
@@ -11,9 +12,11 @@ class ProductAddMessage extends Component {
         console.log(latestProduct);
         const completeMessage = latestProduct?
                 (<div className="ProductAddMessage">
+                    <Link to={"/product/"+latestProduct.id}>
                     <div className="latestProduct">
                         <img src={"https://storage.googleapis.com/bit-jaehoon/" + latestProduct.productImage[0].name}></img>
                     </div>
+                    </Link>
                     <span className="productCount">{productCount}</span>
                     <span className="completeMessage">등록 완료</span>
                 </div>):null;

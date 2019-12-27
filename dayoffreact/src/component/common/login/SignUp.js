@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import SignUpForm from './SignUpForm';
+import { Button, ButtonToolbar } from 'react-bootstrap';
 
 class SignUp extends Component {
 
@@ -97,11 +98,11 @@ class SignUp extends Component {
     render() {
         const { users, signUp, error } = this.state;
         const { handleChange, handleClick, handleExit } = this;
-        const message = signUp ? (<div><div>가입을 환영합니다!</div>회원가입 기념 5% 할인 쿠폰이 쿠폰함으로 지급되었습니다. 쿠폰함을 확인하세요!<button onClick={handleExit}>확인</button></div>) : undefined;
+        const message = signUp ? (<div><div className="completeTitle">가입을 환영합니다!</div><div>회원가입 기념 5% 할인 쿠폰이 쿠폰함으로 지급되었습니다.</div><div>쿠폰함을 확인하세요!</div> <Button variant="outline-dark" onClick={handleExit}>확인</Button></div>) : undefined;
 
         if (!users) {
             return (
-                <div>
+                <div className="signUpCompleteMessage">
                     {message}
                 </div>
             );
