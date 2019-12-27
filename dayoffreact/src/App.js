@@ -21,6 +21,8 @@ import Main from './component/main/Main';
 import Footer from './component/common/footer/Footer';
 import LoginPage from './component/common/login/LoginPage';
 import ErrorPage from './component/common/login/ErrorPage';
+import CartView from "./component/cart/CartView";
+import ProductInfo from './component/productDetail/product/ProductInfo';
 
 class App extends Component {
   render() {
@@ -50,6 +52,10 @@ class App extends Component {
           <Route path="/admin/orders" component={Orders}/>
           <Route path="/vision" component={Vision}/>
           <Route path="/mypage/myorders" component={Myorders}/>
+          <Route path="/cart" component={CartView} /> 
+          <Route path="/productInfo" component={ProductInfo} />
+
+
         </Switch>
         <Footer></Footer>
       </div>
