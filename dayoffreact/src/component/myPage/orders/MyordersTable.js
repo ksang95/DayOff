@@ -41,7 +41,7 @@ class MyordersTable extends Component {
       {data.codeContent === "배송준비중" ? <OrderCancle orderId={data.orderId}></OrderCancle> : ""}
       {data.codeContent === "배송중" ?<Deliver invoice={data.invoice}></Deliver> : ""}
       {data.codeContent === "구매확정" ? <Link to={review+data.productId}>후기 작성</Link> : ""}
-      {data.codeContent === "배송완료" ? <OrderConfirm groupId={data.groupId}></OrderConfirm>  : ""}
+      {data.codeContent === "배송완료" ? <OrderConfirm groupId={data.orderId}></OrderConfirm>  : ""}
       <br></br>
       {data.codeContent === "배송완료" ? <Link to={{
                         pathname:"/mypage/refundRequest",

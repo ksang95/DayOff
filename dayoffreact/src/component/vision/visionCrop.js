@@ -3,7 +3,6 @@ import DropNCrop from '@synapsestudios/react-drop-n-crop';
 import '@synapsestudios/react-drop-n-crop/lib/react-drop-n-crop.min.css';
 import '../common/css/crop.css'
 import VisionMain from './visionMain'
-
 class visionCrop extends Component {
     state = {
         result: null,
@@ -30,6 +29,9 @@ class visionCrop extends Component {
            <br></br>
            <h1>인공지능을 통해 상품을 찾아보세요. </h1>
            <br></br><br></br>
+           <div style={{text}}>
+           <img src="/images/AI.png" width="70%" height="300px"></img>
+           </div>
                  <DropNCrop onChange={this.onChange} value={this.state} />
                  <div className="info"><h3>인공지능으로 똑똑하게!</h3>
           <br></br>

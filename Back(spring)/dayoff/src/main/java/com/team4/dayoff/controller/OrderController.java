@@ -92,17 +92,15 @@ public class OrderController {
       }
       
     @PostMapping("/confirm")
-    public void confirm(@RequestParam("groupId") Integer groupId){
-        List<Orders> orders = new ArrayList<>();
-        orders = orderRepository.findByOrderGroup(groupId);
+    public void confirm(@RequestParam("orderId") Integer orderId){
+        Orders orders = new Orders();
+        orders = orderRepository.findByOrderId(orderId);
         Code code = new Code();
         code.setCode("0003");
         code.setContent("구매확정");
         
-        orders.forEach(i->{
-            i.setCode(code);
-            orderRepository.save(i);
-        });
+            orders.setCode(code);
+            orderRepository.save(orders);
     }
     @PostMapping("/cancleOrder")
     public void cancleOrder(@RequestParam("orderId") Integer orderId){
