@@ -29,11 +29,9 @@ const slideData = [
 function Main() {
   return (
       <div>
-          <Header />
           <Banner />
           <Slider heading="Example Slider" slides={slideData} />   
           <MainContents />
-          <Footer />
           </div>
   );
 }
