@@ -1,5 +1,6 @@
 package com.team4.dayoff.controller;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,6 +10,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.team4.dayoff.api.googleStorageAPI.GoogleCloudStorageUpload;
+import com.team4.dayoff.api.visionAPI.ProductManagement;
+import com.team4.dayoff.api.visionAPI.WriteCsv;
 import com.team4.dayoff.entity.Category;
 import com.team4.dayoff.entity.Color;
 import com.team4.dayoff.entity.Product;
@@ -40,6 +43,10 @@ public class AdminProductController {
     private ProductSizeRepository productSizeRepository;
     @Autowired
     private ProductImageRepository productImageRepository;
+    @Autowired
+    private WriteCsv writeCsv;
+    @Autowired
+    private ProductManagement productManagement;
 
     @RequestMapping("/addProduct")
     public Map<String, Object> addProduct() {
@@ -56,12 +63,12 @@ public class AdminProductController {
         Map<String, Object> map = new HashMap<String, Object>();
         try {
             Product product = new ObjectMapper().readValue(json, Product.class);
-            Product latestProduct=null;
+            Product latestProduct = null;
             try {
                 String name = GoogleCloudStorageUpload.saveFile(files.get(0));
                 product.setDetailImage(name);
                 Product savedProduct = productRepository.save(product);
-                latestProduct=savedProduct;
+                latestProduct = savedProduct;
                 System.out.println(product);
                 List<ProductSize> productSizes = savedProduct.getProductSize();
                 productSizes.forEach(i -> {
@@ -76,8 +83,15 @@ public class AdminProductController {
                     productImage.setName(name);
                     productImage.setProduct(savedProduct);
                     productImageRepository.save(productImage);
+                    String uriname = "gs://bit-jaehoon/" + name;
+                    String imgPath = "https://storage.googleapis.com/bit-jaehoon/" + name;
+
+                    writeCsv.write('"' + uriname + '"' + "," + '"' + "img" + '"' + "," + '"' + "product" + '"' + ","
+                            + '"' + product.getName() + '"' + "," + '"' + "apparel" + '"' + "," + '"' + imgPath + '"'
+                            + "," + '"' + "category=" + product.getCategory().getName() + '"' + ",");
 
                 }
+
             } catch (IllegalStateException e) {
                 // TODO Auto-generated catch block
                 System.out.println(e.getMessage());
@@ -87,7 +101,7 @@ public class AdminProductController {
             }
 
             ProductImage latestProductImg = productImageRepository.findTop1ByProduct_IdOrderById(latestProduct.getId());
-            List<ProductImage> imgList=new ArrayList<ProductImage>();
+            List<ProductImage> imgList = new ArrayList<ProductImage>();
             imgList.add(latestProductImg);
             latestProduct.setProductImage(imgList);
             System.out.println(latestProduct);
@@ -96,6 +110,14 @@ public class AdminProductController {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+        try {
+            File file = new File("./visionInsert.csv");
+            GoogleCloudStorageUpload.saveFile(file);
+            productManagement.importProductSets("strong-kit-252505", "asia-east1", "gs://bit-jaehoon/visionInsert.csv");
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         return map;
     }
 
@@ -103,13 +125,13 @@ public class AdminProductController {
     public Map<String, Object> addSeveralProductProcess(String json, @RequestParam("file") List<MultipartFile> files) {
         Map<String, Object> map = new HashMap<String, Object>();
 
-        Product latestProduct=null;
+        Product latestProduct = null;
         JsonArray array = new Gson().fromJson(json, JsonArray.class);
-        for(int i=0; i<array.size(); i++){
+        for (int i = 0; i < array.size(); i++) {
             Product product = new Gson().fromJson(array.get(i), Product.class);
             System.out.println(product);
-            for(int j=0; j<files.size(); j++){
-                MultipartFile file=files.get(j);
+            for (int j = 0; j < files.size(); j++) {
+                MultipartFile file = files.get(j);
                 if (file.getOriginalFilename().equals(product.getDetailImage())) {
                     String iname = GoogleCloudStorageUpload.saveFile(file);
                     product.setDetailImage(iname);
@@ -119,15 +141,15 @@ public class AdminProductController {
 
             Product savedProduct = productRepository.save(product);
             latestProduct = savedProduct;
-            
+
             List<ProductSize> productSizes = savedProduct.getProductSize();
             productSizes.forEach(size -> {
                 size.setProduct(savedProduct);
             });
             productSizeRepository.saveAll(productSizes);
             savedProduct.getProductImage().forEach(image -> {
-                for(int j=0; j<files.size(); j++){
-                    MultipartFile file=files.get(j);
+                for (int j = 0; j < files.size(); j++) {
+                    MultipartFile file = files.get(j);
                     if (file.getOriginalFilename().equals(image.getOriginalName())) {
                         String iname = GoogleCloudStorageUpload.saveFile(file);
                         ProductImage productImage = new ProductImage();
@@ -135,12 +157,26 @@ public class AdminProductController {
                         productImage.setName(iname);
                         productImage.setProduct(savedProduct);
                         productImageRepository.save(productImage);
+                        String uriname = "gs://bit-jaehoon/" + iname;
+                        String imgPath = "https://storage.googleapis.com/bit-jaehoon/" + iname;
+
+                        writeCsv.write('"' + uriname + '"' + "," + '"' + "img" + '"' + "," + '"' + "product" + '"' + ","
+                                + '"' + product.getName() + '"' + "," + '"' + "apparel" + '"' + "," + '"' + imgPath
+                                + '"' + "," + '"' + "category=" + product.getCategory().getName() + '"' + ",");
                         break;
                     }
                 }
 
             });
 
+        }
+        File file = new File("./visionInsert.csv");
+        GoogleCloudStorageUpload.saveFile(file);
+        try {
+            productManagement.importProductSets("strong-kit-252505", "asia-east1", "gs://bit-jaehoon/visionInsert.csv");
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
         ProductImage latestProductImg = productImageRepository.findTop1ByProduct_IdOrderById(latestProduct.getId());
         List<ProductImage> imgList=new ArrayList<ProductImage>();

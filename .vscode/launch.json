@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - ProductManagement",
+            "request": "launch",
+            "mainClass": "com.team4.dayoff.api.visionAPI.ProductManagement",
+            "projectName": "dayoff"
+        },
+        {
+            "type": "java",
             "name": "Spring Boot-DemoApplication<dayoff>",
             "request": "launch",
             "cwd": "${workspaceFolder}",

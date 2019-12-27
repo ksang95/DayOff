@@ -1,6 +1,8 @@
 package com.team4.dayoff.api.googleStorageAPI;
 
 import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -58,6 +60,64 @@ public class GoogleCloudStorageUpload {
 	}
 
 	public static String saveFile(MultipartFile file) {
+		String name = null;
+		try {
+			String url = getImageUrl(file, "bit-jaehoon");
+			name = url.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('?'));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// [END storage_upload_file]
+		return name;
+	}
+
+
+
+
+// csv파일 스토리지 업로드 재훈사용
+
+
+
+
+	public static String getImageUrl(File file, final String bucketName)
+			throws IOException {
+		final String fileName = file.getName();
+		// Check extension of file
+		if (fileName != null && !fileName.isEmpty() && fileName.contains(".")) {
+			final String extension = fileName.substring(fileName.lastIndexOf('.') + 1);
+			String[] allowedExt = { "jpg", "jpeg", "png", "gif" ,"csv"};
+			for (String s : allowedExt) {
+				if (extension.equals(s)) {
+					return uploadFile(file, bucketName, s);
+				}
+			}
+		}
+		return null;
+	}
+
+	@SuppressWarnings("deprecation")
+	public static String uploadFile(File file, final String bucketName, String type)
+			throws IOException {
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("-YYYY-MM-dd-HHmmssSSS");
+		String date = simpleDateFormat.format(new Date());
+		String filen = file.getName();
+		FileInputStream fis = new FileInputStream(file);
+		final String fileName = filen.substring(0, filen.lastIndexOf('.')) + date
+				+ filen.substring(filen.lastIndexOf('.'));
+		System.out.println("1111111111111111111");
+		BufferedInputStream stream = new BufferedInputStream(fis);
+		BlobInfo blobInfo = storage
+				.create(BlobInfo.newBuilder(bucketName, file.getName()).setContentType("image/" + type).build(), stream);
+		System.out.println("22222222222222222222222");
+		return blobInfo.getMediaLink();
+
+		// https://storage.googleapis.com/bit-jaehoon/image.jpg : 아무나 볼 수 있는 url
+		// the inputstream is closed by default, so we don't need to close it here
+
+	}
+
+	public static String saveFile(File file) {
 		String name = null;
 		try {
 			String url = getImageUrl(file, "bit-jaehoon");

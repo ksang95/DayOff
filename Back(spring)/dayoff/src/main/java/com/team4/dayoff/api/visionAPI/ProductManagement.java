@@ -38,6 +38,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProductManagement {
 
+	public static void main(String[] args) throws IOException {
+		listProducts("strong-kit-252505", "asia-east1");
+	}
     public static void createProductSet(
         String projectId, String computeRegion, String productSetId, String productSetDisplayName)
         throws IOException {
@@ -115,7 +118,7 @@ public class ProductManagement {
         }
     }
 
-    public static void importProductSets(String projectId, String computeRegion, String gcsUri)
+    public void importProductSets(String projectId, String computeRegion, String gcsUri)
 	    throws Exception {
 	  try (ProductSearchClient client = ProductSearchClient.create()) {
 
@@ -247,5 +250,52 @@ public class ProductManagement {
 			}
 		}
 		return "";
+	}
+	public static void listProductSets(String projectId, String computeRegion) throws IOException {
+		try (ProductSearchClient client = ProductSearchClient.create()) {
+			// A resource that represents Google Cloud Platform location.
+			String formattedParent = ProductSearchClient.formatLocationName(projectId, computeRegion);
+			// List all the product sets available in the region.
+			for (ProductSet productSet : client.listProductSets(formattedParent).iterateAll()) {
+				// Display the product set information
+				System.out.println(String.format("Product set name: %s", productSet.getName()));
+				System.out.println(String.format("Product set id: %s",
+						productSet.getName().substring(productSet.getName().lastIndexOf('/') + 1)));
+				System.out.println(String.format("Product set display name: %s", productSet.getDisplayName()));
+				System.out.println("Product set index time:");
+				System.out.println(String.format("\tseconds: %s", productSet.getIndexTime().getSeconds()));
+				System.out.println(String.format("\tnanos: %s", productSet.getIndexTime().getNanos()));
+				
+			}
+		}
+	}
+	/**
+	 * List all products.
+	 *
+	 * @param projectId - Id of the project.
+	 * @param computeRegion - Region name.
+	 * @throws IOException - on I/O errors.
+	 */
+	public static void listProducts(String projectId, String computeRegion) throws IOException {
+	  try (ProductSearchClient client = ProductSearchClient.create()) {
+
+	    // A resource that represents Google Cloud Platform location.
+	    String formattedParent = ProductSearchClient.formatLocationName(projectId, computeRegion);
+
+	    // List all the products available in the region.
+	    for (Product product : client.listProducts(formattedParent).iterateAll()) {
+	      // Display the product information
+	      System.out.println(String.format("\nProduct name: %s", product.getName()));
+	      System.out.println(
+	          String.format(
+	              "Product id: %s",
+	              product.getName().substring(product.getName().lastIndexOf('/') + 1)));
+	      System.out.println(String.format("Product display name: %s", product.getDisplayName()));
+	      System.out.println(String.format("Product category: %s", product.getProductCategory()));
+	      System.out.println("Product labels:");
+	      System.out.println(
+	          String.format("Product labels: %s", product.getProductLabelsList().toString()));
+	    }
+	  }
 	}
 }
