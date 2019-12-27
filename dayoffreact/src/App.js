@@ -44,16 +44,17 @@ class App extends Component {
           <Route path="/admin/userList" component={UserAxios} />
           <Route path="/admin/usersAnalysis" component={UserAnalysis} />
           <Route path="/admin/ordersAnalysis" component={OrderAnalysis} />
-          <Route path="/orderDetail/:groupId" component={OrderDetail}/>
-          <Route path="/refundRequest" component={RefundRequest}/>
-          <Route path="/updateUser" component={UpdateUser}/>
-          <Route path="/withdraw" component={Withdraw} />
+          <Route path="/mypage/orderDetail/:groupId" component={OrderDetail}/>
+          <Route path="/admin/orderDetail/:groupId" component={OrderDetail}/>
+          <Route path="/mypage/refundRequest" component={RefundRequest}/>
+          <Route path="/mypage/myInfo" component={UpdateUser}/>
+          <Route path="/mypage/withdraw" component={Withdraw} />
           <Route path="/signUp" component={SignUp}/>
           <Route path="/admin/orders" component={Orders}/>
           <Route path="/vision" component={Vision}/>
           <Route path="/mypage/myorders" component={Myorders}/>
           <Route path="/cart" component={CartView} /> 
-          <Route path="/productInfo" component={ProductInfo} />
+          <Route path="/product" component={ProductInfo} />
 
 
         </Switch>

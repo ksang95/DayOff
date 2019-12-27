@@ -66,7 +66,7 @@ class OrderInfo extends Component {
                         : ""}
                     {codeContent === "배송완료" ? <button>구매 확정</button> : ""}
                     {codeContent === "구매확정" ? <Link to={{
-                        pathname: "/refundRequest",
+                        pathname: "/mypage/refundRequest",
                         state: {
                             orderCount: orderCount, //해당 order가 있는 orderGroup에 속한 order개수 넘겨주시오
                             orderView: this.props.order

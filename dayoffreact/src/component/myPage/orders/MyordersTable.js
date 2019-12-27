@@ -10,7 +10,7 @@ class MyordersTable extends Component {
       const detail = "/detail/"
       const detailOrder = "/orderDetail/"
       const userinfo = "/userinfo/"
-      const refund = "/refundRequest/"
+      const refund = "/mypage/refundRequest/"
       const review = "/reviewInsert/"
       
       const result = list.map((data,index) =>(
@@ -44,7 +44,7 @@ class MyordersTable extends Component {
       {data.codeContent === "배송완료" ? <OrderConfirm groupId={data.groupId}></OrderConfirm>  : ""}
       <br></br>
       {data.codeContent === "배송완료" ? <Link to={{
-                        pathname:"/refundRequest",
+                        pathname:"/mypage/refundRequest",
                         state:{
                             orderView:data
                         }

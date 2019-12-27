@@ -19,7 +19,7 @@ class Menu extends Component {
                     <li><Link to="/admin/ordersAnalysis">매출 통계</Link></li>
                     <li><Link to="/orderDetail/1?orderId=2">주문 상세정보</Link></li>
                     <li><Link to={{
-                        pathname:"/refundRequest",
+                        pathname:"/mypage/refundRequest",
                         state:{
                             orderCount:2, //해당 order가 있는 orderGroup에 속한 order개수 넘겨주시오
                             orderView:{
@@ -45,8 +45,8 @@ class Menu extends Component {
                             }
                         }
                     }}>환불 신청</Link></li>
-                    <li><Link to="/updateUser">회원정보 수정</Link></li>
-                    <li><Link to="/withdraw">탈퇴하기</Link></li>
+                    <li><Link to="/mypage/myInfo">회원정보 수정</Link></li>
+                    <li><Link to="/mypage/withdraw">탈퇴하기</Link></li>
 
                 </ul>
 
