@@ -27,7 +27,7 @@ export default class Header extends Component {
         return (
             <div className='TotalHeader'>
                 <div className='Header_Top'>
-                <a href='/'>로그인</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <Login history={this.props.hisotry}></Login>
                 <a href='/'> <img className='cartlogo' src='https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR_tGv3zp0DMgRlwrX-IigsyYiTWex_5B7PdYiKAhxlien9m6NF' alt='' /> 장바구니</a>
             </div>
 
@@ -46,8 +46,7 @@ export default class Header extends Component {
         return (
             <div className='TotalHeader'>
              <div className='Header_Top'>
-            <a href>길용성{sessionStorage.getItem("userId")} 님 / </a>
-            <a href='/'>로그아웃</a> &nbsp;&nbsp;
+             <Login history={this.props.hisotry}></Login>
             <a href='/'> <img className='cartlogo' src='https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR_tGv3zp0DMgRlwrX-IigsyYiTWex_5B7PdYiKAhxlien9m6NF' alt='' /> 장바구니</a>
             </div>
 
