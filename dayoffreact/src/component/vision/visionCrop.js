@@ -55,6 +55,7 @@ class visionCrop extends Component {
            </div>
            <br></br>
            <br></br>
+           <div className="visionbody">
                  <DropNCrop onChange={this.onChange} value={this.state} />
                  <div className="info"><h3>인공지능으로 똑똑하게!</h3>
           <br></br>
@@ -72,12 +73,13 @@ class visionCrop extends Component {
           <Button className="buttonVision" onClick={this.aaaa.bind(this)}>검색하기</Button>
          
           
-         
+          </div>
+          </div> : ""}
+          </div>
+          <br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
+          <VisionList recommendlist={this.state.recommendlist} list={this.state.list}></VisionList>
           
           </div>
-          </div> : <div><br></br></div>}
-          </div>
-          <VisionList recommendlist={this.state.recommendlist} list={this.state.list}></VisionList>
             </div>
         );
     }

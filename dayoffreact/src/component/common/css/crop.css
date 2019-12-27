@@ -40,15 +40,15 @@
     position: relative;
     display: inline-block;
     width: 90%;
-    height: 400px;
+    height: 150px;
     left : 5%;
 }
 .buttonDiv{
     position: relative;
     width : 400px;
     float: left;
-    height: 400px;
     margin-top: 20px;
+    height: 150px;
 }
 .buttonVision{
     position: relative;
@@ -60,8 +60,9 @@
 .info{
     position: relative;
     float : left;
-    left : 20%;
+    left : 30%;
     width: 400px;
+    height: 380px;
 }
 .listDiv{
     display: inline-block;
@@ -69,7 +70,6 @@
 }
 
 .imgbox{
-    width: 1000px;
     position: relative;
     left: 0;
 }
@@ -83,7 +83,16 @@
     max-height: 72px;
     overflow: hidden;
 }
-.imgbox h1{
+
+.visionbody{
+    display: inline-block;
     position: relative;
-    top : 50%;
+    width : 1000px !important;
+    left : 10%;
+}
+.visinoList{
+}
+.imgbox h1,h2{
+    left: 0;
+    display: block;
 }

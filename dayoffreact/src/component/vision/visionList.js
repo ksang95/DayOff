@@ -23,7 +23,7 @@ class visionList extends Component {
         (data,index) => (<div className="listDiv"><Link to={detail+data.productId}><img className="imglist" width="200px" height="250px" alt="" src={data.productThumbnailName}></img><p>{data.productName}</p></Link></div>)
                    )}          
         return (
-         <div> 
+         <div className="visionsList"> 
            
           {list ?  <div className="imgbox">
             <h1>상품검색 결과</h1>
