@@ -44,6 +44,10 @@ class ProductAdd extends Component {
         const { latestProduct, productCount, categories, colors } = this.state;
         return (
             <div className="ProductAdd">
+                <div className="pageTitle">
+                            <div>상품 등록</div>
+                </div>
+                <div className="productAddMenu">
                 <SlideToggle collapsed onExpanding={()=>{const item=document.getElementsByClassName("ProductSlideToggle toggle_EXPANDED").item(0); if(item)item.click(); }}
                     render={({ toggle, setCollapsibleElement, toggleState }) => (
                         <div className="my-collapsible">
@@ -57,7 +61,7 @@ class ProductAdd extends Component {
                             </div>
                         </div>
                     )}
-                />
+                    />
                 <SlideToggle collapsed onExpanding={()=>{const item=document.getElementsByClassName("SeveralProductSlideToggle toggle_EXPANDED").item(0); if(item)item.click(); }}
                     render={({ toggle, setCollapsibleElement, toggleState }) => (
                         <div className="my-collapsible">
@@ -70,7 +74,8 @@ class ProductAdd extends Component {
                             </div>
                         </div>
                     )}
-                />
+                    />
+                </div>
                 
                 <ProductAddMessage latestProduct={latestProduct} productCount={productCount}></ProductAddMessage>
             </div>

@@ -47,7 +47,7 @@ public class RefundsController {
     @PostMapping("/refundRequestProcess")
     public void refundRequestProcess(@RequestBody Refunds refunds) {
         Orders orders=ordersRepository.findById(refunds.getOrders().getId()).get();
-        orders.setCode(new Code("0004","환불신청완료"));
+        orders.setCode(new Code("0005","환불대기중"));
         refunds.setOrders(orders);
         Refunds savedRefunds=refundsRepository.save(refunds);
         System.out.println(savedRefunds);
@@ -58,7 +58,7 @@ public class RefundsController {
         System.out.println(refunds);
         Orders orders=ordersRepository.findById(refunds.getOrders().getId()).get();
         refunds.setRefundAmount(refunds.getRefundAmount());
-        orders.setCode(new Code("0005","환불완료"));
+        orders.setCode(new Code("0006","환불완료"));
         refunds.setOrders(orders);
         refunds.setRefundDate(new Date());
         Refunds savedRefunds=refundsRepository.save(refunds);

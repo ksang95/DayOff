@@ -40,7 +40,7 @@ class Menu extends Component {
                                 pointUse:1000,
                                 totalPay:65080,
                                 invoice:1,
-                                code:'0001',
+                                code:'0000',
                                 codeContent:'배송준비중'
                             }
                         }

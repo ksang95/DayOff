@@ -41,3 +41,20 @@
 .Withdraw .withdrawCode{
     margin: 5.0em;
 }
+
+.SignUpForm .title{
+    padding-top: 50pt;
+    margin-bottom: 20pt;
+    font-size: 20pt;
+}
+
+.SignUp{
+    width: 40%;
+    margin: 50pt auto;
+    border: 1px solid black;
+}
+
+.UpdateUser{
+    width: 40%;
+    margin: 50pt auto;
+}

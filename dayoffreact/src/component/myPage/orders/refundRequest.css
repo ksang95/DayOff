@@ -1,0 +1,31 @@
+
+.RefundRequest{
+    margin-bottom: 100px;
+}
+
+.RefundRequest table{
+    text-align: center;
+}
+
+.RefundRequest tr td{
+    vertical-align: middle;
+}
+
+.RefundRequest .tableTitle{
+    font-size: 15pt;
+    margin: 15px 30px;
+}
+
+.RefundRequest .request{
+    width: 50%;
+    margin: auto;
+}
+
+.RefundRequest .error{
+    text-align: center;
+    color:#c92a2a;
+}
+
+.RefundRequest .PayInfo{
+    margin-bottom: 50px;
+}

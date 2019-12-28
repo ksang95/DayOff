@@ -26,9 +26,11 @@ export default class Header extends Component {
     render() {
         if(this.state.login===true) {
         return (
+          <div>
+
             <div className='TotalHeader'>
                 <div className='Header_Top'>
-                  <Login history={this.props.hisotry}></Login>
+                  <Login history={this.props.history}></Login>
                 <a href='/'> <img className='cartlogo' src='https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR_tGv3zp0DMgRlwrX-IigsyYiTWex_5B7PdYiKAhxlien9m6NF' alt='' /> 장바구니</a>
             </div>
 
@@ -38,6 +40,8 @@ export default class Header extends Component {
                 <HeaderSearch />
             </div>
                 </div>
+                <div className="headerNone"></div>
+          </div>
         )
 
 
@@ -45,9 +49,10 @@ export default class Header extends Component {
         
     }else {
         return (
+          <div>
             <div className='TotalHeader'>
              <div className='Header_Top'>
-             <Login history={this.props.hisotry}></Login>
+             <Login history={this.props.history}></Login>
             <a href='/'> <img className='cartlogo' src='https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR_tGv3zp0DMgRlwrX-IigsyYiTWex_5B7PdYiKAhxlien9m6NF' alt='' /> 장바구니</a>
             </div>
 
@@ -56,7 +61,9 @@ export default class Header extends Component {
                 <Category />
                 <HeaderSearch />
             </div>
-                </div>
+            </div>
+            <div className="headerNone"></div>
+          </div>
         )
     }
 }

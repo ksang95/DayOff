@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 import DoughnutChart from './chart/DoughnutChart';
+import { Form, Row, Col } from 'react-bootstrap';
 
 class WithdrawReasonChart extends Component {
     state = {
@@ -63,9 +64,14 @@ class WithdrawReasonChart extends Component {
         const yearOp=this.props.select.map(y=>(<option key={y} value={y}>{y}</option>));
         return (
             <div>
-                <select value={selected} onChange={this.handleChange}>
-                    {yearOp}
-                </select>
+                <Form.Group as={Row} className="ml-4">
+                    <Col sm="3">
+                        <Form.Control as="select"value={selected} onChange={this.handleChange}>
+                        {yearOp}
+                        </Form.Control>
+                    </Col>
+                </Form.Group>
+                <Form.Group as={Row}></Form.Group>
                 {data.length > 0 && <DoughnutChart data={data} title={title} label={label} selected={selected} />}
             </div>
         );

@@ -2,6 +2,8 @@ import axios from 'axios';
 import React, { Component } from 'react';
 import OrderGroupList from './orderDetail/OrderGroupList';
 import PayInfo from './orderDetail/PayInfo';
+import "./refundRequest.css";
+import { Button, ButtonToolbar, Form, Container, Row, Col } from 'react-bootstrap';
 
 class RefundRequest extends Component {
     state = {
@@ -29,7 +31,7 @@ class RefundRequest extends Component {
         const { orderView, info } = this.state;
         if (code) {
             let refunds = {
-                orders: {id:orderView.orderId},
+                orders: { id: orderView.orderId },
                 code: code,
                 refundAmount: info.totalRefund
             }
@@ -93,18 +95,34 @@ class RefundRequest extends Component {
     render() {
         const { selectedCode, code, orderView, info, orderPrice } = this.state;
         const { handleSelect, refund } = this;
-        const codeOp = code.map((c, index) => (<option key={c.code} value={index}>{c.content}</option>));
+        const codeOp = code.map((c, index) => (<Form.Check className="p-2" key={c.code} type="radio" value={index} name="code" id={c.content} label={c.content} onChange={handleSelect}/>));
         return (
-            <div>
-                <div>환불신청</div>
+            <div className="RefundRequest">
+                <div className="pageTitle">
+                    <div>환불 신청</div>
+                </div>
                 {orderView && <OrderGroupList data={[].concat(orderView)}></OrderGroupList>}
+                <Container>
+                <div className="request">
+                <div className="tableTitle">환불 정보</div>
                 <PayInfo info={info} totalPrice={orderPrice}></PayInfo>
-                <select value={selectedCode} onChange={handleSelect}>
-                    <option value="-1">환불 사유 선택</option>
-                    {codeOp}
-                </select>
-                <div>{this.state.error}</div>
-                <button onClick={refund}>신청하기</button>
+                <Form.Group as={Row} className="p-3 m-auto">
+                    <Form.Label column sm="5">
+                        환불 사유
+                    </Form.Label>
+                    <Col sm="6">
+                        <Form>
+                            {codeOp}
+                        </Form>
+                    </Col>
+                </Form.Group>
+                <div className="mb-4"></div>
+                <div className="error pt-4">{this.state.error}</div>
+                <ButtonToolbar className="justify-content-center pt-4 mt-4 pb-4 mb-4">
+                    <Button variant="outline-dark" onClick={refund}>신청</Button>
+                </ButtonToolbar>
+                </div>
+                </Container>
             </div>
 
         );

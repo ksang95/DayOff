@@ -1,0 +1,47 @@
+.OrderGroupList{
+    width:70%;
+    margin:auto;
+    margin-bottom: 80px;
+}
+
+.RefundList{
+    width:70%;
+    margin:auto;
+    margin-bottom: 80px;
+}
+
+.OrderDetail{
+    margin-bottom: 100px;
+}
+
+.OrderDetail table{
+    text-align: center;
+}
+
+.OrderDetail tr td{
+    vertical-align: middle;
+}
+
+.OrderDetail tr td button{
+    margin-top: 10px
+}
+
+.OrderDetail .tableTitle{
+    font-size: 15pt;
+    margin: 15px 30px;
+}
+
+.OrderDetail .orderDetailUser{
+    width:70%;
+    margin: 10px auto;
+    padding-right: 20px;
+    text-align: right;
+}
+
+.OrderDetail .orderDetailOrder{
+    width:70%;
+    margin: 10px auto;
+    padding-right: 20px;
+    text-align: right;
+}
+

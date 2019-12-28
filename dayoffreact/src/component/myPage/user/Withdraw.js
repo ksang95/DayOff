@@ -47,9 +47,12 @@ class Withdraw extends Component {
     render() {
         const { selectedCode, code } = this.state;
         const { handleSelect, withdraw } = this;
-        const codeOp = code.map((c, index) => (<Form.Check key={c.code} type="radio" value={index} name="code" id={c.content} label={c.content} onChange={handleSelect}/>))
+        const codeOp = code.map((c, index) => (<Form.Check className="p-2" key={c.code} type="radio" value={index} name="code" id={c.content} label={c.content} onChange={handleSelect}/>))
         return (
             <div className="Withdraw">
+                <div className="pageTitle">
+                            <div>회원 탈퇴</div>
+                </div>
                 <Container>
                     <div className="withdrawInfo">
                     <div>
@@ -59,7 +62,7 @@ class Withdraw extends Component {
                         탈퇴하시려면 아래의 탈퇴 사유를 선택해주세요.
                     </div>
                     </div>
-                <Form.Group as={Row} className="withdrawCode" className="w-75 p-3 m-auto">
+                <Form.Group as={Row} className="withdrawCode w-75 p-3 m-auto">
                     <Form.Label column sm="3">
                         탈퇴 사유
                     </Form.Label>

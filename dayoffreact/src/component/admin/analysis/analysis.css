@@ -1,0 +1,19 @@
+.UserAnalysis{
+    width: 70%;
+    margin: auto;
+}
+
+.OrderAnalysis{
+    width: 70%;
+    margin: auto;
+
+}
+
+.UserAnalysis > div{
+    margin-bottom: 100px;
+}
+
+.OrderAnalysis > div{
+    margin-bottom: 100px;
+
+}

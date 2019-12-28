@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 import TwoBarChart from './chart/TwoBarChart';
+import { Form, Row, Col } from 'react-bootstrap';
 
 class LoginSexAndAgeChart extends Component {
     state = {
@@ -65,9 +66,14 @@ class LoginSexAndAgeChart extends Component {
         const yearMonthOp=this.props.select.map(y=>(<option key={y} value={y}>{y}</option>));
         return (
             <div>
-                 <select value={selected} onChange={this.handleChange}>
-                    {yearMonthOp}
-                </select>
+                <Form.Group as={Row} className="ml-4">
+                    <Col sm="3">
+                        <Form.Control as="select"value={selected} onChange={this.handleChange}>
+                        {yearMonthOp}
+                        </Form.Control>
+                    </Col>
+                </Form.Group>
+                <Form.Group as={Row}></Form.Group>
                 {data.length > 0 && <TwoBarChart data={data} title={title} label={label} selected={selected&&selected.substring(selected.indexOf('-')+1)} />}
             </div>
         );

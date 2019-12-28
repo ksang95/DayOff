@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
+import { Button } from 'react-bootstrap';
 
 class OrderConfirm extends Component {
 
@@ -24,7 +25,7 @@ class OrderConfirm extends Component {
     render() {
         return (
             <div>
-                 <button onClick={this.f3.bind(this)}>구매 확정</button>
+              <Button variant="secondary" onClick={this.f3.bind(this)}>구매 확정</Button>
             </div>
         );
     }

@@ -8,7 +8,7 @@ import ProductAdd from './component/admin/product/ProductAdd';
 import UserAxios from './component/admin/userList/UserAxios';
 import LoginSuccess from './component/common/login/LoginSuccess';
 import SignUp from './component/common/login/SignUp';
-import Withdraw from './component/common/login/Withdraw';
+import Withdraw from './component/myPage/user/Withdraw';
 import OrderDetail from './component/myPage/orders/orderDetail/OrderDetail';
 import RefundRequest from './component/myPage/orders/RefundRequest';
 import UpdateUser from './component/myPage/user/UpdateUser';

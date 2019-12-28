@@ -5,6 +5,8 @@ import OrderType from './OrderType';
 import PayInfo from './PayInfo';
 import queryString from 'query-string';
 import RefundList from './RefundList';
+import "./orderDetail.css"
+import { Col, Row } from 'react-bootstrap';
 
 class OrderDetail extends Component {
     state = {
@@ -50,22 +52,31 @@ class OrderDetail extends Component {
 
     render() {
         const isAdmin = sessionStorage.getItem("userRole") === "admin";
-        const isMine = sessionStorage.getItem("userId") === this.state.userId;
+        const isMine = parseInt(sessionStorage.getItem("userId")) === this.state.userId;
         // const isMine=true;
         const refundData = this.state.data.filter(d => d.refundRequestDate);
 
         return (
-            <div className="orderDetail">
-                {(isMine||isAdmin) && this.state.totalPrice &&
+            <div className="OrderDetail">
+                {(isMine || isAdmin) && this.state.totalPrice &&
 
                     <Fragment>
-                        주문 상세정보
-                {isAdmin && <div><span>회원: {this.state.userName}</span> <span>(ID: {this.state.userId})</span></div>}
-                        <div>주문번호: {this.state.info.groupId}</div>
+                        <div className="pageTitle">
+                            <div>주문 상세 정보</div>
+                        </div>
+                        {isAdmin && <div className="orderDetailUser"><span>회원: {this.state.userName}</span> <span>(회원번호: {this.state.userId})</span></div>}
+                        <div className="orderDetailOrder">주문번호: {this.state.info.groupId}</div>
                         <OrderGroupList data={this.state.data} orderId={this.state.orderId} isAdmin={isAdmin} getData={this.getData} needState={true}></OrderGroupList>
                         {refundData && <RefundList data={refundData} orderId={this.state.orderId}></RefundList>}
+                        <Row style={{width:"70%", margin:"auto"}}>
+                            <Col>
                         <OrderType info={this.state.info} />
+                            </Col>
+                            <Col>
+                        <div className="tableTitle">결제 정보</div>
                         <PayInfo totalPrice={this.state.totalPrice} info={this.state.info} />
+                            </Col>
+                        </Row>
                     </Fragment>
                 }
             </div>

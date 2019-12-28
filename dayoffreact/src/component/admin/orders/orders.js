@@ -96,14 +96,15 @@ export default class orders extends Component {
         <hr width="97%"></hr>
        주문상태별 조회 -> <select value={this.state.value} onChange={this.handleChange.bind(this)}>
           <option value="all">전체</option>
-          <option value="0001">배송준비중</option>
-          <option value="0007">배송중</option>
+          <option value="0000">배송준비중</option>
+          <option value="0001">배송중</option>
           <option value="0002">배송완료</option>
-          <option value="0003">구매확정</option>
-          <option value="0004">환불신청완료</option>
-          <option value="0005">환불완료</option>
-          <option value="0006">취소완료</option>
-          <option value="0000">후기작성완료</option>
+          <option value="0003">픽업예정</option>
+          <option value="0004">픽업완료</option>
+          <option value="0005">환불대기중</option>
+          <option value="0006">환불완료</option>
+          <option value="0007">구매확정</option>
+          <option value="0008">후기작성완료</option>
         
         </select> 
         <br></br>

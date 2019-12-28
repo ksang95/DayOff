@@ -10,6 +10,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
+import javax.swing.text.MaskFormatter;
+
 import com.google.api.services.people.v1.model.Person;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -91,6 +93,15 @@ public class GoogleAPI implements LoginAPI {
                 JsonObject jsonObject = (json.getAsJsonObject().get("phoneNumbers").getAsJsonArray().get(0))
                         .getAsJsonObject();
                 phoneNumber = jsonObject.get("value").getAsString();
+                try {
+                    MaskFormatter maskFormatter=new MaskFormatter("###-####-####");
+                    maskFormatter.setValueContainsLiteralCharacters(false);
+                    phoneNumber=maskFormatter.valueToString(phoneNumber);
+                    System.out.println(phoneNumber);
+                } catch (ParseException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
 
             }
             if (result.contains("genders")) {

@@ -5,8 +5,10 @@ import java.util.List;
 import com.team4.dayoff.entity.Refunds;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * RefundsRepository
@@ -20,5 +22,10 @@ public interface RefundsRepository extends JpaRepository<Refunds,Integer> {
 
     @Query(value="SELECT DISTINCT DATE_FORMAT(refundDate,'%Y') year FROM refunds ORDER BY year DESC",nativeQuery = true)
     List<String> findYearOfRefunds();
+
+    @Transactional
+    @Modifying
+    @Query(value="UPDATE Refunds SET refundDate=CURRENT_TIMESTAMP() WHERE orderId=:orderId")
+    void giveRefunds(@Param("orderId") int orderId);
 
 }

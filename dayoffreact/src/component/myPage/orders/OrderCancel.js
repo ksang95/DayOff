@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
 import { withRouter } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 
 class OrderCancel extends Component {
 
@@ -57,7 +58,7 @@ class OrderCancel extends Component {
     render() {
         return (
             <div>
-                <button onClick={this.f3.bind(this)}>주문취소</button>
+                <Button variant="secondary" onClick={this.f3.bind(this)}>주문 취소</Button>
             </div>
         );
     }

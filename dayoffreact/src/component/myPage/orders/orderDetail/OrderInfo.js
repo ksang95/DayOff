@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import './OrderInfo.css';
+import './orderInfo.css';
 import { Link } from 'react-router-dom';
 import SlideToggle from "react-slide-toggle";
 import axios from 'axios';
 import OrderCancel from '../OrderCancel';
 import Deliver from '../Deliver';
 import OrderConfirm from '../OrderConfirm';
+import { Button, Form, Col, Row } from 'react-bootstrap';
+import GoNextState from '../GoNextState';
 
 class OrderInfo extends Component {
 
@@ -33,26 +35,48 @@ class OrderInfo extends Component {
             [e.target.name]: e.target.value
         })
     }
+
+    invoiceSubmit = () => {
+        if (this.state.newInvoice.length > 0)
+            this.updateInvoice(this.state.newInvoice, this.props.order.groupId, this.props.order.orderId);
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        return this.props.order !== nextProps.order || this.state.newInvoice!==nextState.newInvoice;
+    }
+
     render() {
         const { orderId, productName, orderPrice, orderColor, orderSize, orderQuantity, productThumbnailName, productId, codeContent, orderCount, groupId, invoice } = this.props.order;
-        console.log(invoice)
         const className = this.props.thisOrder ? "orderBold" : "orderLight";
-        const adminCodeButton = this.props.isAdmin && codeContent === "배송준비중" && (
-            <SlideToggle collapsed="true" render={({ toggle, setCollapsibleElement }) => (
-                <div className="my-collapsible">
-                    <button className="my-collapsible__toggle" onClick={toggle}>
-                        송장번호등록
-                 </button>
-                    <div className="my-collapsible__content" ref={setCollapsibleElement}>
-                        <div className="my-collapsible__content-inner">
-                            <input type="text" onChange={this.handleChangeInput2.bind(this)} name="newInvoice" value={this.state.newInvoice}></input>
-                            <button onClick={() => this.updateInvoice.bind(this)(this.state.newInvoice, groupId, orderId)}>등록</button>
-                        </div>
-                    </div>
-                </div>
-            )}></SlideToggle>);
-        let userCodeButton=null;
+        let adminCodeButton = null;
         if (this.props.isAdmin) {
+            switch (codeContent) {
+                case "배송준비중":
+                    adminCodeButton = (
+                        <SlideToggle collapsed="true" render={({ toggle, setCollapsibleElement }) => (
+                            <div className="my-collapsible">
+                                <Button variant="secondary" className="my-collapsible__toggle" onClick={toggle}>
+                                    송장번호 등록
+                                </Button>
+                                <div className="my-collapsible__content" ref={setCollapsibleElement}>
+                                    <div className="my-collapsible__content-inner">
+                                        <Form.Control style={{ width: "70%", display: "inline" }} type="text" placeholder="송장번호" onChange={this.handleChangeInput2.bind(this)} name="newInvoice" value={this.state.newInvoice} />
+                                        <Button variant="secondary" className="ml-1" onClick={this.invoiceSubmit}>등록</Button>
+                                    </div>
+                                </div>
+                            </div>
+                        )}></SlideToggle>);
+                    break;
+                case "환불대기중":
+                    adminCodeButton = (<GoNextState orderId={orderId} buttonName="환불 승인"></GoNextState>);
+                    break;
+                case "픽업예정":
+                    adminCodeButton=(<GoNextState orderId={orderId} buttonName="픽업 완료"></GoNextState>);
+                    break;
+            }
+        }
+        let userCodeButton = null;
+        if (!this.props.isAdmin) {
             switch (codeContent) {
                 case "배송준비중":
                     userCodeButton = <OrderCancel order={this.props.order} orderCount={orderCount}></OrderCancel>;
@@ -61,7 +85,7 @@ class OrderInfo extends Component {
                     userCodeButton = <Deliver invoice={invoice}></Deliver>;
                     break;
                 case "구매확정":
-                    userCodeButton = <Link to={"/reviewInsert/" + productId}>후기 작성</Link>;
+                    userCodeButton = <Link to={"/reviewInsert/" + productId}><Button variant="secondary">후기 작성</Button></Link>;
                     break;
                 case "배송완료":
                     userCodeButton = (<div><OrderConfirm orderId={orderId}></OrderConfirm><br></br><Link to={{
@@ -70,7 +94,7 @@ class OrderInfo extends Component {
                             orderView: this.props.order,
                             orderCount: this.props.orderCount
                         }
-                    }}>환불 신청</Link></div>);
+                    }}><Button variant="secondary">환불 신청</Button></Link></div>);
                     break;
 
             }
@@ -78,10 +102,10 @@ class OrderInfo extends Component {
 
         return (
             <tr className={className}>
-                <td>{orderId}</td>
-                <td>
-                    <Link to={"/detail/" + productId}><div className="infoDiv"><img width="90px" height="106px" src={"https://storage.googleapis.com/bit-jaehoon/" + productThumbnailName}></img>
-                        <div style={{ overflow: 'hidden' }} className="nameColor">
+                <td style={{ width: "5%" }}>{orderId}</td>
+                <td style={{ width: "50%" }}>
+                    <Link to={"/product/" + productId}><div className="infoDiv"><img width="100px" height="100px" src={"https://storage.googleapis.com/bit-jaehoon/" + productThumbnailName}></img>
+                        <div style={{ maxWidth: "90%", padding: "0px 20px", wordBreak: "break-all" }} className="nameColor">
                             {productName}
                         </div>
                     </div></Link>
@@ -90,7 +114,7 @@ class OrderInfo extends Component {
                 <td>{orderSize}</td>
                 <td>{orderQuantity}</td>
                 <td>{orderPrice}원</td>
-                <td>{codeContent}
+                <td style={{ width: "18%" }}>{codeContent}
                     {adminCodeButton}
                     {userCodeButton}
                 </td>

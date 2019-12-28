@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import SignUpForm from '../../common/login/SignUpForm';
+import { Container, Row } from 'react-bootstrap';
+import "../../common/css/common.css";
 
 class UpdateUser extends Component {
 
@@ -23,7 +25,7 @@ class UpdateUser extends Component {
             let users = success.data;
             console.log(users)
             for (let u of Object.keys(users)) {
-                users[u] = users[u]!==null ? users[u] : '';
+                users[u] = users[u] !== null ? users[u] : '';
             }
             this.setState({
                 users: users
@@ -45,9 +47,9 @@ class UpdateUser extends Component {
 
     handleClick = async () => {
         let flag = true;
-        const users = {...this.state.users};
+        const users = { ...this.state.users };
         for (let key of Object.keys(users)) {
-            users[key]=users[key]!==''?users[key]:null;
+            users[key] = users[key] !== '' ? users[key] : null;
             if ((key === 'name' || key === 'phone' || key === 'birth') && !(users[key])) {
                 flag = false;
             }
@@ -73,9 +75,16 @@ class UpdateUser extends Component {
         const { handleChange, handleClick } = this;
 
         return (
-            <div className="UpdateUser">
+            <div>
                 {users &&
-                    <SignUpForm users={users} onChange={handleChange} onClick={handleClick} error={error} button="회원정보 수정"></SignUpForm>
+                    <div>
+                        <div className="pageTitle">
+                            <div>회원 정보 수정</div>
+                        </div>
+                        <Container className="UpdateUser">
+                            <SignUpForm users={users} onChange={handleChange} onClick={handleClick} error={error} button="수정"></SignUpForm>
+                        </Container>
+                    </div>
                 }
             </div>
         );

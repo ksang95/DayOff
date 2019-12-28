@@ -81,8 +81,7 @@
 }
 
 .signUpCompleteMessage > div{
-    margin: auto;
-    margin-top: 100px;
+    margin: 200px auto;
     width: 30%;
     height: 300px;
     font-size: 15pt;
@@ -101,4 +100,10 @@
     padding-top: 70px;
     
 
+}
+
+.signUpTitle{
+    padding-top: 50pt;
+    margin-bottom: 20pt;
+    font-size: 20pt;
 }

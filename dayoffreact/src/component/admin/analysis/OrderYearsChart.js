@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ThreeLineChart from './chart/TwoBarOneLineChart';
 import TwoBarOneLineChart from './chart/TwoBarOneLineChart';
 
 class OrderYearsChart extends Component {

@@ -25,12 +25,14 @@ import com.team4.dayoff.entity.OrderView;
 import com.team4.dayoff.entity.Orders;
 import com.team4.dayoff.entity.ProductList;
 import com.team4.dayoff.entity.RecommendByCategory;
+import com.team4.dayoff.entity.Refunds;
 import com.team4.dayoff.repository.OrderDetailViewRepository;
 import com.team4.dayoff.repository.OrderGroupRepository;
 import com.team4.dayoff.repository.OrderViewRepository;
 import com.team4.dayoff.repository.OrdersRepository;
 import com.team4.dayoff.repository.ProductRepository;
 import com.team4.dayoff.repository.RecommendRepository;
+import com.team4.dayoff.repository.RefundsRepository;
 
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,6 +68,9 @@ public class OrderController {
     @Autowired
     private OrdersRepository orderRepository;
 
+    @Autowired
+    private RefundsRepository refundsRepository;
+
     private static String readAll(Reader rd) throws IOException {
         StringBuilder sb = new StringBuilder();
         int cp;
@@ -92,7 +97,7 @@ public class OrderController {
         Orders orders = new Orders();
         orders = orderRepository.findByOrderId(orderId);
         Code code = new Code();
-        code.setCode("0003");
+        code.setCode("0007");
         code.setContent("구매확정");
         
             orders.setCode(code);
@@ -106,7 +111,7 @@ public class OrderController {
                 if(pageable.getPageNumber()==0){
                     System.out.println("Test");
                 List<OrderView> list2 = new ArrayList<>();
-                list2 = orderViewRepository.findByCode("0007");
+                list2 = orderViewRepository.findByCode("0001");
                     
                 list2.forEach(i->{
                             
@@ -176,7 +181,7 @@ public class OrderController {
 
         Code code = new Code();
 
-        code.setCode("0007");
+        code.setCode("0001");
         code.setContent("배송중");
 
          orderGroup.getOrders().forEach(i->{
@@ -201,7 +206,7 @@ public class OrderController {
         if(pageable.getPageNumber()==0){
             System.out.println("Test");
         List<OrderView> list2 = new ArrayList<>();
-        list2 = orderViewRepository.findByCode("0007");
+        list2 = orderViewRepository.findByCode("0001");
             
         list2.forEach(i->{
                     
@@ -303,6 +308,22 @@ public class OrderController {
         List<OrderDetailView> list = orderDetailViewRepository.findByGroupId(groupId);
 
         return list;
+    }
+
+    @PostMapping("/goNextState")
+    public void goNextState(@RequestParam("orderId") Integer orderId){
+        Orders orders =orderRepository.findById(orderId).get();
+        String nextCode="000"+(Integer.parseInt(orders.getCode().getCode())+1);
+        switch(nextCode){
+            case "0004":
+            orders.setCode(new Code(nextCode,"픽업완료"));
+            break;
+            case "0006":
+            orders.setCode(new Code(nextCode,"환불완료"));
+            refundsRepository.giveRefunds(orderId);
+            break;
+        }
+        orderRepository.save(orders);
     }
 
 }

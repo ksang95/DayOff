@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './OrderInfo.css';
 import { Link } from 'react-router-dom';
 
 class RefundInfo extends Component {
@@ -9,14 +8,14 @@ class RefundInfo extends Component {
         const className = this.props.thisOrder ? "orderBold" : "orderLight";
         return (
             <tr className={className}>
-                <td>{orderId}</td>
-                <td>
-                    <Link to={"/detail/" + productId}><div className={"infoDiv " + className}><img width="90px" height="106px" src={"https://storage.googleapis.com/bit-jaehoon/" + productThumbnailName}></img>
-                        <div style={{ overflow: 'hidden' }} className="nameColor">
-                            {productName}
-                        </div>
-                    </div></Link>
-                </td>
+            <td style={{width:"5%"}}>{orderId}</td>
+            <td style={{width:"50%"}}>
+                <Link to={"/product/" + productId}><div className="infoDiv"><img width="100px" height="100px" src={"https://storage.googleapis.com/bit-jaehoon/" + productThumbnailName}></img>
+                    <div style={{ maxWidth:"90%", padding:"0px 20px", wordBreak:"break-all" }} className="nameColor">
+                        {productName}
+                    </div>
+                </div></Link>
+            </td>            
                 <td>{refundAmount}원</td>
                 <td>{refundRequestDate}</td>
                 <td>{refundDate?refundDate:"환불대기"}</td>

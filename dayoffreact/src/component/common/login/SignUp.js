@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import SignUpForm from './SignUpForm';
-import { Button, ButtonToolbar } from 'react-bootstrap';
+import { Button, ButtonToolbar, Row, Container } from 'react-bootstrap';
 
 class SignUp extends Component {
 
@@ -108,7 +108,10 @@ class SignUp extends Component {
             );
         } else {
             return (
+                <Container className="SignUp">
+                <Row className="signUpTitle justify-content-center">추가 정보 입력</Row>
                 <SignUpForm users={users} onChange={handleChange} onClick={handleClick} error={error} button="확인"></SignUpForm>
+                </Container>
             );
         }
     }

@@ -156,7 +156,7 @@ class ProductForm extends Component {
 
     handleDelete = (e) => {
         const name = e.target.getAttribute("name");
-        if (name != undefined) {
+        if (name) {
             this.setState({
                 product: {
                     ...this.state.product,

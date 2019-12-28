@@ -33,10 +33,13 @@ class OrderAnalysis extends Component {
         const {data}=this.state;
         
         return (
-            <div>
+            <div >
+                <div className="pageTitle">
+                            <div>매출 통계</div>
+                </div >
                 {data &&
                (
-                <div>
+                <div className="OrderAnalysis">
                 <OrderSexAndAgeChart data={data.orderSexAndAge} select={data.yearMonthsOfOrders}></OrderSexAndAgeChart>
                 <OrderMonthsChart data={data.orderMonth} select={data.yearsOfOrders}></OrderMonthsChart>
                 <OrderYearsChart data={data.orderYear}></OrderYearsChart>

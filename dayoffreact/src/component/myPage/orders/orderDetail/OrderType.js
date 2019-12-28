@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Button, Table } from 'react-bootstrap';
 
 class OrderType extends Component {
     static defaultProps = {
@@ -6,7 +7,7 @@ class OrderType extends Component {
     }
 
 
-    onClick=()=>{
+    onClick = () => {
         window.open("https://tracker.delivery/#/kr.cjlogistics/" + this.props.info.invoice, '', 'width=700px, height=500px, left=500px ,top=200px');
     }
     render() {
@@ -14,47 +15,47 @@ class OrderType extends Component {
         if (info.deliverId) {
             const { invoice, deliverName, deliverLocation, deliverPostalCode, deliverPhone } = info;
             return (
-                <div className="orderDeliver">
-                    배송 정보
-                    <table>
+                <div className="OrderType orderDeliver">
+                    <div className="tableTitle">배송 정보</div>
+                    <Table bordered>
+
                         <tbody>
 
                             <tr>
-                                <td>수령인</td><td>{deliverName}</td>
+                                <th>수령인</th><td>{deliverName}</td>
                             </tr>
                             <tr>
-                                <td>배송지</td><td>{deliverLocation}</td>
+                                <th>배송지</th><td style={{maxWidth:"90%", wordBreak:"break-all" }}>{deliverLocation}</td>
                             </tr>
                             <tr>
-                                <td>우편번호</td><td>{deliverPostalCode}</td>
+                                <th>우편번호</th><td>{deliverPostalCode}</td>
                             </tr>
                             <tr>
-                                <td>연락처</td><td>{deliverPhone}</td>
+                                <th>연락처</th><td>{deliverPhone}</td>
                             </tr>
                             <tr>
-                                <td>송장번호</td><td>CJ대한통운 {invoice} <a href="#" onClick={this.onClick}>배송조회</a></td>
+                                <th>송장번호</th><td>CJ대한통운 {invoice} <Button onClick={this.onClick}>배송조회</Button></td>
                             </tr>
                         </tbody>
-                    </table>
+                    </Table>
                 </div>
             );
         }
         else {
             const { storesName, storesLocation } = info;
             return (
-                <div className="orderPickUp">
-                    픽업 정보
-                    <table>
+                <div className="OrderType orderPickUp">
+                    <div className="tableTitle">픽업 정보</div>
+                    <Table bordered>
                         <tbody>
-
                             <tr>
-                                <td>픽업 매장</td><td>{storesName}</td>
+                                <th>픽업 매장</th><td>{storesName}</td>
                             </tr>
                             <tr>
-                                <td>주소</td><td>{storesLocation}</td>
+                                <th>주소</th><td style={{maxWidth:"90%", wordBreak:"break-all" }}>{storesLocation}</td>
                             </tr>
                         </tbody>
-                    </table>
+                    </Table>
                 </div>
             );
         }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import InputMask from 'react-input-mask';
 import { Button, ButtonToolbar, Form, Row, Col, Container } from 'react-bootstrap';
-import "./UserForm.css";
+import "./userForm.css";
 
 class SignUpForm extends Component {
 
@@ -11,8 +11,8 @@ class SignUpForm extends Component {
         const { error, onChange, onClick, button } = this.props;
         return (
             <div className="SignUpForm">
-                <Container>
-                <Form.Group as={Row} className="w-75 p-3 m-auto">
+                {/* <Container> */}
+                <Form.Group as={Row} className="p-3 m-auto justify-content-center">
                     <Form.Label column sm="3">
                         이름*
                 </Form.Label>
@@ -20,7 +20,7 @@ class SignUpForm extends Component {
                         <Form.Control type="input" name="name" value={name} onChange={onChange} />
                     </Col>
                 </Form.Group>
-                <Form.Group as={Row} className="w-75 p-3 m-auto">
+                <Form.Group as={Row} className="p-3 m-auto justify-content-center">
                     <Form.Label column sm="3">
                         연락처*
                 </Form.Label>
@@ -28,7 +28,7 @@ class SignUpForm extends Component {
                         <InputMask className="inputMask" mask="999-9999-9999" maskChar={null} name="phone" value={phone} onChange={onChange} placeholder="010-0000-0000" />
                     </Col>
                 </Form.Group>
-                <Form.Group as={Row} className="w-75 p-3 m-auto">
+                <Form.Group as={Row} className="p-3 m-auto justify-content-center">
                     <Form.Label column sm="3">
                         생일*
                 </Form.Label>
@@ -36,7 +36,7 @@ class SignUpForm extends Component {
                         <InputMask className="inputMask" mask="9999-99-99" maskChar={null} name="birth" value={birth} onChange={onChange} placeholder="1990-01-01" />
                     </Col>
                 </Form.Group>
-                <Form.Group as={Row} className="w-75 p-3 m-auto">
+                <Form.Group as={Row} className="p-3 m-auto justify-content-center">
                     <Form.Label column sm="3">
                         성별*
                 </Form.Label>
@@ -58,7 +58,7 @@ class SignUpForm extends Component {
                         </Form>
                     </Col>
                 </Form.Group>
-                <Form.Group as={Row} className="w-75 p-3 m-auto">
+                <Form.Group as={Row} className="p-3 m-auto justify-content-center">
                     <Form.Label column sm="3">
                         키
                 </Form.Label>
@@ -66,7 +66,7 @@ class SignUpForm extends Component {
                         <Form.Control type="input" name="height" className="placeholderAlignRight" value={height} onChange={onChange} placeholder="cm" />
                     </Col>
                 </Form.Group>
-                <Form.Group as={Row} className="w-75 p-3 m-auto">
+                <Form.Group as={Row} className="p-3 m-auto justify-content-center">
                     <Form.Label column sm="3">
                         몸무게
                 </Form.Label>
@@ -78,7 +78,7 @@ class SignUpForm extends Component {
                 <ButtonToolbar className="justify-content-center pt-4 mt-4 pb-4 mb-4">
                     <Button variant="outline-dark" onClick={onClick}>{button}</Button>
                 </ButtonToolbar>
-                    </Container>
+                    {/* </Container> */}
             </div>
 
         );

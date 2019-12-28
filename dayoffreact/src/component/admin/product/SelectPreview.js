@@ -5,13 +5,11 @@ class SelectPreview extends Component {
         selects: []
     }
 
-
-
     render() {
         const { selects, deleteName, name, onClick } = this.props;
-        const selectsPreview = selects.map((s, index) => ( <span key={index} name={deleteName} value={index} onClick={onClick}>{s[name]} <span style={{color:'#e03131'}}>&times;</span> &nbsp;&nbsp;</span> ));
+        const selectsPreview = selects.map((s, index) => ( <div key={index} name={deleteName} value={index} onClick={onClick}>{s[name]} <span name={deleteName} value={index} style={{color:'#e03131'}}>&times;</span></div> ));
         return (
-            <div>{selectsPreview}</div>
+            <div className="SelectPreview">{selectsPreview}</div>
         );
     }
 }

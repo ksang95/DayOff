@@ -191,3 +191,25 @@
 .ProductAdd .formInfoEx img{
     display:none;
 }
+
+.ProductAdd .productAddMenu{
+    width: 70%;
+    margin: 40px auto;
+    min-height: 600px;
+}
+
+.ProductAdd .SelectPreview > div{
+    display: inline-block;
+    min-width: 50px;
+    padding: 0px 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    border-radius: 1.0em;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.27);
+    text-align: center;
+    cursor: pointer;
+}
+
+.ProductAdd .SelectPreview > div:hover{
+    box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.6);
+}

@@ -16,7 +16,7 @@ class TwoBarChart extends Component {
         const config = {
             type: "bar",
             data: {
-                labels: data.filter((d,index) => index%2==0).map(d=>d.age+"대"),
+                labels: data.filter((d,index) => index%2===0).map(d=>d.age+"대"),
                 datasets: [
                     {
                         label: "여성 로그인",
@@ -44,7 +44,26 @@ class TwoBarChart extends Component {
                 responsive: true,
                 title: {
                     display: true,
-                    text: selected+title
+                    text: selected+title,
+                    fontSize: 25
+                },
+                legend:{
+                    labels:{
+                        fontSize: 20,
+                        padding: 20
+                    }
+                },
+                scales:{
+                    xAxes: [{
+                        ticks: {
+                            fontSize: 16
+                        }
+                      }],
+                    yAxes:[{
+                        ticks: {
+                            fontSize: 16
+                        }
+                    }]
                 },
                 tooltips: {
                     mode: "index",
@@ -91,7 +110,9 @@ class TwoBarChart extends Component {
                 {/*
                 ref를 통해서 실제 DOM에 대한 접근
                 */}
-                <canvas ref={ref => (this.canvas=ref)}/>
+                <div className="chart-container" style={{width:"60vw", margin: "auto"}}>
+                    <canvas ref={ref => (this.canvas=ref)}></canvas>
+                </div>
             </div>
         );
     }

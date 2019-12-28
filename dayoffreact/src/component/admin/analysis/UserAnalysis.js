@@ -1,4 +1,3 @@
-//import moment from 'moment';
 import axios from 'axios';
 import React, { Component } from 'react';
 import UserMonthsChart from './UserMonthsChart';
@@ -9,6 +8,7 @@ import LoginMonthsChart from './LoginMonthsChart';
 import WithdrawReasonChart from './WithdrawReasonChart';
 import LoginYearsChart from './LoginYearsChart';
 import LoginSexAndAgeChart from './LoginSexAndAgeChart';
+import "./analysis.css";
 
 class UserAnalysis extends Component {
     state = {
@@ -38,10 +38,13 @@ class UserAnalysis extends Component {
         const {data}=this.state;
         
         return (
-            <div>
+            <div >
+                <div className="pageTitle">
+                            <div>회원 통계</div>
+                </div>
                 {data &&
                (
-                <div>
+                <div className="UserAnalysis">
                 <LoginSexAndAgeChart data={data.loginSexAndAge} select={data.yearMonthsOfLogin}></LoginSexAndAgeChart>
                 <LoginMonthsChart data={data.loginMonth} select={data.yearsOfLogin}></LoginMonthsChart>
                 <LoginYearsChart data={data.loginYear}></LoginYearsChart>
