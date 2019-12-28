@@ -11,6 +11,8 @@ yarn add chartjs-plugin-datalabels
 yarn add xlsx
 yarn add react-bootstrap bootstrap
 yarn add react-slide-toggle
+yarn add node-sass
+yarn add react-gesture-gallery
 
 =====================================
 
