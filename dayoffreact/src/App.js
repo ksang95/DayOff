@@ -23,10 +23,11 @@ import LoginPage from './component/common/login/LoginPage';
 import ErrorPage from './component/common/login/ErrorPage';
 import CartView from "./component/cart/CartView";
 import ProductInfo from './component/productDetail/product/ProductInfo';
-
+import { ProtectedRoute } from "./ProtectedRoute";
+import {ProtectedRouteAdmin} from "./ProtectedRouteAdmin"
+import deny from './component/common/login/deny';
 class App extends Component {
   render() {
-
     return (
       <div>
 
@@ -38,23 +39,24 @@ class App extends Component {
           <Route exact path="/" component={Main} />
           <Route path="/login" component={LoginPage} />
           <Route path="/error" component={ErrorPage} />
-          <Route path="/admin/updateInvoice" component={UpdateInvoice} />
-          <Route path="/admin/addProduct" component={ProductAdd} />
-          <Route path="/admin/stopProductSale/:productId" component={StopProductSale} />
-          <Route path="/admin/userList" component={UserAxios} />
-          <Route path="/admin/usersAnalysis" component={UserAnalysis} />
-          <Route path="/admin/ordersAnalysis" component={OrderAnalysis} />
-          <Route path="/mypage/myorders/orderDetail/:groupId" component={OrderDetail} />
-          <Route path="/admin/orders/orderDetail/:groupId" component={OrderDetail} />
-          <Route path="/mypage/refundRequest" component={RefundRequest} />
-          <Route path="/mypage/myInfo" component={UpdateUser} />
-          <Route path="/mypage/withdraw" component={Withdraw} />
+          <ProtectedRouteAdmin path="/admin/updateInvoice" component={UpdateInvoice} />
+          <ProtectedRouteAdmin path="/admin/addProduct" component={ProductAdd} />
+          <ProtectedRouteAdmin path="/admin/stopProductSale/:productId" component={StopProductSale} />
+          <ProtectedRouteAdmin path="/admin/userList" component={UserAxios} />
+          <ProtectedRouteAdmin path="/admin/usersAnalysis" component={UserAnalysis} />
+          <ProtectedRouteAdmin path="/admin/ordersAnalysis" component={OrderAnalysis} />
+          <ProtectedRoute path="/mypage/myorders/orderDetail/:groupId" component={OrderDetail} />
+          <ProtectedRouteAdmin path="/admin/orders/orderDetail/:groupId" component={OrderDetail} />
+          <ProtectedRoute path="/mypage/refundRequest" component={RefundRequest} />
+          <ProtectedRoute path="/mypage/myInfo" component={UpdateUser} />
+          <ProtectedRoute path="/mypage/withdraw" component={Withdraw} />
           <Route path="/signUp" component={SignUp} />
-          <Route path="/admin/orders" component={Orders} />
+          <ProtectedRouteAdmin path="/admin/orders" component={Orders} />
           <Route path="/vision" component={Vision} />
-          <Route path="/mypage/myorders" component={Myorders} />
+          <ProtectedRoute path="/mypage/myorders" component={Myorders} />
           <Route path="/cart" component={CartView} />
           <Route path="/product/:productId" component={ProductInfo} />
+          <Route path="/deny" component={deny} />
 
 
         </Switch>

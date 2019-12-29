@@ -18,7 +18,6 @@ export default class orders extends Component {
     name : ''
   }
 
-  
 
   async orderList(userId,page){
     const params = new URLSearchParams();
@@ -65,8 +64,8 @@ export default class orders extends Component {
 
 
   render() {
+    console.log(this.state.from)
     console.log(sessionStorage.getItem("userId"))
-    
 
 
     

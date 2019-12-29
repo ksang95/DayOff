@@ -26,6 +26,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -271,9 +272,8 @@ public class UsersController {
 	}
 
 	@GetMapping("/loginPage")
-	public String getMethodName2() {
-		System.out.println(1232222);
-		return "1";
+	public void getMethodName2() {
+		System.out.println("로그인필요");
 	}
 
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
@@ -285,20 +285,19 @@ public class UsersController {
 			new SecurityContextLogoutHandler().logout(request, response, auth);
 		}
 	}
-
-	@RequestMapping("/deny")
-	public String deny(Authentication authentication) {
-		System.out.println("access denied");
-		System.out.println(authentication.getAuthorities());
-		Iterator it=authentication.getAuthorities().iterator();
-		while(it.hasNext()){
-			GrantedAuthority authority=(GrantedAuthority)it.next();
-			if(authority.getAuthority().equals("ROLE_REALUSER")){
-				System.out.println("권한없는 user");
-				return "1";
-			}
-		}
-		System.out.println("비회원");
-		return "0";
-	}
+	// @RequestMapping("/deny")
+	// public String deny(Authentication authentication) {
+	// 	System.out.println("access denied");
+	// 	System.out.println(authentication.getAuthorities());
+	// 	Iterator it=authentication.getAuthorities().iterator();
+	// 	while(it.hasNext()){
+	// 		GrantedAuthority authority=(GrantedAuthority)it.next();
+	// 		if(authority.getAuthority().equals("ROLE_REALUSER")){
+	// 			System.out.println("권한없는 user");
+	// 			return "redirect:/loginPage";
+	// 		}
+	// 	}
+	// 	System.out.println("비회원");
+	// 	return "0";
+	// }
 }
