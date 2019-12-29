@@ -13,11 +13,11 @@
     text-align: center;
     vertical-align: middle;
 }
-
-.n-table tbody :hover{
+/* 
+.n-table tr :hover{
     background-color: #F6F6F6;
     opacity: 1;
-}
+} */
 
 .infoDiv {
     height: 100px;
@@ -29,6 +29,7 @@
     text-align: left;
     position: relative;
     margin-right : 10px;
+    border-bottom: none !important;
 }
 
 .infoDiv ul{
@@ -62,9 +63,29 @@
 .info1{
     margin-right: 20px;
 }
-.my-collapsible__toggle{
+.jaehoon.btn.btn-outline-dark{
     position : relative !important;
     display: inline;
     left : 0;
-    height: 30px;
+    padding-left : 15px;
+    padding-right : 15px;
+    padding-top : 5px;
+    padding-bottom : 5px;
+    
+}
+.prev{
+    position: fixed;
+    top : 50%;
+    left:10%;
+    
+}
+.next{
+    position: fixed;
+    top : 50%;
+    right:10%;
+    
+}
+.orderMain{
+    width: 70%;
+    margin: 40px auto;
 }

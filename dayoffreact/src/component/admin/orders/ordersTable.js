@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import SlideToggle from "react-slide-toggle";
 import UpdateInvoice from './updateInvoice';
 import Deliver from '../../myPage/orders/Deliver';
-
+import { Button,Col, Form } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 class ordersTable extends Component {
 
@@ -46,9 +47,9 @@ class ordersTable extends Component {
 
       <SlideToggle collapsed="true" render={({toggle, setCollapsibleElement})=>(
         <div className="my-collapsible">
-          <button className="my-collapsible__toggle" onClick={toggle}>
+          <Button variant="outline-dark" className="jaehoon" onClick={toggle}>
           송장번호등록
-          </button>
+          </Button>
           <div className="my-collapsible__content" ref={setCollapsibleElement}>
             <div className="my-collapsible__content-inner">
               <UpdateInvoice groupId={data.groupId} orderId={data.orderId}></UpdateInvoice>
@@ -70,9 +71,9 @@ class ordersTable extends Component {
             <col style={{width: + 18+'%'}}></col>
             <col style={{width: + 10+'%'}}></col>
             <col style={{width: + 10+'%'}}></col>
-            <col style={{width: + 10+'%'}}></col>
-            <col style={{width: + 10+'%'}}></col>
-            <col style={{width: + 14+'%'}}></col>
+            <col style={{width: + 7+'%'}}></col>
+            <col style={{width: + 7+'%'}}></col>
+            <col style={{width: + 19+'%'}}></col>
           </colgroup>
           <tr >
               <th>상품정보</th>

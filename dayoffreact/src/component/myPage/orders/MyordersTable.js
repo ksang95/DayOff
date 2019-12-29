@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import OrderCancel from './OrderCancel';
 import Deliver from './Deliver';
 import OrderConfirm from './OrderConfirm';
+import { Button } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 class MyordersTable extends Component {
     render() {
@@ -40,7 +42,7 @@ class MyordersTable extends Component {
       <br></br>
       {data.codeContent === "배송준비중" ? <OrderCancel order={data}></OrderCancel> : ""}
       {data.codeContent === "배송중" ?<Deliver invoice={data.invoice}></Deliver> : ""}
-      {data.codeContent === "구매확정" ? <Link to={review+data.productId}>후기 작성</Link> : ""}
+      {data.codeContent === "구매확정" ? <Button className="jaehoon"><Link to={review+data.productId}>후기 작성</Link></Button> : ""}
       {data.codeContent === "배송완료" ? <OrderConfirm groupId={data.groupId}></OrderConfirm>  : ""}
       <br></br>
       {data.codeContent === "배송완료" ? <Link to={{
@@ -54,8 +56,9 @@ class MyordersTable extends Component {
 
         return (
             <div>
-            <h1>주문내역</h1>
-            <hr width="97%"></hr>
+            <div className="pageTitle">
+              <div>주문 내역</div>
+            </div>
            <table className="n-table">
           <colgroup>
             <col style={{width: + 10+'%'}}></col>

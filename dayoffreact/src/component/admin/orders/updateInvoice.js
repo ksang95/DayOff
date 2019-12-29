@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
+import { Button } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 class updateInvoice extends Component {
 
   state = {
@@ -34,7 +37,7 @@ class updateInvoice extends Component {
     return (
       <div>
         <input type="text" onChange={this.handleChangeInput2.bind(this)} name="invoice" value={this.state.invoice}></input>
-              <button onClick={()=>this.updateInvoice.bind(this)(this.state.invoice, this.props.groupId, this.props.orderId)}>등록</button>
+              <Button className="jaehoon" variant="outline-dark" onClick={()=>this.updateInvoice.bind(this)(this.state.invoice, this.props.groupId, this.props.orderId)}>등록</Button>
       </div>
     );
   }

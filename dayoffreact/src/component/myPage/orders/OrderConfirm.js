@@ -28,7 +28,7 @@ class OrderConfirm extends Component {
     render() {
         return (
             <div>
-              <Button variant="secondary" onClick={this.f3.bind(this)}>구매 확정</Button>
+              <Button className="jaehoon" variant="outline-dark" onClick={this.f3.bind(this)}>구매 확정</Button>
             </div>
         );
     }

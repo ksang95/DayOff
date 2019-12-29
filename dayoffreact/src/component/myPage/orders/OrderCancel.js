@@ -61,7 +61,7 @@ class OrderCancel extends Component {
     render() {
         return (
             <div>
-                <Button variant="secondary" onClick={this.f3.bind(this)}>주문 취소</Button>
+                <Button className="jaehoon" variant="outline-dark" onClick={this.f3.bind(this)}>주문 취소</Button>
             </div>
         );
     }

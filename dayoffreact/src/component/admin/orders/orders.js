@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import Axios from 'axios';
 import { Link } from 'react-router-dom';
 import '../../common/css/orderList.css'
-
+import { Button,Col, Form } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import OrdersTable from "./ordersTable"
 
 export default class orders extends Component {
@@ -92,9 +93,12 @@ export default class orders extends Component {
     
     return (
       <div> 
-        <h1>주문내역</h1>
-        <hr width="97%"></hr>
-       주문상태별 조회 -> <select value={this.state.value} onChange={this.handleChange.bind(this)}>
+        <div className="pageTitle">
+          <div>주문내역</div>
+        </div>
+        <div className="orderMain">
+          <Col sm="3">
+       주문상태별 조회 -> <Form.Control as="select" value={this.state.value} onChange={this.handleChange.bind(this)}>
           <option value="all">전체</option>
           <option value="0000">배송준비중</option>
           <option value="0001">배송중</option>
@@ -106,16 +110,19 @@ export default class orders extends Component {
           <option value="0007">구매확정</option>
           <option value="0008">후기작성완료</option>
         
-        </select> 
+        </Form.Control> 
+        </Col>
         <br></br>
       회원이름으로 검색 -> <input type="text" name="name" value={this.state.name} onKeyPress={this.handleKeyPress.bind(this)} onChange={this.handleChangeInput.bind(this)}></input>
       <button onClick={()=> this.orderList.bind(this)(this.state.value, 0, this.state.name)}>검색</button>
+
+
+      <button id="prev" className="prev"  onClick={()=>this.orderList.bind(this)(this.state.value,this.state.page-1,this.state.name)}>이전페이지</button>
        
       <OrdersTable list={this.state.list}></OrdersTable>
 
-      <button id="prev"  onClick={()=>this.orderList.bind(this)(this.state.value,this.state.page-1,this.state.name)}>이전페이지</button>
-
-      <button id="next" disabled={false} onClick={()=>this.orderList.bind(this)(this.state.value,this.state.page+1,this.state.name)}>다음페이지</button>
+      <button id="next" className="next" disabled={false} onClick={()=>this.orderList.bind(this)(this.state.value,this.state.page+1,this.state.name)}>다음페이지</button>
+      </div>
       </div>
     );
   }

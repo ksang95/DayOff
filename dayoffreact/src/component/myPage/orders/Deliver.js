@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 class Deliver extends Component {
     openPopup(url){
@@ -9,7 +10,7 @@ class Deliver extends Component {
         const delivery = "https://tracker.delivery/#/kr.epost/"
         return (
             <div>
-                <Button variant="secondary" onClick={()=>this.openPopup.bind(this)(delivery+this.props.invoice)}>배송조회</Button>
+                <Button className="jaehoon" variant="outline-dark" onClick={()=>this.openPopup.bind(this)(delivery+this.props.invoice)}>배송조회</Button>
             </div>
         );
     }
