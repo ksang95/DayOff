@@ -51,8 +51,11 @@ class OrderCancel extends Component {
     }
 
     f3 = () => {
-        window.confirm(`상품 주문을 취소하시겠습니까?`) //리액트에서는 window. 붙여야함
-        return this.cancel();
+        if(window.confirm(`상품 주문을 취소하시겠습니까?`)){
+             //리액트에서는 window. 붙여야함
+            this.cancel();
+
+        }
     }
 
     render() {

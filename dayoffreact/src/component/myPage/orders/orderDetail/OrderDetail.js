@@ -24,6 +24,7 @@ class OrderDetail extends Component {
 
     async getData() {
         const groupId = this.props.match.params.groupId;
+        console.log(this.props.match.params.groupId)
         const orderId = parseInt(queryString.parse(this.props.location.search).orderId);
         this.setState({
             groupId: groupId,

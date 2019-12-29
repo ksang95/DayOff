@@ -19,6 +19,7 @@ class updateInvoice extends Component {
       url : "/updateInvoice"
     }).then((res)=>{
       window.location.reload(false)
+      
     })
   }
 

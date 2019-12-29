@@ -185,10 +185,8 @@ public class OrderController {
         code.setContent("배송중");
 
          orderGroup.getOrders().forEach(i->{
-            if(i.getId() == orderId ){
                 i.setCode(code);
                 orderRepository.save(i);
-            }
         });
 
 

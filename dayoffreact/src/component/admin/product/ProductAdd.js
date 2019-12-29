@@ -23,6 +23,8 @@ class ProductAdd extends Component {
 
     async getForm() {
         const response = await axios.get("/addProduct");
+        console.log(response.data)
+        console.log("123")
         if(response.data===1){
             //this.props.history.push("/login")
             window.location.href="https://localhost:3000/login";

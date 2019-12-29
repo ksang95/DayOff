@@ -54,7 +54,6 @@ class App extends Component {
           <Route path="/vision" component={Vision} />
           <Route path="/mypage/myorders" component={Myorders} />
           <Route path="/cart" component={CartView} />
-          <Route path="/product" component={ProductInfo} />
           <Route path="/product/:productId" component={ProductInfo} />
 
 

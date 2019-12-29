@@ -4,6 +4,8 @@ import axios from "axios";
 import "./ProductInfo.css";
 import Total from './Total';
 import Select from './Select';
+import queryString from 'query-string';
+
 class ProductInfo extends Component {
   state = {
     product: {
@@ -25,7 +27,9 @@ class ProductInfo extends Component {
   };
   getProductDetail() {
     const params = new URLSearchParams();
-    params.append("id", 21);
+    const productId = this.props.match.params.productId
+    console.log(productId)
+    params.append("id", productId);
     axios({
       method: "post",
       url: "/showProductDetail",

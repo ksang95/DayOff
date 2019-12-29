@@ -10,8 +10,8 @@ class ordersTable extends Component {
   
     render() {
       const {list} = this.props
-      const detail = "/detail/"
-      const detailOrder = "/orderDetail/"
+      const detail = "/product/"
+      const detailOrder = "/admin/orders/orderDetail/"
       const userinfo = "/userinfo/"
       const result = list.map((data,index) =>(
       <tr>
