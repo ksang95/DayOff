@@ -12,7 +12,7 @@ class Menu extends Component {
                 <ul>
                     <li><Link to="/signUp">회원가입</Link></li>
                     <li><Link to="/admin/addProduct">상품 등록</Link></li>
-                    <li><Link to="/admin/stopProductSale/1">상품 판매중지</Link></li>
+                    <li><Link to="/admin/updateProduct/1">상품 수정</Link></li>
                     <li><Link to="/admin/updateInvoice">송장번호 등록</Link></li>
                     <li><Link to="/admin/userList">유저리스트</Link></li>
                     <li><Link to="/admin/usersAnalysis">회원 통계</Link></li>

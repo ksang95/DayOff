@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
@@ -23,8 +24,7 @@ public class GoogleCloudStorageUpload {
 		storage = StorageOptions.getDefaultInstance().getService();
 	}
 
-	public static String getImageUrl(MultipartFile file, final String bucketName)
-			throws IOException {
+	public static String getImageUrl(MultipartFile file, final String bucketName) throws IOException {
 		final String fileName = file.getOriginalFilename();
 		// Check extension of file
 		if (fileName != null && !fileName.isEmpty() && fileName.contains(".")) {
@@ -40,8 +40,7 @@ public class GoogleCloudStorageUpload {
 	}
 
 	@SuppressWarnings("deprecation")
-	public static String uploadFile(MultipartFile file, final String bucketName, String type)
-			throws IOException {
+	public static String uploadFile(MultipartFile file, final String bucketName, String type) throws IOException {
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("-YYYY-MM-dd-HHmmssSSS");
 		String date = simpleDateFormat.format(new Date());
 		String filen = file.getOriginalFilename();
@@ -72,21 +71,21 @@ public class GoogleCloudStorageUpload {
 		return name;
 	}
 
+	public static void deleteFile(String name) {
+		BlobId blobId = BlobId.of("bit-jaehoon", name);
+		boolean deleted = storage.delete(blobId);
+		if (deleted)
+			System.out.println(name+" 삭제완료");
+	}
 
+	// csv파일 스토리지 업로드 재훈사용
 
-
-// csv파일 스토리지 업로드 재훈사용
-
-
-
-
-	public static String getImageUrl(File file, final String bucketName)
-			throws IOException {
+	public static String getImageUrl(File file, final String bucketName) throws IOException {
 		final String fileName = file.getName();
 		// Check extension of file
 		if (fileName != null && !fileName.isEmpty() && fileName.contains(".")) {
 			final String extension = fileName.substring(fileName.lastIndexOf('.') + 1);
-			String[] allowedExt = { "jpg", "jpeg", "png", "gif" ,"csv"};
+			String[] allowedExt = { "jpg", "jpeg", "png", "gif", "csv" };
 			for (String s : allowedExt) {
 				if (extension.equals(s)) {
 					return uploadFile(file, bucketName, s);
@@ -97,8 +96,7 @@ public class GoogleCloudStorageUpload {
 	}
 
 	@SuppressWarnings("deprecation")
-	public static String uploadFile(File file, final String bucketName, String type)
-			throws IOException {
+	public static String uploadFile(File file, final String bucketName, String type) throws IOException {
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("-YYYY-MM-dd-HHmmssSSS");
 		String date = simpleDateFormat.format(new Date());
 		String filen = file.getName();
@@ -107,8 +105,8 @@ public class GoogleCloudStorageUpload {
 				+ filen.substring(filen.lastIndexOf('.'));
 		System.out.println("1111111111111111111");
 		BufferedInputStream stream = new BufferedInputStream(fis);
-		BlobInfo blobInfo = storage
-				.create(BlobInfo.newBuilder(bucketName, file.getName()).setContentType("image/" + type).build(), stream);
+		BlobInfo blobInfo = storage.create(
+				BlobInfo.newBuilder(bucketName, file.getName()).setContentType("image/" + type).build(), stream);
 		System.out.println("22222222222222222222222");
 		return blobInfo.getMediaLink();
 
@@ -129,4 +127,5 @@ public class GoogleCloudStorageUpload {
 		// [END storage_upload_file]
 		return name;
 	}
+
 }

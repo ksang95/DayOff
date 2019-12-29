@@ -18,7 +18,7 @@ class StopProductSale extends Component {
 
    
     handleStopSale = () => {
-        const productId=this.props.match.params.productId;
+        const productId=this.props.productId;
         this.stopProductSale(productId);
     }
 

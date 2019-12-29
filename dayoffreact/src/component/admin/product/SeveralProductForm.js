@@ -109,7 +109,7 @@ class SeveralProductForm extends Component {
                 <div className="error pt-4">{error}</div>
                 <div className="loading pt-4" id="severalProductLoading"><img src="/images/loading25.gif"></img></div>
                 <ButtonToolbar className="justify-content-center mt-4 pb-4 mb-4">
-                    <Button variant="outline-dark" size="lg" className="formButton" onClick={handleClick}> 등록</Button>
+                    <Button variant="outline-dark" size="lg" className="formButton" onClick={handleClick}>등록</Button>
                 </ButtonToolbar>
             </div>
         );

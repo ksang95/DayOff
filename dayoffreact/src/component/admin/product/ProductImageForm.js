@@ -50,20 +50,44 @@ class ProductImageForm extends Component {
     }
 
     onRemove = (file) => {
-        this.props.onRemove(file, this.props.stateKey);
+        if (file.url && file.url.trim().length > 0) {
+           this.props.onRemovePast(file,this.props.stateKey);
+        }
+        else
+            this.props.onRemove(file, this.props.stateKey);
     }
 
     render() {
-        const { name, maxFile } = this.props;
+        const { name, maxFile, thumbnailName } = this.props;
         const config = this.componentConfig;
         const djsConfig = this.djsConfig;
         // For a list of all possible events (there are many), see README.md!
         const eventHandlers = {
             init: (dz) => {
-                this.dropzone = dz; this.dropzone.on("maxfilesexceeded", function (file) {
+                this.dropzone = dz;
+                this.dropzone.on("maxfilesexceeded", function (file) {
                     this.removeAllFiles();
                     this.addFile(file);
                 });
+                if (thumbnailName) {
+                    for (var i = 0; i < thumbnailName.length; i++) {
+                        var mockFile = { 
+                            name: thumbnailName[i], 
+                            size: 12345, 
+                            type: 'image/jpeg', 
+                            // status: Dropzone.ADDED, 
+                            url: "https://storage.googleapis.com/bit-jaehoon/"+thumbnailName[i]
+                        };
+        
+                        // Call the default addedfile event handler
+                        this.dropzone.emit("addedfile", mockFile);
+        
+                        // And optionally show the thumbnail of the file:
+                        this.dropzone.emit("thumbnail", mockFile, "https://storage.googleapis.com/bit-jaehoon/"+thumbnailName[i]);
+        
+                        this.dropzone.files.push(mockFile);
+                    }
+                }
             },
             addedfile: this.onAdd,
             removedfile: this.onRemove

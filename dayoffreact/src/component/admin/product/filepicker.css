@@ -123,6 +123,8 @@ div.filepicker {
 
 .productImageForm .dropzone .dz-preview .dz-image img{
     border-radius: 20px;
+    width: 120px;
+    height: 120px;
 }
 
 .productImageForm .dropzone .dz-preview.dz-file-preview .dz-image {

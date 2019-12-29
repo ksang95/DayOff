@@ -9,6 +9,8 @@ import java.util.Map;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import com.team4.dayoff.api.googleStorageAPI.GoogleCloudStorageUpload;
 import com.team4.dayoff.api.visionAPI.ProductManagement;
 import com.team4.dayoff.api.visionAPI.WriteCsv;
@@ -26,6 +28,7 @@ import com.team4.dayoff.repository.ProductSizeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -47,6 +50,93 @@ public class AdminProductController {
     private WriteCsv writeCsv;
     @Autowired
     private ProductManagement productManagement;
+
+    @GetMapping("/updateProduct")
+    public Map<String, Object> updateProduct(@RequestParam("productId") Integer productId) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        Product product = productRepository.findById(productId).get();
+        List<Color> color = colorRepository.findAll();
+        List<Category> category = categoryRepository.findAll();
+        map.put("product", product);
+        map.put("color", color);
+        map.put("category", category);
+        return map;
+    }
+
+    @PostMapping("/updateProductProcess")
+    public void updateProductProcess(String jsonProduct, String jsonSelectedDetailImageForRemove,
+            @RequestParam(value="jsonSelectedProductImageForRemove", required = false) List<String> jsonSelectedProductImageForRemove,
+            @RequestParam("file") List<MultipartFile> files) {
+        System.out.println(jsonProduct);
+        System.out.println(jsonSelectedDetailImageForRemove);
+        System.out.println(jsonSelectedProductImageForRemove);
+        try {
+            Product product = new ObjectMapper().readValue(jsonProduct, Product.class);
+            try {
+                int i = 0;
+                if (jsonSelectedDetailImageForRemove != null) {
+                    GoogleCloudStorageUpload.deleteFile(jsonSelectedDetailImageForRemove);
+                    String name = GoogleCloudStorageUpload.saveFile(files.get(i++));
+                    product.setDetailImage(name);
+                }
+
+                List<ProductSize> productSizes = product.getProductSize();
+                productSizes.forEach(ps -> {
+                    ps.setProduct(product);
+                });
+                productSizeRepository.deleteProductSizeByProductId(product.getId());
+                List<ProductSize> savedProductSizes = productSizeRepository.saveAll(productSizes);
+                product.setProductSize(savedProductSizes);
+
+                Product savedProduct = productRepository.save(product);
+                System.out.println(savedProduct);
+
+                if(jsonSelectedProductImageForRemove!=null)
+                jsonSelectedProductImageForRemove.forEach(pi -> {
+                    GoogleCloudStorageUpload.deleteFile(pi);
+                    productImageRepository.deleteByName(pi);
+                });
+
+                for (; i < files.size(); i++) {
+                    MultipartFile file = files.get(i);
+                    String name = GoogleCloudStorageUpload.saveFile(file);
+                    ProductImage productImage = new ProductImage();
+                    productImage.setOriginalName(file.getOriginalFilename());
+                    productImage.setName(name);
+                    productImage.setProduct(savedProduct);
+                    System.out.println("image saving");
+                    productImageRepository.save(productImage);
+                    System.out.println("image saved");
+
+                    String uriname = "gs://bit-jaehoon/" + name;
+                    String imgPath = "https://storage.googleapis.com/bit-jaehoon/" + name;
+
+                    writeCsv.write('"' + uriname + '"' + "," + '"' + "img" + '"' + "," + '"' + "product" + '"' + ","
+                            + '"' + product.getName() + '"' + "," + '"' + "apparel" + '"' + "," + '"' + imgPath + '"'
+                            + "," + '"' + "category=" + product.getCategory().getName() + '"' + ",");
+
+                }
+
+            } catch (IllegalStateException e) {
+                // TODO Auto-generated catch block
+                System.out.println(e.getMessage());
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                System.out.println(e.getMessage());
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        try {
+            File file = new File("./visionInsert.csv");
+            GoogleCloudStorageUpload.saveFile(file);
+            productManagement.importProductSets("strong-kit-252505", "asia-east1", "gs://bit-jaehoon/visionInsert.csv");
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 
     @RequestMapping("/addProduct")
     public Map<String, Object> addProduct() {
@@ -147,6 +237,7 @@ public class AdminProductController {
                 size.setProduct(savedProduct);
             });
             productSizeRepository.saveAll(productSizes);
+
             savedProduct.getProductImage().forEach(image -> {
                 for (int j = 0; j < files.size(); j++) {
                     MultipartFile file = files.get(j);
@@ -179,7 +270,7 @@ public class AdminProductController {
             e.printStackTrace();
         }
         ProductImage latestProductImg = productImageRepository.findTop1ByProduct_IdOrderById(latestProduct.getId());
-        List<ProductImage> imgList=new ArrayList<ProductImage>();
+        List<ProductImage> imgList = new ArrayList<ProductImage>();
         imgList.add(latestProductImg);
         latestProduct.setProductImage(imgList);
         System.out.println(latestProduct);
@@ -198,12 +289,12 @@ public class AdminProductController {
     @PostMapping("/stopProductSale")
     public void stopProductSale(@RequestParam("id") Integer id) {
         // productRepository.deleteById(id); //실제 delete 잘 작동한다
-        productRepository.changeAvailabilityOfProduct(id,0); // 상품 이용불가로.
+        productRepository.changeAvailabilityOfProduct(id, 0); // 상품 이용불가로.
     }
 
     @PostMapping("/resaleProduct")
     public void resaleProduct(@RequestParam("id") Integer id) {
-        productRepository.changeAvailabilityOfProduct(id,1); // 상품 이용재개로.
+        productRepository.changeAvailabilityOfProduct(id, 1); // 상품 이용재개로.
     }
 
 }
