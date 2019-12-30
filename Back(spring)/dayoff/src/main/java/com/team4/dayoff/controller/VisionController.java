@@ -44,7 +44,6 @@ public class VisionController {
 	}
 
     @PostMapping("/crop")
-	@GetMapping("/crop")
 	public Map<String,Object> crop(@RequestBody Map<String,String> result) throws IOException {
 		System.out.println(result.get("realTest"));
 		

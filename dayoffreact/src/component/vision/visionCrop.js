@@ -46,10 +46,9 @@ class visionCrop extends Component {
             <div>
               <div className="pageTitle">
               <div>인공지능 상품검색</div>
-            </div>
-           <br></br>
+              <br></br>
            <h1>인공지능을 통해 상품을 찾아보세요. </h1>
-           <br></br><br></br>
+            </div>
            <div style={{textAlign : "center"}}>
              
            <img src="/images/AI.png" width="70%" height="300px"></img>
@@ -77,7 +76,7 @@ class visionCrop extends Component {
           </div>
           </div> : ""}
           </div>
-          <br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
+          <br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
           <VisionList recommendlist={this.state.recommendlist} list={this.state.list}></VisionList>
           
           </div>

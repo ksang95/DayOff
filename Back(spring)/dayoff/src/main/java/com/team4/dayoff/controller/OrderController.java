@@ -291,7 +291,7 @@ public class OrderController {
     public List<ProductList> togetherBuy(@RequestParam("id") Integer id){
         List<ProductList> list = new ArrayList<>();
         ProductList productList = new ProductList();
-        productReporitory.testView(1).forEach(i->{
+        productReporitory.togetherBuy(1).forEach(i->{
             productList.setId((Integer)i[0]);
             productList.setName((String)i[1]);
             productList.setUri((String)i[2]);
