@@ -4,8 +4,6 @@ import axios from "axios";
 import "./ProductInfo.css";
 import Total from './Total';
 import Select from './Select';
-import queryString from 'query-string';
-
 class ProductInfo extends Component {
   state = {
     product: {
@@ -27,9 +25,7 @@ class ProductInfo extends Component {
   };
   getProductDetail() {
     const params = new URLSearchParams();
-    const productId = this.props.match.params.productId
-    console.log(productId)
-    params.append("id", productId);
+    params.append("id", 21);
     axios({
       method: "post",
       url: "/showProductDetail",
@@ -42,34 +38,54 @@ class ProductInfo extends Component {
     });
   }
   addToCart = () => {
-    
+    const userId = sessionStorage.getItem("userId")
+    if(userId !== null){
+      const cart = {
+        quantity: this.state.cart.quantity,
+        price: this.state.cart.price,
+        color: this.state.color,
+        size: this.state.size,
+        product: { id: this.state.product.id },
+        users: { id: sessionStorage.getItem("userId") }
+      };
+      if(cart.quantity==0||cart.color==null ||cart.size==null){
+        alert('상품 선택을 완료해주세요')
+      }else{
+             axios
+               .post("/addToCart", cart)
+               .then(res =>
+                 this.setState({
+                   cart: {
+                     color: "",
+                     size: "",
+                     quantity: 0,
+                     price: 0
+                   }
+                 })
+               ).catch(error => console.log(error));
+           }
+           } else{
     const cart = {
       quantity: this.state.cart.quantity,
-      price: this.state.cart.price,
+      totalPrice: this.state.cart.price,
+      price: this.state.product.price,
       color: this.state.color,
       size: this.state.size,
       product: { id: this.state.product.id },
-      users: { id: sessionStorage.getItem("userId") }
+      users: { id: sessionStorage.getItem("userId") },
+      productImage: this.state.product.productImage[0].name
     };
-if(cart.quantity==0||cart.color==null ||cart.size==null){
-  alert('상품 선택을 완료해주세요')
-}else{
-       axios
-         .post("/addToCart", cart)
-         .then(res =>
-           this.setState({
-             cart: {
-               color: "",
-               size: "",
-               quantity: 0,
-               price: 0
-             }
-           })
-         )
-         .catch(error => console.log(error));
-     }
-  };
-
+  
+ const prevCart = [].concat(JSON.parse(localStorage.getItem("cart1")))
+ if(prevCart==null){
+   prevCart = [];
+ }
+ 
+ prevCart.push(cart);
+    localStorage.setItem("cart1",JSON.stringify(prevCart));
+  console.log(cart);
+};
+  }
   buyNow = e => {
     if (this.state.selected.length > 0) {
       this.state.buyNow();
@@ -124,10 +140,6 @@ if(cart.quantity==0||cart.color==null ||cart.size==null){
   }
 
   render() {
-    console.log(this.state.size);
-    console.log(this.state.color);
-    console.log(this.state.cart);
-    console.log(this.state.quantity);
     const { product, cart } = this.state;
     const sizeOp = product.productSize
       .map((s, index) => (
@@ -162,7 +174,6 @@ if(cart.quantity==0||cart.color==null ||cart.size==null){
     ));
 
     return (
-      <section>
         <div className="product">
           <div className="productData">
             <div className="top">
@@ -170,13 +181,11 @@ if(cart.quantity==0||cart.color==null ||cart.size==null){
                 <div className="ProductImage">{image}</div>
               </div>
               <div className="topRight">
-                <span>
-                  {" "}
+                <p>
                   카테고리:{product.category.name}/{product.category.subName}
-                </span>
+                </p>
                 <p>상품명:{product.name}</p>
                 <p>
-                  {" "}
                   가격:
                   {product.price
                     .toString()
@@ -188,12 +197,7 @@ if(cart.quantity==0||cart.color==null ||cart.size==null){
                 <Select cart={cart} subtract={this.subtract} add={this.add} />
 
                 <Total cart={cart} />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <button className="btnBuy" onClick={this.state.buyNow}>
+        <button className="btnBuy" onClick={this.buyNow}>
           {" "}
           바로구매{" "}
         </button>
@@ -202,7 +206,9 @@ if(cart.quantity==0||cart.color==null ||cart.size==null){
           {" "}
           장바구니담기{" "}
         </button>
-        <section>
+              </div>
+            </div>
+
           <div className="productDetail">
             상품상세정보:
             <img
@@ -213,12 +219,16 @@ if(cart.quantity==0||cart.color==null ||cart.size==null){
               alt="1"
             />
           </div>
-        </section>
         <p>후기게시판</p>
         <div>
           {/* <ProductDetail /> */}
         </div>
-      </section>
+     
+
+          </div>
+        </div>
+       
+
     );
   }
 }
