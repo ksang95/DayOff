@@ -44,8 +44,9 @@ class visionCrop extends Component {
     render() {
         return (
             <div>
-                 <h1>AI 상품 검색</h1>
-           <hr width="97%"></hr>
+              <div className="pageTitle">
+              <div>인공지능 상품검색</div>
+            </div>
            <br></br>
            <h1>인공지능을 통해 상품을 찾아보세요. </h1>
            <br></br><br></br>
