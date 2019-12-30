@@ -3,7 +3,6 @@ import { Route, Switch } from 'react-router-dom';
 import OrderAnalysis from './component/admin/analysis/OrderAnalysis';
 import UserAnalysis from './component/admin/analysis/UserAnalysis';
 import Orders from './component/admin/orders/orders';
-import UpdateInvoice from './component/admin/orders/updateInvoice';
 import ProductAdd from './component/admin/product/ProductAdd';
 import ProductUpdate from './component/admin/product/ProductUpdate';
 import UserAxios from './component/admin/userList/UserAxios';
@@ -38,7 +37,6 @@ class App extends Component {
           <Route exact path="/" component={Main} />
           <Route path="/login" component={LoginPage} />
           <Route path="/error" component={ErrorPage} />
-          <ProtectedRouteAdmin path="/admin/updateInvoice" component={UpdateInvoice} />
           <ProtectedRouteAdmin path="/admin/addProduct" component={ProductAdd} />
           <ProtectedRouteAdmin path="/admin/updateProduct/:productId" component={ProductUpdate} />
           <ProtectedRouteAdmin path="/admin/userList" component={UserAxios} />

@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 import '../../common/css/orderList.css'
 import { Button,Col, Form } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import OrdersTable from "./ordersTable"
+import Deliver from '../../myPage/orders/Deliver';
+import SlideToggle from "react-slide-toggle";
 
 export default class orders extends Component {
 
@@ -15,11 +16,33 @@ export default class orders extends Component {
     page : 0,
     size : 10,
     list : [],
-    name : ''
+    name : '',
+    invoice : ''
   }
 
   
+  async updateInvoice(invoice, groupId,orderId){
+    console.log(invoice)
+    const params = new URLSearchParams();
+    params.append("invoice", invoice);
+    params.append("groupId", groupId);
+    params.append("orderId", orderId)
+    await Axios({
+      method : "post",
+      data : params,
+      url : "/updateInvoice"
+    }).then((res)=>{
+      this.orderList(this.state.value,this.state.page,this.state.name)
+      
+    })
+  }
 
+
+  handleChangeInput2(e) {
+    this.setState({
+      [e.target.name] : e.target.value
+    })
+  }
   async orderList(code,page,name){
     const params = new URLSearchParams();
     params.append("code", code)
@@ -87,7 +110,62 @@ export default class orders extends Component {
 
 
   render() {
-   
+    const {list} = this.state
+    const detail = "/product/"
+    const detailOrder = "/admin/orders/orderDetail/"
+    const userinfo = "/userinfo/"
+    const result = list.map((data,index) =>(
+    <tr>
+      <td>
+        <div className="infoDiv"><Link to={detail+data.productId}><img width="90px" height="106px" src={data.productThumbnailName}></img></Link>
+          <ul style={{overflow : 'hidden'}} className="nameColor">
+            <li><Link className="info1" to={detail+data.productId}>{data.productName}</Link></li>
+            <li>컬러 : {data.orderColor} 사이즈 : {data.orderSize}</li>
+          </ul>
+        </div>
+    </td>
+  
+    
+    <td><Link to={userinfo+data.userId}>{data.userName}</Link></td>
+
+    <td>{data.orderDate}</td>
+
+    <td><Link to={detailOrder+data.groupId+"?orderId="+data.orderId}>{data.groupId}</Link></td>
+
+    <td>{data.orderPrice}원
+
+      <br></br>
+
+    <span>{data.orderQuantity}개</span>
+    </td>
+
+    <td>{data.codeContent}
+
+    <br></br>
+
+    {data.codeContent === "배송준비중" ?  
+
+    <SlideToggle collapsed="true" render={({toggle, setCollapsibleElement})=>(
+      <div className="my-collapsible">
+        <Button variant="outline-dark" className="jaehoon" onClick={toggle}>
+        송장번호등록
+        </Button>
+        <div className="my-collapsible__content" ref={setCollapsibleElement}>
+          <div className="my-collapsible__content-inner">
+          <div>
+        <input type="text" onChange={this.handleChangeInput2.bind(this)} name="invoice" value={this.state.invoice}></input>
+              <Button className="jaehoon" variant="outline-dark" onClick={()=>this.updateInvoice.bind(this)(this.state.invoice, data.groupId, data.orderId)}>등록</Button>
+      </div>
+          </div>
+        </div>
+    </div>
+    )}></SlideToggle>
+    : ""}
+
+    {data.codeContent === "배송중" ? <Deliver></Deliver> : ""}
+
+    </td>
+  </tr>))
 
 
     
@@ -118,8 +196,30 @@ export default class orders extends Component {
 
 
       <button id="prev" className="prev"  onClick={()=>this.orderList.bind(this)(this.state.value,this.state.page-1,this.state.name)}>이전페이지</button>
-       
-      <OrdersTable list={this.state.list}></OrdersTable>
+
+      <div>
+         <table className="n-table">
+          <colgroup>
+            <col style={{width: + 18+'%'}}></col>
+            <col style={{width: + 7+'%'}}></col>
+            <col style={{width: + 10+'%'}}></col>
+            <col style={{width: + 7+'%'}}></col>
+            <col style={{width: + 7+'%'}}></col>
+            <col style={{width: + 21+'%'}}></col>
+          </colgroup>
+          <tr >
+              <th>상품정보</th>
+              <th>회원정보</th>
+              <th>주문일자</th>
+              <th>주문번호</th>
+              <th>주문금액(수량)</th>
+              <th>주문상태</th>
+          </tr>
+          <tbody>
+        {result}
+        </tbody>
+        </table>
+            </div>
 
       <button id="next" className="next" disabled={false} onClick={()=>this.orderList.bind(this)(this.state.value,this.state.page+1,this.state.name)}>다음페이지</button>
       </div>

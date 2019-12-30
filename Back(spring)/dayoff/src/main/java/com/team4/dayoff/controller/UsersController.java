@@ -271,6 +271,10 @@ public class UsersController {
 		// 등록된 사용자면 loginSuccess로, 아니면 signUp으로.
 	}
 
+	@GetMapping("/aaa")
+	public void testteest(){
+		System.out.println("12312312312");
+	}
 	@GetMapping("/loginPage")
 	public void getMethodName2() {
 		System.out.println("로그인필요");

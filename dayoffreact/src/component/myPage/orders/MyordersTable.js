@@ -42,7 +42,7 @@ class MyordersTable extends Component {
       <br></br>
       {data.codeContent === "배송준비중" ? <OrderCancel order={data}></OrderCancel> : ""}
       {data.codeContent === "배송중" ?<Deliver invoice={data.invoice}></Deliver> : ""}
-      {data.codeContent === "구매확정" ? <Button className="jaehoon"><Link to={review+data.productId}>후기 작성</Link></Button> : ""}
+      {data.codeContent === "구매확정" ? <Link to={review+data.productId}><Button variant="outline-dark" className="jaehoon">후기 작성</Button></Link> : ""}
       {data.codeContent === "배송완료" ? <OrderConfirm groupId={data.groupId}></OrderConfirm>  : ""}
       <br></br>
       {data.codeContent === "배송완료" ? <Link to={{
@@ -59,6 +59,7 @@ class MyordersTable extends Component {
             <div className="pageTitle">
               <div>주문 내역</div>
             </div>
+            <div className="orderMain">
            <table className="n-table">
           <colgroup>
             <col style={{width: + 10+'%'}}></col>
@@ -79,6 +80,7 @@ class MyordersTable extends Component {
         {result}
         </tbody>
         </table>
+        </div>
             </div>
         );
     }
