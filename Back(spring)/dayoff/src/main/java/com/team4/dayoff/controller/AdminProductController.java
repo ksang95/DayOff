@@ -77,6 +77,7 @@ public class AdminProductController {
                 if (jsonSelectedDetailImageForRemove != null) {
                     GoogleCloudStorageUpload.deleteFile(jsonSelectedDetailImageForRemove);
                     String name = GoogleCloudStorageUpload.saveFile(files.get(i++));
+                    name = "https://storage.googleapis.com/bit-jaehoon/"+name;
                     product.setDetailImage(name);
                 }
 
@@ -100,6 +101,9 @@ public class AdminProductController {
                 for (; i < files.size(); i++) {
                     MultipartFile file = files.get(i);
                     String name = GoogleCloudStorageUpload.saveFile(file);
+                    String uriname = "gs://bit-jaehoon/" + name;
+                    String imgPath = "https://storage.googleapis.com/bit-jaehoon/" + name;
+                    name = "https://storage.googleapis.com/bit-jaehoon/"+name;
                     ProductImage productImage = new ProductImage();
                     productImage.setOriginalName(file.getOriginalFilename());
                     productImage.setName(name);
@@ -108,8 +112,6 @@ public class AdminProductController {
                     productImageRepository.save(productImage);
                     System.out.println("image saved");
 
-                    String uriname = "gs://bit-jaehoon/" + name;
-                    String imgPath = "https://storage.googleapis.com/bit-jaehoon/" + name;
 
                     writeCsv.write('"' + uriname + '"' + "," + '"' + "img" + '"' + "," + '"' + "product" + '"' + ","
                             + '"' + product.getName() + '"' + "," + '"' + "apparel" + '"' + "," + '"' + imgPath + '"'
@@ -132,6 +134,7 @@ public class AdminProductController {
             File file = new File("./visionInsert.csv");
             GoogleCloudStorageUpload.saveFile(file);
             productManagement.importProductSets("strong-kit-252505", "asia-east1", "gs://bit-jaehoon/visionInsert.csv");
+            writeCsv.reset();
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -156,6 +159,7 @@ public class AdminProductController {
             Product latestProduct = null;
             try {
                 String name = GoogleCloudStorageUpload.saveFile(files.get(0));
+                name = "https://storage.googleapis.com/bit-jaehoon/"+name;
                 product.setDetailImage(name);
                 Product savedProduct = productRepository.save(product);
                 latestProduct = savedProduct;
@@ -168,13 +172,14 @@ public class AdminProductController {
                 for (int i = 1; i < files.size(); i++) {
                     MultipartFile file = files.get(i);
                     name = GoogleCloudStorageUpload.saveFile(file);
+                    String uriname = "gs://bit-jaehoon/" + name;
+                    String imgPath = "https://storage.googleapis.com/bit-jaehoon/" + name;
+                    name = "https://storage.googleapis.com/bit-jaehoon/"+name;
                     ProductImage productImage = new ProductImage();
                     productImage.setOriginalName(file.getOriginalFilename());
                     productImage.setName(name);
                     productImage.setProduct(savedProduct);
                     productImageRepository.save(productImage);
-                    String uriname = "gs://bit-jaehoon/" + name;
-                    String imgPath = "https://storage.googleapis.com/bit-jaehoon/" + name;
 
                     writeCsv.write('"' + uriname + '"' + "," + '"' + "img" + '"' + "," + '"' + "product" + '"' + ","
                             + '"' + product.getName() + '"' + "," + '"' + "apparel" + '"' + "," + '"' + imgPath + '"'
@@ -204,6 +209,7 @@ public class AdminProductController {
             File file = new File("./visionInsert.csv");
             GoogleCloudStorageUpload.saveFile(file);
             productManagement.importProductSets("strong-kit-252505", "asia-east1", "gs://bit-jaehoon/visionInsert.csv");
+            writeCsv.reset();
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -224,6 +230,7 @@ public class AdminProductController {
                 MultipartFile file = files.get(j);
                 if (file.getOriginalFilename().equals(product.getDetailImage())) {
                     String iname = GoogleCloudStorageUpload.saveFile(file);
+                    iname = "https://storage.googleapis.com/bit-jaehoon/"+iname;
                     product.setDetailImage(iname);
                     break;
                 }
@@ -243,13 +250,14 @@ public class AdminProductController {
                     MultipartFile file = files.get(j);
                     if (file.getOriginalFilename().equals(image.getOriginalName())) {
                         String iname = GoogleCloudStorageUpload.saveFile(file);
+                        String uriname = "gs://bit-jaehoon/" + iname;
+                        String imgPath = "https://storage.googleapis.com/bit-jaehoon/" + iname;
+                        iname = "https://storage.googleapis.com/bit-jaehoon/"+iname;
                         ProductImage productImage = new ProductImage();
                         productImage.setOriginalName(file.getOriginalFilename());
                         productImage.setName(iname);
                         productImage.setProduct(savedProduct);
                         productImageRepository.save(productImage);
-                        String uriname = "gs://bit-jaehoon/" + iname;
-                        String imgPath = "https://storage.googleapis.com/bit-jaehoon/" + iname;
 
                         writeCsv.write('"' + uriname + '"' + "," + '"' + "img" + '"' + "," + '"' + "product" + '"' + ","
                                 + '"' + product.getName() + '"' + "," + '"' + "apparel" + '"' + "," + '"' + imgPath
@@ -265,6 +273,7 @@ public class AdminProductController {
         GoogleCloudStorageUpload.saveFile(file);
         try {
             productManagement.importProductSets("strong-kit-252505", "asia-east1", "gs://bit-jaehoon/visionInsert.csv");
+            writeCsv.reset();
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
