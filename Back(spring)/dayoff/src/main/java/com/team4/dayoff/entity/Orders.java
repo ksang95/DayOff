@@ -1,5 +1,7 @@
 package com.team4.dayoff.entity;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -48,4 +50,5 @@ public class Orders {
     private String size;
     private Integer quantity;
     private Integer price;
+    private Date deliverDate;
 }

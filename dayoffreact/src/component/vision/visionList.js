@@ -11,7 +11,7 @@ class visionList extends Component {
       render() {
         let result1;
         let resultRecommend;
-        const detail = "/detail/"
+        const detail = "/product/"
         const {list,recommendlist} = this.props;
         if( list!=null){
          result1 = list.map(

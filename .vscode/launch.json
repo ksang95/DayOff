@@ -16,6 +16,16 @@
             "mainClass": "com.team4.dayoff.DemoApplication",
             "projectName": "dayoff",
             "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-DemoApplication<dayoff2>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.team4.dayoff.DemoApplication",
+            "projectName": "dayoff2",
+            "args": ""
         }
     ]
 }

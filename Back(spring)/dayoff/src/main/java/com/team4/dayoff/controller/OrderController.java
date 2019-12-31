@@ -1,6 +1,8 @@
 package com.team4.dayoff.controller;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import java.io.BufferedReader;
@@ -10,6 +12,8 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.team4.dayoff.entity.Code;
+import com.team4.dayoff.entity.Grade;
 import com.team4.dayoff.entity.OrderDetailView;
 import com.team4.dayoff.entity.OrderGroup;
 import com.team4.dayoff.entity.OrderView;
@@ -26,6 +31,7 @@ import com.team4.dayoff.entity.Orders;
 import com.team4.dayoff.entity.ProductList;
 import com.team4.dayoff.entity.RecommendByCategory;
 import com.team4.dayoff.entity.Refunds;
+import com.team4.dayoff.entity.Users;
 import com.team4.dayoff.repository.OrderDetailViewRepository;
 import com.team4.dayoff.repository.OrderGroupRepository;
 import com.team4.dayoff.repository.OrderViewRepository;
@@ -33,11 +39,13 @@ import com.team4.dayoff.repository.OrdersRepository;
 import com.team4.dayoff.repository.ProductRepository;
 import com.team4.dayoff.repository.RecommendRepository;
 import com.team4.dayoff.repository.RefundsRepository;
+import com.team4.dayoff.repository.UsersRepository;
 
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.format.datetime.DateFormatter;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -72,6 +80,9 @@ public class OrderController {
     @Autowired
     private RefundsRepository refundsRepository;
 
+    @Autowired
+    private UsersRepository usersRepository;
+
     private static String readAll(Reader rd) throws IOException {
         StringBuilder sb = new StringBuilder();
         int cp;
@@ -94,149 +105,269 @@ public class OrderController {
     }
 
     @PostMapping("/confirm")
-    public void confirm(@RequestParam("orderId") Integer orderId){
+    public void confirm(@RequestParam("orderId") Integer orderId, @RequestParam("userId") Integer userId,
+            @RequestParam("groupId") Integer groupId) {
         Orders orders = new Orders();
         orders = orderRepository.findByOrderId(orderId);
         Code code = new Code();
         code.setCode("0007");
         code.setContent("구매확정");
-        
-            orders.setCode(code);
-            orderRepository.save(orders);
+
+        int count = orderRepository.countGroup(groupId);
+
+        orders.setCode(code);
+        orderRepository.save(orders);
+
+        OrderGroup orderGroup = orderGroupRepository.findById(groupId).get();
+
+        double ratio = orders.getPrice() / (orderGroup.getTotalPay() + orderGroup.getGradeDiscount()
+                + orderGroup.getCouponDiscount() + orderGroup.getPointUse());
+        double totalpay = orders.getPrice() - Math.round(ratio * orderGroup.getGradeDiscount())
+                - Math.round(ratio * orderGroup.getCouponDiscount()) - Math.round(orderGroup.getPointUse() / count);
+        int result = (int) totalpay;
+        Users users = usersRepository.findById(userId).get();
+
+        int resultPay = users.getAccrue() + result;
+
+        double resultEmoney = users.getTotalEmoney() + (totalpay * users.getGrade().getRate() / 100);
+        // System.out.println("======================================================");
+        // System.out.println(users.getGrade().getRate());
+        // System.out.println(rate);
+        // System.out.println(resultEmoney);
+        // System.out.println("======================================================");
+        users.setAccrue(resultPay);
+        users.setTotalEmoney((int) resultEmoney);
+
+        usersRepository.save(users);
+
+        users = usersRepository.findById(userId).get();
+
+        Grade grade = new Grade();
+        if (users.getAccrue() > 5000) {
+            grade.setLevel("실버");
+            grade.setRate(2);
+
+        } else if (users.getAccrue() > 50000) {
+            grade.setLevel("골드");
+            grade.setRate(3);
+        } else if (users.getAccrue() > 500000) {
+            grade.setLevel("플래티넘");
+            grade.setRate(3);
+        }
+
+        users.setGrade(grade);
+        usersRepository.save(users);
+
     }
 
     @PostMapping("/myOrderLIst")
     public Page<OrderView> myOrderList(@RequestParam("userId") Integer userId, Pageable pageable)
             throws JSONException, IOException {
 
-                if(pageable.getPageNumber()==0){
-                    System.out.println("Test");
-                List<OrderView> list2 = new ArrayList<>();
-                list2 = orderViewRepository.findByCode("0001");
-                    
-                list2.forEach(i->{
-                            
-                    try {
-                        JSONObject json = readJsonFromUrl(
+        if (pageable.getPageNumber() == 0) {
+            List<OrderView> list3 = new ArrayList<>();
+            list3 = orderViewRepository.findByCode("0002");
+
+            list3.forEach(i -> { //배송완료 후 7일이 지난 주문내역을 구매확정으로 전환
+                String start = i.getDeliverDate();
+                Calendar end = Calendar.getInstance();
+                int year = end.get(Calendar.YEAR);
+                int month = end.get(Calendar.MONTH) + 1;
+                int day = end.get(Calendar.DAY_OF_MONTH);
+                String end2 = Integer.toString(year)+"-"+Integer.toString(month)+"-"+Integer.toString(day);
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                try {
+                    Date beginDate = formatter.parse(start);
+                    // System.out.println(beginDate); //그냥 데이트 객체만 출력할떈 시간까지 다나옴. 포매터 적용인 안된 모습.
+                    Date endDate = formatter.parse(end2);
+                    System.out.println(endDate.getTime());
+                    System.out.println("==========================");
+                    long diff = endDate.getTime() - beginDate.getTime(); 
+
+                    System.out.println(diff);
+                    long diffDays = diff / (24*60*60*1000); // 시간차이를 시간,분,초를 곱한 값으로 나누면 하루 단위가 나옴
+                    System.out.println("결과는!!"+diffDays);
+
+
+                    Orders orderList = new Orders();
+                    int orderId = i.getOrderId();
+                    orderList = orderRepository.findByOrderId(orderId);
+
+                    if(diffDays > 6){
+                        Code code2 = new Code();
+                        code2.setCode("0007");
+                        code2.setContent("구매확정");
+                        orderList.setCode(code2);
+                        orderRepository.save(orderList);
+
+                    }
+                } catch (ParseException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            System.out.println("======================================");
+        });
+
+
+            System.out.println("Test");
+            List<OrderView> list2 = new ArrayList<>();
+            list2 = orderViewRepository.findByCode("0001");
+
+            list2.forEach(i -> {  //배송완료된 주문내역을 배송중에서 배송 완료로 전환.
+
+                try {
+                    JSONObject json = readJsonFromUrl(
                             "https://info.sweettracker.co.kr/api/v1/trackingInfo?t_key=oFdKCB2Dyz923dBuKoJdYg&t_code=04&t_invoice="
-                            + i.getInvoice());
-                            System.out.println(i.getInvoice());
-                            if(json.toString().contains("배달완료")){
-                                List<Orders> orders = new ArrayList<>();
-                                Code code1 = new Code();
-                                code1.setCode("0002");
-                                code1.setContent("배송완료");
-                                
-                                orders = orderRepository.findByOrderGroup(i.getGroupId());
-                                
-                                orders.forEach(j->{
-                                    j.setCode(code1);
-                                    orderRepository.save(j);
-        
-                                });
-            
-            
-                            }
+                                    + i.getInvoice());
+                    System.out.println(i.getInvoice());
+                    if (json.toString().contains("배달완료")) {
+                       Orders orders = new Orders();
+                        Code code1 = new Code();
+                        code1.setCode("0002");
+                        code1.setContent("배송완료");
+                        orders = orderRepository.findByOrderId(i.getOrderId());
+
+                        
+                            orders.setCode(code1);
+                            orders.setDeliverDate(new Date());
+                            orderRepository.save(orders);
+
+
+                    }
                 } catch (JSONException | IOException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             });
-        
-                }
+
+        }
+
         Page<OrderView> list = null;
 
         System.out.println(userId);
 
         list = orderViewRepository.findByIdpage(userId, pageable);
 
-
-
-      
-	    
-
-
         return list;
-        
+
     }
 
     @PostMapping("/orderCount")
-    public int orderCount(@RequestParam("groupId") Integer groupId){
+    public int orderCount(@RequestParam("groupId") Integer groupId) {
 
         orderRepository.countGroup(groupId);
 
+        return orderRepository.countGroup(groupId);
 
-        return  orderRepository.countGroup(groupId);
-        
     }
 
     @PostMapping("/updateInvoice")
-    public String  updateInvoice(@RequestParam("invoice") String invoice, @RequestParam("groupId") Integer groupId, @RequestParam("orderId") Integer orderId){
+    public String updateInvoice(@RequestParam("invoice") String invoice, @RequestParam("groupId") Integer groupId,
+            @RequestParam("orderId") Integer orderId) {
         OrderGroup orderGroup = new OrderGroup();
-        
+
         orderGroup = orderGroupRepository.findById(groupId).get();
         orderGroup.setInvoice(invoice);
         orderGroupRepository.save(orderGroup);
-
-
 
         Code code = new Code();
 
         code.setCode("0001");
         code.setContent("배송중");
 
-         orderGroup.getOrders().forEach(i->{
-                i.setCode(code);
-                orderRepository.save(i);
+        orderGroup.getOrders().forEach(i -> {
+            i.setCode(code);
+            orderRepository.save(i);
         });
-
-
-        
-
-        
 
         return "1";
     }
 
     @PostMapping("/orderList")
-    public Page<OrderView> orderList(@RequestParam("code") String code,@RequestParam("name") String name, Pageable pageable){
+    public Page<OrderView> orderList(@RequestParam("code") String code, @RequestParam("name") String name,
+            Pageable pageable) {
+
+        if (pageable.getPageNumber() == 0) {
+            List<OrderView> list3 = new ArrayList<>();
+            list3 = orderViewRepository.findByCode("0002");
+
+            list3.forEach(i -> {//배송완료 후 7일이 지난 주문내역을 구매확정으로 전환
+                String start = i.getDeliverDate();
+                Calendar end = Calendar.getInstance();
+                int year = end.get(Calendar.YEAR);
+                int month = end.get(Calendar.MONTH) + 1;
+                int day = end.get(Calendar.DAY_OF_MONTH);
+                String end2 = Integer.toString(year)+"-"+Integer.toString(month)+"-"+Integer.toString(day);
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                try {
+                    Date beginDate = formatter.parse(start);
+                    System.out.println(beginDate); //그냥 데이트 객체만 출력할떈 시간까지 다나옴. 포매터 적용인 안된 모습.
+                    System.out.println("==========================");
+                    Date endDate = formatter.parse(end2);
+                    System.out.println(endDate);
+                    long diff = endDate.getTime() - beginDate.getTime(); //겟타임으로 뽑아줘야 포매터의 형식대로 뽑혀온다.
+                    long diffDays = diff / (24*60*60*1000);
+                    System.out.println("결과는!!"+diffDays);
 
 
-        if(pageable.getPageNumber()==0){
+                    Orders orderList = new Orders();
+                    int orderId = i.getOrderId();
+                    orderList = orderRepository.findByOrderId(orderId);
+
+                    if(diffDays > 6){
+                        Code code2 = new Code();
+                        code2.setCode("0007");
+                        code2.setContent("구매확정");
+                        orderList.setCode(code2);
+                        orderRepository.save(orderList);
+
+                    }
+                } catch (ParseException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            System.out.println("======================================");
+        });
+
+
             System.out.println("Test");
-        List<OrderView> list2 = new ArrayList<>();
-        list2 = orderViewRepository.findByCode("0001");
-            
-        list2.forEach(i->{
-                    
-            try {
-                JSONObject json = readJsonFromUrl(
-                    "https://info.sweettracker.co.kr/api/v1/trackingInfo?t_key=oFdKCB2Dyz923dBuKoJdYg&t_code=04&t_invoice="
-                    + i.getInvoice());
+            List<OrderView> list2 = new ArrayList<>();
+            list2 = orderViewRepository.findByCode("0001");
+
+            list2.forEach(i -> {//배송완료된 주문내역을 배송중에서 배송 완료로 전환.
+
+                try {
+                    JSONObject json = readJsonFromUrl(
+                            "https://info.sweettracker.co.kr/api/v1/trackingInfo?t_key=oFdKCB2Dyz923dBuKoJdYg&t_code=04&t_invoice="
+                                    + i.getInvoice());
                     System.out.println(i.getInvoice());
-                    if(json.toString().contains("배달완료")){
-                        List<Orders> orders = new ArrayList<>();
+                    if (json.toString().contains("배달완료")) {
+                        Orders orders = new Orders();
                         Code code1 = new Code();
                         code1.setCode("0002");
                         code1.setContent("배송완료");
-                        
-                        orders = orderRepository.findByOrderGroup(i.getGroupId());
-                        
-                        orders.forEach(j->{
-                            j.setCode(code1);
-                            orderRepository.save(j);
 
-                        });
-    
-    
+                        orders = orderRepository.findByOrderId(i.getOrderId());
+
+                        
+                            orders.setCode(code1);
+                            orders.setDeliverDate(new Date());
+                            orderRepository.save(orders);
+
+                    
+
                     }
-        } catch (JSONException | IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    });
+                } catch (JSONException | IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            });
 
         }
+        
+            
+
+        
 
         Page<OrderView> list = null;
         System.out.println(code);
@@ -261,46 +392,10 @@ public class OrderController {
     }
 
     
-    @PostMapping("/setcookie")
-    public void cookie(@RequestParam("id") String Id,HttpServletResponse response, HttpServletRequest request){
-        Cookie cookie = new Cookie(Id, Id);
-        cookie.setPath("/");
-        cookie.setMaxAge(60*60*24*7);
-        System.out.println(cookie.getValue());
-        response.addCookie(cookie);
+   
+    
 
-       
-
-    }
-
-    @GetMapping("/showcookie")
-    public List<RecommendByCategory> showcookie(HttpServletRequest request){
-        Cookie[] cookies = request.getCookies();
-        List<RecommendByCategory> list = new ArrayList<>();
-        System.out.println(1234);
-        for(Cookie data : cookies){
-            System.out.println(data.getValue());
-            System.out.println(recommendRepository.findByProductId(Integer.parseInt(data.getValue())));
-            list.add(recommendRepository.findByProductId(Integer.parseInt(data.getValue())));
-
-        }
-        System.out.println(list);
-        return list;
-    }
-    @PostMapping("/togetherBuy")
-    public List<ProductList> togetherBuy(@RequestParam("id") Integer id){
-        List<ProductList> list = new ArrayList<>();
-        ProductList productList = new ProductList();
-        productReporitory.togetherBuy(1).forEach(i->{
-            productList.setId((Integer)i[0]);
-            productList.setName((String)i[1]);
-            productList.setUri((String)i[2]);
-            list.add(productList);
-        });
-        System.out.println(list);
-        return list;
-
-    }
+    
 
     @GetMapping("/orderDetail/{groupId}")
     public List<OrderDetailView> orderDetail(@PathVariable Integer groupId) {

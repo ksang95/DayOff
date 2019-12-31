@@ -1,6 +1,7 @@
 package com.team4.dayoff.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -60,12 +61,20 @@ public class AdminProductController {
         map.put("product", product);
         map.put("color", color);
         map.put("category", category);
+        Product product2 = productRepository.findById(productId).get();
+        try {
+            productManagement.deleteProduct(product2.getName());
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
         return map;
     }
 
     @PostMapping("/updateProductProcess")
     public void updateProductProcess(String jsonProduct, String jsonSelectedDetailImageForRemove,
-            @RequestParam(value="jsonSelectedProductImageForRemove", required = false) List<String> jsonSelectedProductImageForRemove,
+            @RequestParam(value = "jsonSelectedProductImageForRemove", required = false) List<String> jsonSelectedProductImageForRemove,
             @RequestParam("file") List<MultipartFile> files) {
         System.out.println(jsonProduct);
         System.out.println(jsonSelectedDetailImageForRemove);
@@ -77,7 +86,7 @@ public class AdminProductController {
                 if (jsonSelectedDetailImageForRemove != null) {
                     GoogleCloudStorageUpload.deleteFile(jsonSelectedDetailImageForRemove);
                     String name = GoogleCloudStorageUpload.saveFile(files.get(i++));
-                    name = "https://storage.googleapis.com/bit-jaehoon/"+name;
+                    name = "https://storage.googleapis.com/bit-jaehoon/" + name;
                     product.setDetailImage(name);
                 }
 
@@ -92,18 +101,18 @@ public class AdminProductController {
                 Product savedProduct = productRepository.save(product);
                 System.out.println(savedProduct);
 
-                if(jsonSelectedProductImageForRemove!=null)
-                jsonSelectedProductImageForRemove.forEach(pi -> {
-                    GoogleCloudStorageUpload.deleteFile(pi);
-                    productImageRepository.deleteByName(pi);
-                });
+                if (jsonSelectedProductImageForRemove != null)
+                    jsonSelectedProductImageForRemove.forEach(pi -> {
+                        GoogleCloudStorageUpload.deleteFile(pi);
+                        productImageRepository.deleteByName(pi);
+                    });
 
                 for (; i < files.size(); i++) {
                     MultipartFile file = files.get(i);
                     String name = GoogleCloudStorageUpload.saveFile(file);
                     String uriname = "gs://bit-jaehoon/" + name;
                     String imgPath = "https://storage.googleapis.com/bit-jaehoon/" + name;
-                    name = "https://storage.googleapis.com/bit-jaehoon/"+name;
+                    name = "https://storage.googleapis.com/bit-jaehoon/" + name;
                     ProductImage productImage = new ProductImage();
                     productImage.setOriginalName(file.getOriginalFilename());
                     productImage.setName(name);
@@ -111,7 +120,6 @@ public class AdminProductController {
                     System.out.println("image saving");
                     productImageRepository.save(productImage);
                     System.out.println("image saved");
-
 
                     writeCsv.write('"' + uriname + '"' + "," + '"' + "img" + '"' + "," + '"' + "product" + '"' + ","
                             + '"' + product.getName() + '"' + "," + '"' + "apparel" + '"' + "," + '"' + imgPath + '"'
@@ -133,7 +141,7 @@ public class AdminProductController {
         try {
             File file = new File("./visionInsert.csv");
             GoogleCloudStorageUpload.saveFile(file);
-            productManagement.importProductSets("strong-kit-252505", "asia-east1", "gs://bit-jaehoon/visionInsert.csv");
+            productManagement.importProductSets("gs://bit-jaehoon/visionInsert.csv");
             writeCsv.reset();
         } catch (Exception e) {
             // TODO Auto-generated catch block
@@ -159,7 +167,7 @@ public class AdminProductController {
             Product latestProduct = null;
             try {
                 String name = GoogleCloudStorageUpload.saveFile(files.get(0));
-                name = "https://storage.googleapis.com/bit-jaehoon/"+name;
+                name = "https://storage.googleapis.com/bit-jaehoon/" + name;
                 product.setDetailImage(name);
                 Product savedProduct = productRepository.save(product);
                 latestProduct = savedProduct;
@@ -174,7 +182,7 @@ public class AdminProductController {
                     name = GoogleCloudStorageUpload.saveFile(file);
                     String uriname = "gs://bit-jaehoon/" + name;
                     String imgPath = "https://storage.googleapis.com/bit-jaehoon/" + name;
-                    name = "https://storage.googleapis.com/bit-jaehoon/"+name;
+                    name = "https://storage.googleapis.com/bit-jaehoon/" + name;
                     ProductImage productImage = new ProductImage();
                     productImage.setOriginalName(file.getOriginalFilename());
                     productImage.setName(name);
@@ -208,7 +216,7 @@ public class AdminProductController {
         try {
             File file = new File("./visionInsert.csv");
             GoogleCloudStorageUpload.saveFile(file);
-            productManagement.importProductSets("strong-kit-252505", "asia-east1", "gs://bit-jaehoon/visionInsert.csv");
+            productManagement.importProductSets("gs://bit-jaehoon/visionInsert.csv");
             writeCsv.reset();
         } catch (Exception e) {
             // TODO Auto-generated catch block
@@ -230,7 +238,7 @@ public class AdminProductController {
                 MultipartFile file = files.get(j);
                 if (file.getOriginalFilename().equals(product.getDetailImage())) {
                     String iname = GoogleCloudStorageUpload.saveFile(file);
-                    iname = "https://storage.googleapis.com/bit-jaehoon/"+iname;
+                    iname = "https://storage.googleapis.com/bit-jaehoon/" + iname;
                     product.setDetailImage(iname);
                     break;
                 }
@@ -252,7 +260,7 @@ public class AdminProductController {
                         String iname = GoogleCloudStorageUpload.saveFile(file);
                         String uriname = "gs://bit-jaehoon/" + iname;
                         String imgPath = "https://storage.googleapis.com/bit-jaehoon/" + iname;
-                        iname = "https://storage.googleapis.com/bit-jaehoon/"+iname;
+                        iname = "https://storage.googleapis.com/bit-jaehoon/" + iname;
                         ProductImage productImage = new ProductImage();
                         productImage.setOriginalName(file.getOriginalFilename());
                         productImage.setName(iname);
@@ -272,7 +280,7 @@ public class AdminProductController {
         File file = new File("./visionInsert.csv");
         GoogleCloudStorageUpload.saveFile(file);
         try {
-            productManagement.importProductSets("strong-kit-252505", "asia-east1", "gs://bit-jaehoon/visionInsert.csv");
+            productManagement.importProductSets("gs://bit-jaehoon/visionInsert.csv");
             writeCsv.reset();
         } catch (Exception e) {
             // TODO Auto-generated catch block
@@ -299,6 +307,13 @@ public class AdminProductController {
     public void stopProductSale(@RequestParam("id") Integer id) {
         // productRepository.deleteById(id); //실제 delete 잘 작동한다
         productRepository.changeAvailabilityOfProduct(id, 0); // 상품 이용불가로.
+        Product product = productRepository.findById(id).get();
+        try {
+            productManagement.deleteProduct(product.getName());
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     @PostMapping("/resaleProduct")

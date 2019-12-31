@@ -4,6 +4,9 @@ import axios from "axios";
 import "./ProductInfo.css";
 import Total from './Total';
 import Select from './Select';
+import ProductCookie from "./productCookie";
+import ProductTogetherBuy from "./productTogetherBuy";
+
 class ProductInfo extends Component {
   state = {
     product: {
@@ -14,8 +17,10 @@ class ProductInfo extends Component {
       color: [],
       productSize: [],
       detailImage: "",
-      id: ""
+      id: "",
     },
+    cookielist : "",
+    Togetherlist : "",
     cart: {
       color: "",
       size: "",
@@ -23,9 +28,33 @@ class ProductInfo extends Component {
       price: 0
     }
   };
-  getProductDetail() {
+
+  async showCookie(){
+     const response = await axios.get("/showcookie");
+    console.log(response)
+    this.setState({
+        cookielist : response.data
+    })
+}
+
+async TogetherBuy(productId){
+  const params = new URLSearchParams();
+  params.append("id",productId)
+  await axios({
+    method : "post",
+    data : params,
+    url : "/togetherBuy"
+  }).then((response)=>
+
+  this.setState({
+      Togetherlist : response.data
+  })
+  )
+}
+
+  getProductDetail(productId) {
     const params = new URLSearchParams();
-    params.append("id", 21);
+    params.append("id", productId);
     axios({
       method: "post",
       url: "/showProductDetail",
@@ -135,8 +164,28 @@ class ProductInfo extends Component {
     });
   };
 
+  scrollToTop (e) {
+    document.getElementById("root").scrollTo(0, 0);
+  };
+
   componentDidMount() {
-    this.getProductDetail();
+    this.getProductDetail(this.props.match.params.productId);
+    this.showCookie();
+    this.TogetherBuy(this.props.match.params.productId);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.match.params.productId !== nextProps.match.params.productId) {
+      this.getProductDetail(nextProps.match.params.productId);
+      this.showCookie();
+      this.TogetherBuy(nextProps.match.params.productId);
+      window.scrollTo(0, 0);
+    }
+   
+  }
+  shouldComponentUpdate(nextProps, nextState){
+    console.log("shouldComponentUpdate: " + JSON.stringify(nextProps) + " " + JSON.stringify(nextState));
+    return true;
   }
 
   render() {
@@ -219,6 +268,9 @@ class ProductInfo extends Component {
               alt="1"
             />
           </div>
+              <ProductCookie cookieList={this.state.cookielist}></ProductCookie>
+              <ProductTogetherBuy Togetherlist={this.state.Togetherlist}></ProductTogetherBuy>
+
         <p>후기게시판</p>
         <div>
           {/* <ProductDetail /> */}

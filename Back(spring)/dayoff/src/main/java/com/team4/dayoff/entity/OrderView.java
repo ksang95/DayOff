@@ -40,6 +40,8 @@ public class OrderView {
     private Integer pointUse;
     private Integer totalPay;
 
+    
+    private String deliverDate;
 
     @Temporal(TemporalType.TIMESTAMP)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone =  "Asia/Seoul")

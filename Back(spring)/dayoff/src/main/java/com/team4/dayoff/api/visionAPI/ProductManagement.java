@@ -118,12 +118,12 @@ public class ProductManagement {
         }
     }
 
-    public void importProductSets(String projectId, String computeRegion, String gcsUri)
+    public void importProductSets(String gcsUri)
 	    throws Exception {
 	  try (ProductSearchClient client = ProductSearchClient.create()) {
 
 	    // A resource that represents Google Cloud Platform location.
-	    String formattedParent = ProductSearchClient.formatLocationName(projectId, computeRegion);
+	    String formattedParent = ProductSearchClient.formatLocationName("strong-kit-252505", "asia-east1");
 	    Builder gcsSource = ImportProductSetsGcsSource.newBuilder().setCsvFileUri(gcsUri);
 
 	    // Set the input configuration along with Google Cloud Storage URI
@@ -298,4 +298,23 @@ public class ProductManagement {
 	    }
 	  }
 	}
+		/**
+		 * Delete the product and all its reference images.
+		 *
+		 * @param projectId     - Id of the project.
+		 * @param computeRegion - Region name.
+		 * @param productId     - Id of the product.
+		 * @throws IOException - on I/O errors.
+		 */
+		public static void deleteProduct( String productId) throws IOException {
+			try (ProductSearchClient client = ProductSearchClient.create()) {
+	
+				// Get the full path of the product.
+				String formattedName = ProductSearchClient.formatProductName("strong-kit-252505", "asia-east1", productId);
+	
+				// Delete a product.
+				client.deleteProduct(formattedName);
+				System.out.println("Product deleted.");
+			}
+		}
 }

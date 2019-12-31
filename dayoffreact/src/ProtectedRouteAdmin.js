@@ -15,7 +15,7 @@ export const ProtectedRouteAdmin = ({
           return (
             <Redirect
               to={{
-                pathname: "/deny",
+                pathname: "/error",
                 state: {
                   from: props.location
                 }

@@ -1,8 +1,7 @@
 package com.team4.dayoff.controller;
 
-import java.security.Principal;
+import java.net.URI;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -24,10 +23,8 @@ import com.team4.dayoff.repository.WithdrawHistoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -37,13 +34,14 @@ import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.ui.Model;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
@@ -212,7 +210,7 @@ public class UsersController {
 	public ModelAndView getLoginInfo(Model model, OAuth2AuthenticationToken authenticationToken,
 			HttpServletRequest request) {
 		// String referer=request.getHeader("referer"); // 이전 페이지 주소
-
+			
 		// 로그인 시 등록된 사용자면 기존의 token 업데이트&loginHistory insert할것!
 
 		String socialType = authenticationToken.getAuthorizedClientRegistrationId();
@@ -288,6 +286,38 @@ public class UsersController {
 		if (auth != null) {
 			new SecurityContextLogoutHandler().logout(request, response, auth);
 		}
+	}
+	@RequestMapping("/callback")
+	public void GoogleSignCallback(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        // TODO Auto-generated method stub
+        String code = request.getParameter("code");
+        HttpHeaders headers = new HttpHeaders();
+        RestTemplate restTemplate = new RestTemplate(); 
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        
+        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
+        parameters.add("code", code);
+        parameters.add("client_id", "191899458571-uk5f9j3d6hpt2vkds51301tvg263ueoh.apps.googleusercontent.com");
+        parameters.add("client_secret", "w_fZV-FqQ_QSalCrpSscLLTg");
+        parameters.add("redirect_uri", "https://localhost:8443/callback");
+        parameters.add("grant_type", "authorization_code");
+        
+        HttpEntity<MultiValueMap<String,String>> rest_request = new HttpEntity<>(parameters,headers);
+        
+        URI uri = URI.create("https://www.googleapis.com/oauth2/v4/token");
+        
+        ResponseEntity<String> rest_reponse;
+        rest_reponse = restTemplate.postForEntity(uri, rest_request, String.class);
+        String bodys = rest_reponse.getBody();
+        System.out.println(bodys);
+
+        response.sendRedirect("https://localhost:8443/loginSuccess");
+        
+        return ;
+	}
+	@RequestMapping("/aaa")
+	public void aa(){
+		
 	}
 	// @RequestMapping("/deny")
 	// public String deny(Authentication authentication) {

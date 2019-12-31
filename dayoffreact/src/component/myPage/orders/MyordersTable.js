@@ -9,7 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 class MyordersTable extends Component {
     render() {
         const {list} = this.props
-      const detail = "/detail/"
+      const detail = "/product/"
       const detailOrder = "/orderDetail/"
       const userinfo = "/userinfo/"
       const refund = "/mypage/refundRequest/"
@@ -43,7 +43,7 @@ class MyordersTable extends Component {
       {data.codeContent === "배송준비중" ? <OrderCancel order={data}></OrderCancel> : ""}
       {data.codeContent === "배송중" ?<Deliver invoice={data.invoice}></Deliver> : ""}
       {data.codeContent === "구매확정" ? <Link to={review+data.productId}><Button variant="outline-dark" className="jaehoon">후기 작성</Button></Link> : ""}
-      {data.codeContent === "배송완료" ? <OrderConfirm groupId={data.groupId}></OrderConfirm>  : ""}
+      {data.codeContent === "배송완료" ? <OrderConfirm orderId={data.orderId} userId={data.userId} groupId={data.groupId}></OrderConfirm>  : ""}
       <br></br>
       {data.codeContent === "배송완료" ? <Link to={{
                         pathname:"/mypage/refundRequest",

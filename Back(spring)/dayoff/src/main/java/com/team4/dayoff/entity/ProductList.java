@@ -13,7 +13,7 @@ import lombok.ToString;
 @ToString
 public class ProductList {
 
-    private int id;
-    private String name;
-    private String uri;
+    private int productId;
+    private String productName;
+    private String productThumbnailName;
 }
