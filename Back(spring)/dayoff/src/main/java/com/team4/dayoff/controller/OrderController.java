@@ -170,10 +170,7 @@ public class OrderController {
     public Page<OrderView> myOrderList(@RequestParam("userId") Integer userId, Pageable pageable,OAuth2AuthenticationToken authenticationToken)
             throws JSONException, IOException {
                 
-                OAuth2AuthorizedClient client = authorizedClientService.loadAuthorizedClient(
-                    authenticationToken.getAuthorizedClientRegistrationId(), authenticationToken.getPrincipal().getName());
-                    System.out.println(client.getAccessToken().getTokenValue());
-                    System.out.println(client.getRefreshToken());
+              
         if (pageable.getPageNumber() == 0) {
             List<OrderView> list3 = new ArrayList<>();
             list3 = orderViewRepository.findByCodeAndUserId("0002",userId);
