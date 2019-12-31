@@ -47,6 +47,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.format.datetime.DateFormatter;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -82,6 +85,9 @@ public class OrderController {
 
     @Autowired
     private UsersRepository usersRepository;
+
+    @Autowired
+	private OAuth2AuthorizedClientService authorizedClientService;
 
     private static String readAll(Reader rd) throws IOException {
         StringBuilder sb = new StringBuilder();
@@ -161,9 +167,13 @@ public class OrderController {
     }
 
     @PostMapping("/myOrderLIst")
-    public Page<OrderView> myOrderList(@RequestParam("userId") Integer userId, Pageable pageable)
+    public Page<OrderView> myOrderList(@RequestParam("userId") Integer userId, Pageable pageable,OAuth2AuthenticationToken authenticationToken)
             throws JSONException, IOException {
-
+                
+                OAuth2AuthorizedClient client = authorizedClientService.loadAuthorizedClient(
+                    authenticationToken.getAuthorizedClientRegistrationId(), authenticationToken.getPrincipal().getName());
+                    System.out.println(client.getAccessToken().getTokenValue());
+                    System.out.println(client.getRefreshToken());
         if (pageable.getPageNumber() == 0) {
             List<OrderView> list3 = new ArrayList<>();
             list3 = orderViewRepository.findByCodeAndUserId("0002",userId);

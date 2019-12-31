@@ -15,7 +15,7 @@ class productTogetherBuy extends Component {
         let result;
         if(Togetherlist){
          result = Togetherlist.map(
-            (data1,index) => (<div className="listDiv"><Link to={detail+data1.productId}><img className="imglist" width="200px" height="250px" alt="" src={data1.productThumbnailName}></img><p>{data1.productName}</p></Link></div>)
+            (data1,index) => (<div className="listDiv"><Link to={detail+data1.productId}><img className="imglist" width="200px" height="250px" alt="" src={"https://storage.googleapis.com/bit-jaehoon/"+data1.productThumbnailName}></img><p>{data1.productName}</p></Link></div>)
         )
         }
         return (

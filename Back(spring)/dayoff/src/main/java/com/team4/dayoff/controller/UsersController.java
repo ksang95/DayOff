@@ -277,7 +277,7 @@ public class UsersController {
 		System.out.println("12312312312");
 	}
 	@GetMapping("/loginPage")
-	public void getMethodName2() {
+	public void getMethodName2(HttpServletResponse response) {
 		System.out.println("로그인필요");
 	}
 

@@ -86,7 +86,6 @@ public class AdminProductController {
                 if (jsonSelectedDetailImageForRemove != null) {
                     GoogleCloudStorageUpload.deleteFile(jsonSelectedDetailImageForRemove);
                     String name = GoogleCloudStorageUpload.saveFile(files.get(i++));
-                    name = "https://storage.googleapis.com/bit-jaehoon/" + name;
                     product.setDetailImage(name);
                 }
 
@@ -167,7 +166,6 @@ public class AdminProductController {
             Product latestProduct = null;
             try {
                 String name = GoogleCloudStorageUpload.saveFile(files.get(0));
-                name = "https://storage.googleapis.com/bit-jaehoon/" + name;
                 product.setDetailImage(name);
                 Product savedProduct = productRepository.save(product);
                 latestProduct = savedProduct;
@@ -238,7 +236,6 @@ public class AdminProductController {
                 MultipartFile file = files.get(j);
                 if (file.getOriginalFilename().equals(product.getDetailImage())) {
                     String iname = GoogleCloudStorageUpload.saveFile(file);
-                    iname = "https://storage.googleapis.com/bit-jaehoon/" + iname;
                     product.setDetailImage(iname);
                     break;
                 }
