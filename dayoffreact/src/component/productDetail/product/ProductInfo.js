@@ -4,6 +4,8 @@ import axios from "axios";
 import "./ProductInfo.css";
 import Total from './Total';
 import Select from './Select';
+import { Link } from "react-router-dom";
+import LoginMenu from "../../common/login/LoginMenu";
 import ProductCookie from "./productCookie";
 import ProductTogetherBuy from "./productTogetherBuy";
 
@@ -17,7 +19,7 @@ class ProductInfo extends Component {
       color: [],
       productSize: [],
       detailImage: "",
-      id: "",
+      id: ""
     },
     cookielist : "",
     Togetherlist : "",
@@ -28,32 +30,32 @@ class ProductInfo extends Component {
       price: 0
     }
   };
-
   async showCookie(){
-     const response = await axios.get("/showcookie");
-    console.log(response)
-    this.setState({
-        cookielist : response.data
-    })
+    const response = await axios.get("/showcookie");
+   console.log(response)
+   this.setState({
+       cookielist : response.data
+   })
 }
 
 async TogetherBuy(productId){
-  const params = new URLSearchParams();
-  params.append("id",productId)
-  await axios({
-    method : "post",
-    data : params,
-    url : "/togetherBuy"
-  }).then((response)=>
+ const params = new URLSearchParams();
+ params.append("id",productId)
+ await axios({
+   method : "post",
+   data : params,
+   url : "/togetherBuy"
+ }).then((response)=>
 
-  this.setState({
-      Togetherlist : response.data
-  })
-  )
+ this.setState({
+     Togetherlist : response.data
+ })
+ )
 }
 
   getProductDetail(productId) {
     const params = new URLSearchParams();
+    // params.append("id", this.props.match.params.productId);
     params.append("id", productId);
     axios({
       method: "post",
@@ -101,25 +103,26 @@ async TogetherBuy(productId){
       color: this.state.color,
       size: this.state.size,
       product: { id: this.state.product.id },
-      users: { id: sessionStorage.getItem("userId") },
+      users: { id: null},
       productImage: this.state.product.productImage[0].name
     };
-  
- const prevCart = [].concat(JSON.parse(localStorage.getItem("cart1")))
+    if(cart.quantity==0||cart.color==null ||cart.size==null){
+      alert('상품 선택을 완료해주세요')
+    }else{
+      // localStorage.removeItem("cart1");
+ let prevCart = JSON.parse(localStorage.getItem("cart1"));
  if(prevCart==null){
    prevCart = [];
  }
  
  prevCart.push(cart);
+ console.log(prevCart)
     localStorage.setItem("cart1",JSON.stringify(prevCart));
   console.log(cart);
+  
 };
-  }
-  buyNow = e => {
-    if (this.state.selected.length > 0) {
-      this.state.buyNow();
-    }
-  };
+}
+}
   selectSize = e => {
     this.setState({
       size: e.target.value
@@ -157,23 +160,30 @@ async TogetherBuy(productId){
     this.setState({
       cart: {
         ...this.state.cart,
-
         quantity: this.state.cart.quantity - 1,
         price: this.state.cart.price - this.state.product.price
       }
     });
   };
+  handleOrder = e => {
+    if (!sessionStorage.getItem("userId")) {
+      e.preventDefault();
+      document.getElementById("loginFrame").style.visibility = "visible";
+    }
+  };
+  handleExit = e => {
+    document.getElementById("loginFrame").style.visibility = "hidden";
+  };
 
   scrollToTop (e) {
     document.getElementById("root").scrollTo(0, 0);
   };
-
+  
   componentDidMount() {
     this.getProductDetail(this.props.match.params.productId);
     this.showCookie();
     this.TogetherBuy(this.props.match.params.productId);
   }
-
   componentWillReceiveProps(nextProps) {
     if (this.props.match.params.productId !== nextProps.match.params.productId) {
       this.getProductDetail(nextProps.match.params.productId);
@@ -181,7 +191,6 @@ async TogetherBuy(productId){
       this.TogetherBuy(nextProps.match.params.productId);
       window.scrollTo(0, 0);
     }
-   
   }
   shouldComponentUpdate(nextProps, nextState){
     console.log("shouldComponentUpdate: " + JSON.stringify(nextProps) + " " + JSON.stringify(nextState));
@@ -217,46 +226,77 @@ async TogetherBuy(productId){
       <img
         key={p.id}
         value={index}
+        className="productImage"
         src={"https://storage.googleapis.com/bit-jaehoon/" + p.name}
         alt="상품이미지"
       ></img>
     ));
 
     return (
-        <div className="product">
-          <div className="productData">
-            <div className="top">
-              <div className="topLeft">
-                <div className="ProductImage">{image}</div>
-              </div>
-              <div className="topRight">
-                <p>
-                  카테고리:{product.category.name}/{product.category.subName}
-                </p>
-                <p>상품명:{product.name}</p>
-                <p>
-                  가격:
-                  {product.price
-                    .toString()
-                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-                </p>
-                <div>{sizeOp}</div>
-                <div> {colorOp}</div>
-                {this.state.color}
-                <Select cart={cart} subtract={this.subtract} add={this.add} />
+      <div className="product">
+        <div className="productData">
+          <div className="top">
+            <div className="topLeft">
+              <div className="images">{image}</div>
+            </div>
+            <div className="topRight">
+              <p>
+                카테고리:{product.category.name}/{product.category.subName}
+              </p>
+              <p>상품명:{product.name}</p>
+              <p>
+                가격:
+                {product.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+              </p>
+              <div>{sizeOp}</div>
+              <div> {colorOp}</div>
+              {this.state.color}
+              
+              <Select cart={cart} subtract={this.subtract} add={this.add} />
 
-                <Total cart={cart} />
-        <button className="btnBuy" onClick={this.buyNow}>
-          {" "}
-          바로구매{" "}
-        </button>
-        <br />
-        <button className="btnCart" onClick={this.addToCart}>
-          {" "}
-          장바구니담기{" "}
-        </button>
+              <Total cart={cart} />
+              <div>
+                <Link
+                  onClick={this.handleOrder}
+                  to={{
+                    pathname: "/payInfoList",
+                    state: {
+                      cartList: [
+                        {
+                          id: 1,
+                          name: this.state.product.name,
+                          quantity: this.state.cart.quantity,
+                          price: this.state.product.price,
+                          totalPrice: this.state.cart.price,
+                          color: this.state.color,
+                          size: this.state.size,
+                          productId: this.state.product.id,
+                          userId: sessionStorage.getItem("userId"),
+                          productThumbnailName:
+                            this.state.product.productImage[0] &&
+                            this.state.product.productImage[0].name
+                        }
+                      ]
+                    }
+                  }}
+                >
+                  <button className="btnBuy"> 바로구매 </button>
+                </Link>
+                <div
+                  className="loginFrame"
+                  id="loginFrame"
+                  style={{ visibility: "hidden" }}
+                >
+                  <LoginMenu onExit={this.handleExit}></LoginMenu>
+                </div>
+                <br />
+                <button className="btnCart" onClick={this.addToCart}>
+                  {" "}
+                  장바구니담기{" "}
+                </button>
               </div>
             </div>
+          </div>
 
           <div className="productDetail">
             상품상세정보:
@@ -268,19 +308,19 @@ async TogetherBuy(productId){
               alt="1"
             />
           </div>
-              <ProductCookie cookieList={this.state.cookielist}></ProductCookie>
-              <ProductTogetherBuy Togetherlist={this.state.Togetherlist}></ProductTogetherBuy>
+          <div>
+            <ProductCookie cookieList={this.state.cookielist}></ProductCookie>
+            <ProductTogetherBuy
+              Togetherlist={this.state.Togetherlist}
+            ></ProductTogetherBuy>
+            {/* <ProductDetail /> */}
+          </div>
 
-        <p>후기게시판</p>
-        <div>
-          {/* <ProductDetail /> */}
-        </div>
-     
-
+          <div className="review">
+            <p>후기게시판</p>
           </div>
         </div>
-       
-
+      </div>
     );
   }
 }

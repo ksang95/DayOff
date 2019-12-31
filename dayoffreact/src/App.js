@@ -21,6 +21,7 @@ import RefundRequest from './component/myPage/orders/RefundRequest';
 import UpdateUser from './component/myPage/user/UpdateUser';
 import Withdraw from './component/myPage/user/Withdraw';
 import ProductInfo from './component/productDetail/product/ProductInfo';
+import ListCartComponent from'./component/pay/ListCartComponent';
 import Vision from './component/vision/vision';
 import { ProtectedRoute } from "./ProtectedRoute";
 import { ProtectedRouteAdmin } from "./ProtectedRouteAdmin";
@@ -54,6 +55,8 @@ class App extends Component {
           <Route path="/cart" component={CartView} />
           <Route path="/product/:productId" component={ProductInfo} />
           <Route path="/deny" component={deny} />
+          <ProtectedRoute path="/payInfoList" component={ListCartComponent} />
+
 
 
         </Switch>

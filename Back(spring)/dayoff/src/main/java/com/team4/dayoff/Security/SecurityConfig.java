@@ -78,7 +78,7 @@ public OAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest>
 }
 
 @Bean
-public ClientRegistrationRepository clientRegistrationRepository(OAuth2ClientProperties oAuth2ClientProperties, @Value("") String kakaoClientId, @Value("") String kakaoClientSecret){
+public ClientRegistrationRepository clientRegistrationRepository(OAuth2ClientProperties oAuth2ClientProperties,@Value("") String kakaoClientId, @Value("") String kakaoClientSecret){
   List<ClientRegistration> registrations=new ArrayList<ClientRegistration>();
   registrations.add(CustomOAuth2Provider.KAKAO.getBuilder("kakao")
   .clientId(kakaoClientId)

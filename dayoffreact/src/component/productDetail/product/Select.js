@@ -1,24 +1,28 @@
 import React, { Component } from 'react';
+//import './Select.css';
+
 
 class Select extends Component {
     render() {
         const {cart, subtract,add}=this.props;
         return (
-            <div className="col-6 text-right">
+            <div  style={{"margin": "30px","padding": "10px"}}>
                 
-            <p>
-            수량:</p>
+            
+            <span>수량</span>
           
               <button
-                className="btn btn-outline-primary"
+                className="btn primary"
                 onClick={subtract}
                 disabled={cart.quantity < 1}
+                
               >
                 -
               </button>
+                
               {cart.quantity}
               <button
-                className="btn btn-outline-primary"
+                className="btn primary"
                 onClick={add}
               >
                 +
