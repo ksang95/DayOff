@@ -27,4 +27,5 @@ public interface OrderViewRepository extends JpaRepository<OrderView,Integer>{
     Page<OrderView> findByIdpage(@Param("userId") Integer userId, Pageable pageable);
 
     List<OrderView> findByCode(String code);
+    List<OrderView> findByCodeAndUserId(String code, Integer UserId);
 }

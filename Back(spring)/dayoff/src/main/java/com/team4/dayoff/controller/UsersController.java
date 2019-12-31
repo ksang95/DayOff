@@ -217,8 +217,7 @@ public class UsersController {
 		System.out.println(socialType); // 소셜 구별용
 		System.out.println(authenticationToken.getDetails());
 
-		OAuth2AuthorizedClient client = authorizedClientService.loadAuthorizedClient(
-				authenticationToken.getAuthorizedClientRegistrationId(), authenticationToken.getPrincipal().getName());
+	
 
 		// String userInfoEndpointUri =
 		// client.getClientRegistration().getProviderDetails().getUserInfoEndpoint().getUri();
@@ -249,6 +248,10 @@ public class UsersController {
 
 		String socialId = authenticationToken.getAuthorizedClientRegistrationId() + "_" + authenticationToken.getName();
 
+		OAuth2AuthorizedClient client = authorizedClientService.loadAuthorizedClient(
+			authenticationToken.getAuthorizedClientRegistrationId(), authenticationToken.getPrincipal().getName());
+
+		System.out.println(client.getRefreshToken());
 		Users users = usersRepository.findBySocialIdAndRoleNot(socialId, "withdraw");
 		if (users == null) {
 

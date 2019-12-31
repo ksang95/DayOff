@@ -166,7 +166,7 @@ public class OrderController {
 
         if (pageable.getPageNumber() == 0) {
             List<OrderView> list3 = new ArrayList<>();
-            list3 = orderViewRepository.findByCode("0002");
+            list3 = orderViewRepository.findByCodeAndUserId("0002",userId);
 
             list3.forEach(i -> { //배송완료 후 7일이 지난 주문내역을 구매확정으로 전환
                 String start = i.getDeliverDate();
@@ -211,7 +211,7 @@ public class OrderController {
 
             System.out.println("Test");
             List<OrderView> list2 = new ArrayList<>();
-            list2 = orderViewRepository.findByCode("0001");
+            list2 = orderViewRepository.findByCodeAndUserId("0001",userId);
 
             list2.forEach(i -> {  //배송완료된 주문내역을 배송중에서 배송 완료로 전환.
 
