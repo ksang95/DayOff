@@ -36,8 +36,7 @@ import lombok.NoArgsConstructor;
 public class OrderGroup {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer tid;
+    private String tid;
 
     @ManyToOne
 	@JoinColumn(name="userId")
@@ -64,9 +63,8 @@ public class OrderGroup {
     //@ManyToOne
     //@JoinColumn("storesId")
     //private Stores stores;
-
     private String invoice;
-    private Integer aid;
-    private Integer cid;
+    private String aid;
+    private String cid;
 
 }

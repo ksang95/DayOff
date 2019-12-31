@@ -32,7 +32,7 @@ public class OrderView {
     private String orderSize;
     private Integer orderQuantity;
     private Integer orderPrice;
-    private Integer groupId;
+    private String groupId;
     private Integer userId;
     private String userName;
     private Integer gradeDiscount;
