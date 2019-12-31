@@ -28,9 +28,6 @@ public class CartController{
       {
         System.out.println(userId);
         List<CartView> ct= new ArrayList<CartView>();
-        // cartRepository.findAll().forEach(i -> {
-        //     ct.add(i);
-        // });
         ct= cartViewRepository.findByUserId(userId);
         System.out.println(ct);
         return ct;
@@ -48,5 +45,11 @@ public class CartController{
       cartRepository.save(cart);
 
       return cart;
+  }
+  @PostMapping("/deleteCartItem")
+  public void deleteItem(@RequestParam("id") List<Integer> id){
+    id.forEach(i->{
+      cartRepository.deleteById(i);
+    });
   }
 }
