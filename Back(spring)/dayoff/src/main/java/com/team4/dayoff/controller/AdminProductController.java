@@ -10,8 +10,6 @@ import java.util.Map;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 import com.team4.dayoff.api.googleStorageAPI.GoogleCloudStorageUpload;
 import com.team4.dayoff.api.visionAPI.ProductManagement;
 import com.team4.dayoff.api.visionAPI.WriteCsv;
@@ -29,7 +27,6 @@ import com.team4.dayoff.repository.ProductSizeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -300,22 +297,21 @@ public class AdminProductController {
         return product;
     }
 
-    @PostMapping("/stopProductSale")
-    public void stopProductSale(@RequestParam("id") Integer id) {
-        // productRepository.deleteById(id); //실제 delete 잘 작동한다
-        productRepository.changeAvailabilityOfProduct(id, 0); // 상품 이용불가로.
-        Product product = productRepository.findById(id).get();
-        try {
-            productManagement.deleteProduct(product.getName());
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
 
-    @PostMapping("/resaleProduct")
-    public void resaleProduct(@RequestParam("id") Integer id) {
-        productRepository.changeAvailabilityOfProduct(id, 1); // 상품 이용재개로.
+    @PostMapping("/changeProductSale")
+    public void changeProductSale(@RequestParam("id") Integer id, @RequestParam("availability") Integer availability) {
+        // productRepository.deleteById(id); //실제 delete 잘 작동한다
+        productRepository.changeAvailabilityOfProduct(id, availability); // 상품 이용불가/이용재개로.
+        if(availability==0){
+
+            Product product = productRepository.findById(id).get();
+            try {
+                productManagement.deleteProduct(product.getName());
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
     }
 
 }

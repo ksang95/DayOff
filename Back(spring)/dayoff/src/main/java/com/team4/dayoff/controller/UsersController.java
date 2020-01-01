@@ -3,7 +3,6 @@ package com.team4.dayoff.controller;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +20,10 @@ import com.team4.dayoff.repository.UsersRepository;
 import com.team4.dayoff.repository.WithdrawHistoryRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -65,11 +68,33 @@ public class UsersController {
 	@Autowired
 	private OAuth2AuthorizedClientService authorizedClientService;
 
-	@GetMapping(value = "/list1")
-	public List<Users> userList() {
-		List<Users> st = null;
-		st = usersRepository.findAll();
-		System.out.println(st);
+	@GetMapping(value = "/getUserList")
+	public Page<Users> userList(
+			@PageableDefault(page = 0, size = 3, sort = "id", direction = Direction.DESC) Pageable pageable,
+			Boolean include, String keyword, String search) {
+		// 페이징 처리 보기 위해서 size 작게 했으니 size 수정할것!!!!!!!!!
+		Page<Users> st = null;
+		if (search.length()>0) {
+
+			switch (keyword) {
+			case "id":
+				st = usersRepository.findById(pageable, Integer.parseInt(search));
+				break;
+			case "name":
+				if(include){
+					st = usersRepository.findByName(pageable, search);
+				}else{
+					st=usersRepository.findByNameRoleNotUser(pageable, search);
+				}
+				break;
+			}
+		} else {
+			if (include)
+				st = usersRepository.findAll(pageable);
+			else
+				st = usersRepository.findAllRoleNotUser(pageable);
+		}
+
 		return st;
 	}
 
@@ -210,14 +235,12 @@ public class UsersController {
 	public ModelAndView getLoginInfo(Model model, OAuth2AuthenticationToken authenticationToken,
 			HttpServletRequest request) {
 		// String referer=request.getHeader("referer"); // 이전 페이지 주소
-			
+
 		// 로그인 시 등록된 사용자면 기존의 token 업데이트&loginHistory insert할것!
 
 		String socialType = authenticationToken.getAuthorizedClientRegistrationId();
 		System.out.println(socialType); // 소셜 구별용
 		System.out.println(authenticationToken.getDetails());
-
-	
 
 		// String userInfoEndpointUri =
 		// client.getClientRegistration().getProviderDetails().getUserInfoEndpoint().getUri();
@@ -249,7 +272,7 @@ public class UsersController {
 		String socialId = authenticationToken.getAuthorizedClientRegistrationId() + "_" + authenticationToken.getName();
 
 		OAuth2AuthorizedClient client = authorizedClientService.loadAuthorizedClient(
-			authenticationToken.getAuthorizedClientRegistrationId(), authenticationToken.getPrincipal().getName());
+				authenticationToken.getAuthorizedClientRegistrationId(), authenticationToken.getPrincipal().getName());
 
 		System.out.println(client.getRefreshToken());
 		Users users = usersRepository.findBySocialIdAndRoleNot(socialId, "withdraw");
@@ -273,9 +296,10 @@ public class UsersController {
 	}
 
 	@GetMapping("/aaa")
-	public void testteest(){
+	public void testteest() {
 		System.out.println("12312312312");
 	}
+
 	@GetMapping("/loginPage")
 	public void getMethodName2(HttpServletResponse response) {
 		System.out.println("로그인필요");
@@ -290,51 +314,53 @@ public class UsersController {
 			new SecurityContextLogoutHandler().logout(request, response, auth);
 		}
 	}
+
 	@RequestMapping("/callback")
 	public void GoogleSignCallback(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        // TODO Auto-generated method stub
-        String code = request.getParameter("code");
-        HttpHeaders headers = new HttpHeaders();
-        RestTemplate restTemplate = new RestTemplate(); 
-        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-        
-        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
-        parameters.add("code", code);
-        parameters.add("client_id", "191899458571-uk5f9j3d6hpt2vkds51301tvg263ueoh.apps.googleusercontent.com");
-        parameters.add("client_secret", "w_fZV-FqQ_QSalCrpSscLLTg");
-        parameters.add("redirect_uri", "https://localhost:8443/callback");
-        parameters.add("grant_type", "authorization_code");
-        
-        HttpEntity<MultiValueMap<String,String>> rest_request = new HttpEntity<>(parameters,headers);
-        
-        URI uri = URI.create("https://www.googleapis.com/oauth2/v4/token");
-        
-        ResponseEntity<String> rest_reponse;
-        rest_reponse = restTemplate.postForEntity(uri, rest_request, String.class);
-        String bodys = rest_reponse.getBody();
-        System.out.println(bodys);
+		// TODO Auto-generated method stub
+		String code = request.getParameter("code");
+		HttpHeaders headers = new HttpHeaders();
+		RestTemplate restTemplate = new RestTemplate();
+		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 
-        response.sendRedirect("https://localhost:8443/loginSuccess");
-        
-        return ;
+		MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
+		parameters.add("code", code);
+		parameters.add("client_id", "191899458571-uk5f9j3d6hpt2vkds51301tvg263ueoh.apps.googleusercontent.com");
+		parameters.add("client_secret", "w_fZV-FqQ_QSalCrpSscLLTg");
+		parameters.add("redirect_uri", "https://localhost:8443/callback");
+		parameters.add("grant_type", "authorization_code");
+
+		HttpEntity<MultiValueMap<String, String>> rest_request = new HttpEntity<>(parameters, headers);
+
+		URI uri = URI.create("https://www.googleapis.com/oauth2/v4/token");
+
+		ResponseEntity<String> rest_reponse;
+		rest_reponse = restTemplate.postForEntity(uri, rest_request, String.class);
+		String bodys = rest_reponse.getBody();
+		System.out.println(bodys);
+
+		response.sendRedirect("https://localhost:8443/loginSuccess");
+
+		return;
 	}
+
 	@RequestMapping("/aaa")
-	public void aa(){
-		
+	public void aa() {
+
 	}
 	// @RequestMapping("/deny")
 	// public String deny(Authentication authentication) {
-	// 	System.out.println("access denied");
-	// 	System.out.println(authentication.getAuthorities());
-	// 	Iterator it=authentication.getAuthorities().iterator();
-	// 	while(it.hasNext()){
-	// 		GrantedAuthority authority=(GrantedAuthority)it.next();
-	// 		if(authority.getAuthority().equals("ROLE_REALUSER")){
-	// 			System.out.println("권한없는 user");
-	// 			return "redirect:/loginPage";
-	// 		}
-	// 	}
-	// 	System.out.println("비회원");
-	// 	return "0";
+	// System.out.println("access denied");
+	// System.out.println(authentication.getAuthorities());
+	// Iterator it=authentication.getAuthorities().iterator();
+	// while(it.hasNext()){
+	// GrantedAuthority authority=(GrantedAuthority)it.next();
+	// if(authority.getAuthority().equals("ROLE_REALUSER")){
+	// System.out.println("권한없는 user");
+	// return "redirect:/loginPage";
+	// }
+	// }
+	// System.out.println("비회원");
+	// return "0";
 	// }
 }

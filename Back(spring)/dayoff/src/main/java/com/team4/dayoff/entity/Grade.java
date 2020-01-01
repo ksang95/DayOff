@@ -20,4 +20,5 @@ public class Grade {
     @Id
     private String level;
     private Integer rate;
+    private Integer required;
 }

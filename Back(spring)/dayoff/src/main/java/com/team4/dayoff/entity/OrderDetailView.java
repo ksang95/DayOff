@@ -35,7 +35,7 @@ public class OrderDetailView {
     Integer orderPrice;
     String code;
     String codeContent;
-    Integer groupId;
+    String groupId;
     Integer userId;
     String userName;
     Integer totalPay;

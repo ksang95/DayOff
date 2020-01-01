@@ -7,5 +7,5 @@ import com.team4.dayoff.entity.OrderDetailView;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface OrderDetailViewRepository extends JpaRepository<OrderDetailView, Integer> {
-    public List<OrderDetailView> findByGroupId(int groupId);
+    public List<OrderDetailView> findByGroupId(String groupId);
 }

@@ -6,27 +6,28 @@ class ResaleProduct extends Component {
     componentDidMount(){
     }
 
-    async resaleProduct(id) {
+    async changeProductSale(id,availability) {
         const params = new URLSearchParams();
         params.append('id', id);
+        params.append('availability', availability);
         await axios({
             method: 'post',
-            url: '/ResaleProduct',
+            url: '/changeProductSale',
             data: params
         });
     }
 
    
-    handleResale = () => {
-        const productId=this.props.match.params.productId;
-        this.resaleProduct(productId);
+    handleChangeSale = () => {
+        this.changeProductSale(this.props.productId, 1);
     }
 
 
     render() {
-        const { handleResale } = this;
+        const { handleChangeSale } = this;
+
         return (
-                <button onClick={handleResale}>판매재개</button>
+        <button onClick={handleChangeSale}>판매재개</button>
         );
     }
 }

@@ -5,7 +5,6 @@ import UserAnalysis from './component/admin/analysis/UserAnalysis';
 import Orders from './component/admin/orders/orders';
 import ProductAdd from './component/admin/product/ProductAdd';
 import ProductUpdate from './component/admin/product/ProductUpdate';
-import UserAxios from './component/admin/userList/UserAxios';
 import CartView from "./component/cart/CartView";
 import Footer from './component/common/footer/Footer';
 import Header from './component/common/header/Header.js';
@@ -25,6 +24,8 @@ import ListCartComponent from'./component/pay/ListCartComponent';
 import Vision from './component/vision/vision';
 import { ProtectedRoute } from "./ProtectedRoute";
 import { ProtectedRouteAdmin } from "./ProtectedRouteAdmin";
+import UserGrade from './component/myPage/grade/UserGrade';
+import UserList from './component/admin/userList/UserList';
 class App extends Component {
   render() {
     return (
@@ -34,32 +35,35 @@ class App extends Component {
           <Route path="/loginSuccess" component={LoginSuccess} />
           <Route path="/" component={Header} />
         </Switch>
-        <Switch>
           <Route exact path="/" component={Main} />
           <Route path="/login" component={LoginPage} />
           <Route path="/error" component={ErrorPage} />
+          <Route path="/admin" component={ErrorPage}/>
+          <Switch>
           <ProtectedRouteAdmin path="/admin/addProduct" component={ProductAdd} />
           <ProtectedRouteAdmin path="/admin/updateProduct/:productId" component={ProductUpdate} />
-          <ProtectedRouteAdmin path="/admin/userList" component={UserAxios} />
+          <ProtectedRouteAdmin path="/admin/userList/:userId" component={UserList} />
+          <ProtectedRouteAdmin path="/admin/userList" component={UserList} />
           <ProtectedRouteAdmin path="/admin/usersAnalysis" component={UserAnalysis} />
           <ProtectedRouteAdmin path="/admin/ordersAnalysis" component={OrderAnalysis} />
-          <ProtectedRoute path="/mypage/myorders/orderDetail/:groupId" component={OrderDetail} />
           <ProtectedRouteAdmin path="/admin/orders/orderDetail/:groupId" component={OrderDetail} />
+          <ProtectedRouteAdmin path="/admin/orders" component={Orders} />
+          </Switch>
+          <Route path="/mypage" component={ErrorPage}/>
+          <Switch>
+          <ProtectedRoute path="/mypage/myorders/orderDetail/:groupId" component={OrderDetail} />
           <ProtectedRoute path="/mypage/refundRequest" component={RefundRequest} />
           <ProtectedRoute path="/mypage/myInfo" component={UpdateUser} />
           <ProtectedRoute path="/mypage/withdraw" component={Withdraw} />
-          <Route path="/signUp" component={SignUp} />
-          <ProtectedRouteAdmin path="/admin/orders" component={Orders} />
-          <Route path="/vision" component={Vision} />
+          <ProtectedRoute path="/mypage/myGrade" component={UserGrade} />
           <ProtectedRoute path="/mypage/myorders" component={Myorders} />
+          </Switch>
+          <Route path="/signUp" component={SignUp} />
+          <Route path="/vision" component={Vision} />
           <Route path="/cart" component={CartView} />
           <Route path="/product/:productId" component={ProductInfo} />
           <Route path="/deny" component={deny} />
           <ProtectedRoute path="/payInfoList" component={ListCartComponent} />
-
-
-
-        </Switch>
         <Footer></Footer>
       </div>
     );

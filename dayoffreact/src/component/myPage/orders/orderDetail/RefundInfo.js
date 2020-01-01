@@ -3,6 +3,11 @@ import { Link } from 'react-router-dom';
 
 class RefundInfo extends Component {
 
+    numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+
     render() {
         const { orderId, productName, refundAmount, refundRequestDate, refundDate, productThumbnailName, productId } = this.props.order;
         const className = this.props.thisOrder ? "orderBold" : "orderLight";
@@ -16,7 +21,7 @@ class RefundInfo extends Component {
                     </div>
                 </div></Link>
             </td>            
-                <td>{refundAmount}원</td>
+                <td>{this.numberWithCommas(refundAmount)}원</td>
                 <td>{refundRequestDate}</td>
                 <td>{refundDate?refundDate:"환불대기"}</td>
 

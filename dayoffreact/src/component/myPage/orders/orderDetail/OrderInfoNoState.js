@@ -3,6 +3,10 @@ import { Link } from 'react-router-dom';
 
 class OrderInfoNoState extends Component {
 
+    numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
     render() {
         const { orderId, productName, orderPrice, orderColor, orderSize, orderQuantity, productThumbnailName, productId, codeContent, orderCount, groupId } = this.props.order;
         return (
@@ -18,7 +22,7 @@ class OrderInfoNoState extends Component {
                 <td>{orderColor}</td>
                 <td>{orderSize}</td>
                 <td>{orderQuantity}</td>
-                <td>{orderPrice}원</td>
+                <td>{this.numberWithCommas(orderPrice)}원</td>
             </tr>
         )
     }

@@ -42,11 +42,16 @@ class OrderInfo extends Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        return this.props.order !== nextProps.order || this.state.newInvoice!==nextState.newInvoice;
+        return this.props.order !== nextProps.order || this.state.newInvoice !== nextState.newInvoice;
+    }
+
+
+    numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
 
     render() {
-        const { orderId, productName, orderPrice, orderColor, orderSize, orderQuantity, productThumbnailName, productId, codeContent, orderCount, groupId, invoice } = this.props.order;
+        const { orderId, userId, productName, orderPrice, orderColor, orderSize, orderQuantity, productThumbnailName, productId, codeContent, orderCount, groupId, invoice } = this.props.order;
         const className = this.props.thisOrder ? "orderBold" : "orderLight";
         let adminCodeButton = null;
         if (this.props.isAdmin) {
@@ -67,11 +72,14 @@ class OrderInfo extends Component {
                             </div>
                         )}></SlideToggle>);
                     break;
+                // case "배송중":
+                //     adminCodeButton = <Deliver invoice={invoice}></Deliver>;
+                //     break;
                 case "환불대기중":
                     adminCodeButton = (<GoNextState orderId={orderId} buttonName="환불 승인"></GoNextState>);
                     break;
                 case "픽업예정":
-                    adminCodeButton=(<GoNextState orderId={orderId} buttonName="픽업 완료"></GoNextState>);
+                    adminCodeButton = (<GoNextState orderId={orderId} buttonName="픽업 완료"></GoNextState>);
                     break;
             }
         }
@@ -81,14 +89,14 @@ class OrderInfo extends Component {
                 case "배송준비중":
                     userCodeButton = <OrderCancel order={this.props.order} orderCount={orderCount}></OrderCancel>;
                     break;
-                case "배송중":
-                    userCodeButton = <Deliver invoice={invoice}></Deliver>;
-                    break;
+                // case "배송중":
+                //     userCodeButton = <Deliver invoice={invoice}></Deliver>;
+                //     break;
                 case "구매확정":
                     userCodeButton = <Link to={"/reviewInsert/" + productId}><Button variant="secondary">후기 작성</Button></Link>;
                     break;
                 case "배송완료":
-                    userCodeButton = (<div><OrderConfirm orderId={orderId}></OrderConfirm><br></br><Link to={{
+                    userCodeButton = (<div><OrderConfirm orderId={orderId} userId={userId} groupId={groupId}></OrderConfirm><br></br><Link to={{
                         pathname: "/mypage/refundRequest",
                         state: {
                             orderView: this.props.order,
@@ -113,7 +121,7 @@ class OrderInfo extends Component {
                 <td>{orderColor}</td>
                 <td>{orderSize}</td>
                 <td>{orderQuantity}</td>
-                <td>{orderPrice}원</td>
+                <td>{this.numberWithCommas(orderPrice)}원</td>
                 <td style={{ width: "18%" }}>{codeContent}
                     {adminCodeButton}
                     {userCodeButton}

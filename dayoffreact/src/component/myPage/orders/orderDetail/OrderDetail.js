@@ -7,6 +7,7 @@ import queryString from 'query-string';
 import RefundList from './RefundList';
 import "./orderDetail.css"
 import { Col, Row } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 class OrderDetail extends Component {
     state = {
@@ -51,6 +52,7 @@ class OrderDetail extends Component {
         this.getData();
     }
 
+    
     render() {
         const isAdmin = sessionStorage.getItem("userRole") === "admin";
         const isMine = parseInt(sessionStorage.getItem("userId")) === this.state.userId;
@@ -65,7 +67,7 @@ class OrderDetail extends Component {
                         <div className="pageTitle">
                             <div>주문 상세 정보</div>
                         </div>
-                        {isAdmin && <div className="orderDetailUser"><span>회원: {this.state.userName}</span> <span>(회원번호: {this.state.userId})</span></div>}
+                        {isAdmin && <div className="orderDetailUser"><Link to={`/admin/userList/${this.state.userId}`}><span>회원: {this.state.userName}</span><span>(회원번호: {this.state.userId})</span></Link></div>}
                         <div className="orderDetailOrder">주문번호: {this.state.info.groupId}</div>
                         <OrderGroupList data={this.state.data} orderId={this.state.orderId} isAdmin={isAdmin} getData={this.getData} needState={true}></OrderGroupList>
                         {refundData && <RefundList data={refundData} orderId={this.state.orderId}></RefundList>}

@@ -1,10 +1,5 @@
 package com.team4.dayoff.controller;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,13 +9,10 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 import com.team4.dayoff.entity.Code;
 import com.team4.dayoff.entity.Grade;
@@ -28,27 +20,20 @@ import com.team4.dayoff.entity.OrderDetailView;
 import com.team4.dayoff.entity.OrderGroup;
 import com.team4.dayoff.entity.OrderView;
 import com.team4.dayoff.entity.Orders;
-import com.team4.dayoff.entity.ProductList;
-import com.team4.dayoff.entity.RecommendByCategory;
-import com.team4.dayoff.entity.Refunds;
 import com.team4.dayoff.entity.Users;
 import com.team4.dayoff.repository.OrderDetailViewRepository;
 import com.team4.dayoff.repository.OrderGroupRepository;
 import com.team4.dayoff.repository.OrderViewRepository;
 import com.team4.dayoff.repository.OrdersRepository;
-import com.team4.dayoff.repository.ProductRepository;
 import com.team4.dayoff.repository.RecommendRepository;
 import com.team4.dayoff.repository.RefundsRepository;
 import com.team4.dayoff.repository.UsersRepository;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.format.datetime.DateFormatter;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
-import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -75,9 +60,6 @@ public class OrderController {
     private RecommendRepository recommendRepository;
 
     @Autowired
-    private ProductRepository productReporitory;
-
-    @Autowired
     private OrdersRepository orderRepository;
 
     @Autowired
@@ -86,8 +68,6 @@ public class OrderController {
     @Autowired
     private UsersRepository usersRepository;
 
-    @Autowired
-	private OAuth2AuthorizedClientService authorizedClientService;
 
     private static String readAll(Reader rd) throws IOException {
         StringBuilder sb = new StringBuilder();
@@ -112,7 +92,7 @@ public class OrderController {
 
     @PostMapping("/confirm")
     public void confirm(@RequestParam("orderId") Integer orderId, @RequestParam("userId") Integer userId,
-            @RequestParam("groupId") Integer groupId) {
+            @RequestParam("groupId") String groupId) {
         Orders orders = new Orders();
         orders = orderRepository.findByOrderId(orderId);
         Code code = new Code();
@@ -260,7 +240,7 @@ public class OrderController {
     }
 
     @PostMapping("/orderCount")
-    public int orderCount(@RequestParam("groupId") Integer groupId) {
+    public int orderCount(@RequestParam("groupId") String groupId) {
 
         orderRepository.countGroup(groupId);
 
@@ -269,7 +249,7 @@ public class OrderController {
     }
 
     @PostMapping("/updateInvoice")
-    public String updateInvoice(@RequestParam("invoice") String invoice, @RequestParam("groupId") Integer groupId,
+    public String updateInvoice(@RequestParam("invoice") String invoice, @RequestParam("groupId") String groupId,
             @RequestParam("orderId") Integer orderId) {
         OrderGroup orderGroup = new OrderGroup();
 
@@ -405,7 +385,7 @@ public class OrderController {
     
 
     @GetMapping("/orderDetail/{groupId}")
-    public List<OrderDetailView> orderDetail(@PathVariable Integer groupId) {
+    public List<OrderDetailView> orderDetail(@PathVariable String groupId) {
         List<OrderDetailView> list = orderDetailViewRepository.findByGroupId(groupId);
 
         return list;

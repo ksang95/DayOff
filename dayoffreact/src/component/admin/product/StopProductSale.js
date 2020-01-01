@@ -6,27 +6,28 @@ class StopProductSale extends Component {
     componentDidMount(){
     }
 
-    async stopProductSale(id) {
+    async changeProductSale(id,availability) {
         const params = new URLSearchParams();
         params.append('id', id);
+        params.append('availability', availability);
         await axios({
             method: 'post',
-            url: '/stopProductSale',
+            url: '/changeProductSale',
             data: params
         });
     }
 
    
-    handleStopSale = () => {
-        const productId=this.props.productId;
-        this.stopProductSale(productId);
+    handleChangeSale = () => {
+        this.changeProductSale(this.props.productId, 0);
     }
 
 
     render() {
-        const { handleStopSale } = this;
+        const { handleChangeSale } = this;
+
         return (
-                <button onClick={handleStopSale}>판매중지</button>
+        <button onClick={handleChangeSale}>판매중지</button>
         );
     }
 }
