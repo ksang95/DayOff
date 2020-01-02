@@ -76,10 +76,9 @@ class visionCrop extends Component {
           </div>
           </div> : ""}
           </div>
-          <br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
-          <VisionList recommendlist={this.state.recommendlist} list={this.state.list}></VisionList>
           
           </div>
+          <VisionList recommendlist={this.state.recommendlist} list={this.state.list}></VisionList>
             </div>
         );
     }

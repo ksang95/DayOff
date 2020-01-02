@@ -34,6 +34,8 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -270,9 +272,25 @@ public class OrderController {
         return "1";
     }
 
+    @PostMapping("/pickUpConfirm")
+    public String pickUpConfirm(@RequestParam("orderId") Integer orderId) {
+        Orders orders = new Orders();
+
+        orders = orderRepository.findById(orderId).get();
+
+        Code code = new Code();
+
+        code.setCode("0004");
+        code.setContent("픽업완료");
+
+        orders.setCode(code);
+        orderRepository.save(orders);
+
+        return "1";
+    }
     @PostMapping("/orderList")
     public Page<OrderView> orderList(@RequestParam("code") String code, @RequestParam("name") String name,
-            Pageable pageable) {
+    @PageableDefault(page = 0, size = 10) Pageable pageable) {
 
         if (pageable.getPageNumber() == 0) {
             List<OrderView> list3 = new ArrayList<>();

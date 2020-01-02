@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.team4.dayoff.api.loginAPI.FacebookAPI;
 import com.team4.dayoff.api.loginAPI.GoogleAPI;
 import com.team4.dayoff.api.loginAPI.KakaoAPI;
 import com.team4.dayoff.api.loginAPI.LoginAPI;
@@ -139,21 +140,24 @@ public class UsersController {
 		case "kakao":
 			login = new KakaoAPI();
 			break;
-		case "facebook":
+		case "facebook": 
+			login = new FacebookAPI();
 			break;
 		case "google":
 			login = new GoogleAPI();
 			break;
 		}
 		String accessToken = client.getAccessToken().getTokenValue();
+		System.out.println(client.getAccessToken().getTokenValue());
 		String refreshToken = client.getRefreshToken() != null ? client.getRefreshToken().getTokenValue() : null;
 
-		Users userInfo = login.getUserInfo(accessToken);
+		Users users = new Users();
+		Users userInfo = login.getUserInfo(accessToken,client.getPrincipalName());
 		System.out.println(userInfo);
-		Users users = userInfo;
-		users.setAccessToken(accessToken);
-		users.setRefreshToken(refreshToken);
-		System.out.println("new:" + users);
+		users = userInfo;
+	users.setAccessToken(accessToken);
+	users.setRefreshToken(refreshToken);
+	System.out.println("new:" + users);
 
 		return users;
 	}
@@ -191,6 +195,8 @@ public class UsersController {
 
 	@PostMapping("/withdrawProcess")
 	public void withdrawUsersProcess(OAuth2AuthenticationToken token, @RequestBody Code code) {
+		OAuth2AuthorizedClient client = authorizedClientService.loadAuthorizedClient(
+				token.getAuthorizedClientRegistrationId(), token.getPrincipal().getName());
 		System.out.println("=========================================================1");
 		// Users users2 = usersRepository.findBySocialId2(authentication.getName());
 		// int idx = users2.getSocialId().indexOf("_");
@@ -209,13 +215,14 @@ public class UsersController {
 			login = new KakaoAPI();
 			break;
 		case "facebook":
+			login = new FacebookAPI();
 			break;
 		case "google":
 			login = new GoogleAPI();
 			break;
 		}
 		System.out.println("=========================================================3");
-		System.out.println(login.withdrawUser(users.getAccessToken()));
+		System.out.println(login.withdrawUser(users.getAccessToken(),client.getPrincipalName()));
 		usersRepository.withdrawUser(users.getId());
 		WithdrawHistory withdrawHistory = new WithdrawHistory();
 		withdrawHistory.setCode(code);

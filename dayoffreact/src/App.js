@@ -38,7 +38,6 @@ class App extends Component {
           <Route exact path="/" component={Main} />
           <Route path="/login" component={LoginPage} />
           <Route path="/error" component={ErrorPage} />
-          <Route path="/admin" component={ErrorPage}/>
           <Switch>
           <ProtectedRouteAdmin path="/admin/addProduct" component={ProductAdd} />
           <ProtectedRouteAdmin path="/admin/updateProduct/:productId" component={ProductUpdate} />
@@ -49,7 +48,6 @@ class App extends Component {
           <ProtectedRouteAdmin path="/admin/orders/orderDetail/:groupId" component={OrderDetail} />
           <ProtectedRouteAdmin path="/admin/orders" component={Orders} />
           </Switch>
-          <Route path="/mypage" component={ErrorPage}/>
           <Switch>
           <ProtectedRoute path="/mypage/myorders/orderDetail/:groupId" component={OrderDetail} />
           <ProtectedRoute path="/mypage/refundRequest" component={RefundRequest} />
@@ -62,7 +60,6 @@ class App extends Component {
           <Route path="/vision" component={Vision} />
           <Route path="/cart" component={CartView} />
           <Route path="/product/:productId" component={ProductInfo} />
-          <Route path="/deny" component={deny} />
           <ProtectedRoute path="/payInfoList" component={ListCartComponent} />
         <Footer></Footer>
       </div>

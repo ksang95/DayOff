@@ -75,7 +75,7 @@ public class KakaoAPI implements LoginAPI {
 		return map;
 	}
 
-	public Users getUserInfo(String accessToken) {
+	public Users getUserInfo(String accessToken,String sessionId) {
 		Users userInfo = new Users();
 		String reqURL = "https://kapi.kakao.com/v2/user/me";
 		try {
@@ -122,7 +122,7 @@ public class KakaoAPI implements LoginAPI {
 		return userInfo;
 	}
 	
-	public int withdrawUser(String accessToken) {
+	public int withdrawUser(String accessToken,String Id) {
 			String reqURL = "https://kapi.kakao.com/v1/user/unlink";
 			int id=-1;
 			try {

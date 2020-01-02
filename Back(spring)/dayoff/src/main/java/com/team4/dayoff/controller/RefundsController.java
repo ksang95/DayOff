@@ -3,6 +3,7 @@ package com.team4.dayoff.controller;
 import java.util.Date;
 import java.util.List;
 
+import com.team4.dayoff.api.kakaoPayAPI.KakaoPay;
 import com.team4.dayoff.entity.Code;
 import com.team4.dayoff.entity.Orders;
 import com.team4.dayoff.entity.Refunds;
@@ -24,7 +25,8 @@ public class RefundsController {
 
     // @Autowired
     // private OrderViewRepository orderViewRepository;
-
+    @Autowired
+	private KakaoPay kakaopay;
     @Autowired
     private OrdersRepository ordersRepository;
 
@@ -61,6 +63,8 @@ public class RefundsController {
         refunds.setRefundDate(new Date());
         Refunds savedRefunds=refundsRepository.save(refunds);
         System.out.println(savedRefunds);
+		kakaopay.kakaoCancel(Integer.toString(refunds.getRefundAmount()), refunds.getOrders().getOrderGroup().getTid());
         
     }
+   
 }

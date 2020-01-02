@@ -6,6 +6,9 @@ import { Button,Col, Form } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Deliver from '../../myPage/orders/Deliver';
 import SlideToggle from "react-slide-toggle";
+import ReactPaginate from 'react-paginate';
+import OrderCancel from '../../myPage/orders/OrderCancel';
+
 
 export default class orders extends Component {
 
@@ -14,7 +17,6 @@ export default class orders extends Component {
   state ={
     value : 'all',
     page : 0,
-    size : 10,
     list : [],
     name : '',
     invoice : ''
@@ -37,6 +39,18 @@ export default class orders extends Component {
     })
   }
 
+  async pickUpConfirm(orderId){
+    const params = new URLSearchParams();
+    params.append("orderId", orderId)
+    await Axios({
+      method : "post",
+      data : params,
+      url : "/pickUpConfirm"
+    }).then((res)=>{
+      this.orderList(this.state.value,this.state.page,this.state.name)
+      
+    })
+  }
 
   handleChangeInput2(e) {
     this.setState({
@@ -50,7 +64,7 @@ export default class orders extends Component {
     await Axios({
       method : "post",
       data : params,
-      url : "/orderList?page="+page+"&size="+this.state.size
+      url : "/orderList?page="+page
     }).then((res)=>{
       console.log(this.state.value)
       console.log(res.data)
@@ -58,21 +72,21 @@ export default class orders extends Component {
       console.log(this.state.page)
       this.setState({
         list : res.data.content,
-        page : page
+        totalPages: res.data.totalPages
       })
-      if(page === res.data.totalPages-1 || page === res.data.totalPages){
-        document.getElementById("next").setAttribute('disabled','true');
-      }else{
-        document.getElementById("next").removeAttribute('disabled')
+      // if(page === res.data.totalPages-1 || page === res.data.totalPages){
+      //   document.getElementById("next").setAttribute('disabled','true');
+      // }else{
+      //   document.getElementById("next").removeAttribute('disabled')
 
-      }
+      // }
       
-      if(page === 0){
-        document.getElementById("prev").setAttribute('disabled','true');
-      }else{
-        document.getElementById("prev").removeAttribute('disabled')
+      // if(page === 0){
+      //   document.getElementById("prev").setAttribute('disabled','true');
+      // }else{
+      //   document.getElementById("prev").removeAttribute('disabled')
 
-      }
+      // }
     })
   }
 
@@ -84,7 +98,7 @@ export default class orders extends Component {
     this.setState({
       name : e.target.value
     })
-    this.orderList(this.state.value, 0, e.target.value);
+    // this.orderList(this.state.value, 0, e.target.value);
   }
 
   componentDidMount(){
@@ -107,7 +121,30 @@ export default class orders extends Component {
     }
   }
 
+  handleCheck = (e) => {
+    this.setState({
+      [e.target.name]: e.target.checked,
+    }, () => {
+      if (this.state.page !== 0)
+        document.getElementsByClassName("page-link")[1].click();
+      else
+      this.orderList(this.state.value,this.state.page,this.state.name)
+    })
+  }
 
+  handleClick = (e) => {
+    if (this.state.page !== 0)
+      document.getElementsByClassName("page-link")[1].click();
+    else
+    this.orderList(this.state.value,this.state.page,this.state.name)
+  }
+
+  handlePageClick = data => {
+    const selected = data.selected;
+    this.setState({ page: selected }, () => {
+      this.orderList(this.state.value,this.state.page,this.state.name)
+    });
+  };
 
   render() {
     const {list} = this.state
@@ -163,7 +200,8 @@ export default class orders extends Component {
     : ""}
 
     {data.codeContent === "배송중" ? <Deliver></Deliver> : ""}
-
+    {data.codeContent === "환불대기중" ? <OrderCancel order={data}></OrderCancel> : ""}
+    {data.codeContent === "픽업예정" ? <Button className="jaehoon" variant="outline-dark" onClick={()=>this.pickUpConfirm.bind(this)(data.orderId)}>픽업완료</Button> : ""}
     </td>
   </tr>))
 
@@ -195,17 +233,17 @@ export default class orders extends Component {
       <button onClick={()=> this.orderList.bind(this)(this.state.value, 0, this.state.name)}>검색</button>
 
 
-      <button id="prev" className="prev"  onClick={()=>this.orderList.bind(this)(this.state.value,this.state.page-1,this.state.name)}>이전페이지</button>
+      {/* <button id="prev" className="prev"  onClick={()=>this.orderList.bind(this)(this.state.value,this.state.page-1,this.state.name)}>이전페이지</button> */}
 
       <div>
          <table className="n-table">
           <colgroup>
-            <col style={{width: + 18+'%'}}></col>
-            <col style={{width: + 7+'%'}}></col>
-            <col style={{width: + 10+'%'}}></col>
-            <col style={{width: + 7+'%'}}></col>
-            <col style={{width: + 7+'%'}}></col>
-            <col style={{width: + 21+'%'}}></col>
+            <col style={{width: + 40+'%'}}></col>
+            <col style={{width: + 9+'%'}}></col>
+            <col style={{width: + 9+'%'}}></col>
+            <col style={{width: + 9+'%'}}></col>
+            <col style={{width: + 9+'%'}}></col>
+            <col style={{width: + 23+'%'}}></col>
           </colgroup>
           <tr >
               <th>상품정보</th>
@@ -221,7 +259,26 @@ export default class orders extends Component {
         </table>
             </div>
 
-      <button id="next" className="next" disabled={false} onClick={()=>this.orderList.bind(this)(this.state.value,this.state.page+1,this.state.name)}>다음페이지</button>
+      {/* <button id="next" className="next" disabled={false} onClick={()=>this.orderList.bind(this)(this.state.value,this.state.page+1,this.state.name)}>다음페이지</button> */}
+      <ReactPaginate
+            previousLabel={'이전'}
+            nextLabel={'다음'}
+            breakLabel={'...'}
+            pageCount={this.state.totalPages}
+            marginPagesDisplayed={1}
+            pageRangeDisplayed={5}
+            onPageChange={this.handlePageClick}
+            breakClassName={'page-item'}
+            breakLinkClassName={'page-link'}
+            containerClassName={'pagination'}
+            pageClassName={'page-item'}
+            pageLinkClassName={'page-link'}
+            previousClassName={'page-item'}
+            previousLinkClassName={'page-link'}
+            nextClassName={'page-item'}
+            nextLinkClassName={'page-link'}
+            activeClassName={'active'}
+          />
       </div>
       </div>
     );

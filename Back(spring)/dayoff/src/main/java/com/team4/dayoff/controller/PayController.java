@@ -53,6 +53,7 @@ import org.springframework.web.servlet.tags.Param;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 public class PayController {
+	
 	@Autowired
 	private CartViewRepository cartViewRepository;
 	@Autowired
@@ -230,5 +231,7 @@ public class PayController {
 		// return new ModelAndView("redirct:?pg_token=");
 		return r;
 	}
+
+	
 
 }

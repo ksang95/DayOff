@@ -9,8 +9,8 @@ import com.team4.dayoff.entity.Users;
  */
 public interface LoginAPI {
     Map<String,String> getToken(String code);
-    Users getUserInfo(String accessToken);
-    int withdrawUser(String accessToken);
+    Users getUserInfo(String accessToken,String Id);
+    int withdrawUser(String accessToken,String Id);
     //int logoutUser(String accessToken);
     //Map<String,String> renewAccessToken(String accessToken);
     

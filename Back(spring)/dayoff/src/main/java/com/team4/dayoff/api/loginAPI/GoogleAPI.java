@@ -31,7 +31,7 @@ public class GoogleAPI implements LoginAPI {
     }
 
     @Override
-    public Users getUserInfo(String accessToken) {
+    public Users getUserInfo(String accessToken,String sessionId) {
         Users userInfo = new Users();
         String reqURL = "https://people.googleapis.com/v1/people/me?personFields=birthdays,names,phoneNumbers,genders";
         try {
@@ -127,7 +127,7 @@ public class GoogleAPI implements LoginAPI {
     }
 
     @Override
-    public int withdrawUser(String accessToken) {
+    public int withdrawUser(String accessToken,String Id) {
         // TODO Auto-generated method stub
         Users userInfo = new Users();
         String reqURL = "https://accounts.google.com/o/oauth2/revoke?token=" + accessToken;
