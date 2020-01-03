@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
-// import ProductDetail from "../ProductDetail";
 import "./ProductInfo.css";
 import Total from './Total';
 import Select from './Select';
-import { Link } from "react-router-dom";
+import { Link} from "react-router-dom";
 import LoginMenu from "../../common/login/LoginMenu";
 import ProductCookie from "./productCookie";
 import ProductTogetherBuy from "./productTogetherBuy";
@@ -19,7 +18,8 @@ class ProductInfo extends Component {
       color: [],
       productSize: [],
       detailImage: "",
-      id: ""
+      id: "",
+      isAvailable:1
     },
     cookielist : "",
     Togetherlist : "",
@@ -55,7 +55,7 @@ async TogetherBuy(productId){
 
   getProductDetail(productId) {
     const params = new URLSearchParams();
-    // params.append("id", this.props.match.params.productId);
+    // params.append("id", this.props.productId);
     params.append("id", productId);
     axios({
       method: "post",
@@ -67,7 +67,9 @@ async TogetherBuy(productId){
         product: res.data
       });
     });
+   
   }
+
   addToCart = () => {
     const userId = sessionStorage.getItem("userId")
     if(userId !== null){
@@ -116,9 +118,7 @@ async TogetherBuy(productId){
  }
  
  prevCart.push(cart);
- console.log(prevCart)
     localStorage.setItem("cart1",JSON.stringify(prevCart));
-  console.log(cart);
   
 };
 }
@@ -180,15 +180,17 @@ async TogetherBuy(productId){
   };
   
   componentDidMount() {
-    this.getProductDetail(this.props.match.params.productId);
+    this.getProductDetail(this.props.productId);
     this.showCookie();
-    this.TogetherBuy(this.props.match.params.productId);
+    this.TogetherBuy(this.props.productId);
+      
+    
   }
   componentWillReceiveProps(nextProps) {
-    if (this.props.match.params.productId !== nextProps.match.params.productId) {
-      this.getProductDetail(nextProps.match.params.productId);
+    if (this.props.productId !== nextProps.productId) {
+      this.getProductDetail(nextProps.productId);
       this.showCookie();
-      this.TogetherBuy(nextProps.match.params.productId);
+      this.TogetherBuy(nextProps.productId);
       window.scrollTo(0, 0);
     }
   }
@@ -198,6 +200,7 @@ async TogetherBuy(productId){
   }
 
   render() {
+    console.log(this.state.product.isAvailable);
     const { product, cart } = this.state;
     const sizeOp = product.productSize
       .map((s, index) => (
@@ -231,8 +234,12 @@ async TogetherBuy(productId){
         alt="상품이미지"
       ></img>
     ));
-
+    
+   
     return (
+<div className={this.state.product.isAvailable==0&&"modalroot"}>
+      <div className="modal"> <div className="popup">선택 불가 상품입니다...<Link to="/"> {" "} 메인으로 돌아가기 </Link></div></div>
+      
       <div className="product">
         <div className="productData">
           <div className="top">
@@ -313,16 +320,17 @@ async TogetherBuy(productId){
             <ProductTogetherBuy
               Togetherlist={this.state.Togetherlist}
             ></ProductTogetherBuy>
-            {/* <ProductDetail /> */}
           </div>
 
           <div className="review">
             <p>후기게시판</p>
           </div>
-        </div>
-      </div>
+  </div>
+  </div>
+  </div>
     );
-  }
-}
 
+            }
+          }
+          
 export default ProductInfo;
