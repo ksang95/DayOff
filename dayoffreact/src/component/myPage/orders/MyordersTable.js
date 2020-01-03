@@ -7,7 +7,11 @@ import { Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 class MyordersTable extends Component {
+  numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
     render() {
+      
         const {list} = this.props
       const detail = "/product/"
       const detailOrder = "/orderDetail/"
@@ -18,7 +22,7 @@ class MyordersTable extends Component {
       const result = list.map((data,index) =>(
       <tr>
         <td>
-          <div className="infoDiv"><Link to={detail+data.productId}><img width="90px" height="106px" src={data.productThumbnailName}></img></Link>
+          <div className="infoDiv"><Link to={detail+data.productId}><img width="90px" height="106px" src={"https://storage.googleapis.com/bit-jaehoon/"+data.productThumbnailName}></img></Link>
             <ul style={{overflow : 'hidden'}} className="nameColor">
               <li><Link className="info1" to={detail+data.productId}>{data.productName}</Link></li>
               <li>컬러 : {data.orderColor} 사이즈 : {data.orderSize}</li>
@@ -30,7 +34,7 @@ class MyordersTable extends Component {
 
       <td><Link to={"/mypage/myorders/orderDetail/"+data.groupId+"?orderId="+data.orderId}>{data.groupId}</Link></td>
 
-      <td>{data.orderPrice}원
+      <td>{this.numberWithCommas(data.orderPrice)}원
 
         <br></br>
 
@@ -40,10 +44,10 @@ class MyordersTable extends Component {
       <td>{data.codeContent}
 
       <br></br>
-      {data.codeContent === "배송준비중" ? <OrderCancel order={data}></OrderCancel> : ""}
+      {data.codeContent === "배송준비중" ? <OrderCancel  order={data}></OrderCancel> : ""}
       {data.codeContent === "배송중" ?<Deliver invoice={data.invoice}></Deliver> : ""}
       {data.codeContent === "구매확정" ? <Link to={review+data.productId}><Button variant="outline-dark" className="jaehoon">후기 작성</Button></Link> : ""}
-      {data.codeContent === "배송완료" ? <OrderConfirm orderId={data.orderId} userId={data.userId} groupId={data.groupId}></OrderConfirm>  : ""}
+      {data.codeContent === "배송완료" ? <OrderConfirm  orderId={data.orderId} userId={data.userId} groupId={data.groupId}></OrderConfirm>  : ""}
       <br></br>
       {data.codeContent === "배송완료" ? <Link to={{
                         pathname:"/mypage/refundRequest",

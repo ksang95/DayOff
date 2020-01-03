@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
 import { Button } from 'react-bootstrap';
+import { withRouter } from "react-router";
 
 class OrderConfirm extends Component {
 
@@ -14,7 +15,7 @@ class OrderConfirm extends Component {
           data : params,
           url : "/confirm"
         }).then((res)=>{
-            window.location.reload(false)
+            this.props.history.push("/mypage/myorders/"+orderId);
         })
       
       }
@@ -22,7 +23,8 @@ class OrderConfirm extends Component {
       f3 = ()=>{
         if(window.confirm(`구매확정 후에는 환불이 불가능합니다. 그래도 구매를 확정하시겠습니까?`)){ //리액트에서는 window. 붙여야함
       
-            this.confirm(this.props.orderId,this.props.userId,this.props.groupId)
+            this.confirm(this.props.orderId,this.props.userId,this.props.groupId);
+           
         }
 
       }
@@ -36,4 +38,4 @@ class OrderConfirm extends Component {
     }
 }
 
-export default OrderConfirm;
+export default withRouter(OrderConfirm);

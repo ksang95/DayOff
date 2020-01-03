@@ -109,9 +109,9 @@ public class OrderController {
         OrderGroup orderGroup = orderGroupRepository.findById(groupId).get();
 
         double ratio = orders.getPrice() / (orderGroup.getTotalPay() + orderGroup.getGradeDiscount()
-                + orderGroup.getCouponDiscount() + orderGroup.getPointUse());
+                 + orderGroup.getPointUse());
         double totalpay = orders.getPrice() - Math.round(ratio * orderGroup.getGradeDiscount())
-                - Math.round(ratio * orderGroup.getCouponDiscount()) - Math.round(orderGroup.getPointUse() / count);
+                 - Math.round(orderGroup.getPointUse() / count);
         int result = (int) totalpay;
         Users users = usersRepository.findById(userId).get();
 
@@ -149,7 +149,8 @@ public class OrderController {
     }
 
     @PostMapping("/myOrderLIst")
-    public Page<OrderView> myOrderList(@RequestParam("userId") Integer userId, Pageable pageable,OAuth2AuthenticationToken authenticationToken)
+    public Page<OrderView> myOrderList(@RequestParam("userId") Integer userId,OAuth2AuthenticationToken authenticationToken,
+    @PageableDefault(page = 0, size = 1) Pageable pageable)
             throws JSONException, IOException {
                 
               
