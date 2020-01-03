@@ -71,7 +71,7 @@ public class UsersController {
 
 	@GetMapping(value = "/getUserList")
 	public Page<Users> userList(
-			@PageableDefault(page = 0, size = 3, sort = "id", direction = Direction.DESC) Pageable pageable,
+			@PageableDefault(page = 0, size = 10, sort = "id", direction = Direction.DESC) Pageable pageable,
 			Boolean include, String keyword, String search) {
 		// 페이징 처리 보기 위해서 size 작게 했으니 size 수정할것!!!!!!!!!
 		Page<Users> st = null;
@@ -102,17 +102,8 @@ public class UsersController {
 	@GetMapping("/getUser")
 	public Users getUser(OAuth2AuthenticationToken token) {
 		System.out.println(token.getAuthorizedClientRegistrationId());
-		// System.out.println(token2.getCredentials());
-		// System.out.println(token2.getPrincipal());
 		Users users = usersRepository.findBySocialIdAndRoleNot(
 				token.getAuthorizedClientRegistrationId() + "_" + token.getName(), "withdraw");
-		// Users users2 = usersRepository.findBySocialId2(authentication.getName());
-		// int idx = users2.getSocialId().indexOf("_");
-		// String socialType= users2.getSocialId().substring(0,idx);
-		// System.out.println(socialType);
-		// String socialId=socialType+"_"+(authentication.getName());
-		// Users users=usersRepository.findBySocialIdAndRoleNot(socialId,"withdraw");
-
 		Authentication authentication = null;
 		List<GrantedAuthority> updatedAuthorities = new ArrayList<>(token.getAuthorities());
 		System.out.println(token.getAuthorities());
@@ -164,25 +155,20 @@ public class UsersController {
 
 	@PostMapping("/signUpProcess")
 	public Users signUpProcess(@RequestBody Users users, OAuth2AuthenticationToken authenticationToken) {
-
+		
 		Users savedUsers = usersRepository.save(users);
 		System.out.println(savedUsers);
 		LoginHistory loginHistory = new LoginHistory();
 		loginHistory.setUsers(savedUsers);
 		loginHistoryRepository.save(loginHistory);
 
-		// 시큐리티 role업뎃
-
-		// Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		List<GrantedAuthority> updatedAuthorities = new ArrayList<>(authenticationToken.getAuthorities());
 		updatedAuthorities.add(new SimpleGrantedAuthority("ROLE_REALUSER"));
-		// authentication = new UsernamePasswordAuthenticationToken(auth.getPrincipal(),
-		// auth.getCredentials(),
-		// updatedAuthorities);
 		Authentication authentication = new OAuth2AuthenticationToken(authenticationToken.getPrincipal(),
 				updatedAuthorities, authenticationToken.getAuthorizedClientRegistrationId());
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		System.out.println(authentication.getAuthorities() + "1245");
+		
 
 		return savedUsers;
 	}
@@ -198,13 +184,6 @@ public class UsersController {
 		OAuth2AuthorizedClient client = authorizedClientService.loadAuthorizedClient(
 				token.getAuthorizedClientRegistrationId(), token.getPrincipal().getName());
 		System.out.println("=========================================================1");
-		// Users users2 = usersRepository.findBySocialId2(authentication.getName());
-		// int idx = users2.getSocialId().indexOf("_");
-
-		// String socialType= users2.getSocialId().substring(0,idx);
-		// System.out.println(socialType);
-		// String socialId=socialType+"_"+(authentication.getName());
-		// Users users = usersRepository.findBySocialIdAndRoleNot(socialId, "withdraw");
 		System.out.println(token.getAuthorizedClientRegistrationId());
 		String socialType = token.getAuthorizedClientRegistrationId();
 		Users users = usersRepository.findBySocialIdAndRoleNot(socialType + "_" + token.getName(), "withdraw");
@@ -243,38 +222,9 @@ public class UsersController {
 			HttpServletRequest request) {
 		// String referer=request.getHeader("referer"); // 이전 페이지 주소
 
-		// 로그인 시 등록된 사용자면 기존의 token 업데이트&loginHistory insert할것!
-
 		String socialType = authenticationToken.getAuthorizedClientRegistrationId();
 		System.out.println(socialType); // 소셜 구별용
 		System.out.println(authenticationToken.getDetails());
-
-		// String userInfoEndpointUri =
-		// client.getClientRegistration().getProviderDetails().getUserInfoEndpoint().getUri();
-
-		// System.out.println("test================" +
-		// client.getAccessToken().getTokenValue());
-		// if (!org.springframework.util.StringUtils.isEmpty(userInfoEndpointUri)) {
-		// RestTemplate restTemplate = new RestTemplate();
-		// HttpHeaders headers = new HttpHeaders();
-		// headers.add(HttpHeaders.AUTHORIZATION, "Bearer " +
-		// client.getAccessToken().getTokenValue());
-		// HttpEntity entity = new HttpEntity("", headers);
-		// ResponseEntity<Map> response = restTemplate.exchange(userInfoEndpointUri,
-		// HttpMethod.GET, entity,
-		// Map.class);
-		// Map userAttributes = response.getBody();
-		// System.out.println(headers + "/" + entity + "/////" + response);
-		// model.addAttribute("name", userAttributes.get("name"));
-		// System.out.println(userAttributes);
-		// }
-
-		// System.out.println(authentication);
-
-		// System.out.println(authentication.getAuthorities() + "123"); // 어디서 로그인했는지
-		// System.out.println(authentication.getDetails());
-		// System.out.println(authentication.getCredentials());
-		// System.out.println(authentication.getPrincipal()); // userinfo
 
 		String socialId = authenticationToken.getAuthorizedClientRegistrationId() + "_" + authenticationToken.getName();
 
@@ -299,7 +249,6 @@ public class UsersController {
 			return new ModelAndView("redirect:https://localhost:3000/loginSuccess");
 		}
 
-		// 등록된 사용자면 loginSuccess로, 아니면 signUp으로.
 	}
 
 	@GetMapping("/aaa")
@@ -355,19 +304,4 @@ public class UsersController {
 	public void aa() {
 
 	}
-	// @RequestMapping("/deny")
-	// public String deny(Authentication authentication) {
-	// System.out.println("access denied");
-	// System.out.println(authentication.getAuthorities());
-	// Iterator it=authentication.getAuthorities().iterator();
-	// while(it.hasNext()){
-	// GrantedAuthority authority=(GrantedAuthority)it.next();
-	// if(authority.getAuthority().equals("ROLE_REALUSER")){
-	// System.out.println("권한없는 user");
-	// return "redirect:/loginPage";
-	// }
-	// }
-	// System.out.println("비회원");
-	// return "0";
-	// }
 }

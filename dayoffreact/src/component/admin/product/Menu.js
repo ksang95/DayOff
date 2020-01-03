@@ -36,7 +36,6 @@ class Menu extends Component {
                                 orderDate:'2018-11-18',
                                 orderPrice:42000,
                                 gradeDiscount:420,
-                                couponDiscount:3500,
                                 pointUse:1000,
                                 totalPay:65080,
                                 invoice:1,

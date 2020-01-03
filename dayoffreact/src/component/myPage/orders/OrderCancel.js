@@ -21,9 +21,9 @@ class OrderCancel extends Component {
 
     calculateRefundAmount = (orderCount) => {
         const { order } = this.props;
-        const { gradeDiscount, couponDiscount, pointUse, orderPrice, totalPay } = order;
-        const ratio = orderPrice / (totalPay + gradeDiscount + couponDiscount + pointUse);
-        const refundAmount = orderPrice - Math.round(ratio * gradeDiscount) - Math.round(ratio * couponDiscount) - Math.round(pointUse / orderCount);
+        const { gradeDiscount, pointUse, orderPrice, totalPay } = order;
+        const ratio = orderPrice / (totalPay + gradeDiscount + pointUse);
+        const refundAmount = orderPrice - Math.round(ratio * gradeDiscount) - Math.round(pointUse / orderCount);
         this.setState({
             refunds:{
                 orders: {id:order.orderId},

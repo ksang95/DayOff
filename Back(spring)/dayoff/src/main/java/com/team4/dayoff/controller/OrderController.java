@@ -109,9 +109,8 @@ public class OrderController {
         OrderGroup orderGroup = orderGroupRepository.findById(groupId).get();
 
         double ratio = orders.getPrice() / (orderGroup.getTotalPay() + orderGroup.getGradeDiscount()
-                + orderGroup.getCouponDiscount() + orderGroup.getPointUse());
-        double totalpay = orders.getPrice() - Math.round(ratio * orderGroup.getGradeDiscount())
-                - Math.round(ratio * orderGroup.getCouponDiscount()) - Math.round(orderGroup.getPointUse() / count);
+                 + orderGroup.getPointUse());
+        double totalpay = orders.getPrice() - Math.round(ratio * orderGroup.getGradeDiscount()) - Math.round(orderGroup.getPointUse() / count);
         int result = (int) totalpay;
         Users users = usersRepository.findById(userId).get();
 

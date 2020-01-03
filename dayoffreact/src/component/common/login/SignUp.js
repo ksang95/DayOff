@@ -98,7 +98,7 @@ class SignUp extends Component {
     render() {
         const { users, signUp, error } = this.state;
         const { handleChange, handleClick, handleExit } = this;
-        const message = signUp ? (<div><div className="completeTitle">가입을 환영합니다!</div><div>회원가입 기념 5% 할인 쿠폰이 쿠폰함으로 지급되었습니다.</div><div>쿠폰함을 확인하세요!</div> <Button variant="outline-dark" onClick={handleExit}>확인</Button></div>) : undefined;
+        const message = signUp ? (<div><div className="completeTitle">가입을 환영합니다!</div><div>회원가입 기념 적립금 1000원이 지급되었습니다.</div><Button variant="outline-dark" onClick={handleExit}>확인</Button></div>) : undefined;
 
         if (!users) {
             return (
