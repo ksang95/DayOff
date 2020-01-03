@@ -12,7 +12,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
 import javax.websocket.server.PathParam;
-
 import com.team4.dayoff.api.kakaoPayAPI.KakaoPay;
 import com.team4.dayoff.entity.Cart;
 import com.team4.dayoff.entity.CartView;
@@ -78,6 +77,8 @@ public class PayController {
 	private String service;
 	private Integer pay;
 	private Integer discount;
+	private Integer emoney;
+	private Integer useEmoney;
 //	@GetMapping
 //	public List<Cart> listCart() {
 //		return cartdao.findAll();
@@ -150,6 +151,8 @@ public class PayController {
 		// 	sum += list.get(i).getTotalPrice();
 		// }
 		pay=s.getTotalPay();
+		emoney=s.getEmoney();
+		useEmoney=s.getUseEmoney();
 		System.out.println(kakaopay.kakaoPayReady(list, s.getTotalPay()));
 		service=s.getService();
 		discount=s.getDiscount();
@@ -198,11 +201,13 @@ public class PayController {
 		KakaoPayApprovalVO info = kakaopay.kakaoPayInfo(pg_token, pay);
 		System.out.println(info);
 		int userId = Integer.parseInt(info.getPartner_user_id());
+		userRepository.userEmoney(emoney,userId);
 		users = userRepository.findById(userId);
 		ordergroup.setAid(info.getAid());
 		ordergroup.setCid(info.getCid());
 		ordergroup.setOrderDate(info.getApproved_at());
 		ordergroup.setGradeDiscount(discount);
+		ordergroup.setPointUse(useEmoney);
 //		ordergroup.setPointUser(0);
 		ordergroup.setTid(info.getTid());
 		if(service.equals("0")){
@@ -229,13 +234,13 @@ public class PayController {
 			System.out.println("dfsdfs"+service);
 			if(service.equals("0")){
 				System.out.println("werew");
-				c= codeRepository.findByCode("0003");
+				c= codeRepository.findByCode("0008");
 				order.setCode(c);
 				
 			}
 			else{
 				System.out.println("pppp");
-			c=codeRepository.findByCode("0000");
+			c=codeRepository.findByCode("0001");
 			order.setCode(c);
 			}
 			System.out.println(order);

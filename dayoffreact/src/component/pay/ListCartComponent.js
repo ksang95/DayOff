@@ -32,10 +32,16 @@ class ListCartComponent extends Component {
      totalPay:"",
      discount:"",
      showPopup: false,
-     location2:""
+     location2:"",
+     emoney:"",
+     useEmoney:"",
+     real:"",
+     calctotalpay:"",
+     cemoney:"",
+     cdemoney:"0"
             
         }
-        
+        // this.use=this.use.bind(this);
         this.reloadCartList = this.reloadCartList.bind(this);
         this.handleDropdownChange = this.handleDropdownChange.bind(this);
     }
@@ -85,8 +91,12 @@ class ListCartComponent extends Component {
                // console.log(res.data)
                 
                 this.setState({user: res.data})
+                console.log(res.data)
                 console.log(res.data.grade.level)
                 this.setState({grade:res.data.grade.level})
+                this.setState({emoney:res.data.totalEmoney})
+                this.setState({cemoney:res.data.totalEmoney})
+                console.log(this.state.emoney)
                 console.log(this.state.grade);
             console.log("ewrwrd"+this.state.grade);
     let cartlist=this.props.location.state.cartList
@@ -119,6 +129,7 @@ class ListCartComponent extends Component {
                 discountprice=Math.ceil(sum*0.8);
             }
             this.setState({totalPay:Math.round(Math.ceil(discountprice)/10)*10})
+            this.setState({calctotalpay:this.state.totalPay})
             let d=this.state.total-this.state.totalPay;
             this.setState({discount:d})
             console.log(cartlist)
@@ -141,7 +152,17 @@ class ListCartComponent extends Component {
     //         this.props.history.push('/kakaoPay');
     //     });
     // }
-
+use(){
+    const c=this.state.cemoney
+    console.log("djfhsdjfhjsfhsj")
+    let real=this.state.calctotalpay-this.state.useEmoney;
+    this.setState({real:real})
+    console.log(this.state.real)
+    let re=c-this.state.useEmoney;
+    this.setState({emoney:re})
+    this.setState({cdemoney:this.state.useEmoney})
+    
+}
     onChange = (e) =>
     this.setState({ [e.target.name]: e.target.value });
 
@@ -180,7 +201,7 @@ class ListCartComponent extends Component {
         let deliever_ = {name: this.state.name, location: this.state.location, postalCode: this.state.postalCode, phone: this.state.phone};
         
 
-      ApiService_.kakaopay(this.state.carts, deliever_,this.state.selectValue,this.state.checked,this.state.store,this.state.service,this.state.discount,this.state.totalPay).then((res)=>{
+      ApiService_.kakaopay(this.state.carts, deliever_,this.state.selectValue,this.state.checked,this.state.store,this.state.service,this.state.discount,this.state.real,this.state.emoney,this.state.useEmoney).then((res)=>{
           this.props.history.push(res.data)
           window.location.assign(res.data);
       });
@@ -215,7 +236,7 @@ class ListCartComponent extends Component {
                             <th>totalPrice</th>
                             {/* <th>id</th>
                             <th>userId</th>
-                            <th>productId</th>
+                           this.setState({real:real})  <th>productId</th>
                             <th>name</th> */}
                         </tr>
                     </thead>
@@ -270,13 +291,16 @@ class ListCartComponent extends Component {
                     </tbody>  */}
                 </table>
     <h3>총주문금액{this.state.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</h3>
-    <h3>할인금액{this.state.discount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</h3>
+    
+    <h3>회원할인금액{this.state.discount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</h3>
     <h3>결제금액{this.state.totalPay.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</h3>
+    <input placeholder="useEmoney" name="useEmoney" className="form-control" value={this.state.useEmoney} onChange={this.onChange}/>
+            <button onClick={this.use.bind(this)}>사용</button>    <h2>적립금{this.state.emoney}</h2>
+
+    <h3>적립금할인금액{this.state.cdemoney}</h3>
    
-
+    <h3>총결제금액{this.state.real.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</h3>
   
-
-
 
     {/* <Popup trigger={<button> 우편번호</button>} position="right center">
 <DaumPostcode

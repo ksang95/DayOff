@@ -15,6 +15,8 @@ boolean checkeddeliver;
 boolean checkedstore;
 Integer discount;
 Integer totalPay;
+Integer emoney;
+Integer useEmoney;
 //	List<Delievertrans> delievertrans;
 //	
 	List<CartView> cartview;

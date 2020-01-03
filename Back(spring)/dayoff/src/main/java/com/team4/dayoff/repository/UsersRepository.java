@@ -39,4 +39,8 @@ public interface UsersRepository extends JpaRepository<Users, Integer> {
 	@Query("UPDATE Users SET role='withdraw', accessToken=null, refreshToken=null WHERE id= :userId")
     void withdrawUser(int userId);
     Users findById(int userId);
+    @Transactional
+    @Modifying
+    @Query("update Users set totalEmoney=:totalEmoney where id=:userId")
+    void userEmoney(int totalEmoney, int userId);
 }
