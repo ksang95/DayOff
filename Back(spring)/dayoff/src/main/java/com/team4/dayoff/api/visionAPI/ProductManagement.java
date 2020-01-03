@@ -165,7 +165,7 @@ public class ProductManagement {
 
       // Get the full path of the product set.
       String productSetPath =
-          ProductSearchClient.formatProductSetName("strong-kit-252505", "asia-east1", "aaa");
+          ProductSearchClient.formatProductSetName("strong-kit-252505", "asia-east1", "product");
 
       // Read the image as a stream of bytes.
       File imgPath = new File(filePath);

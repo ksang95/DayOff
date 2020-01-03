@@ -31,21 +31,21 @@ public class WriteCsv {
         
     }
 
-    public void reset() {
+    // public void reset() {
 
-        try {
-            BufferedWriter file = new BufferedWriter(new FileWriter("./visionInsert.csv"));
-            System.out.println(12345123);
-            file.write("");
+    //     try {
+    //         BufferedWriter file = new BufferedWriter(new FileWriter("./visionInsert.csv"));
+    //         System.out.println(12345123);
+    //         file.write("");
          
-            file.flush();
-            file.close();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+    //         file.flush();
+    //         file.close();
+    //     } catch (IOException e) {
+    //         // TODO Auto-generated catch block
+    //         e.printStackTrace();
+    //     }
         
-    }
+    // }
 
 
     

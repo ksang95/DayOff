@@ -108,7 +108,6 @@ public class AdminProductController {
                     String name = GoogleCloudStorageUpload.saveFile(file);
                     String uriname = "gs://bit-jaehoon/" + name;
                     String imgPath = "https://storage.googleapis.com/bit-jaehoon/" + name;
-                    name = "https://storage.googleapis.com/bit-jaehoon/" + name;
                     ProductImage productImage = new ProductImage();
                     productImage.setOriginalName(file.getOriginalFilename());
                     productImage.setName(name);
@@ -138,7 +137,7 @@ public class AdminProductController {
             File file = new File("./visionInsert.csv");
             GoogleCloudStorageUpload.saveFile(file);
             productManagement.importProductSets("gs://bit-jaehoon/visionInsert.csv");
-            writeCsv.reset();
+            // writeCsv.reset();
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -177,10 +176,9 @@ public class AdminProductController {
                     name = GoogleCloudStorageUpload.saveFile(file);
                     String uriname = "gs://bit-jaehoon/" + name;
                     String imgPath = "https://storage.googleapis.com/bit-jaehoon/" + name;
-                    name = "https://storage.googleapis.com/bit-jaehoon/" + name;
                     ProductImage productImage = new ProductImage();
-                    productImage.setOriginalName(file.getOriginalFilename());
                     productImage.setName(name);
+                    productImage.setOriginalName(file.getOriginalFilename());
                     productImage.setProduct(savedProduct);
                     productImageRepository.save(productImage);
 
@@ -254,7 +252,6 @@ public class AdminProductController {
                         String iname = GoogleCloudStorageUpload.saveFile(file);
                         String uriname = "gs://bit-jaehoon/" + iname;
                         String imgPath = "https://storage.googleapis.com/bit-jaehoon/" + iname;
-                        iname = "https://storage.googleapis.com/bit-jaehoon/" + iname;
                         ProductImage productImage = new ProductImage();
                         productImage.setOriginalName(file.getOriginalFilename());
                         productImage.setName(iname);
@@ -275,7 +272,7 @@ public class AdminProductController {
         GoogleCloudStorageUpload.saveFile(file);
         try {
             productManagement.importProductSets("gs://bit-jaehoon/visionInsert.csv");
-            writeCsv.reset();
+            // writeCsv.reset();
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -302,16 +299,6 @@ public class AdminProductController {
     public void changeProductSale(@RequestParam("id") Integer id, @RequestParam("availability") Integer availability) {
         // productRepository.deleteById(id); //실제 delete 잘 작동한다
         productRepository.changeAvailabilityOfProduct(id, availability); // 상품 이용불가/이용재개로.
-        if(availability==0){
-
-            Product product = productRepository.findById(id).get();
-            try {
-                productManagement.deleteProduct(product.getName());
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
     }
 
 }

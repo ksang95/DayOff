@@ -22,7 +22,11 @@ export default class orders extends Component {
     invoice : ''
   }
 
-  
+  numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+
   async updateInvoice(invoice, groupId,orderId){
     console.log(invoice)
     const params = new URLSearchParams();
@@ -154,7 +158,7 @@ export default class orders extends Component {
     const result = list.map((data,index) =>(
     <tr>
       <td>
-        <div className="infoDiv"><Link to={detail+data.productId}><img width="90px" height="106px" src={data.productThumbnailName}></img></Link>
+        <div className="infoDiv"><Link to={detail+data.productId}><img width="90px" height="106px" src={"https://storage.googleapis.com/bit-jaehoon/"+data.productThumbnailName}></img></Link>
           <ul style={{overflow : 'hidden'}} className="nameColor">
             <li><Link className="info1" to={detail+data.productId}>{data.productName}</Link></li>
             <li>컬러 : {data.orderColor} 사이즈 : {data.orderSize}</li>
@@ -169,7 +173,7 @@ export default class orders extends Component {
 
     <td><Link to={detailOrder+data.groupId+"?orderId="+data.orderId}>{data.groupId}</Link></td>
 
-    <td>{data.orderPrice}원
+    <td>{this.numberWithCommas(data.orderPrice)}원
 
       <br></br>
 
@@ -240,9 +244,9 @@ export default class orders extends Component {
           <colgroup>
             <col style={{width: + 40+'%'}}></col>
             <col style={{width: + 9+'%'}}></col>
+            <col style={{width: + 12+'%'}}></col>
             <col style={{width: + 9+'%'}}></col>
-            <col style={{width: + 9+'%'}}></col>
-            <col style={{width: + 9+'%'}}></col>
+            <col style={{width: + 10+'%'}}></col>
             <col style={{width: + 23+'%'}}></col>
           </colgroup>
           <tr >
@@ -260,6 +264,7 @@ export default class orders extends Component {
             </div>
 
       {/* <button id="next" className="next" disabled={false} onClick={()=>this.orderList.bind(this)(this.state.value,this.state.page+1,this.state.name)}>다음페이지</button> */}
+      <div className="pagenate">
       <ReactPaginate
             previousLabel={'이전'}
             nextLabel={'다음'}
@@ -279,6 +284,7 @@ export default class orders extends Component {
             nextLinkClassName={'page-link'}
             activeClassName={'active'}
           />
+          </div>
       </div>
       </div>
     );

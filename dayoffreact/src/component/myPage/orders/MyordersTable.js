@@ -28,7 +28,7 @@ class MyordersTable extends Component {
 
       <td>{data.orderDate}</td>
 
-      <td><Link to={detailOrder+data.groupId+"?orderId="+data.orderId}>{data.groupId}</Link></td>
+      <td><Link to={"/mypage/myorders/orderDetail/"+data.groupId+"?orderId="+data.orderId}>{data.groupId}</Link></td>
 
       <td>{data.orderPrice}원
 

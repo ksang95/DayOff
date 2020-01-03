@@ -1,6 +1,7 @@
 .cardSection{
   width : 95%;
   margin : 0 auto;
+  background-color : white !important;
 }
 .cards-slider {
   overflow: hidden;
@@ -11,8 +12,6 @@
 	display: inline-block;
   background: #e3e3e3;
   margin: 5px 0;
-  border: 1px solid #D8D8D8;
-  box-shadow: 1px 1px 10px #D8D8D8;
 }
 
 .card {
@@ -74,9 +73,11 @@
 
 .slider-btn:hover {
   color: #5f5f5f;
-  background: rgba(0,0,0,0.2);
+  
 }
-
+.slider-btn{
+  background-color: white !important;
+}
 .btn-r {
   right: 0;
 }

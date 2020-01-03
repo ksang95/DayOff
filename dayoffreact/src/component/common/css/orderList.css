@@ -1,3 +1,11 @@
+
+.pagenate{
+    width: 50%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    margin-top : 15px;
+}
 .n-table{
     width : 100%;
     text-align: center;
@@ -35,6 +43,7 @@
 .infoDiv ul{
     padding-left : 0px;
     width: 300px;
+    margin-top : 15px;
 }
 
 .infoDiv li{
