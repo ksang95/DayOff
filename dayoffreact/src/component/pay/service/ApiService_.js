@@ -6,7 +6,7 @@ class ApiService_{
     fetchCarts() {
         return axios.get(USER_API_BASE_URL);
     }
-    fetchCartById(userId) {
+    fetchUserLevel(userId) {
         return axios.get( USER_API_BASE_URL+'/payInfoList' + userId);
     }
     order(carts) {
