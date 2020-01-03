@@ -273,18 +273,27 @@ public class OrderController {
     }
 
     @PostMapping("/pickUpConfirm")
-    public String pickUpConfirm(@RequestParam("orderId") Integer orderId) {
-        Orders orders = new Orders();
+    public String pickUpConfirm(@RequestParam("groupId") String groupId) {
 
-        orders = orderRepository.findById(orderId).get();
+        OrderGroup orderGroup = new OrderGroup();
 
-        Code code = new Code();
+        orderGroup = orderGroupRepository.findById(groupId).get();
 
-        code.setCode("0004");
-        code.setContent("픽업완료");
 
-        orders.setCode(code);
-        orderRepository.save(orders);
+        orderGroup.getOrders().forEach(i->{
+            Code code = new Code();
+            code.setCode("0004");
+            code.setContent("픽업완료");
+    
+            i.setCode(code);
+            orderRepository.save(i);
+            
+
+        });
+
+
+
+
 
         return "1";
     }

@@ -39,9 +39,9 @@ export default class orders extends Component {
     })
   }
 
-  async pickUpConfirm(orderId){
+  async pickUpConfirm(groupId){
     const params = new URLSearchParams();
-    params.append("orderId", orderId)
+    params.append("groupId", groupId)
     await Axios({
       method : "post",
       data : params,
@@ -201,7 +201,7 @@ export default class orders extends Component {
 
     {data.codeContent === "배송중" ? <Deliver></Deliver> : ""}
     {data.codeContent === "환불대기중" ? <OrderCancel order={data}></OrderCancel> : ""}
-    {data.codeContent === "픽업예정" ? <Button className="jaehoon" variant="outline-dark" onClick={()=>this.pickUpConfirm.bind(this)(data.orderId)}>픽업완료</Button> : ""}
+    {data.codeContent === "픽업예정" ? <Button className="jaehoon" variant="outline-dark" onClick={()=>this.pickUpConfirm.bind(this)(data.groupId)}>픽업완료</Button> : ""}
     </td>
   </tr>))
 

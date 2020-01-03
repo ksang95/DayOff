@@ -10,13 +10,11 @@ import './cards.css'
         cardStyle: {
           transform: 'translateX(0px)'
         },
-        width: 0,
+        width: 220,
       };
     }
   
     componentDidMount() {
-      let boxWidth = document.getElementById("card").clientWidth;
-      this.setState({ width: boxWidth });
     }
     
     // func: click the slider buttons
@@ -25,9 +23,9 @@ import './cards.css'
       let margin = window.getComputedStyle(document.getElementById("card")).marginRight;
       margin = JSON.parse(margin.replace(/px/i, '')); 
   
-      const cardWidth = 220; // the card's width
+      const cardWidth = 222; // the card's width
       const cardMargin = margin; // the card's margin
-      const cardNumber = this.props.cookieList.length -5; // the number of cards
+      const cardNumber = this.props.cookieList.length -6; // the number of cards
       let currentCard = this.state.currentCard; // the index of the current card
       let position = this.state.position; // the position of the cards
   
