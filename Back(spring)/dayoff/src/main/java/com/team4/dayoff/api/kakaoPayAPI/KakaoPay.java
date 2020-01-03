@@ -1,4 +1,5 @@
 
+
 package com.team4.dayoff.api.kakaoPayAPI;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -52,9 +53,7 @@ public class KakaoPay {
 		params.add("item_name", "상품");
 		params.add("quantity", "1");
 		params.add("total_amount", s);
-		params.add("tax_free_amount", "0");
-		params.add("vat_amount", "0");
-
+		params.add("tax_free_amount", "100");
 		params.add("approval_url", "https://localhost:8443/kakaoPaySuccess");
 		params.add("cancel_url", "https://localhost:8443/kakaoPayCancel");
 		params.add("fail_url", "https://localhost:8443/kakaoPaySuccessFail");
@@ -124,6 +123,8 @@ public class KakaoPay {
 
 		return null;
 	}
+
+
 
 	public String kakaoOrders(String cancelAmount, String tid){
 		RestTemplate restTemplate = new RestTemplate();
