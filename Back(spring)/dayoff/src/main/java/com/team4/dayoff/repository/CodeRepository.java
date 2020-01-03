@@ -11,5 +11,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface CodeRepository extends JpaRepository<Code, String>{
     List<Code> findByCodeLikeOrderByCode(String code);
+    Code findByCode(String code);
     
 }

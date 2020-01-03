@@ -13,6 +13,8 @@ String store;
 String service;
 boolean checkeddeliver;
 boolean checkedstore;
+Integer discount;
+Integer totalPay;
 //	List<Delievertrans> delievertrans;
 //	
 	List<CartView> cartview;

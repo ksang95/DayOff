@@ -17,6 +17,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import org.hibernate.annotations.DynamicInsert;
 
@@ -36,6 +37,7 @@ import lombok.NoArgsConstructor;
 public class OrderGroup {
 
     @Id
+    
     private String tid;
 
     @ManyToOne
@@ -59,10 +61,11 @@ public class OrderGroup {
     //@ManyToOne
     //@JoinColumn("deliverId")
     //private Deliver deliver;
+    
+    @ManyToOne
+    @JoinColumn(name="storesId")
+    private Stores stores;
 
-    //@ManyToOne
-    //@JoinColumn("storesId")
-    //private Stores stores;
     private String invoice;
     private String aid;
     private String cid;
