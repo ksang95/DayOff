@@ -6,6 +6,8 @@ import Select from './Select';
 import { Link } from "react-router-dom";
 import ProductCookie from "./productCookie";
 import ProductTogetherBuy from "./productTogetherBuy";
+import StopProductSale from "../../admin/product/StopProductSale";
+import ResaleProduct from "../../admin/product/ResaleProduct";
 
 class ProductInfoAdmin extends Component {
   state = {
@@ -63,6 +65,7 @@ async TogetherBuy(productId){
       console.log(res);
       this.setState({
         product: res.data
+        
       });
     });
   }
@@ -87,6 +90,15 @@ async TogetherBuy(productId){
   shouldComponentUpdate(nextProps, nextState){
     console.log("shouldComponentUpdate: " + JSON.stringify(nextProps) + " " + JSON.stringify(nextState));
     return true;
+  }
+
+  changeAvailability=(availability)=>{
+    this.setState({
+      product:{
+        ...this.state.product,
+        isAvailable:availability
+      }
+    })
   }
 
   render() {
@@ -147,21 +159,15 @@ async TogetherBuy(productId){
               {this.state.color}
               
               <Select cart={cart} subtract={this.subtract} add={this.add} />
-
               <Total cart={cart} />
               <div>
-                <Link to="/admin/updateProduct/:productId">
+                <Link to={"/admin/updateProduct/"+product.id}>
                   <button className="btnBuy">  {" "} 상품수정 {" "} </button>
                 </Link>
                 </div>
                 <br />
                 <div>
-                <Link to="/admin/stopProductSale/:productId">
-                <button className="btnCart">
-                  {" "}
-                  상품삭제{" "}
-                </button>
-                </Link>
+                {product.isAvailable===1?<StopProductSale className="btnCart" productId={product.id} changeAvailability={this.changeAvailability}></StopProductSale>:<ResaleProduct className="btnCart" productId={product.id} changeAvailability={this.changeAvailability}></ResaleProduct>}
               </div>
             </div>
           </div>

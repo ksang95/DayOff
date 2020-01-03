@@ -61,14 +61,13 @@ class RefundRequest extends Component {
 
     calculateRefundAmount = (orderCount) => {
         const { orderView } = this.props.location.state;
-        const { gradeDiscount, couponDiscount, pointUse, orderPrice, totalPay } = orderView;
-        const ratio = orderPrice / (totalPay + gradeDiscount + couponDiscount + pointUse);
-        const refundAmount = orderPrice - Math.round(ratio * gradeDiscount) - Math.round(ratio * couponDiscount) - Math.round(pointUse / orderCount);
+        const { gradeDiscount, pointUse, orderPrice, totalPay } = orderView;
+        const ratio = orderPrice / (totalPay + gradeDiscount + pointUse);
+        const refundAmount = orderPrice - Math.round(ratio * gradeDiscount) - - Math.round(pointUse / orderCount);
         const info = {
             totalRefund: refundAmount,
             orderDate: orderView.orderDate,
             gradeDiscount: Math.round(ratio * gradeDiscount),
-            couponDiscount: Math.round(ratio * couponDiscount),
             pointUse: pointUse / orderCount
         }
         this.setState({

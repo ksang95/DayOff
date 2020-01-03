@@ -3,9 +3,6 @@ import axios from 'axios';
 
 class StopProductSale extends Component {
 
-    componentDidMount(){
-    }
-
     async changeProductSale(id,availability) {
         const params = new URLSearchParams();
         params.append('id', id);
@@ -15,6 +12,7 @@ class StopProductSale extends Component {
             url: '/changeProductSale',
             data: params
         });
+        this.props.changeAvailability(0)
     }
 
    
@@ -27,7 +25,7 @@ class StopProductSale extends Component {
         const { handleChangeSale } = this;
 
         return (
-        <button onClick={handleChangeSale}>판매중지</button>
+        <button className={this.props.className} onClick={handleChangeSale}>판매중지</button>
         );
     }
 }

@@ -13,7 +13,7 @@ class PayInfo extends Component {
     render() {
         if (this.props.info) {
             const sum = this.props.totalPrice;
-            const { totalPay, orderDate, gradeDiscount, couponDiscount, pointUse, totalRefund } = this.props.info;
+            const { totalPay, orderDate, gradeDiscount, pointUse, totalRefund } = this.props.info;
             return (
                 <div className="PayInfo">
                     <Table bordered>
@@ -22,7 +22,6 @@ class PayInfo extends Component {
                     <tr><th>주문날짜</th><td>{orderDate}</td></tr>
                     <tr><th>주문금액</th><td>{this.numberWithCommas(sum)}원</td></tr>
                     <tr><th>등급할인</th><td>-{gradeDiscount?this.numberWithCommas(gradeDiscount):0}원</td></tr>
-                    <tr><th>쿠폰할인</th><td>-{this.couponDiscount?this.numberWithCommas(couponDiscount):0}원</td></tr>
                     <tr><th>적립금사용</th><td>-{pointUse?this.numberWithCommas(pointUse):0}원</td></tr>
             {totalPay?<tr><th>최종 결제금액</th><td>{this.numberWithCommas(totalPay)}원</td></tr>:<tr><th>환불받을 금액</th><td>{this.numberWithCommas(totalRefund)}원</td></tr>}
                         </tbody>

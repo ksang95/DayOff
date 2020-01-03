@@ -44,7 +44,6 @@ public class OrderDetailView {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone =  "Asia/Seoul")
     private Date orderDate;
 
-    private Integer couponDiscount;
     private Integer gradeDiscount;
     private Integer pointUse;
     private Integer invoice;

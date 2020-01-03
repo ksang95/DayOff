@@ -36,7 +36,6 @@ public class OrderView {
     private Integer userId;
     private String userName;
     private Integer gradeDiscount;
-    private Integer couponDiscount;
     private Integer pointUse;
     private Integer totalPay;
 

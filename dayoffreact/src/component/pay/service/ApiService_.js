@@ -17,14 +17,17 @@ class ApiService_{
     //  }
 
 
-    kakaopay(carts,deliever_,selectValue,checked,store_,service){
+    kakaopay(carts,deliever_,selectValue,checked,store_,service,discount,totalPay,emoney,useEmoney){
         var form={
             name: deliever_.name, location: deliever_.location, postalcode: deliever_.postalCode, phone: deliever_.phone,cartview:carts,
             checkedstore:store_,
             checkeddeliver:checked,
             store:selectValue,
-            service:service
-
+            service:service,
+            discount:discount,
+            totalPay:totalPay,
+            emoney:emoney,
+            useEmoney:useEmoney
            // id: "123", name: "123", testTags: [{id: "1111", tag: "2222"},{id: "1111", tag: "2222"}]
 
         }

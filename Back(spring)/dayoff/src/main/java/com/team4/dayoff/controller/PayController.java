@@ -12,10 +12,10 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
 import javax.websocket.server.PathParam;
-
 import com.team4.dayoff.api.kakaoPayAPI.KakaoPay;
 import com.team4.dayoff.entity.Cart;
 import com.team4.dayoff.entity.CartView;
+import com.team4.dayoff.entity.Code;
 import com.team4.dayoff.entity.Deliver;
 import com.team4.dayoff.entity.KakaoPayApprovalVO;
 import com.team4.dayoff.entity.OrderGroup;
@@ -23,10 +23,13 @@ import com.team4.dayoff.entity.Orders;
 import com.team4.dayoff.entity.Users;
 import com.team4.dayoff.entity.payInfoDTO;
 import com.team4.dayoff.entity.Product;
+import com.team4.dayoff.entity.Stores;
 import com.team4.dayoff.repository.CartViewRepository;
+import com.team4.dayoff.repository.CodeRepository;
 import com.team4.dayoff.repository.DeliverRepository;
 import com.team4.dayoff.repository.OrderGroupRepository;
 import com.team4.dayoff.repository.OrdersRepository;
+import com.team4.dayoff.repository.StoresRepository;
 import com.team4.dayoff.repository.UsersRepository;
 
 import org.apache.http.client.methods.HttpHead;
@@ -53,7 +56,6 @@ import org.springframework.web.servlet.tags.Param;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 public class PayController {
-	
 	@Autowired
 	private CartViewRepository cartViewRepository;
 	@Autowired
@@ -66,8 +68,17 @@ public class PayController {
 	private OrdersRepository ordersRepository;
 	@Autowired
 	private DeliverRepository deliverRepository;
+	@Autowired
+	private StoresRepository storesRepository;
+	@Autowired
+	private CodeRepository codeRepository;
 	public List<CartView> list;
 	private String store;
+	private String service;
+	private Integer pay;
+	private Integer discount;
+	private Integer emoney;
+	private Integer useEmoney;
 //	@GetMapping
 //	public List<Cart> listCart() {
 //		return cartdao.findAll();
@@ -80,9 +91,10 @@ public class PayController {
 	}
 
 	@GetMapping("/payInfoList{userId}")
-	public List<CartView> listCart(@PathVariable int userId) {
-		System.out.println("aadd " + cartViewRepository.findById(userId));
-		return cartViewRepository.findByUserId(userId);
+	public Users listCart(@PathVariable int userId) {
+		System.out.println("ㅇㄹㄴ                ");
+		System.out.println(userRepository.findById(userId));
+		return userRepository.findById(userId);
 	}
 
 	@GetMapping("/kakaoPay")
@@ -130,15 +142,20 @@ public class PayController {
 		// System.out.println(s);
 		System.out.println("deliever 성공");
 		System.out.println("kakaoPay post............................................");
-		store=s.getStore();
+		
 		// System.out.println("aa " + cartview);
 		list = new ArrayList();
 		list = s.getCartview();
-		int sum = 0;
-		for (int i = 0; i < list.size(); i++) {
-			sum += list.get(i).getTotalPrice();
-		}
-		System.out.println(kakaopay.kakaoPayReady(list, sum));
+		// int sum = 0;
+		// for (int i = 0; i < list.size(); i++) {
+		// 	sum += list.get(i).getTotalPrice();
+		// }
+		pay=s.getTotalPay();
+		emoney=s.getEmoney();
+		useEmoney=s.getUseEmoney();
+		System.out.println(kakaopay.kakaoPayReady(list, s.getTotalPay()));
+		service=s.getService();
+		discount=s.getDiscount();
 		
 		if (s.getService().equals("1")) {
 		    System.out.println("a");
@@ -152,7 +169,10 @@ public class PayController {
 			deliever.setPostalcode(Integer.parseInt(s.getPostalcode()));
 			deliverRepository.save(deliever);
 		}
-		return kakaopay.kakaoPayReady(list, sum);
+	if(s.getService().equals("0")){
+		store=s.getStore();
+	}
+		return kakaopay.kakaoPayReady(list, s.getTotalPay());
 	}
 //	    @PostMapping("/kakaoPay")
 //	    public String kakaoPay(@RequestBody List<Cart> carts) {
@@ -178,19 +198,28 @@ public class PayController {
 		}
 		System.out.println("kakaoPaySuccess get............................................");
 		System.out.println("kakaoPaySuccess pg_token : " + pg_token);
-		KakaoPayApprovalVO info = kakaopay.kakaoPayInfo(pg_token, sum);
+		KakaoPayApprovalVO info = kakaopay.kakaoPayInfo(pg_token, pay);
 		System.out.println(info);
 		int userId = Integer.parseInt(info.getPartner_user_id());
-		users = userRepository.findByid(userId);
+		userRepository.userEmoney(emoney,userId);
+		users = userRepository.findById(userId);
 		ordergroup.setAid(info.getAid());
 		ordergroup.setCid(info.getCid());
 		ordergroup.setOrderDate(info.getApproved_at());
+		ordergroup.setGradeDiscount(discount);
+		ordergroup.setPointUse(useEmoney);
 //		ordergroup.setPointUser(0);
 		ordergroup.setTid(info.getTid());
+		if(service.equals("0")){
+			Stores s=storesRepository.findByname(store);
+			ordergroup.setStores(s);
+			
+		}
 		ordergroup.setTotalPay(info.getAmount().getTotal());
 		ordergroup.setUsers(users);
 		System.out.println(ordergroup);
 		orderGroupRepository.save(ordergroup);
+		Code c = new Code();
 
 		for (int i = 0; i < list.size(); i++) {
 			Orders order = new Orders();
@@ -202,6 +231,19 @@ public class PayController {
 			order.setPrice(list.get(i).getPrice());
 			order.setQuantity(list.get(i).getQuantity());
 			order.setSize(list.get(i).getSize());
+			System.out.println("dfsdfs"+service);
+			if(service.equals("0")){
+				System.out.println("werew");
+				c= codeRepository.findByCode("0008");
+				order.setCode(c);
+				
+			}
+			else{
+				System.out.println("pppp");
+			c=codeRepository.findByCode("0001");
+			order.setCode(c);
+			}
+			System.out.println(order);
 			ordersRepository.save(order);
 		}
 		System.out.println("approvalvo   " + info);
@@ -231,7 +273,5 @@ public class PayController {
 		// return new ModelAndView("redirct:?pg_token=");
 		return r;
 	}
-
-	
 
 }

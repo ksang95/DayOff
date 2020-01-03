@@ -31,8 +31,6 @@ public class Review {
     private String content;
     private Date reviewDate;
     private Integer rating;
-    private Integer size;
-    private Integer thickness;
     private Integer usersId;
     private Integer productId;
    

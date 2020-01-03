@@ -14,7 +14,7 @@ yarn add react-slide-toggle
 yarn add node-sass
 yarn add react-gesture-gallery
 yarn add react-paginate
-
+yarn add react-daum-postcode
 =====================================
 
 back (dependency)

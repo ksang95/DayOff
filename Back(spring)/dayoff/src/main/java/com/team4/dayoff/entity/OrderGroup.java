@@ -53,16 +53,15 @@ public class OrderGroup {
     private Date orderDate;
 
     private Integer gradeDiscount;
-    private Integer couponDiscount;
     private Integer pointUse;
 
     //@ManyToOne
     //@JoinColumn("deliverId")
     //private Deliver deliver;
 
-    //@ManyToOne
-    //@JoinColumn("storesId")
-    //private Stores stores;
+    @ManyToOne
+    @JoinColumn(name="storesId")
+    private Stores stores;
     private String invoice;
     private String aid;
     private String cid;

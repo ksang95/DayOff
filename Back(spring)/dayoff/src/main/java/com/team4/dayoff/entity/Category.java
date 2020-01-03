@@ -30,6 +30,7 @@ public class Category{
 
     private String name;
     private String subName;
+    private String engName;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "category")
     @JsonIgnore
