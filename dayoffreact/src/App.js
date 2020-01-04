@@ -26,6 +26,8 @@ import { ProtectedRoute } from "./ProtectedRoute";
 import { ProtectedRouteAdmin } from "./ProtectedRouteAdmin";
 import UserGrade from './component/myPage/grade/UserGrade';
 import UserList from './component/admin/userList/UserList';
+import MainPage from './component/main/MainPage';
+import ProductListPage from './component/productList/ProductListPage';
 class App extends Component {
   render() {
     return (
@@ -35,9 +37,11 @@ class App extends Component {
           <Route path="/loginSuccess" component={LoginSuccess} />
           <Route path="/" component={Header} />
         </Switch>
-          <Route exact path="/" component={Main} />
+          <Route exact path="/" component={MainPage} />
           <Route path="/login" component={LoginPage} />
           <Route path="/error" component={ErrorPage} />
+          <Route path="/ProductListPage/:category" component={ProductListPage} /> 
+          <Route path="/ProductListPage" component={ProductListPage} /> 
           <Switch>
           <ProtectedRouteAdmin path="/admin/addProduct" component={ProductAdd} />
           <ProtectedRouteAdmin path="/admin/updateProduct/:productId" component={ProductUpdate} />

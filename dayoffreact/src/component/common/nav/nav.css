@@ -7,13 +7,15 @@
   margin-left: 35px;
   float: left;
 }
-
-.NavItem {
-  padding: 16px 3px;
-  cursor: pointer;
-  font-size: 20px;
+.Nav_Title{
+  border-bottom: 1px solid #c9c9c9;
 }
 
-.NavItem:hover {
+.Nav_Info{
+  border-bottom: 1px solid #c9c9c9;
+}
+
+
+.Nav_Info_List:hover {
   background: #C9C9C9;
 }

@@ -1,9 +1,7 @@
 import React from 'react';
-import Header from '../common/header/Header';
 import MainContents from './MainContents';
 import Banner from './banner/Banner';
 import Slider from './slider/Slider';
-import Footer from '../common/footer/Footer';
 const slideData = [
   {
     index: 0,
@@ -24,9 +22,14 @@ const slideData = [
     index: 3,
     headline: '',
     src: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/225363/typewriter.jpg'
+  },
+  {
+    index: 4,
+    headline: '',
+    src: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/225363/typewriter.jpg'
   }
 ]
-function Main() {
+function MainPage() {
   return (
       <div>
           <Banner />
@@ -36,4 +39,4 @@ function Main() {
   );
 }
 
-export default Main;
+export default MainPage;
