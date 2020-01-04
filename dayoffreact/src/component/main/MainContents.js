@@ -9,13 +9,12 @@ export default class MainContentItem extends Component {
     value : '',
     selected:'Register',
   }
-
-  test1() {axios.get(`/productRegister`)
-  .then(res => {
-    console.log(res);
-    const products = res.data;
-    this.setState({ products });
-  })
+  
+  test1() {
+    axios.get('/productRegister').then(res=>{
+      const products =res.data;
+      this.setState({ products });
+    });
 }
   componentDidMount() {
     this.test1();
