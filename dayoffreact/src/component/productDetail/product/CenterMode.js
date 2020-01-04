@@ -4,40 +4,6 @@ import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import "./mySlick.css";
 
-
-class CenterMode2 extends Component {
-  render() {
-    const images=this.props.images;
-    const baseUrl="https://storage.googleapis.com/bit-jaehoon/";
-    const settings = {
-      customPaging: function(i) {
-        return (
-          <a>
-            <img  src={baseUrl+images[i].name} />
-          </a>
-        );
-      },
-      className: "largeSlide",
-      dots: true,
-      dotsClass: "slick-dots slick-thumb",
-      infinite: true,
-      speed: 500,
-      slidesToShow: 1,
-      slidesToScroll: 1
-    };
-    const imageDiv=images.map(i=><div key={i.id}><img src={baseUrl+i.name}></img></div>)
-    return (
-      <div>
-        <h2>Custom Paging</h2>
-        <Slider {...settings}>
-          {imageDiv}
-        </Slider>
-      </div>
-    );
-  }
-}
-
-
 export default class CenterMode extends Component {
     constructor(props) {
       super(props);
@@ -73,6 +39,7 @@ export default class CenterMode extends Component {
             asNavFor={this.state.nav1}
             ref={slider => (this.slider2 = slider)}
             slidesToShow={9}
+            infinite= {images.length > 9}
             swipeToSlide={true}
             focusOnSelect={true}
             centerMode={true}
