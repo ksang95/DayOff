@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import ApiService_ from "../pay/service/ApiService_";
 import InputMask from 'react-input-mask';
 import DaumPostcode from 'react-daum-postcode';
-import Popup  from 'reactjs-popup'
 
 const contentStyle = {
     maxWidth: "600px",
@@ -216,7 +215,7 @@ use(){
          
                 <div>
                     <h2>{this.state.selectValue}</h2>
-                <h2 >Cart Details</h2>
+                <h2 >결제할 상품</h2>
                 <table className="n-table" >
                 <colgroup>
              <col style={{ width: +10 + "%" }}></col>
@@ -228,7 +227,7 @@ use(){
            </colgroup>
                 <thead>
                         <tr>
-                            <th>productThumbnailName</th>
+                            <th>product</th>
                             <th>color</th>
                             <th>size</th>
                             <th>quantity</th>
@@ -245,7 +244,7 @@ use(){
                   {  this.state.carts.map(
             cart =>
                         <tr key={cart.id}>
-                            <img height="100px"width="100px" src={cart.productThumbnailName} alt="image"></img>
+    <td><img height="100px"width="100px" src={"https://storage.googleapis.com/bit-jaehoon/"+cart.productThumbnailName} alt="image"></img>{cart.name}</td>
                             <td>{cart.color}</td>
                             <td>{cart.size}</td>
                             <td>{cart.quantity}</td>

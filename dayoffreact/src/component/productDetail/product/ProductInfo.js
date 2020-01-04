@@ -270,7 +270,7 @@ async TogetherBuy(productId){
                     state: {
                       cartList: [
                         {
-                          id: 1,
+                          id: -1,
                           name: this.state.product.name,
                           quantity: this.state.cart.quantity,
                           price: this.state.product.price,
