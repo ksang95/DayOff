@@ -8,12 +8,10 @@ import ProductUpdate from './component/admin/product/ProductUpdate';
 import CartView from "./component/cart/CartView";
 import Footer from './component/common/footer/Footer';
 import Header from './component/common/header/Header.js';
-import deny from './component/common/login/deny';
 import ErrorPage from './component/common/login/ErrorPage';
 import LoginPage from './component/common/login/LoginPage';
 import LoginSuccess from './component/common/login/LoginSuccess';
 import SignUp from './component/common/login/SignUp';
-import Main from './component/main/Main';
 import Myorders from './component/myPage/orders/Myorders';
 import OrderDetail from './component/myPage/orders/orderDetail/OrderDetail';
 import RefundRequest from './component/myPage/orders/RefundRequest';
@@ -28,6 +26,9 @@ import UserGrade from './component/myPage/grade/UserGrade';
 import UserList from './component/admin/userList/UserList';
 import MainPage from './component/main/MainPage';
 import ProductListPage from './component/productList/ProductListPage';
+import AdminNav from './component/common/nav/AdminNav';
+import MypageNav from './component/common/nav/MypageNav';
+
 class App extends Component {
   render() {
     return (
@@ -42,6 +43,7 @@ class App extends Component {
           <Route path="/error" component={ErrorPage} />
           <Route path="/ProductListPage/:category" component={ProductListPage} /> 
           <Route path="/ProductListPage" component={ProductListPage} /> 
+          <Route path="/admin" component={AdminNav} />
           <Switch>
           <ProtectedRouteAdmin path="/admin/addProduct" component={ProductAdd} />
           <ProtectedRouteAdmin path="/admin/updateProduct/:productId" component={ProductUpdate} />
@@ -52,6 +54,7 @@ class App extends Component {
           <ProtectedRouteAdmin path="/admin/orders/orderDetail/:groupId" component={OrderDetail} />
           <ProtectedRouteAdmin path="/admin/orders" component={Orders} />
           </Switch>
+          <Route path="/mypage" component={MypageNav} />
           <Switch>
           <ProtectedRoute path="/mypage/myorders/orderDetail/:groupId" component={OrderDetail} />
           <ProtectedRoute path="/mypage/refundRequest" component={RefundRequest} />

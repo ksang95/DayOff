@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './productNav.css';
 import { NavLink } from 'react-router-dom';
-import ApiService from '../../APi/ApiService';
+import ApiService from '../../main/ApiService';
 
 
 class ProductNav extends Component {

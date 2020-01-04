@@ -8,6 +8,7 @@ import ProductCookie from "./productCookie";
 import ProductTogetherBuy from "./productTogetherBuy";
 import StopProductSale from "../../admin/product/StopProductSale";
 import ResaleProduct from "../../admin/product/ResaleProduct";
+import CenterMode from "./CenterMode";
 
 class ProductInfoAdmin extends Component {
   state = {
@@ -124,15 +125,15 @@ async TogetherBuy(productId){
         ></img>
       </span>
     ));
-    const image = product.productImage.map((p, index) => (
-      <img
-        key={p.id}
-        value={index}
-        className="productImage"
-        src={"https://storage.googleapis.com/bit-jaehoon/" + p.name}
-        alt="상품이미지"
-      ></img>
-    ));
+    // const image = product.productImage.map((p, index) => (
+    //   <img
+    //     key={p.id}
+    //     value={index}
+    //     className="productImage"
+    //     src={"https://storage.googleapis.com/bit-jaehoon/" + p.name}
+    //     alt="상품이미지"
+    //   ></img>
+    // ));
 
     return (
       <div className="product">
@@ -141,7 +142,7 @@ async TogetherBuy(productId){
             <div className="topLeft">
             <div className="images">
     <div className={this.state.product.isAvailable==0&&"modal2"}><div className="popup2">{this.state.product.isAvailable==0&&"판매불가"}</div></div>
-                {image}
+   <CenterMode images={product.productImage}></CenterMode>
               </div>
               </div>
           

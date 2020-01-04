@@ -15,6 +15,9 @@ yarn add node-sass
 yarn add react-gesture-gallery
 yarn add react-paginate
 yarn add react-daum-postcode
+yarn add react-slick
+yarn add slick-carousel
+
 =====================================
 
 back (dependency)

@@ -7,6 +7,7 @@ import { Link} from "react-router-dom";
 import LoginMenu from "../../common/login/LoginMenu";
 import ProductCookie from "./productCookie";
 import ProductTogetherBuy from "./productTogetherBuy";
+import CenterMode from "./CenterMode";
 
 class ProductInfo extends Component {
   state = {
@@ -225,15 +226,15 @@ async TogetherBuy(productId){
         ></img>
       </span>
     ));
-    const image = product.productImage.map((p, index) => (
-      <img
-        key={p.id}
-        value={index}
-        className="productImage"
-        src={"https://storage.googleapis.com/bit-jaehoon/" + p.name}
-        alt="상품이미지"
-      ></img>
-    ));
+    // const image = product.productImage.map((p, index) => (
+    //   <img
+    //     key={p.id}
+    //     value={index}
+    //     className="productImage"
+    //     src={"https://storage.googleapis.com/bit-jaehoon/" + p.name}
+    //     alt="상품이미지"
+    //   ></img>
+    // ));
     
    
     return (
@@ -244,7 +245,8 @@ async TogetherBuy(productId){
         <div className="productData">
           <div className="top">
             <div className="topLeft">
-              <div className="images">{image}</div>
+              {/* <div className="images">{image}</div> */}
+              <div className="images"><CenterMode images={product.productImage}></CenterMode></div>
             </div>
             <div className="topRight">
               <p>
