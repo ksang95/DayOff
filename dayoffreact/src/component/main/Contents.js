@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './contents.css';
 import ApiService from './ApiService';
+import { Link } from 'react-router-dom';
 
 export default class Content extends Component {
   state = {
@@ -8,37 +9,47 @@ export default class Content extends Component {
     AdminProducts:[],
     value : '',
     selected:'',
-    login: false,
     style: '',
-    role:false
+    role:false,
+    errorMessage:false
   }
  
   SearchProduct() {
     const keyword=this.props.keyword;
+    console.log(keyword)
     if(keyword){
       ApiService.SearchProduct(keyword).then(res => {
-          this.setState({products : res.data});
+        console.log("검색됨 "+res.data)
+        if(res.data.length===0)
+        this.setState({
+          errorMessage: true,
+          products : res.data
+        })
+        else
+          this.setState({
+            errorMessage:false,
+            products : res.data
+          });
       })
     }
     else{
-      console.log(this.state.selected);
       const category=this.props.category;
       if(category==='RED' || category==='BLACK' || category==='GRAY' || category==='BLUE' || category==='PINK' || category==='WHITE' || category==='GREEN'
       || category==='PURPLE' || category==='ORANGE' || category==='YELLOW'){
         ApiService.ColorProductList(category, this.state.selected).then(res => {
-          this.setState({products : res.data})
+          this.setState({errorMessage:false, products : res.data})
         })
       }else if(category==='아우터' || category==='상의' || category==='셔츠_블라우스' || category==='팬츠' || category==='원피스' || category==='악세사리'){
         ApiService.MainCategoryList(category, this.state.selected).then(res=>{
-          this.setState({products : res.data})
+          this.setState({errorMessage:false, products : res.data})
         });
       }else if(category==='BEST'){
         ApiService.MonthProductList().then(res=>{
-          this.setState({products : res.data})
+          this.setState({errorMessage:false, products : res.data})
         });
       }else{
         ApiService.SubCategoryList(category,this.state.selected).then(res=>{
-          this.setState({products :res.data})
+          this.setState({errorMessage:false, products :res.data})
         })
       }
     }
@@ -46,30 +57,39 @@ export default class Content extends Component {
   }
 
    SearchAdminProduct() {
-    const keyword=this.props.keyword;
+    const keyword=this.state.keyword;
     if(keyword){
       ApiService.SearchAdminProduct(keyword).then(res => {
-          this.setState({AdminProducts : res.data});
+        if(res.data.length===0)
+        this.setState({
+          errorMessage: true,
+          products : res.data
+        })
+        else
+          this.setState({
+            errorMessage:false,
+            products : res.data
+          });
       })
     }
     else{
-      const category=this.props.category;
+      const category=this.state.category;
       if(category==='RED' || category==='BLACK' || category==='GRAY' || category==='BLUE' || category==='PINK' || category==='WHITE' || category==='GREEN'
       || category==='PURPLE' || category==='ORANGE' || category==='YELLOW'){
         ApiService.AdminColorProductList(category, this.state.selected).then(res => {
-          this.setState({AdminProducts : res.data})
+          this.setState({errorMessage:false, AdminProducts : res.data})
         })
       }else if(category==='아우터' || category==='상의' || category==='셔츠_블라우스' || category==='팬츠' || category==='원피스' || category==='악세사리'){
         ApiService.AdminMainCategoryList(category, this.state.selected).then(res=>{
-          this.setState({AdminProducts : res.data})
+          this.setState({errorMessage:false, AdminProducts : res.data})
         });
       }else if(category==='BEST'){
         ApiService.MonthProductList().then(res=>{
-          this.setState({products : res.data})
+          this.setState({errorMessage:false, products : res.data})
         });
       }else{
         ApiService.AdminSubCategoryList(category, this.state.selected).then(res=>{
-          this.setState({AdminProducts :res.data})
+          this.setState({errorMessage:false, AdminProducts :res.data})
         })
       }
     }
@@ -77,30 +97,22 @@ export default class Content extends Component {
   }
 
   componentDidMount() {
-    this.SearchProduct();
-    this.SearchAdminProduct();
-    // sessionStorage.getItem("userRole")==="user"?this.SearchProduct():this.SearchAdminProduct();
-    if(sessionStorage.getItem("userId")){
-      this.setState({
-        login:true
-      })
-    }
-    else{
-      this.setState({
-        login:false
-      })
-    }
+    
+    sessionStorage.getItem("userRole")==="admin"?this.SearchAdminProduct():this.SearchProduct();
+    
   }
   
   componentWillReceiveProps(nextProps){
+    console.log(nextProps.keyword)
     if(this.props.keyword !== nextProps.keyword){
-      this.SearchProduct(nextProps.keyword);
-      this.SearchAdminProduct(nextProps.keyword);
+      if(nextProps.keyword!==this.props.keyword){
+        this.setState({keyword : nextProps.keyword},()=>sessionStorage.getItem("userRole")==="admin"?this.SearchAdminProduct():this.SearchProduct());
+      }
       window.scrollTo(0, 0);
-    } if(nextProps.category!==this.props.keyword){
-      this.SearchProduct(nextProps.keyword);
-      this.SearchAdminProduct(nextProps.keyword);
-      window.history.go(0);
+    } else if(nextProps.category!==this.props.category){
+      if(nextProps.category!==this.props.category){
+        this.setState({category : nextProps.category},()=>sessionStorage.getItem("userRole")==="admin"?this.SearchAdminProduct():this.SearchProduct());
+      }
       window.scrollTo(0, 0);
     }
   }
@@ -172,8 +184,9 @@ Change1=(e)=> {
   }
   
     render() {
-      if(this.state.login === false){
-      // if(sessionStorage.getItem("userRole")==="user"){
+      console.log(this.state.products)
+      const errorMessage=this.state.errorMessage;
+      if(sessionStorage.getItem("userRole")!=="admin"){
         return (
           <div className="PContents">
           <div className='PDropButton'>
@@ -189,17 +202,17 @@ Change1=(e)=> {
         <div className='PContentItem_box'>
         {this.state.products.map(product => {
           return (
-          <div className='PContentItem'>
-          <img src='https://newsimg.sedaily.com/2019/07/10/1VLN24F9YM_17.jpg' alt=''/>
+          <Link to={"/product/"+product.id} className='PContentItem'>
+          <img src={"https://storage.googleapis.com/bit-jaehoon/"+product.productThumbnailName} alt=''/>
           <p>{product.id}</p>
           <h4>{product.name}</h4>
           <br></br>
           <h2>{product.price}원</h2>
-          </div>
+          </Link>
           )
         })}
 
-        </div> : <h1 className='nullImg'><img src='http://file3.instiz.net/data/file3/2019/11/06/9/7/c/97c015a880b59f53280159a08fc0d357.jpg'></img><br></br>일치하는 상품이 없습니다. 다시 검색해주세요!</h1>}
+      </div> : <div>{errorMessage&&<h1 className='nullImg'><img src='http://file3.instiz.net/data/file3/2019/11/06/9/7/c/97c015a880b59f53280159a08fc0d357.jpg'></img><br></br>일치하는 상품이 없습니다. 다시 검색해주세요!</h1>}</div>}
         </div>
         )
       } else {
@@ -218,32 +231,32 @@ Change1=(e)=> {
               {this.state.AdminProducts.map((product) => {
                 if(product.isAvailable ===1){
                 return (
-                <div className='PContentItem' id={"product"+product.id}>
+                  <Link to={"/product/"+product.id} className='PContentItem' id={"product"+product.id}>
                 <select className='PeditButton' name={product.id} value={this.name} onChange={this.pStop.bind(this)}>
                     <option value="목록">=</option>
                     <option value="판매중지">판매중지</option>       
                     <option value="상품수정">상품수정</option>
                 </select>
-                <img src='https://newsimg.sedaily.com/2019/07/10/1VLN24F9YM_17.jpg' alt=''/>
+                <img src={"https://storage.googleapis.com/bit-jaehoon/"+product.productThumbnailName} alt=''/>
                 <p>{product.id}</p>
                 <h4>{product.name}</h4>
                 <h2>{product.price}원</h2>
-                </div>
+                </Link>
                 )} else {
                   return (
-                    <div className='PContentItem' id={"product"+product.id} style={{opacity : "0.3"}}>
+                    <Link to={"/product/"+product.id} className='PContentItem' id={"product"+product.id} style={{opacity : "0.3"}}>
                     <select className='PeditButton' name={product.id} value={this.name} onChange={this.pStart.bind(this)}>
                         <option value="목록">=</option>
                         <option value="판매시작">판매시작</option>       
                         <option value="상품수정">상품수정</option>
                     </select>
-                    <img src='https://newsimg.sedaily.com/2019/07/10/1VLN24F9YM_17.jpg' alt=''/>
+                    <img src={"https://storage.googleapis.com/bit-jaehoon/"+product.productThumbnailName} alt=''/>
                     <p>{product.id}</p>
                     <h4>{product.name}</h4>
                     <h2>{product.price}원</h2>
-                    </div>
+                    </Link>
                     )} 
                  })}
-              </div>  : <h1 className='nullImg'><img src='http://file3.instiz.net/data/file3/2019/11/06/9/7/c/97c015a880b59f53280159a08fc0d357.jpg'></img><br></br>일치하는 상품이 없습니다. 다시 검색해주세요!</h1>}
+              </div>  : <div>{errorMessage&&<h1 className='nullImg'><img src='http://file3.instiz.net/data/file3/2019/11/06/9/7/c/97c015a880b59f53280159a08fc0d357.jpg'></img><br></br>일치하는 상품이 없습니다. 다시 검색해주세요!</h1>}</div>}
               </div>
 )}}}

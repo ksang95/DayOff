@@ -28,15 +28,14 @@ export default class Header extends Component {
         if(this.state.login===true) {
         return (
           <div>
-
             <div className='TotalHeader'>
                 <div className='Header_Top'>
                   <Login history={this.props.history}></Login>
-                <Link href='/cart'> <img className='cartlogo' src='https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR_tGv3zp0DMgRlwrX-IigsyYiTWex_5B7PdYiKAhxlien9m6NF' alt='' /> 장바구니</Link>
+                <Link to='/cart'> <img className='cartlogo' src='https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR_tGv3zp0DMgRlwrX-IigsyYiTWex_5B7PdYiKAhxlien9m6NF' alt='' /> 장바구니</Link>
             </div>
 
             <div className="Header">
-                <img className='logo' src={LogoImg} alt='' />
+                <Link to="/"><img className='logo' src={LogoImg} alt='' /></Link>
                 <Category />
                 <HeaderSearch />
             </div>
@@ -54,11 +53,11 @@ export default class Header extends Component {
             <div className='TotalHeader'>
              <div className='Header_Top'>
              <Login history={this.props.history}></Login>
-            <Link href='/cart'> <img className='cartlogo' src='https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR_tGv3zp0DMgRlwrX-IigsyYiTWex_5B7PdYiKAhxlien9m6NF' alt='' /> 장바구니</Link>
+            <Link to='/cart'> <img className='cartlogo' src='https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR_tGv3zp0DMgRlwrX-IigsyYiTWex_5B7PdYiKAhxlien9m6NF' alt='' /> 장바구니</Link>
             </div>
 
             <div className="Header">
-                <img className='logo' src={LogoImg} alt='' />
+            <Link to="/"><img className='logo' src={LogoImg} alt='' /></Link>
                 <Category />
                 <HeaderSearch />
             </div>

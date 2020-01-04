@@ -55,7 +55,7 @@ class Contact extends Component {
                 onChange={this.handelChange}
                 >
                 </input>
-                <Link className='Csearch_Link' to={"/productListPage?keyword="+this.state.keyword} ><img className='SearchImg' src='https://cdn.pixabay.com/photo/2016/03/31/19/14/magnifying-glass-1294834_960_720.png'></img></Link>
+                <Link className='Csearch_Link' to={"/productList/search?keyword="+this.state.keyword} ><img className='SearchImg' src='https://cdn.pixabay.com/photo/2016/03/31/19/14/magnifying-glass-1294834_960_720.png'></img></Link>
 
                 <div>{mapToConponents(this.state.contactData)}</div>
             </div>

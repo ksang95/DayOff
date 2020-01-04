@@ -41,8 +41,10 @@ class App extends Component {
           <Route exact path="/" component={MainPage} />
           <Route path="/login" component={LoginPage} />
           <Route path="/error" component={ErrorPage} />
-          <Route path="/ProductListPage/:category" component={ProductListPage} /> 
-          <Route path="/ProductListPage" component={ProductListPage} /> 
+          <Switch>
+          <Route path="/productList/search" component={ProductListPage} /> 
+          <Route path="/productList/category/:category" component={ProductListPage} /> 
+          </Switch>
           <Route path="/admin" component={AdminNav} />
           <Switch>
           <ProtectedRouteAdmin path="/admin/addProduct" component={ProductAdd} />
