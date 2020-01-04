@@ -28,4 +28,5 @@ public interface OrderViewRepository extends JpaRepository<OrderView,Integer>{
 
     List<OrderView> findByCode(String code);
     List<OrderView> findByCodeAndUserId(String code, Integer UserId);
+    List<OrderView> findByCodeOrCode(String code,String code2);
 }

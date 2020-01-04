@@ -44,12 +44,12 @@ class MyordersTable extends Component {
       <td>{data.codeContent}
 
       <br></br>
-      {data.codeContent === "배송준비중" ? <OrderCancel  order={data}></OrderCancel> : ""}
+      {data.codeContent === "배송준비중" ? <OrderCancel orderList={this.props.orderList} order={data}></OrderCancel> : ""}
       {data.codeContent === "배송중" ?<Deliver invoice={data.invoice}></Deliver> : ""}
       {data.codeContent === "구매확정" ? <Link to={review+data.productId}><Button variant="outline-dark" className="jaehoon">후기 작성</Button></Link> : ""}
-      {data.codeContent === "배송완료" ? <OrderConfirm  orderId={data.orderId} userId={data.userId} groupId={data.groupId}></OrderConfirm>  : ""}
+      {data.codeContent === "배송완료" || data.codeContent ==="픽업완료" ? <OrderConfirm  orderList={this.props.orderList} orderId={data.orderId} userId={data.userId} groupId={data.groupId}></OrderConfirm>  : ""}
       <br></br>
-      {data.codeContent === "배송완료" ? <Link to={{
+      {data.codeContent === "배송완료" || data.codeContent ==="픽업완료" ? <Link to={{
                         pathname:"/mypage/refundRequest",
                         state:{
                             orderView:data
@@ -60,8 +60,9 @@ class MyordersTable extends Component {
 
         return (
             <div>
-            <div className="pageTitle">
-              <div>주문 내역</div>
+            <div >
+              <h2>주문 내역</h2>
+              <hr style={{width : '70%', borderTop: '1px solid black'}}></hr>
             </div>
             <div className="orderMain">
            <table className="n-table">

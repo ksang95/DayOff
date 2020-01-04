@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Axios from 'axios';
 import { Button } from 'react-bootstrap';
 import { withRouter } from "react-router";
+import Myorders from "./Myorders"
 
 class OrderConfirm extends Component {
 
@@ -15,7 +16,8 @@ class OrderConfirm extends Component {
           data : params,
           url : "/confirm"
         }).then((res)=>{
-            this.props.history.push("/mypage/myorders/"+orderId);
+            // window.location.reload(false);
+            this.props.orderList();
         })
       
       }

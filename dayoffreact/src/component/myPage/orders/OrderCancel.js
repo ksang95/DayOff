@@ -41,7 +41,7 @@ class OrderCancel extends Component {
             data: this.state.refunds,
             url: "/cancelOrder"
         }).then((res) => {
-            this.props.history.push("/mypage/myorders/"+this.state.refunds.orders.id);
+            this.props.orderList();
         })
     }
 

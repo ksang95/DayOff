@@ -61,7 +61,7 @@ class App extends Component {
           <ProtectedRoute path="/mypage/myInfo" component={UpdateUser} />
           <ProtectedRoute path="/mypage/withdraw" component={Withdraw} />
           <ProtectedRoute path="/mypage/myGrade" component={UserGrade} />
-          <ProtectedRoute path="/mypage/myorders/:change" component={Myorders} />
+          <ProtectedRoute exact path="/mypage/myorders" component={Myorders} />
           {/* <ProtectedRoute path="/mypage/myorders" component={Myorders} /> */}
           </Switch>
           <Route path="/signUp" component={SignUp} />

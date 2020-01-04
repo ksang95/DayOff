@@ -101,11 +101,13 @@ public class OrderController {
         code.setCode("0007");
         code.setContent("구매확정");
 
-        int count = orderRepository.countGroup(groupId);
-
+        
         orders.setCode(code);
         orderRepository.save(orders);
+        
 
+
+        int count = orderRepository.countGroup(groupId);
         OrderGroup orderGroup = orderGroupRepository.findById(groupId).get();
 
         double ratio = orders.getPrice() / (orderGroup.getTotalPay() + orderGroup.getGradeDiscount()
@@ -182,12 +184,56 @@ public class OrderController {
                     int orderId = i.getOrderId();
                     orderList = orderRepository.findByOrderId(orderId);
 
+                                        //배송완료 및 픽업완료 후 7일이 지난 주문은 자동구매확정. 구매확정 시 적립금 지급 및 유저 등급 업데이트
+
                     if(diffDays > 6){
                         Code code2 = new Code();
                         code2.setCode("0007");
                         code2.setContent("구매확정");
                         orderList.setCode(code2);
                         orderRepository.save(orderList);
+                                
+
+                        int count = orderRepository.countGroup(orderList.getOrderGroup().getTid());
+                        OrderGroup orderGroup = orderGroupRepository.findById(orderList.getOrderGroup().getTid()).get();
+                
+                        double ratio = orderList.getPrice() / (orderGroup.getTotalPay() + orderGroup.getGradeDiscount()
+                                 + orderGroup.getPointUse());
+                        double totalpay = orderList.getPrice() - Math.round(ratio * orderGroup.getGradeDiscount()) - Math.round(orderGroup.getPointUse() / count);
+                        int result = (int) totalpay;
+                        Users users = usersRepository.findById(userId).get();
+                
+                        int resultPay = users.getAccrue() + result;
+                
+                        double resultEmoney = users.getTotalEmoney() + (totalpay * users.getGrade().getRate() / 100);
+                        // System.out.println("======================================================");
+                        // System.out.println(users.getGrade().getRate());
+                        // System.out.println(rate);
+                        // System.out.println(resultEmoney);
+                        // System.out.println("======================================================");
+                        users.setAccrue(resultPay);
+                        users.setTotalEmoney((int) resultEmoney);
+                
+                        usersRepository.save(users);
+                
+                        users = usersRepository.findById(userId).get();
+                
+                        Grade grade = new Grade();
+                        if (users.getAccrue() > 5000) {
+                            grade.setLevel("실버");
+                            grade.setRate(2);
+                
+                        } else if (users.getAccrue() > 50000) {
+                            grade.setLevel("골드");
+                            grade.setRate(3);
+                        } else if (users.getAccrue() > 500000) {
+                            grade.setLevel("플래티넘");
+                            grade.setRate(3);
+                        }
+                
+                        users.setGrade(grade);
+                        usersRepository.save(users);
+                
 
                     }
                 } catch (ParseException e) {
@@ -286,6 +332,7 @@ public class OrderController {
             code.setContent("픽업완료");
     
             i.setCode(code);
+            i.setDeliverDate(new Date());
             orderRepository.save(i);
             
 
@@ -303,7 +350,7 @@ public class OrderController {
 
         if (pageable.getPageNumber() == 0) {
             List<OrderView> list3 = new ArrayList<>();
-            list3 = orderViewRepository.findByCode("0002");
+            list3 = orderViewRepository.findByCodeOrCode("0002","0004");
 
             list3.forEach(i -> {//배송완료 후 7일이 지난 주문내역을 구매확정으로 전환
                 String start = i.getDeliverDate();
@@ -328,6 +375,7 @@ public class OrderController {
                     int orderId = i.getOrderId();
                     orderList = orderRepository.findByOrderId(orderId);
 
+                    //배송완료 및 픽업완료 후 7일이 지난 주문은 자동구매확정. 구매확정 시 적립금 지급 및 유저 등급 업데이트
                     if(diffDays > 6){
                         Code code2 = new Code();
                         code2.setCode("0007");
@@ -335,6 +383,47 @@ public class OrderController {
                         orderList.setCode(code2);
                         orderRepository.save(orderList);
 
+
+                        
+                        int count = orderRepository.countGroup(orderList.getOrderGroup().getTid());
+                        OrderGroup orderGroup = orderGroupRepository.findById(orderList.getOrderGroup().getTid()).get();
+                
+                        double ratio = orderList.getPrice() / (orderGroup.getTotalPay() + orderGroup.getGradeDiscount()
+                                 + orderGroup.getPointUse());
+                        double totalpay = orderList.getPrice() - Math.round(ratio * orderGroup.getGradeDiscount()) - Math.round(orderGroup.getPointUse() / count);
+                        int result = (int) totalpay;
+                        Users users = usersRepository.findById(orderGroup.getUsers().getId()).get();
+                
+                        int resultPay = users.getAccrue() + result;
+                
+                        double resultEmoney = users.getTotalEmoney() + (totalpay * users.getGrade().getRate() / 100);
+                        // System.out.println("======================================================");
+                        // System.out.println(users.getGrade().getRate());
+                        // System.out.println(rate);
+                        // System.out.println(resultEmoney);
+                        // System.out.println("======================================================");
+                        users.setAccrue(resultPay);
+                        users.setTotalEmoney((int) resultEmoney);
+                
+                        usersRepository.save(users);
+                
+                        users = usersRepository.findById(orderGroup.getUsers().getId()).get();
+                
+                        Grade grade = new Grade();
+                        if (users.getAccrue() > 5000) {
+                            grade.setLevel("실버");
+                            grade.setRate(2);
+                
+                        } else if (users.getAccrue() > 50000) {
+                            grade.setLevel("골드");
+                            grade.setRate(3);
+                        } else if (users.getAccrue() > 500000) {
+                            grade.setLevel("플래티넘");
+                            grade.setRate(3);
+                        }
+                
+                        users.setGrade(grade);
+                        usersRepository.save(users);
                     }
                 } catch (ParseException e) {
                     // TODO Auto-generated catch block
@@ -433,5 +522,9 @@ public class OrderController {
         }
         orderRepository.save(orders);
     }
-
+    @GetMapping("/testtest")
+    public void goNextStatess(){
+       System.out.println(orderViewRepository.findByCodeOrCode("0004", "0002"));
+     
+    }
 }

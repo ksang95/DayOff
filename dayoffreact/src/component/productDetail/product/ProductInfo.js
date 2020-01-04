@@ -319,6 +319,7 @@ async TogetherBuy(productId){
           </div>
           <div>
             <ProductCookie cookieList={this.state.cookielist}></ProductCookie>
+            <br></br><br></br>
             <ProductTogetherBuy
               Togetherlist={this.state.Togetherlist}
             ></ProductTogetherBuy>

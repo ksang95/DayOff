@@ -1,7 +1,11 @@
+.orderTable{
+    position: relative;
+    left: 5%;
+}
 
-.pagenate{
+.pagenate1{
     width: 50%;
-    margin: auto;
+    margin : auto;
     display: flex;
     justify-content: center;
     margin-top : 15px;

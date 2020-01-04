@@ -9,13 +9,17 @@ import ReactPaginate from 'react-paginate';
 
 export default class orders extends Component {
 
-  
+  constructor(props) {
+    super(props);
+    this.change = this.change.bind(this);
+  }
 
   state ={
     value : 'all',
     page : 0,
     list : [],
-    name : ''
+    name : '',
+    change : 0
   }
 
  
@@ -54,40 +58,60 @@ export default class orders extends Component {
     }).then((res)=>{
       this.setState({
         list : res.data.content,
-        totalPages: res.data.totalPages
+        totalPages: res.data.totalPages,
+        change : 0
       })
     })
   }
 
-
+change(){
+  this.setState({
+    change : 1
+  })
+  console.log(111)
+}
 
 
 componentDidMount(){
+  
   this.orderList(sessionStorage.getItem("userId"),this.state.page)
 }
 
-
-componentWillReceiveProps(nextProps){
-  console.log(nextProps.match.params.change)
-  console.log(this.props.match.params.change)
-  if(nextProps.match.params.change!==this.props.match.paramschange){
-    console.log(this.props.match.params.change)
+shouldComponentUpdate(nextProps,nextState){
+  console.log(nextState.change)
+  if(nextState.change!==this.state.change){
+    console.log(this.state.change)
     this.orderList(sessionStorage.getItem("userId"),this.state.page)
-
   }
+  return true;
 }
+
+
+// componentWillReceiveProps(nextProps){
+//   console.log(nextProps.change)
+//   console.log(this.props.change)
+//   if(nextProps.change!==this.props.change){
+//     console.log(this.props.change)
+//     this.orderList(sessionStorage.getItem("userId"),this.state.page)
+
+//   }
+// }
+
+
 
 
   render() {
     console.log(this.state.from)
-
+    console.log(this.state.change)
 
     
     return (
-      <div> 
+      <div>
+      <div className="orderTable"> 
         
-      <MyordersTable  list={this.state.list}></MyordersTable>
-      <div className="pagenate">
+      <MyordersTable orderList={this.change} list={this.state.list}></MyordersTable>
+      </div>
+      <div className="pagenate1">
       <ReactPaginate
             previousLabel={'이전'}
             nextLabel={'다음'}

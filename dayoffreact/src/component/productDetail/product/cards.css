@@ -1,7 +1,8 @@
 .cardSection{
-  width : 95%;
+  width : 100%;
   margin : 0 auto;
   background-color : white !important;
+  margin-left: 20px;
 }
 .cards-slider {
   overflow: hidden;
@@ -18,17 +19,17 @@
   float: left !important;
 	text-align: left;
   background: #fff;
-  width: 14.63%;
-	max-width: 14.63% !important;
+  width: 180px;
+	max-width: 180px !important;
 	position: relative;
 	display: inline-block;
 	left: 0;
 	clear: both;
-  margin-right: 5px;
+  margin-left : 40px;
 	float: none !important;
 	transition: transform .2s ease-in-out;
-	vertical-align: top;
-  padding: 20px 25px;
+  vertical-align: top;
+  border : none !important;
 }
 
 .card .title {
@@ -36,12 +37,18 @@
   max-width : 220px !important;
   font-weight: 600;
   font-size: 15px;
-  border-top: 1px solid #D8D8D8;
   word-wrap: break-word;
   white-space: pre-wrap;
-  max-height: 70px;
+  max-height: 42px;
+  min-height: 42px;
+  margin-bottom : 0 !important;
+  margin-top : 10px;
+  color : black;
+  
 }
-
+.card a{
+  text-decoration-line: none;
+}
 .card .desc {
   font-size: 14px;
   word-wrap: break-word;
@@ -53,8 +60,11 @@
   display: block;
   position: relative;
   width: 100%;
+  height : 250px;
 }
-
+.card img:hover{
+  opacity: 0.5;
+}
 .slider-btn {
   padding: 0;
   font-size: 20px;
