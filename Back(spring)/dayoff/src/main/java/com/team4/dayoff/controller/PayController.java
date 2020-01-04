@@ -237,13 +237,13 @@ public class PayController {
 			System.out.println("dfsdfs"+service);
 			if(service.equals("0")){
 				System.out.println("werew");
-				c= codeRepository.findByCode("0008");
+				c= codeRepository.findByCode("0003");
 				order.setCode(c);
 				
 			}
 			else{
 				System.out.println("pppp");
-			c=codeRepository.findByCode("0001");
+			c=codeRepository.findByCode("0000");
 			order.setCode(c);
 			}
 			System.out.println(order);

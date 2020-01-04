@@ -37,7 +37,8 @@ class ListCartComponent extends Component {
      real:"",
      calctotalpay:"",
      cemoney:"",
-     cdemoney:"0"
+     cdemoney:"0",
+     transpay:""
             
         }
         // this.use=this.use.bind(this);
@@ -133,6 +134,7 @@ class ListCartComponent extends Component {
             this.setState({discount:d})
             console.log(cartlist)
               console.log(sum)
+              this.setState({transpay:this.state.totalPay})
             });
 
     }
@@ -151,17 +153,20 @@ class ListCartComponent extends Component {
     //         this.props.history.push('/kakaoPay');
     //     });
     // }
-use(){
-    const c=this.state.cemoney
-    console.log("djfhsdjfhjsfhsj")
-    let real=this.state.calctotalpay-this.state.useEmoney;
-    this.setState({real:real})
-    console.log(this.state.real)
-    let re=c-this.state.useEmoney;
-    this.setState({emoney:re})
-    this.setState({cdemoney:this.state.useEmoney})
-    
-}
+    use(){
+      const c=this.state.cemoney
+      console.log("djfhsdjfhjsfhsj")
+      this.setState({transpay:this.state.calctotalpay-this.state.useEmoney})
+      let real=this.state.calctotalpay-this.state.useEmoney;
+      this.setState({real:real})
+      console.log(this.state.real)
+      let re=c-this.state.useEmoney;
+      this.setState({emoney:re})
+      this.setState({cdemoney:this.state.useEmoney})
+      
+      console.log(this.state.transpay)
+      
+  }
     onChange = (e) =>
     this.setState({ [e.target.name]: e.target.value });
 
@@ -200,7 +205,7 @@ use(){
         let deliever_ = {name: this.state.name, location: this.state.location, postalCode: this.state.postalCode, phone: this.state.phone};
         
 
-      ApiService_.kakaopay(this.state.carts, deliever_,this.state.selectValue,this.state.checked,this.state.store,this.state.service,this.state.discount,this.state.real,this.state.emoney,this.state.useEmoney).then((res)=>{
+      ApiService_.kakaopay(this.state.carts, deliever_,this.state.selectValue,this.state.checked,this.state.store,this.state.service,this.state.discount,this.state.transpay,this.state.emoney,this.state.useEmoney).then((res)=>{
           this.props.history.push(res.data)
           window.location.assign(res.data);
       });
@@ -298,7 +303,7 @@ use(){
 
     <h3>적립금할인금액{this.state.cdemoney}</h3>
    
-    <h3>총결제금액{this.state.real.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</h3>
+    <h3>총결제금액{this.state.transpay.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</h3>
   
 
     {/* <Popup trigger={<button> 우편번호</button>} position="right center">
