@@ -154,7 +154,7 @@ class ProductUpdate extends Component {
             }).then(success => {
                 const data = success.data;
                 document.getElementById("productLoading").style.display = "none";
-                this.props.history.push("/product/"+this.state.product.productId);
+                this.props.history.push("/product/"+this.state.product.id);
             }).catch(
                 error => console.log(error)
             );

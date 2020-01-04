@@ -58,14 +58,6 @@ public class AdminProductController {
         map.put("product", product);
         map.put("color", color);
         map.put("category", category);
-        Product product2 = productRepository.findById(productId).get();
-        try {
-            productManagement.deleteProduct(product2.getName());
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
         return map;
     }
 
@@ -78,6 +70,7 @@ public class AdminProductController {
         System.out.println(jsonSelectedProductImageForRemove);
         try {
             Product product = new ObjectMapper().readValue(jsonProduct, Product.class);
+            productManagement.deleteProduct(product.getName());
             try {
                 int i = 0;
                 if (jsonSelectedDetailImageForRemove != null) {
