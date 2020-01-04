@@ -28,7 +28,7 @@ public class Deliver {
 	Integer id;
 	String name;
 	String location;
-	Integer postalcode;
+	String postalcode;
 	String phone;
 	@ManyToOne
 	@JoinColumn(name = "userId")

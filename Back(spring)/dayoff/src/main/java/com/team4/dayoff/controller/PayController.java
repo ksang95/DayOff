@@ -24,6 +24,7 @@ import com.team4.dayoff.entity.Users;
 import com.team4.dayoff.entity.payInfoDTO;
 import com.team4.dayoff.entity.Product;
 import com.team4.dayoff.entity.Stores;
+import com.team4.dayoff.repository.CartRepository;
 import com.team4.dayoff.repository.CartViewRepository;
 import com.team4.dayoff.repository.CodeRepository;
 import com.team4.dayoff.repository.DeliverRepository;
@@ -72,6 +73,8 @@ public class PayController {
 	private StoresRepository storesRepository;
 	@Autowired
 	private CodeRepository codeRepository;
+	@Autowired
+	private CartRepository cartRepository;
 	public List<CartView> list;
 	private String store;
 	private String service;
@@ -166,7 +169,7 @@ public class PayController {
 			deliever.setLocation(s.getLocation());
 			deliever.setName(s.getName());
 			deliever.setPhone(s.getPhone());
-			deliever.setPostalcode(Integer.parseInt(s.getPostalcode()));
+			deliever.setPostalcode(s.getPostalcode());
 			deliverRepository.save(deliever);
 		}
 	if(s.getService().equals("0")){
@@ -245,6 +248,11 @@ public class PayController {
 			}
 			System.out.println(order);
 			ordersRepository.save(order);
+		}
+		for (int i = 0; i < list.size(); i++) {
+			if(list.get(i).getId()!=-1){
+				cartRepository.deleteById(list.get(i).getId());
+			;}
 		}
 		System.out.println("approvalvo   " + info);
 		// return new ModelAndView("redirct:?pg_token=");
