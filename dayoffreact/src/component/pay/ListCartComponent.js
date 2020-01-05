@@ -238,12 +238,12 @@ class ListCartComponent extends Component {
            </colgroup>
                 <thead>
                         <tr>
-                            <th>product</th>
-                            <th>color</th>
-                            <th>size</th>
-                            <th>quantity</th>
-                            <th>price</th>
-                            <th>totalPrice</th>
+                        <th>상품정보</th>
+                            <th>색상</th>
+                            <th>사이즈</th>
+                            <th>수량</th>
+                            <th>상품금액</th>
+                            <th>주문금액</th>
                             {/* <th>id</th>
                             <th>userId</th>
                            this.setState({real:real})  <th>productId</th>
