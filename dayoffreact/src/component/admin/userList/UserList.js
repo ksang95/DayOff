@@ -75,7 +75,7 @@ export default class UserList extends Component {
   render() {
     const userList = this.state.users.map(u => <UserInfo key={u.id} user={u}></UserInfo>);
     return (
-      <div>
+      <div className="UserListWrapper">
         <div className="pageTitle">
           <div>회원 리스트</div>
         </div >

@@ -1,10 +1,10 @@
 .UserAnalysis{
-    width: 70%;
+    width: 90%;
     margin: auto;
 }
 
 .OrderAnalysis{
-    width: 70%;
+    width: 90%;
     margin: auto;
 
 }
@@ -16,4 +16,14 @@
 .OrderAnalysis > div{
     margin-bottom: 100px;
 
+}
+
+.OrderAnalysisWrapper{
+    width: 85%;
+    display: inline-block;
+}
+
+.UserAnalysisWrapper{
+    width: 85%;
+    display: inline-block;
 }

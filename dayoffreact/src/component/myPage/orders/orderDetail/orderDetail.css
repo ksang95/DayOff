@@ -1,17 +1,19 @@
 .OrderGroupList{
-    width:70%;
+    width:90%;
     margin:auto;
     margin-bottom: 80px;
 }
 
 .RefundList{
-    width:70%;
+    width:90%;
     margin:auto;
     margin-bottom: 80px;
 }
 
 .OrderDetail{
-    margin-bottom: 100px;
+    width: 85%;
+    display: inline-block;
+    min-height: 1000px;
 }
 
 .OrderDetail table{
@@ -32,14 +34,14 @@
 }
 
 .OrderDetail .orderDetailUser{
-    width:70%;
+    width:90%;
     margin: 10px auto;
     padding-right: 20px;
     text-align: right;
 }
 
 .OrderDetail .orderDetailOrder{
-    width:70%;
+    width:90%;
     margin: 10px auto;
     padding-right: 20px;
     text-align: right;

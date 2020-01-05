@@ -20,7 +20,7 @@ class UserAnalysis extends Component {
         try {
 
             const response = await axios.get('/usersAnalysis');
-
+            console.log(response.data.yearMonthsOfUsers)
             this.setState({
                 data:response.data
             });
@@ -38,7 +38,7 @@ class UserAnalysis extends Component {
         const {data}=this.state;
         
         return (
-            <div >
+            <div className="UserAnalysisWrapper">
                 <div className="pageTitle">
                             <div>회원 통계</div>
                 </div>

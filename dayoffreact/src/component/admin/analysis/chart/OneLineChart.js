@@ -26,7 +26,7 @@ class OneLineChart extends Component {
                         backgroundColor: '#ffe066',
                         borderColor: '#ffe066',
                         lineTension: 0,
-                        pointRadius: 0
+                        pointRadius: 5
                     }
                 ]
                 
@@ -47,6 +47,7 @@ class OneLineChart extends Component {
                 },
                 scales:{
                     xAxes: [{
+                        offset:true,
                         ticks: {
                             fontSize: 16
                         }

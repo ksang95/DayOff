@@ -25,7 +25,7 @@ class OrderType extends Component {
                                 <th>수령인</th><td>{deliverName}</td>
                             </tr>
                             <tr>
-                                <th>배송지</th><td style={{maxWidth:"90%", wordBreak:"break-all" }}>{deliverLocation}</td>
+                                <th>배송지</th><td style={{maxWidth:"0%", wordBreak:"break-all" }}>{deliverLocation}</td>
                             </tr>
                             <tr>
                                 <th>우편번호</th><td>{deliverPostalCode}</td>

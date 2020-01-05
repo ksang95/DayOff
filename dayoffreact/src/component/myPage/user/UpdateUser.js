@@ -75,7 +75,7 @@ class UpdateUser extends Component {
         const { handleChange, handleClick } = this;
 
         return (
-            <div>
+            <div className="UpdateUserWrapper">
                 {users &&
                     <div>
                         <div className="pageTitle">

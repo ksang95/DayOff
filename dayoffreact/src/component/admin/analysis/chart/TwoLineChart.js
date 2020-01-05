@@ -26,7 +26,7 @@ class TwoLineChart extends Component {
                         backgroundColor: '#ffe066',
                         borderColor: '#ffe066',
                         lineTension: 0,
-                        pointRadius: 0
+                        pointRadius: 5
                     },
                     {
                         label: label[1],
@@ -35,7 +35,7 @@ class TwoLineChart extends Component {
                         backgroundColor: '#ff8787',
                         borderColor: '#ff8787',
                         lineTension: 0,
-                        pointRadius: 0
+                        pointRadius: 5
                     }
                 ]
                 
@@ -56,6 +56,7 @@ class TwoLineChart extends Component {
                 },
                 scales:{
                     xAxes: [{
+                        offset:true,
                         ticks: {
                             fontSize: 16
                         }

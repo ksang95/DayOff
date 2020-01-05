@@ -24,8 +24,6 @@ class FourBarChart extends Component {
                         fill: false,
                         backgroundColor: '#ffe066',
                         borderColor: '#ffe066',
-                        lineTension: 0,
-                        pointRadius: 0
                     },
                     {
                         label: label[1],
@@ -33,8 +31,6 @@ class FourBarChart extends Component {
                         fill: false,
                         backgroundColor: '#ff8787',
                         borderColor: '#ff8787',
-                        lineTension: 0,
-                        pointRadius: 0
                     },
                     {
                         label: label[2],
@@ -42,8 +38,6 @@ class FourBarChart extends Component {
                         fill: false,
                         backgroundColor: '#74c0fc',
                         borderColor: '#74c0fc',
-                        lineTension: 0,
-                        pointRadius: 0
                     },
                     {
                         label: label[3],
@@ -51,8 +45,6 @@ class FourBarChart extends Component {
                         fill: false,
                         backgroundColor: '#da77f2',
                         borderColor: '#da77f2',
-                        lineTension: 0,
-                        pointRadius: 0
                     }
                 ]
                 

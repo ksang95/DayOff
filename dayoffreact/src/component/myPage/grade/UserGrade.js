@@ -57,7 +57,7 @@ class UserGrade extends Component {
             width: scoreRate + "%"
         }
         return (
-            <div>
+            <div className="UserGradeWrapper">
                 <div className="pageTitle">
                     <div>회원등급 현황</div>
                 </div>

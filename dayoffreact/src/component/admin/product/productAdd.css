@@ -30,6 +30,7 @@
 .ProductAdd {
     width:85%;
     display: inline-block;
+    min-height: 1000px;
 }
 
 .ProductAdd .my-collapsible{

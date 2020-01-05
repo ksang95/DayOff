@@ -24,8 +24,6 @@ class TwoBarChart extends Component {
                         fill: false,
                         backgroundColor: '#ffe066',
                         borderColor: '#ffe066',
-                        lineTension: 0,
-                        pointRadius: 0
                     },
                     {
                         label: "남성 로그인",
@@ -33,8 +31,6 @@ class TwoBarChart extends Component {
                         fill: false,
                         backgroundColor: '#74c0fc',
                         borderColor: '#74c0fc',
-                        lineTension: 0,
-                        pointRadius: 0
                     }
                 ]
                 

@@ -16,6 +16,7 @@ class PayInfo extends Component {
             const { totalPay, orderDate, gradeDiscount, pointUse, totalRefund } = this.props.info;
             return (
                 <div className="PayInfo">
+                    {sum&&
                     <Table bordered>
                         <tbody>
 
@@ -26,6 +27,7 @@ class PayInfo extends Component {
             {totalPay?<tr><th>최종 결제금액</th><td>{this.numberWithCommas(totalPay)}원</td></tr>:<tr><th>환불받을 금액</th><td>{this.numberWithCommas(totalRefund)}원</td></tr>}
                         </tbody>
                     </Table>
+                    }
                 </div>
             );
         }

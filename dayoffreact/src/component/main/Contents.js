@@ -2,151 +2,163 @@ import React, { Component } from 'react'
 import './contents.css';
 import ApiService from './ApiService';
 import { Link } from 'react-router-dom';
+import StopProductSale from '../admin/product/StopProductSale';
+import ResaleProduct from '../admin/product/ResaleProduct';
+import ContentsProduct from './ContentsProduct';
 
 export default class Content extends Component {
   state = {
     products: [],
-    AdminProducts:[],
-    value : '',
-    selected:'',
+    AdminProducts: [],
+    value: '',
+    selected: '',
     style: '',
-    role:false,
-    errorMessage:false
-  }
- 
-  SearchProduct() {
-    const keyword=this.props.keyword;
-    console.log(keyword)
-    if(keyword){
-      ApiService.SearchProduct(keyword).then(res => {
-        console.log("검색됨 "+res.data)
-        if(res.data.length===0)
-        this.setState({
-          errorMessage: true,
-          products : res.data
-        })
-        else
-          this.setState({
-            errorMessage:false,
-            products : res.data
-          });
-      })
-    }
-    else{
-      const category=this.props.category;
-      if(category==='RED' || category==='BLACK' || category==='GRAY' || category==='BLUE' || category==='PINK' || category==='WHITE' || category==='GREEN'
-      || category==='PURPLE' || category==='ORANGE' || category==='YELLOW'){
-        ApiService.ColorProductList(category, this.state.selected).then(res => {
-          this.setState({errorMessage:false, products : res.data})
-        })
-      }else if(category==='아우터' || category==='상의' || category==='셔츠_블라우스' || category==='팬츠' || category==='원피스' || category==='악세사리'){
-        ApiService.MainCategoryList(category, this.state.selected).then(res=>{
-          this.setState({errorMessage:false, products : res.data})
-        });
-      }else if(category==='BEST'){
-        ApiService.MonthProductList().then(res=>{
-          this.setState({errorMessage:false, products : res.data})
-        });
-      }else{
-        ApiService.SubCategoryList(category,this.state.selected).then(res=>{
-          this.setState({errorMessage:false, products :res.data})
-        })
-      }
-    }
-    
+    role: false,
+    errorMessage: false
   }
 
-   SearchAdminProduct() {
-    const keyword=this.state.keyword;
-    if(keyword){
-      ApiService.SearchAdminProduct(keyword).then(res => {
-        if(res.data.length===0)
-        this.setState({
-          errorMessage: true,
-          products : res.data
-        })
+  SearchProduct = () => {
+    const keyword = this.state.keyword;
+    console.log(keyword)
+    if (keyword) {
+      ApiService.SearchProduct(keyword).then(res => {
+        console.log("검색됨 " + res.data)
+        if (res.data.length === 0)
+          this.setState({
+            errorMessage: true,
+            products: res.data
+          })
         else
           this.setState({
-            errorMessage:false,
-            products : res.data
+            errorMessage: false,
+            products: res.data
           });
       })
     }
-    else{
-      const category=this.state.category;
-      if(category==='RED' || category==='BLACK' || category==='GRAY' || category==='BLUE' || category==='PINK' || category==='WHITE' || category==='GREEN'
-      || category==='PURPLE' || category==='ORANGE' || category==='YELLOW'){
-        ApiService.AdminColorProductList(category, this.state.selected).then(res => {
-          this.setState({errorMessage:false, AdminProducts : res.data})
+    else {
+      const category = this.state.category;
+      if (category === 'RED' || category === 'BLACK' || category === 'GRAY' || category === 'BLUE' || category === 'PINK' || category === 'WHITE' || category === 'GREEN'
+        || category === 'PURPLE' || category === 'ORANGE' || category === 'YELLOW') {
+        ApiService.ColorProductList(category, this.state.selected).then(res => {
+          this.setState({ errorMessage: false, products: res.data })
         })
-      }else if(category==='아우터' || category==='상의' || category==='셔츠_블라우스' || category==='팬츠' || category==='원피스' || category==='악세사리'){
-        ApiService.AdminMainCategoryList(category, this.state.selected).then(res=>{
-          this.setState({errorMessage:false, AdminProducts : res.data})
+      } else if (category === '아우터' || category === '상의' || category === '셔츠_블라우스' || category === '팬츠' || category === '원피스' || category === '악세사리') {
+        ApiService.MainCategoryList(category, this.state.selected).then(res => {
+          this.setState({ errorMessage: false, products: res.data })
         });
-      }else if(category==='BEST'){
-        ApiService.MonthProductList().then(res=>{
-          this.setState({errorMessage:false, products : res.data})
+      } else if (category === 'BEST') {
+        ApiService.MonthProductList().then(res => {
+          this.setState({ errorMessage: false, products: res.data })
         });
-      }else{
-        ApiService.AdminSubCategoryList(category, this.state.selected).then(res=>{
-          this.setState({errorMessage:false, AdminProducts :res.data})
+      } else {
+        ApiService.SubCategoryList(category, this.state.selected).then(res => {
+          this.setState({ errorMessage: false, products: res.data })
         })
       }
     }
-    
+
+  }
+
+  SearchAdminProduct = () => {
+    const keyword = this.state.keyword;
+    if (keyword) {
+      ApiService.SearchAdminProduct(keyword).then(res => {
+        if (res.data.length === 0)
+          this.setState({
+            errorMessage: true,
+            AdminProducts: res.data
+          })
+        else
+          this.setState({
+            errorMessage: false,
+            AdminProducts: res.data
+          });
+      })
+    }
+    else {
+      const category = this.state.category;
+      console.log(category)
+      if (category === 'RED' || category === 'BLACK' || category === 'GRAY' || category === 'BLUE' || category === 'PINK' || category === 'WHITE' || category === 'GREEN'
+        || category === 'PURPLE' || category === 'ORANGE' || category === 'YELLOW') {
+        ApiService.AdminColorProductList(category, this.state.selected).then(res => {
+          console.log(res)
+          this.setState({ errorMessage: false, AdminProducts: res.data })
+        })
+      } else if (category === '아우터' || category === '상의' || category === '셔츠_블라우스' || category === '팬츠' || category === '원피스' || category === '악세사리') {
+        ApiService.AdminMainCategoryList(category, this.state.selected).then(res => {
+          console.log(res)
+
+          this.setState({ errorMessage: false, AdminProducts: res.data })
+        });
+      } else if (category === 'BEST') {
+        ApiService.MonthProductList().then(res => {
+          console.log(res)
+
+          this.setState({ errorMessage: false, AdminProducts: res.data })
+        });
+      } else {
+        ApiService.AdminSubCategoryList(category, this.state.selected).then(res => {
+          console.log(res)
+
+          this.setState({ errorMessage: false, AdminProducts: res.data })
+        })
+      }
+    }
+
   }
 
   componentDidMount() {
-    
-    sessionStorage.getItem("userRole")==="admin"?this.SearchAdminProduct():this.SearchProduct();
-    
+    this.setState({
+      keyword: this.props.keyword,
+      category: this.props.category
+    }, sessionStorage.getItem("userRole") === "admin" ? this.SearchAdminProduct : this.SearchProduct)
   }
-  
-  componentWillReceiveProps(nextProps){
-    console.log(nextProps.keyword)
-    if(this.props.keyword !== nextProps.keyword){
-      if(nextProps.keyword!==this.props.keyword){
-        this.setState({keyword : nextProps.keyword},()=>sessionStorage.getItem("userRole")==="admin"?this.SearchAdminProduct():this.SearchProduct());
+
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps.keyword + "sfas")
+    if (this.props.keyword !== nextProps.keyword) {
+      if (nextProps.keyword !== this.props.keyword) {
+        this.setState({ keyword: nextProps.keyword }, sessionStorage.getItem("userRole") === "admin" ? this.SearchAdminProduct : this.SearchProduct);
       }
       window.scrollTo(0, 0);
-    } else if(nextProps.category!==this.props.category){
-      if(nextProps.category!==this.props.category){
-        this.setState({category : nextProps.category},()=>sessionStorage.getItem("userRole")==="admin"?this.SearchAdminProduct():this.SearchProduct());
+    } else if (nextProps.category !== this.props.category) {
+      if (nextProps.category !== this.props.category) {
+        this.setState({ category: nextProps.category }, sessionStorage.getItem("userRole") === "admin" ? this.SearchAdminProduct : this.SearchProduct);
       }
       window.scrollTo(0, 0);
     }
   }
-  
-  pStop=(e) => {
+
+  pStop = (e) => {
     this.setState({
-      [e.target.name]:e.target.value
+      [e.target.name]: e.target.value
     })
-    if(e.target.value === '판매중지'){
-      document.getElementById("product"+e.target.name).style.opacity = "0.3";
+    if (e.target.value === '판매중지') {
+      document.getElementById("product" + e.target.name).style.opacity = "0.3";
       ApiService.isAvailableDown(e.target.name);
+    }
   }
-}
 
-pStart=(e) => {
-  this.setState({
-    [e.target.name]:e.target.value
-  })
-  if(e.target.value === '판매시작'){
-    document.getElementById("product"+e.target.name).style.opacity = "1.0";
-    ApiService.isAvailableUp(e.target.name);
-}
-}
-
-Change1=(e)=> {
-  this.setState({
-    selected:e.target.value
-  },this.SearchProduct);
-}
-
-  Change=(e)=> {
+  pStart = (e) => {
     this.setState({
-      selected:e.target.value
-    },this.SearchAdminProduct);
+      [e.target.name]: e.target.value
+    })
+    if (e.target.value === '판매시작') {
+      document.getElementById("product" + e.target.name).style.opacity = "1.0";
+      ApiService.isAvailableUp(e.target.name);
+    }
+  }
+
+  Change1 = (e) => {
+    this.setState({
+      selected: e.target.value
+    }, this.SearchProduct);
+  }
+
+  Change = (e) => {
+    this.setState({
+      selected: e.target.value
+    }, this.SearchAdminProduct);
     // sessionStorage.getItem("userRole")==="user"?this.SearchProduct():this.SearchAdminProduct();
 
     // switch(e.target.value){
@@ -182,81 +194,63 @@ Change1=(e)=> {
     //       break;
     // }
   }
-  
-    render() {
-      console.log(this.state.products)
-      const errorMessage=this.state.errorMessage;
-      if(sessionStorage.getItem("userRole")!=="admin"){
-        return (
-          <div className="PContents">
-          <div className='PDropButton'>
-            <select value={this.state.selected} onChange={this.Change1.bind(this)}> 
-            <option value='registerDate_desc'> 등록날짜순 </option>
-            <option value='orderCount_desc'> 인기상품순 </option>
-            <option value='price_desc'> 높은가격순 </option>
-            <option value='price_asc'> 낮은가격순 </option>
-            </select>
-            </div>
-        
-        {this.state.products.length > 0 ? 
-        <div className='PContentItem_box'>
-        {this.state.products.map(product => {
-          return (
-          <Link to={"/product/"+product.id} className='PContentItem'>
-          <img src={"https://storage.googleapis.com/bit-jaehoon/"+product.productThumbnailName} alt=''/>
-          <p>{product.id}</p>
-          <h4>{product.name}</h4>
-          <br></br>
-          <h2>{product.price}원</h2>
-          </Link>
-          )
-        })}
 
-      </div> : <div>{errorMessage&&<h1 className='nullImg'><img src='http://file3.instiz.net/data/file3/2019/11/06/9/7/c/97c015a880b59f53280159a08fc0d357.jpg'></img><br></br>일치하는 상품이 없습니다. 다시 검색해주세요!</h1>}</div>}
-        </div>
-        )
-      } else {
-            return (
-              <div className="PContents">
-                <div className='PDropButton'>
-            <select value={this.state.selected} onChange={this.Change.bind(this)}> 
-            <option value='registerDate_desc'> 등록날짜순 </option>
-            <option value='orderCount_desc'> 인기상품순 </option>
-            <option value='price_desc'> 높은가격순 </option>
-            <option value='price_asc'> 낮은가격순 </option>
+  
+
+  render() {
+    console.log(this.state.products)
+    console.log(this.state.AdminProducts + sessionStorage.getItem("userRole"))
+    const errorMessage = this.state.errorMessage;
+    if (sessionStorage.getItem("userRole") !== "admin") {
+      return (
+        <div className="PContents">
+          <div className='PDropButton'>
+            <select value={this.state.selected} onChange={this.Change1.bind(this)}>
+              <option value='registerDate_desc'> 등록날짜순 </option>
+              <option value='orderCount_desc'> 인기상품순 </option>
+              <option value='price_desc'> 높은가격순 </option>
+              <option value='price_asc'> 낮은가격순 </option>
             </select>
-            </div>
-            {this.state.products.length > 0 ? 
-              <div className='PContentItem_box'>
-              {this.state.AdminProducts.map((product) => {
-                if(product.isAvailable ===1){
+          </div>
+          {this.state.products.length > 0 ?
+            <div className='PContentItem_box'>
+              {this.state.products.map(product => {
                 return (
-                  <Link to={"/product/"+product.id} className='PContentItem' id={"product"+product.id}>
-                <select className='PeditButton' name={product.id} value={this.name} onChange={this.pStop.bind(this)}>
-                    <option value="목록">=</option>
-                    <option value="판매중지">판매중지</option>       
-                    <option value="상품수정">상품수정</option>
-                </select>
-                <img src={"https://storage.googleapis.com/bit-jaehoon/"+product.productThumbnailName} alt=''/>
-                <p>{product.id}</p>
-                <h4>{product.name}</h4>
-                <h2>{product.price}원</h2>
-                </Link>
-                )} else {
-                  return (
-                    <Link to={"/product/"+product.id} className='PContentItem' id={"product"+product.id} style={{opacity : "0.3"}}>
-                    <select className='PeditButton' name={product.id} value={this.name} onChange={this.pStart.bind(this)}>
-                        <option value="목록">=</option>
-                        <option value="판매시작">판매시작</option>       
-                        <option value="상품수정">상품수정</option>
-                    </select>
-                    <img src={"https://storage.googleapis.com/bit-jaehoon/"+product.productThumbnailName} alt=''/>
+                  <Link to={"/product/" + product.id} className='PContentItem'>
+                    <img src={"https://storage.googleapis.com/bit-jaehoon/" + product.productThumbnailName} alt='' />
                     <p>{product.id}</p>
                     <h4>{product.name}</h4>
+                    <br></br>
                     <h2>{product.price}원</h2>
-                    </Link>
-                    )} 
-                 })}
-              </div>  : <div>{errorMessage&&<h1 className='nullImg'><img src='http://file3.instiz.net/data/file3/2019/11/06/9/7/c/97c015a880b59f53280159a08fc0d357.jpg'></img><br></br>일치하는 상품이 없습니다. 다시 검색해주세요!</h1>}</div>}
-              </div>
-)}}}
+                  </Link>
+                )
+              })}
+
+            </div> : <div>{errorMessage && <h1 className='nullImg'><img src='http://file3.instiz.net/data/file3/2019/11/06/9/7/c/97c015a880b59f53280159a08fc0d357.jpg'></img><br></br>일치하는 상품이 없습니다. 다시 검색해주세요!</h1>}</div>}
+        </div>
+      )
+    } else {
+      return (
+        <div className="PContents">
+          <div className='PDropButton'>
+            <select value={this.state.selected} onChange={this.Change.bind(this)}>
+              <option value='registerDate_desc'> 등록날짜순 </option>
+              <option value='orderCount_desc'> 인기상품순 </option>
+              <option value='price_desc'> 높은가격순 </option>
+              <option value='price_asc'> 낮은가격순 </option>
+            </select>
+          </div>
+          {this.state.AdminProducts.length > 0 ?
+            <div className='PContentItem_box'>
+              {this.state.AdminProducts.map((product) => {
+                  return (
+                    <ContentsProduct product={product}></ContentsProduct>
+                  )
+                
+              })}
+            </div> : <div>{errorMessage && <h1 className='nullImg'><img src='http://file3.instiz.net/data/file3/2019/11/06/9/7/c/97c015a880b59f53280159a08fc0d357.jpg'></img><br></br>일치하는 상품이 없습니다. 다시 검색해주세요!</h1>}</div>}
+        </div>
+      )
+    }
+  }
+}

@@ -82,6 +82,7 @@ public class PayController {
 	private Integer discount;
 	private Integer emoney;
 	private Integer useEmoney;
+	private Integer savedDeliverId;
 //	@GetMapping
 //	public List<Cart> listCart() {
 //		return cartdao.findAll();
@@ -164,13 +165,14 @@ public class PayController {
 		    System.out.println("a");
 			Deliver deliever = new Deliver();
 			Users user = new Users();
-			user.setId(list.get(0).getId());
+			user.setId(list.get(0).getUserId());
 			deliever.setUsers(user);
 			deliever.setLocation(s.getLocation());
 			deliever.setName(s.getName());
 			deliever.setPhone(s.getPhone());
 			deliever.setPostalcode(s.getPostalcode());
-			deliverRepository.save(deliever);
+			Deliver savedDeliver=deliverRepository.save(deliever);
+			savedDeliverId=savedDeliver.getId();
 		}
 	if(s.getService().equals("0")){
 		store=s.getStore();
@@ -217,6 +219,11 @@ public class PayController {
 			Stores s=storesRepository.findByname(store);
 			ordergroup.setStores(s);
 			
+		}else{
+			Deliver deliver=new Deliver();
+			System.out.println(savedDeliverId);
+			deliver.setId(savedDeliverId);
+			ordergroup.setDeliver(deliver);
 		}
 		ordergroup.setTotalPay(info.getAmount().getTotal());
 		ordergroup.setUsers(users);

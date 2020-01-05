@@ -25,6 +25,12 @@
     color:#c92a2a;
 }
 
+.Withdraw{
+    width: 85%;
+    display: inline-block;
+    min-height: 1000px;
+}
+
 .Withdraw .error{
     text-align: center;
     color:#c92a2a;
@@ -57,4 +63,10 @@
 .UpdateUser{
     width: 40%;
     margin: 50pt auto;
+}
+
+.UpdateUserWrapper{
+    width:85%;
+    display: inline-block;
+    min-height: 1000px;
 }

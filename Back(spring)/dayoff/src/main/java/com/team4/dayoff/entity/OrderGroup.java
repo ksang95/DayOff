@@ -55,9 +55,9 @@ public class OrderGroup {
     private Integer gradeDiscount;
     private Integer pointUse;
 
-    //@ManyToOne
-    //@JoinColumn("deliverId")
-    //private Deliver deliver;
+    @ManyToOne
+    @JoinColumn(name="deliverId")
+    private Deliver deliver;
 
     @ManyToOne
     @JoinColumn(name="storesId")

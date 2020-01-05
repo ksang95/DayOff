@@ -33,7 +33,7 @@ class OrderAnalysis extends Component {
         const {data}=this.state;
         
         return (
-            <div >
+            <div className="OrderAnalysisWrapper">
                 <div className="pageTitle">
                             <div>매출 통계</div>
                 </div >

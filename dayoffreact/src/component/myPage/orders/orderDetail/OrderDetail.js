@@ -71,7 +71,7 @@ class OrderDetail extends Component {
                         <div className="orderDetailOrder">주문번호: {this.state.info.groupId}</div>
                         <OrderGroupList data={this.state.data} orderId={this.state.orderId} isAdmin={isAdmin} getData={this.getData} needState={true}></OrderGroupList>
                         {refundData && <RefundList data={refundData} orderId={this.state.orderId}></RefundList>}
-                        <Row style={{width:"70%", margin:"auto"}}>
+                        <Row style={{width:"90%", margin:"auto"}}>
                             <Col>
                         <OrderType info={this.state.info} />
                             </Col>

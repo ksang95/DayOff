@@ -25,8 +25,6 @@ class TwoBarOneLineChart extends Component {
                         fill: false,
                         backgroundColor: '#ffe066',
                         borderColor: '#ffe066',
-                        lineTension: 0,
-                        pointRadius: 0,
                         order:2
                     },
                     {
@@ -35,8 +33,6 @@ class TwoBarOneLineChart extends Component {
                         fill: false,
                         backgroundColor: '#ff8787',
                         borderColor: '#ff8787',
-                        lineTension: 0,
-                        pointRadius: 0,
                         order:3
                     },
                     {
@@ -47,7 +43,7 @@ class TwoBarOneLineChart extends Component {
                         backgroundColor: '#74c0fc',
                         borderColor: '#74c0fc',
                         lineTension: 0,
-                        pointRadius: 0,
+                        pointRadius: 5,
                         order:1
                     }
                 ]

@@ -93,6 +93,7 @@ class RefundRequest extends Component {
 
     render() {
         const { selectedCode, code, orderView, info, orderPrice } = this.state;
+        console.log(orderPrice)
         const { handleSelect, refund } = this;
         const codeOp = code.map((c, index) => (<Form.Check className="p-2" key={c.code} type="radio" value={index} name="code" id={c.content} label={c.content} onChange={handleSelect}/>));
         return (

@@ -1,5 +1,5 @@
 .UserGrade{
-    width: 65%;
+    width: 90%;
     margin: 50px auto;
 }
 
@@ -40,4 +40,10 @@
 
 .UserGrade .state > span{
     margin-right: 50px;
+}
+
+.UserGradeWrapper{
+    width: 85%;
+    display: inline-block;
+    min-height: 1000px;
 }
