@@ -8,6 +8,8 @@ class LoginSuccess extends Component {
         const users=response.data;
         sessionStorage.setItem("userId", users.id);
         sessionStorage.setItem("userRole", users.role);
+        sessionStorage.setItem("userName", users.name);
+
         this.props.history.push(sessionStorage.getItem("currentUrl"));
     }
 

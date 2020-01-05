@@ -7,7 +7,7 @@ class LoginPage extends Component {
             <div className="LoginPage">
             
             <div className="login-content">
-                <h1 className="login-title">Login to SpringSocial</h1>
+                <h1 className="login-title">소셜 계정으로 로그인</h1>
                 <SocialLogin currentUrl={"/"}></SocialLogin>
                 <div className="or-separator">
                 </div>

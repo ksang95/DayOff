@@ -49,6 +49,8 @@ class Login extends Component {
         console.log(res.data)
         sessionStorage.removeItem("userId");
         sessionStorage.removeItem("userRole");
+        sessionStorage.removeItem("userName");
+
         this.setState({
             login:false
         })
