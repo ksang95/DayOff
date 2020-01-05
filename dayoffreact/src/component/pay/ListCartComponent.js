@@ -2,11 +2,9 @@ import React, { Component } from 'react'
 import ApiService_ from "../pay/service/ApiService_";
 import InputMask from 'react-input-mask';
 import DaumPostcode from 'react-daum-postcode';
-
-const contentStyle = {
-    maxWidth: "600px",
-    width: "90%"
-  };
+import { Button, ButtonGroup} from 'reactstrap';
+import{InputGroup,InputGroupAddon,InputGroupText} from 'reactstrap';
+import ordercart from "./ordercart.css";
 class ListCartComponent extends Component {
     
 
@@ -38,15 +36,17 @@ class ListCartComponent extends Component {
      calctotalpay:"",
      cemoney:"",
      cdemoney:"0",
-     transpay:""
+     transpay:"",
+     totallocation:""
             
         }
         // this.use=this.use.bind(this);
         this.reloadCartList = this.reloadCartList.bind(this);
         this.handleDropdownChange = this.handleDropdownChange.bind(this);
+        
     }
     
-
+   
     componentDidMount() {
         this.reloadCartList();        
     }
@@ -81,7 +81,7 @@ class ListCartComponent extends Component {
       }
     
   
-      
+   
   
    
     reloadCartList() {
@@ -114,19 +114,19 @@ class ListCartComponent extends Component {
             console.log("bb"+this.state.grade);
             if(this.state.grade=='브론즈'){
                 console.log("bbbbbb")
-                discountprice=Math.ceil(sum*0.95);
+                discountprice=Math.ceil(sum*0.99);
                 console.log(discountprice)
             
             }
             if(this.state.grade=='실버'){
-                discountprice=Math.ceil(sum*0.9);
+                discountprice=Math.ceil(sum*0.98);
                 
             }
             if(this.state.grade=='골드'){
-                discountprice=Math.ceil(sum*0.85);
+                discountprice=Math.ceil(sum*0.97);
             }
             if(this.state.grade=='플레티넘'){
-                discountprice=Math.ceil(sum*0.8);
+                discountprice=Math.ceil(sum*0.96);
             }
             this.setState({totalPay:Math.round(Math.ceil(discountprice)/10)*10})
             this.setState({calctotalpay:this.state.totalPay})
@@ -201,8 +201,10 @@ class ListCartComponent extends Component {
         // params.append('postalCode',this.state.postalCode);
         // params.append('phone',this.state.phone);
         // params.append('carts',this.state.carts)
+        let loc=this.state.location+" "+this.state.location2
+        console.log(loc)
 
-        let deliever_ = {name: this.state.name, location: this.state.location, postalCode: this.state.postalCode, phone: this.state.phone};
+        let deliever_ = {name: this.state.name, location: loc, postalCode: this.state.postalCode, phone: this.state.phone};
         
 
       ApiService_.kakaopay(this.state.carts, deliever_,this.state.selectValue,this.state.checked,this.state.store,this.state.service,this.state.discount,this.state.transpay,this.state.emoney,this.state.useEmoney).then((res)=>{
@@ -211,16 +213,20 @@ class ListCartComponent extends Component {
       });
       
   }
+  
  
     render() {      
  
   
         return (
      
-         
-                <div>
+        
+                <div className="paylist">
                     <h2>{this.state.selectValue}</h2>
-                <h2 >결제할 상품</h2>
+                    <div>
+                <h4 className="title">ORDER</h4>
+                </div>
+                
                 <table className="n-table" >
                 <colgroup>
              <col style={{ width: +10 + "%" }}></col>
@@ -294,23 +300,15 @@ class ListCartComponent extends Component {
         }
                     </tbody>  */}
                 </table>
-    <h3>총주문금액{this.state.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</h3>
+                
+    <h4 className="right">총주문금액{this.state.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</h4>
     
-    <h3>회원할인금액{this.state.discount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</h3>
-    <h3>결제금액{this.state.totalPay.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</h3>
-    <input placeholder="useEmoney" name="useEmoney" className="form-control" value={this.state.useEmoney} onChange={this.onChange}/>
-            <button onClick={this.use.bind(this)}>사용</button>    <h2>적립금{this.state.emoney}</h2>
-
-    <h3>적립금할인금액{this.state.cdemoney}</h3>
-   
-    <h3>총결제금액{this.state.transpay.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</h3>
   
 
     {/* <Popup trigger={<button> 우편번호</button>} position="right center">
 <DaumPostcode
         onComplete={this.handleAddress}
 /> 
-
 : null  
 } 
   </Popup> */}
@@ -320,39 +318,74 @@ class ListCartComponent extends Component {
  <DaumPostcode
          onComplete={this.handleAddress}
  /> 
-
  : null  
  }  </div>  */}
   
-        
+  <div className="q"></div>  
     
 <form>
+<div>
   <input type="radio" name="service" value="1" onChange={this.onChange} />배송서비스
   <input type="radio" name="service" value="0"  onChange={this.onChange}/>매장픽업서비스
+
+
+  </div>
+
+
 </form>
-                <h2>aa{this.state.service}</h2>
+                {/* <h2>aa{this.state.service}</h2> */}
                 
 
-                <h2 className="text-center">배송지 입력</h2>
+                <h4 className="text-center">배송지 정보</h4>
                 
-
-                    <div >
-                        <label>name:</label>
-                        <input type="text" placeholder="name" name="name" className="form-control" value={this.state.name} onChange={this.onChange}/>
+<div className="receive"></div>
+                    <div>
+                    <InputGroup>
+        <InputGroupAddon addonType="prepend">
+          <InputGroupText>받으시는 분</InputGroupText>
+        </InputGroupAddon>
+        <input type="text" placeholder="name" name="name" className="a" value={this.state.name} onChange={this.onChange}/>
+      </InputGroup>
+      <br />
                     </div>
                     <div>
-                        <label>postalCode:</label>
-                        <input placeholder="postalCode" name="postalCode" className="form-control" value={this.state.postalCode} onChange={this.onChange}/>
-                    </div>
-                    <div>
-     <button onClick={this.togglePopup.bind(this)}> 우편번호</button>  
+                    <InputGroup>
+        <InputGroupAddon addonType="prepend">
+          <InputGroupText>우편번호</InputGroupText>
+        </InputGroupAddon>
+       < input placeholder="postalCode" name="postalCode" className="b" value={this.state.postalCode} onChange={this.onChange}/>
+       <button className="c" color="secondary" onClick={this.togglePopup.bind(this)}> 우편번호검색</button>  
  {this.state.showPopup ?  
  <DaumPostcode
          onComplete={this.handleAddress}
  /> 
 
  : null  
- }  </div> 
+ } 
+      </InputGroup>
+      <br />
+      <InputGroup>
+        <InputGroupAddon addonType="prepend">
+          <InputGroupText>주소</InputGroupText>
+        </InputGroupAddon>
+        <input placeholder="location" name="location" className="d" value={this.state.location} onChange={this.onChange}/>
+      </InputGroup>
+      <br />
+      <InputGroup>
+        <InputGroupAddon addonType="prepend">
+          <InputGroupText>상세주소</InputGroupText>
+        </InputGroupAddon>
+        <input placeholder="상세주소" className="e" name="location2"  value={this.state.location2} onChange={this.onChange}/>
+      </InputGroup>
+      <br />
+      <InputGroup>
+        <InputGroupAddon addonType="prepend">
+          <InputGroupText>phone</InputGroupText>
+        </InputGroupAddon>
+        <InputMask mask="999-9999-9999"  className="f" maskChar={null}  name="phone" value={this.state.phone} onChange={this.onChange}/>
+      </InputGroup>
+      <br />
+      </div> 
                     {/* <Popup trigger={<button>Trigger</button>} position="top left">
     {close => (
       <div>
@@ -365,35 +398,70 @@ class ListCartComponent extends Component {
       </div>
     )}
   </Popup> */}
-
-                    <div >
-                        <label>location:</label>
-                        <input placeholder="location" name="location" className="form-control" value={this.state.location} onChange={this.onChange}/>
-                    </div>
-                    <div >
-                        <label>상세주소:</label>
-                        <input placeholder="location" name="location2" className="form-control" value={this.state.location2} onChange={this.onChange}/>
-                    </div>
+  <h4 className="text-center">매장픽업</h4>
+<div className="receive"></div>
   
-                    <div >
-                        <label>phone</label>
-                        <InputMask mask="999-9999-9999" maskChar={null}  name="phone" className="form-control" value={this.state.phone} onChange={this.onChange}/>
-                    </div>
-
-
-          
                 <div>
-            <h2>매장픽업</h2>
-            <select id="dropdown" onChange={this.handleDropdownChange}>
-              <option value="배송">매장선택</option>
+                <InputGroup>
+        <InputGroupAddon addonType="prepend">
+          <InputGroupText>매장선택</InputGroupText>
+        </InputGroupAddon>
+        <input placeholder="매장선택" name="selectValue" className="i" value={this.state.selectValue} onChange={this.onChange}/>
+        <select id="dropdown" className="h" onChange={this.handleDropdownChange}>
+              <option value="매장선택">매장선택</option>
               <option value="강남점">강남점</option>
               <option value="역삼점">역삼점</option>
               <option value="선릉점">선릉점</option>
             </select>
-          </div>
-
+      </InputGroup>
           
-                <button className="btn btn-success" onClick={this.start2Kakaopay}> 결제하기</button>
+          </div>
+          <div className="m" ></div>
+          <h4 className="text-center">결제예정금액</h4>
+          <div className="receive"></div>
+<div>
+
+
+<table className="n-table" >
+                <colgroup>
+             <col style={{ width: +10 + "%" }}></col>
+             <col style={{ width: +10 + "%" }}></col>
+             <col style={{ width: +10 + "%" }}></col>
+             <col style={{ width: +10 + "%" }}></col>
+           </colgroup>
+                <thead>
+                        <tr>
+                            <th>총주문금액</th>
+                            <th>회원할인금액</th>
+                            <th>적립금 할인금액</th>
+                            <th>총결제금액</th>
+                        </tr>
+                    </thead>
+                     
+                    <tbody>
+                            <td>{this.state.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                            <td>{this.state.discount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                            <td>{this.state.cdemoney}</td>
+                            <td>{this.state.transpay.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>                       
+                    </tbody> </table>
+
+
+</div>
+<div className="k"></div>
+<InputGroup className="n">
+        <InputGroupAddon addonType="prepend">
+          <InputGroupText>적립금할인</InputGroupText>
+        </InputGroupAddon>
+        <input placeholder="useEmoney" name="useEmoney" className="f" value={this.state.useEmoney} onChange={this.onChange}/> 
+        <button className="c" onClick={this.use.bind(this)}>사용</button> <h5 className="o">적립금:{this.state.emoney}</h5>
+</InputGroup>
+      <br />
+<div className="q">
+          
+                <center><button className="p" onClick={this.start2Kakaopay}> 결제하기</button></center>
+                </div>
+
+                <div className="q"></div>
                 
           </div>
           
