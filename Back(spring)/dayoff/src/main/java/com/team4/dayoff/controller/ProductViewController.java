@@ -73,6 +73,9 @@ public class ProductViewController {
 	
 	@GetMapping("/AdminSubCategory/category/{name}")
 	public List<ProductView> AdminSubCateogry(@PathVariable String name, @PageableDefault(size=1000, page=0, sort="registerDate", direction=Direction.DESC) Pageable pageable){
+		System.out.println("=========================================");
+		System.out.println(name);
+		System.out.println(productRepository.AdminSubCategory(name,pageable));
 		return productRepository.AdminSubCategory(name,pageable);
 	}
 	

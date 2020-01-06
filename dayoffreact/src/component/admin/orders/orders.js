@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Axios from 'axios';
 import { Link } from 'react-router-dom';
 import '../../common/css/orderList.css'
-import { Button,Col, Form } from 'react-bootstrap';
+import { Button,Col, Form , Row} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Deliver from '../../myPage/orders/Deliver';
 import SlideToggle from "react-slide-toggle";
@@ -217,8 +217,11 @@ export default class orders extends Component {
         <h2>주문 내역</h2>
               <hr style={{width : '70%', borderTop: '1px solid black'}}></hr>
         <div className="orderMain">
+
+      <Form.Group as={Row} className="p-3 m-auto">
+        <Col sm="5"></Col>
           <Col sm="3">
-       주문상태별 조회 -> <Form.Control as="select" value={this.state.value} onChange={this.handleChange.bind(this)}>
+       <Form.Control as="select" value={this.state.value} onChange={this.handleChange.bind(this)}>
           <option value="all">전체</option>
           <option value="0000">배송준비중</option>
           <option value="0001">배송중</option>
@@ -232,11 +235,12 @@ export default class orders extends Component {
         
         </Form.Control> 
         </Col>
-        <br></br>
-      회원이름으로 검색 -> <input type="text" name="name" value={this.state.name} onKeyPress={this.handleKeyPress.bind(this)} onChange={this.handleChangeInput.bind(this)}></input>
-      <button onClick={()=> this.orderList.bind(this)(this.state.value, 0, this.state.name)}>검색</button>
-
-
+      <Col sm="3">
+      <Form.Control placeholder="회원이름으로 검색" type="text" name="name" value={this.state.name} onKeyPress={this.handleKeyPress.bind(this)} onChange={this.handleChangeInput.bind(this)}></Form.Control>
+      </Col>
+      <Button onClick={()=> this.orderList.bind(this)(this.state.value, 0, this.state.name)}>검색</Button>
+            
+          </Form.Group>
       {/* <button id="prev" className="prev"  onClick={()=>this.orderList.bind(this)(this.state.value,this.state.page-1,this.state.name)}>이전페이지</button> */}
 
       <div>
@@ -246,7 +250,7 @@ export default class orders extends Component {
             <col style={{width: + 9+'%'}}></col>
             <col style={{width: + 12+'%'}}></col>
             <col style={{width: + 9+'%'}}></col>
-            <col style={{width: + 10+'%'}}></col>
+            <col style={{width: + 12+'%'}}></col>
             <col style={{width: + 23+'%'}}></col>
           </colgroup>
           <tr >

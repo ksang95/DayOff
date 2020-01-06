@@ -109,11 +109,10 @@ public class AdminProductController {
                     System.out.println("image saving");
                     productImageRepository.save(productImage);
                     System.out.println("image saved");
-                    writeCsv.reset();
-
-                    writeCsv.write('"' + uriname + '"' + "," + '"' + "img" + '"' + "," + '"' + "product" + '"' + ","
+                    Category category = categoryRepository.findById(product.getCategory().getId()).get();
+                    writeCsv.write('"' + uriname + '"' + "," + '"' + productImage.getName() + '"' + "," + '"' + "ourProduct" + '"' + ","
                             + '"' + product.getName() + '"' + "," + '"' + "apparel" + '"' + "," + '"' + name + '"'
-                            + "," + '"' + "category=" + product.getCategory().getEngName() + '"' + ",");
+                            + "," + '"' + "category=" + category.getEngName() + '"' + ",");
 
                 }
 
@@ -136,6 +135,8 @@ public class AdminProductController {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        writeCsv.reset();
+
     }
 
     @RequestMapping("/addProduct")
@@ -157,6 +158,7 @@ public class AdminProductController {
             try {
                 String name = GoogleCloudStorageUpload.saveFile(files.get(0));
                 product.setDetailImage(name);
+                System.out.println(name);
                 Product savedProduct = productRepository.save(product);
                 latestProduct = savedProduct;
                 System.out.println(product);
@@ -174,11 +176,11 @@ public class AdminProductController {
                     productImage.setOriginalName(file.getOriginalFilename());
                     productImage.setProduct(savedProduct);
                     productImageRepository.save(productImage);
-                    writeCsv.reset();
-                    writeCsv.write('"' + uriname + '"' + "," + '"' + "img" + '"' + "," + '"' + "product" + '"' + ","
+                    Category category = categoryRepository.findById(product.getCategory().getId()).get();
+                    writeCsv.write('"' + uriname + '"' + "," + '"' + productImage.getName() + '"' + "," + '"' + "ourProduct" + '"' + ","
                             + '"' + product.getName() + '"' + "," + '"' + "apparel" + '"' + "," + '"' + name + '"'
-                            + "," + '"' + "category=" + product.getCategory().getEngName() + '"' + ",");
-
+                            + "," + '"' + "category=" +category.getEngName() + '"' + ",");
+                    System.out.println(product.getCategory().getEngName());
                 }
 
             } catch (IllegalStateException e) {
@@ -208,6 +210,8 @@ public class AdminProductController {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        writeCsv.reset();
+
         return map;
     }
 
@@ -249,11 +253,10 @@ public class AdminProductController {
                         productImage.setName(iname);
                         productImage.setProduct(savedProduct);
                         productImageRepository.save(productImage);
-                        writeCsv.reset();
-
-                        writeCsv.write('"' + uriname + '"' + "," + '"' + "img" + '"' + "," + '"' + "product" + '"' + ","
+                        Category category = categoryRepository.findById(product.getCategory().getId()).get();
+                        writeCsv.write('"' + uriname + '"' + "," + '"' + productImage.getName() + '"' + "," + '"' + "ourProduct" + '"' + ","
                                 + '"' + product.getName() + '"' + "," + '"' + "apparel" + '"' + "," + '"' + iname
-                                + '"' + "," + '"' + "category=" + product.getCategory().getEngName() + '"' + ",");
+                                + '"' + "," + '"' + "category=" + category.getEngName() + '"' + ",");
                         break;
                     }
                 }
@@ -276,6 +279,7 @@ public class AdminProductController {
         System.out.println(latestProduct);
         map.put("latestProduct", latestProduct);
         map.put("productCount", array.size());
+        writeCsv.reset();
 
         return map;
     }
