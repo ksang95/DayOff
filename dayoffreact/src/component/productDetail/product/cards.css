@@ -39,10 +39,9 @@
   font-size: 15px;
   word-wrap: break-word;
   white-space: pre-wrap;
-  max-height: 42px;
-  min-height: 42px;
+  max-height: 50px;
+  min-height: 50px;
   margin-bottom : 0 !important;
-  margin-top : 10px;
   color : black;
   
 }

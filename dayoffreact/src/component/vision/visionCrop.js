@@ -44,14 +44,12 @@ class visionCrop extends Component {
     render() {
         return (
             <div>
-              <div className="pageTitle">
+              <div className="pageTitle2">
               <div>인공지능 상품검색</div>
               <br></br>
-           <h1>인공지능을 통해 상품을 찾아보세요. </h1>
             </div>
            <div style={{textAlign : "center"}}>
              
-           <img src="/images/AI.png" width="70%" height="300px"></img>
            </div>
            <br></br>
            <br></br>

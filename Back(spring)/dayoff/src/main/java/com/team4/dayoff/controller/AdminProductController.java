@@ -100,7 +100,6 @@ public class AdminProductController {
                     MultipartFile file = files.get(i);
                     String name = GoogleCloudStorageUpload.saveFile(file);
                     String uriname = "gs://bit-jaehoon/" + name;
-                    String imgPath = "https://storage.googleapis.com/bit-jaehoon/" + name;
                     ProductImage productImage = new ProductImage();
                     productImage.setOriginalName(file.getOriginalFilename());
                     productImage.setName(name);
@@ -110,8 +109,8 @@ public class AdminProductController {
                     System.out.println("image saved");
 
                     writeCsv.write('"' + uriname + '"' + "," + '"' + "img" + '"' + "," + '"' + "product" + '"' + ","
-                            + '"' + product.getName() + '"' + "," + '"' + "apparel" + '"' + "," + '"' + imgPath + '"'
-                            + "," + '"' + "category=" + product.getCategory().getName() + '"' + ",");
+                            + '"' + product.getName() + '"' + "," + '"' + "apparel" + '"' + "," + '"' + name + '"'
+                            + "," + '"' + "category=" + product.getCategory().getEngName() + '"' + ",");
 
                 }
 
@@ -168,7 +167,6 @@ public class AdminProductController {
                     MultipartFile file = files.get(i);
                     name = GoogleCloudStorageUpload.saveFile(file);
                     String uriname = "gs://bit-jaehoon/" + name;
-                    String imgPath = "https://storage.googleapis.com/bit-jaehoon/" + name;
                     ProductImage productImage = new ProductImage();
                     productImage.setName(name);
                     productImage.setOriginalName(file.getOriginalFilename());
@@ -176,8 +174,8 @@ public class AdminProductController {
                     productImageRepository.save(productImage);
 
                     writeCsv.write('"' + uriname + '"' + "," + '"' + "img" + '"' + "," + '"' + "product" + '"' + ","
-                            + '"' + product.getName() + '"' + "," + '"' + "apparel" + '"' + "," + '"' + imgPath + '"'
-                            + "," + '"' + "category=" + product.getCategory().getName() + '"' + ",");
+                            + '"' + product.getName() + '"' + "," + '"' + "apparel" + '"' + "," + '"' + name + '"'
+                            + "," + '"' + "category=" + product.getCategory().getEngName() + '"' + ",");
 
                 }
 
@@ -244,7 +242,6 @@ public class AdminProductController {
                     if (file.getOriginalFilename().equals(image.getOriginalName())) {
                         String iname = GoogleCloudStorageUpload.saveFile(file);
                         String uriname = "gs://bit-jaehoon/" + iname;
-                        String imgPath = "https://storage.googleapis.com/bit-jaehoon/" + iname;
                         ProductImage productImage = new ProductImage();
                         productImage.setOriginalName(file.getOriginalFilename());
                         productImage.setName(iname);
@@ -252,8 +249,8 @@ public class AdminProductController {
                         productImageRepository.save(productImage);
 
                         writeCsv.write('"' + uriname + '"' + "," + '"' + "img" + '"' + "," + '"' + "product" + '"' + ","
-                                + '"' + product.getName() + '"' + "," + '"' + "apparel" + '"' + "," + '"' + imgPath
-                                + '"' + "," + '"' + "category=" + product.getCategory().getName() + '"' + ",");
+                                + '"' + product.getName() + '"' + "," + '"' + "apparel" + '"' + "," + '"' + iname
+                                + '"' + "," + '"' + "category=" + product.getCategory().getEngName() + '"' + ",");
                         break;
                     }
                 }

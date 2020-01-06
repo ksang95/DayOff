@@ -167,7 +167,7 @@ export default class orders extends Component {
     </td>
   
     
-    <td><Link to={userinfo+data.userId}>{data.userName}</Link></td>
+    <td><Link to={"/admin/userList/"+data.userId}>{data.userName}</Link></td>
 
     <td>{data.orderDate}</td>
 

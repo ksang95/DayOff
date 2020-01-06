@@ -28,6 +28,7 @@
     "react-scripts": "3.3.0",
     "react-slick": "^0.25.2",
     "react-slide-toggle": "^0.3.3",
+    "reactstrap": "^8.2.0",
     "slick-carousel": "^1.8.1",
     "xlsx": "^0.15.4"
   },
