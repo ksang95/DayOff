@@ -23,14 +23,7 @@ class WithdrawReasonChart extends Component {
 
             const response = await axios.get(`/usersAnalysis/user/withdrawReasons/${selected}`);
             
-            const data=response.data.withdrawReasons.map(element => {
-                let d={};
-                d.label=element[0];
-                for (let index = 1; index < this.state.size; index++) {
-                    d["col"+index]=element[index];
-                }
-                return d;
-            });
+            const data=response.data.withdrawReasons.map(d=>d[1]);
             
             this.setState({
                 data
