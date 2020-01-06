@@ -25,6 +25,7 @@ import com.team4.dayoff.repository.ProductRepository;
 import com.team4.dayoff.repository.ProductSizeRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +33,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+@CrossOrigin("*")
 @RestController
 public class AdminProductController {
     @Autowired
@@ -107,6 +109,7 @@ public class AdminProductController {
                     System.out.println("image saving");
                     productImageRepository.save(productImage);
                     System.out.println("image saved");
+                    writeCsv.reset();
 
                     writeCsv.write('"' + uriname + '"' + "," + '"' + "img" + '"' + "," + '"' + "product" + '"' + ","
                             + '"' + product.getName() + '"' + "," + '"' + "apparel" + '"' + "," + '"' + name + '"'
@@ -129,7 +132,6 @@ public class AdminProductController {
             File file = new File("./visionInsert.csv");
             GoogleCloudStorageUpload.saveFile(file);
             productManagement.importProductSets("gs://bit-jaehoon/visionInsert.csv");
-            writeCsv.reset();
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -172,7 +174,7 @@ public class AdminProductController {
                     productImage.setOriginalName(file.getOriginalFilename());
                     productImage.setProduct(savedProduct);
                     productImageRepository.save(productImage);
-
+                    writeCsv.reset();
                     writeCsv.write('"' + uriname + '"' + "," + '"' + "img" + '"' + "," + '"' + "product" + '"' + ","
                             + '"' + product.getName() + '"' + "," + '"' + "apparel" + '"' + "," + '"' + name + '"'
                             + "," + '"' + "category=" + product.getCategory().getEngName() + '"' + ",");
@@ -201,7 +203,7 @@ public class AdminProductController {
             File file = new File("./visionInsert.csv");
             GoogleCloudStorageUpload.saveFile(file);
             productManagement.importProductSets("gs://bit-jaehoon/visionInsert.csv");
-            writeCsv.reset();
+           
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -247,6 +249,7 @@ public class AdminProductController {
                         productImage.setName(iname);
                         productImage.setProduct(savedProduct);
                         productImageRepository.save(productImage);
+                        writeCsv.reset();
 
                         writeCsv.write('"' + uriname + '"' + "," + '"' + "img" + '"' + "," + '"' + "product" + '"' + ","
                                 + '"' + product.getName() + '"' + "," + '"' + "apparel" + '"' + "," + '"' + iname
@@ -262,7 +265,6 @@ public class AdminProductController {
         GoogleCloudStorageUpload.saveFile(file);
         try {
             productManagement.importProductSets("gs://bit-jaehoon/visionInsert.csv");
-            writeCsv.reset();
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

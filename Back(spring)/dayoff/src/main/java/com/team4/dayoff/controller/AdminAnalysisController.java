@@ -14,6 +14,7 @@ import com.team4.dayoff.repository.RefundsRepository;
 import com.team4.dayoff.repository.WithdrawHistoryRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * AdminAnalysisController
  */
+@CrossOrigin("*")
 @RestController
 public class AdminAnalysisController {
     @Autowired

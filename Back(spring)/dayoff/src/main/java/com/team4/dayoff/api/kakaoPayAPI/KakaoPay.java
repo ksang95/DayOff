@@ -41,7 +41,7 @@ public class KakaoPay {
 		String userId = Integer.toString(list.get(0).getUserId());
 		// 서버로 요청할 Header
 		HttpHeaders headers = new HttpHeaders();
-		headers.add("Authorization", "KakaoAK " + "");
+		headers.add("Authorization", "KakaoAK " + "8921a420fe7e75c1306abfe0fc7e5b52");
 		headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
 		headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
 		String s = Integer.toString(sum);
@@ -53,7 +53,8 @@ public class KakaoPay {
 		params.add("item_name", "상품");
 		params.add("quantity", "1");
 		params.add("total_amount", s);
-		params.add("tax_free_amount", "100");
+		params.add("tax_free_amount", "0");
+		params.add("vat_amount", "0");
 		params.add("approval_url", "https://localhost:8443/kakaoPaySuccess");
 		params.add("cancel_url", "https://localhost:8443/kakaoPayCancel");
 		params.add("fail_url", "https://localhost:8443/kakaoPaySuccessFail");
@@ -90,7 +91,7 @@ public class KakaoPay {
 		String userId = Integer.toString(list.get(0).getUserId());
 		// 서버로 요청할 Header
 		HttpHeaders headers = new HttpHeaders();
-		headers.add("Authorization", "KakaoAK " + "");
+		headers.add("Authorization", "KakaoAK " + "8921a420fe7e75c1306abfe0fc7e5b52");
 		headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
 		headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
 		System.out.println(kakaoPayReadyVO.getTid());
@@ -130,7 +131,7 @@ public class KakaoPay {
 		RestTemplate restTemplate = new RestTemplate();
 		// 서버로 요청할 Header
 		HttpHeaders headers = new HttpHeaders();
-		headers.add("Authorization", "KakaoAK " + "");
+		headers.add("Authorization", "KakaoAK " + "8921a420fe7e75c1306abfe0fc7e5b52");
 		headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
 		headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
 		// 서버로 요청할 Body
@@ -159,7 +160,7 @@ public class KakaoPay {
 		RestTemplate restTemplate = new RestTemplate();
 		// 서버로 요청할 Header
 		HttpHeaders headers = new HttpHeaders();
-		headers.add("Authorization", "KakaoAK " + "");
+		headers.add("Authorization", "KakaoAK " + "8921a420fe7e75c1306abfe0fc7e5b52");
 		headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
 		headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
 		// 서버로 요청할 Body
@@ -169,7 +170,7 @@ public class KakaoPay {
 		params.add("cancel_amount", cancelAmount );
 		params.add("cancel_tax_free_amount", "0");
 		params.add("cancel_vat_amount", "0");
-		// params.add("cancel_available_amount", "30000");
+		// params.add("cancel_available_amount", "34650");
 		HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
 
 		try {
