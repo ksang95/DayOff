@@ -10,22 +10,22 @@ export default class Nav extends Component {
         <h1 className='Nav_Title'> My PAGE</h1>
         <div className='Nav_Info'>
           <h3>쇼핑정보</h3>
-          <NavLink to={'/'} className='Nav_Info_List'>주문내역 및 환불/반품</NavLink><br></br>
-          <NavLink to={'/MapPage'} className='Nav_Info_List'>매장 픽업 서비스</NavLink><br></br>
-          <NavLink to={'/'} className='Nav_Info_List'>회원등급 현황</NavLink>
+          <NavLink activeStyle={{fontWeight:'bold'}} to={'/mypage/myorders'} className='Nav_Info_List'>주문내역 및 환불/반품</NavLink><br></br>
+          <NavLink activeStyle={{fontWeight:'bold'}} to={'/MapPage'} className='Nav_Info_List'>매장 픽업 서비스</NavLink><br></br>
+          <NavLink activeStyle={{fontWeight:'bold'}} to={'/mypage/myGrade'} className='Nav_Info_List'>회원등급 현황</NavLink>
         </div>
 
         <div className='Nav_Info'>
           <h3>활동정보</h3>
-          <NavLink to={'/'} className='Nav_Info_List'>적립금</NavLink><br></br>
-          <NavLink to={'/'} className='Nav_Info_List'>쿠폰</NavLink>
+          <NavLink activeStyle={{fontWeight:'bold'}} to={'/'} className='Nav_Info_List'>적립금</NavLink><br></br>
+          <NavLink activeStyle={{fontWeight:'bold'}} to={'/'} className='Nav_Info_List'>쿠폰</NavLink>
         </div>
 
         <div className='Nav_Info'>
           <h3>나의정보</h3>
-          <NavLink to={'/'} className='Nav_Info_List'>배송지관리</NavLink><br></br>
-          <NavLink to={'/'} className='Nav_Info_List'>회원정보 관리</NavLink><br></br>
-          <NavLink to={'/'} className='Nav_Info_List'>회원탈퇴</NavLink>
+          <NavLink activeStyle={{fontWeight:'bold'}} to={'/'} className='Nav_Info_List'>배송지관리</NavLink><br></br>
+          <NavLink activeStyle={{fontWeight:'bold'}} to={'/mypage/myInfo'} className='Nav_Info_List'>회원정보 관리</NavLink><br></br>
+          <NavLink activeStyle={{fontWeight:'bold'}} to={'/mypage/withdraw'} className='Nav_Info_List'>회원탈퇴</NavLink>
         </div>
 
         <div className='Nav_Info'>

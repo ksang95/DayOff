@@ -3,7 +3,7 @@ import Contents from '../main/Contents';
 import ProductNav from '../common/nav/ProductNav';
 import queryString from 'query-string';
 
-const  ProductListPage  = ({match,location}) =>   {
+const  ProductList  = ({match,location}) =>   {
   const keyword=queryString.parse(location.search).keyword;
   console.log(keyword);
   console.log(match.params);
@@ -15,4 +15,4 @@ const  ProductListPage  = ({match,location}) =>   {
   );
 }
 
-export default ProductListPage;
+export default ProductList;

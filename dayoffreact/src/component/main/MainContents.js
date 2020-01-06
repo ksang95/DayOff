@@ -63,7 +63,7 @@ export default class MainContentItem extends Component {
     render() {
       return (
           <div className="MContents">
-        <MainContentsHeader title='NEW ARRIVAL' contents='매일매일 업데이트 되는 신상!'/>
+        <MainContentsHeader title='NEW ARRIVAL'/>
           <div className='MDropButton'>
             <select value={this.state.selected} onChange={this.Change.bind(this)}> 
             <option value='Register'> 등록날짜순 </option>
@@ -77,10 +77,9 @@ export default class MainContentItem extends Component {
         {this.state.products.map(product => {
           return (
           <div className='MContentItem'>
-          <img src='https://newsimg.sedaily.com/2019/07/10/1VLN24F9YM_17.jpg' alt=''/>
+          <img src={"https://storage.googleapis.com/bit-jaehoon/" + product.productThumbnailName} alt='' />
           <p>{product.id}</p>
           <h4>{product.name}</h4>
-          <br></br>
           <h2>{product.price}원</h2>
           </div>
           )

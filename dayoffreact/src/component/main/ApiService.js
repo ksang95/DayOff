@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const USER_API_BASE_URL = 'http://localhost:8080';
+const USER_API_BASE_URL = 'http://localhost:8443';
 
 class ApiService {
 
@@ -25,51 +25,51 @@ class ApiService {
         const sort=selected&&selected.substring(0,selected.lastIndexOf("_"));
         const direction=selected&&selected.substring(selected.lastIndexOf("_")+1);
         console.log(selected)
-        return axios.get('/MainCategory/' +name+"?sort="+sort+","+direction)
+        return axios.get('/MainCategory/category/' +name+"?sort="+sort+","+direction)
     }
 
     SubCategoryList(name,selected) {
         const sort=selected&&selected.substring(0,selected.lastIndexOf("_"));
         const direction=selected&&selected.substring(selected.lastIndexOf("_")+1);
         console.log(selected)
-        return axios.get('/SubCategory/' + name+"?sort="+sort+","+direction)
+        return axios.get('/SubCategory/category/' + name+"?sort="+sort+","+direction)
     }
 
     AdminMainCategoryList(name,selected) {
         const sort=selected&&selected.substring(0,selected.lastIndexOf("_"));
         const direction=selected&&selected.substring(selected.lastIndexOf("_")+1);
         console.log(selected)
-        return axios.get('/AdminMainCategory/' + name+"?sort="+sort+","+direction);
+        return axios.get('/AdminMainCategory/category/' + name+"?sort="+sort+","+direction);
     }
 
     AdminSubCategoryList(name,selected) {
         const sort=selected&&selected.substring(0,selected.lastIndexOf("_"));
         const direction=selected&&selected.substring(selected.lastIndexOf("_")+1);
         console.log(selected)
-        return axios.get('/AdminSubCategory/' + name+"?sort="+sort+","+direction)
+        return axios.get('/AdminSubCategory/category/' + name+"?sort="+sort+","+direction)
     }
 
 
     CategoryNameList(name) {
-        return axios.get('/CategoryNameList/' + name)
+        return axios.get('/CategoryNameList/category/' + name)
     }
 
     CategorySubList(name) {
-        return axios.get('/CategorySubList/' + name)
+        return axios.get('/CategorySubList/category/' + name)
     }
 
     ColorProductList(name,selected) {
         const sort=selected&&selected.substring(0,selected.lastIndexOf("_"));
         const direction=selected&&selected.substring(selected.lastIndexOf("_")+1);
         console.log(selected)
-        return axios.get('/ColorProduct/' + name+"?sort="+sort+","+direction)
+        return axios.get('/ColorProduct/category/' + name+"?sort="+sort+","+direction)
     }
 
     AdminColorProductList(name,selected) {
         const sort=selected&&selected.substring(0,selected.lastIndexOf("_"));
         const direction=selected&&selected.substring(selected.lastIndexOf("_")+1);
         console.log(selected)
-        return axios.get('/AdminColorProduct/' + name+"?sort="+sort+","+direction)
+        return axios.get('/AdminColorProduct/category/' + name+"?sort="+sort+","+direction)
     }
 
     isAvailableUp(id){
