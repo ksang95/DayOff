@@ -28,7 +28,8 @@
 .c{
     border:none;
     font-size:1em;
-    width:80pt;height:30pt;
+    min-width:80pt;
+    min-height:30pt;
     background-color: #e0e2e4;
     color:#4d4e4f;
 }
