@@ -4,6 +4,7 @@ import InputMask from 'react-input-mask';
 import DaumPostcode from 'react-daum-postcode';
 import { Button, ButtonGroup} from 'reactstrap';
 import{InputGroup,InputGroupAddon,InputGroupText} from 'reactstrap';
+import{Tooltip} from 'react-bootstrap'
 import ordercart from "./ordercart.css";
 class ListCartComponent extends Component {
     
@@ -22,7 +23,7 @@ class ListCartComponent extends Component {
             selectValue: "",
             checked:false,
             checked_:false,
-            service:"",
+            service:"1",
             total:"",
     grade:"",
      user:[],
@@ -44,11 +45,13 @@ class ListCartComponent extends Component {
         this.reloadCartList = this.reloadCartList.bind(this);
         this.handleDropdownChange = this.handleDropdownChange.bind(this);
         
+        
     }
     
    
     componentDidMount() {
-        this.reloadCartList();        
+        this.reloadCartList(); 
+               
     }
 
     togglePopup() {  
@@ -136,6 +139,7 @@ class ListCartComponent extends Component {
               console.log(sum)
               this.setState({transpay:this.state.totalPay})
             });
+           
 
     }
     handleDropdownChange(e) {
@@ -167,9 +171,10 @@ class ListCartComponent extends Component {
       console.log(this.state.transpay)
       
   }
-    onChange = (e) =>
+    onChange = (e) =>{
     this.setState({ [e.target.name]: e.target.value });
-
+    console.log(this.state.service)
+    }
     //   start2Kakaopay=(e)=>{
     //       let params = new URLSearchParams();
     //       params.append('a',this.state.name);
@@ -181,16 +186,11 @@ class ListCartComponent extends Component {
     //         window.location.assign(res.data);
     //     });
     // }
-     handleChanged = (e) => {
-         const { target: { checked } } = e;
-         this.setState({ checked });
-         console.log(checked)
- 
-       };
+
        handleChange = (e) => {
-         const { target: {checked_} } = e;
-         this.setState({ checked_ });
-         console.log(checked_)
+         const { target: {service} } = e;
+         this.setState({ service });
+         console.log(service)
  
        };
     
@@ -216,15 +216,15 @@ class ListCartComponent extends Component {
   
  
     render() {      
- 
+   
   
         return (
-     
         
+                
                 <div className="paylist">
                     <h2>{this.state.selectValue}</h2>
                     <div>
-                <h4 className="title">ORDER</h4>
+                <h4 className="titlea">ORDER</h4>
                 </div>
                 
                 <table className="n-table" >
@@ -238,7 +238,7 @@ class ListCartComponent extends Component {
            </colgroup>
                 <thead>
                         <tr>
-                        <th>상품정보</th>
+                            <th>상품정보</th>
                             <th>색상</th>
                             <th>사이즈</th>
                             <th>수량</th>
@@ -325,17 +325,18 @@ class ListCartComponent extends Component {
     
 <form>
 <div>
-  <input type="radio" name="service" value="1" onChange={this.onChange} />배송서비스
-  <input type="radio" name="service" value="0"  onChange={this.onChange}/>매장픽업서비스
+  <input type="radio" name="service" value="1" onChange={this.onChange} defaultChecked={true}/>배송서비스
+  <input type="radio" name="service" value="0"  onChange={this.onChange} />매장픽업서비스
 
 
   </div>
 
 
 </form>
-                {/* <h2>aa{this.state.service}</h2> */}
-                
+               
+      
 
+{this.state.service=="1"&&<div>
                 <h4 className="text-center">배송지 정보</h4>
                 
 <div className="receive"></div>
@@ -386,18 +387,9 @@ class ListCartComponent extends Component {
       </InputGroup>
       <br />
       </div> 
-                    {/* <Popup trigger={<button>Trigger</button>} position="top left">
-    {close => (
-      <div>
-       <DaumPostcode
-         onComplete={this.handleAddress}
- /> 
-        <a className="close" onClick={close}>
-          &times;
-        </a>
-      </div>
-    )}
-  </Popup> */}
+      </div>}
+     
+{this.state.service=="0"&&<div>
   <h4 className="text-center">매장픽업</h4>
 <div className="receive"></div>
   
@@ -414,8 +406,10 @@ class ListCartComponent extends Component {
               <option value="선릉점">선릉점</option>
             </select>
       </InputGroup>
-          
+  
+
           </div>
+          </div>}
           <div className="m" ></div>
           <h4 className="text-center">결제예정금액</h4>
           <div className="receive"></div>
@@ -464,6 +458,7 @@ class ListCartComponent extends Component {
                 <div className="q"></div>
                 
           </div>
+          
           
         );
     }
