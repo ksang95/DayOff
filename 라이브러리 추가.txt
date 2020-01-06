@@ -17,6 +17,7 @@ yarn add react-paginate
 yarn add react-daum-postcode
 yarn add react-slick
 yarn add slick-carousel
+yarn add reactstrap
 
 =====================================
 
