@@ -42,13 +42,12 @@
 
 .imgHeader {
   height: 600px;
-  background-image: url('../../Img//MainImg.jpg');
+  background-image: url('/images/MainImg.jpg');
   background-size: 100%;
 }
 
 .Toplogin_Info {
   height: 40px;
-  border-bottom: 1px solid #c9c9c9;
   margin-top: 20px;
   margin-left: 87%;
 }

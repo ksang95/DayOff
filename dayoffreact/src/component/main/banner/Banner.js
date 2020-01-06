@@ -8,23 +8,15 @@ function Banner() {
   const images = [
     {
       src:
-      'https://app-storage-edge-008.cafe24.com/bannermanage2/mall66/2019/12/11/f0223852e7be84d1bd7e90aebc40b5ff.jpg'
+      'https://cdn-cms.f-static.com/ready_uploads/media/2050/1600_5cc9fa0bb63a7.jpg'
     },
     {
       src:
-      'https://www.66girls.co.kr/web/upload/category/shop1_306_top_931007.jpg'
+      'https://cdn-cms.f-static.com/ready_uploads/media/18871/1600_5cdba55e204eb.jpg'
     },
     {
       src:
-      'https://app-storage-edge-008.cafe24.com/bannermanage2/mall66/2019/12/11/f0223852e7be84d1bd7e90aebc40b5ff.jpg'
-    },
-    {
-      src:
-      'https://www.66girls.co.kr/web/upload/category/shop1_306_top_931007.jpg'
-    },
-    {
-      src:
-      'https://app-storage-edge-008.cafe24.com/bannermanage2/mall66/2019/12/11/f0223852e7be84d1bd7e90aebc40b5ff.jpg'
+      'https://cdn-cms.f-static.com/ready_uploads/media/8080/1600_5cda756a84f49.jpg'
     }
   ];
  

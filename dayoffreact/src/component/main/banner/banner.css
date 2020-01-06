@@ -4,9 +4,8 @@
     display: inline-block;
 }
 .GestureGallery {
-    width : 80% !important;
-    height: 800px !important;
-    margin-left: 180px !important;
+    width : 100% !important;
+    height: 700px !important;
 }
 .GalleryImage {
     width: 100% !important;
@@ -14,10 +13,9 @@
 }
 
 .GalleryImage img{
-    margin-top: 40px !important;
     object-fit: fill !important;
     width: 100% !important;
-    height: 700px !important;
+    height: 100% !important;
 }
 
 .Gesture-view {

@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import LoginMenu from '../../common/login/LoginMenu';
+import './login.css';
 
 class Login extends Component {
     state={
@@ -67,7 +68,7 @@ class Login extends Component {
     render() {
         const login=sessionStorage.getItem("userId")?'로그아웃':'로그인';
         return (
-            <span>
+            <span className='logSpan'>
                     <span onClick={this.handleLogin}>{login}</span>
                 <div className="loginFrame" id="loginFrame" style={{ visibility: "hidden" }}>
                     <LoginMenu onExit={this.handleExit}></LoginMenu>

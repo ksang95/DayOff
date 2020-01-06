@@ -1,7 +1,7 @@
 import React from 'react';
-import MainContents from '../components/contents/MainContents';
-import Banner from '../banner/Banner';
-import Banner2 from '../banner/banner2';
+import MainContents from './MainContents';
+import Banner from './banner/Banner';
+import Banner2 from './banner/banner2';
 
 
 const data = [{
