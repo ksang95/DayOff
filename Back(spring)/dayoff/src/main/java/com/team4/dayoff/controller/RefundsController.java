@@ -12,6 +12,7 @@ import com.team4.dayoff.repository.OrdersRepository;
 import com.team4.dayoff.repository.RefundsRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * RefundsController
  */
+@CrossOrigin("*")
 @RestController
 public class RefundsController {
 
@@ -63,6 +65,7 @@ public class RefundsController {
         refunds.setRefundDate(new Date());
         Refunds savedRefunds=refundsRepository.save(refunds);
         System.out.println(savedRefunds);
+        System.out.println(refunds.getRefundAmount());
 		kakaopay.kakaoCancel(Integer.toString(refunds.getRefundAmount()), refunds.getOrders().getOrderGroup().getTid());
         
     }
