@@ -1,0 +1,15 @@
+.input1{
+    width:80px;
+    height: 35px;
+    text-align: center;
+    color: #5c5757;
+    border: 1px solid  #989898;
+    ;
+}
+.selectBtn{
+    width:70px;
+    height: 35px;
+    text-align: center;
+ background-color:  white;
+ border: 1px solid #989898;
+}

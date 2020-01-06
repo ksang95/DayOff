@@ -66,11 +66,9 @@ async TogetherBuy(productId){
       console.log(res);
       this.setState({
         product: res.data
-        
       });
     });
   }
-
   scrollToTop (e) {
     document.getElementById("root").scrollTo(0, 0);
   };
@@ -92,7 +90,6 @@ async TogetherBuy(productId){
     console.log("shouldComponentUpdate: " + JSON.stringify(nextProps) + " " + JSON.stringify(nextState));
     return true;
   }
-
   changeAvailability=(availability)=>{
     this.setState({
       product:{
@@ -101,7 +98,6 @@ async TogetherBuy(productId){
       }
     })
   }
-
   render() {
     const { product, cart } = this.state;
     const sizeOp = product.productSize
@@ -140,12 +136,21 @@ async TogetherBuy(productId){
         <div className="productData">
           <div className="top">
             <div className="topLeft">
-            <div className="images">
-    <div className={this.state.product.isAvailable==0&&"modal2"}><div className="popup2">{this.state.product.isAvailable==0&&"판매불가"}</div></div>
+              <div className="images">
+                {/* <div
+                  className={this.state.product.isAvailable == 0 && "modal2"}
+                >
+                  <div className="popup2">
+                    {this.state.product.isAvailable == 0 && "판매불가"}
+                  </div>
+                </div>
+                {image}
+              </div>
+            </div> */}
+            <div className={this.state.product.isAvailable==0&&"modal2"}><div className="popup2">{this.state.product.isAvailable==0&&"판매불가"}</div></div>
    <CenterMode images={product.productImage}></CenterMode>
               </div>
               </div>
-          
             <div className="topRight">
               <p>
                 카테고리:{product.category.name}/{product.category.subName}
@@ -158,8 +163,9 @@ async TogetherBuy(productId){
               <div>{sizeOp}</div>
               <div> {colorOp}</div>
               {this.state.color}
-              
+
               <Select cart={cart} subtract={this.subtract} add={this.add} />
+
               <Total cart={cart} />
               <div>
                 <Link to={"/admin/updateProduct/"+product.id}>
@@ -173,16 +179,7 @@ async TogetherBuy(productId){
             </div>
           </div>
 
-          <div className="productDetail">
-            상품상세정보:
-            <img
-              src={
-                "https://storage.googleapis.com/bit-jaehoon/" +
-                product.detailImage
-              }
-              alt="1"
-            />
-          </div>
+         
           <div>
             <ProductCookie cookieList={this.state.cookielist}></ProductCookie>
             <ProductTogetherBuy
@@ -190,9 +187,6 @@ async TogetherBuy(productId){
             ></ProductTogetherBuy>
           </div>
 
-          <div className="review">
-            <p>후기게시판</p>
-          </div>
         </div>
       </div>
     );

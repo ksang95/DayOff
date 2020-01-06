@@ -1,0 +1,52 @@
+/* 
+
+.collapse-css-transition {
+    width:90%;
+
+    transition: height 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    vertical-align: middle;
+  }
+  .content{
+      width:90%;
+      height: 200px;
+      border-top:1px solid black;
+      border-bottom:1px solid black;
+      vertical-align: middle;
+  }
+  .reviewContent{
+    width:90%;
+
+    border-right:1px solid black;
+    border-left:1px solid black;
+    vertical-align: middle;
+
+  }
+  .ratings{
+    width:90%;
+
+border-top: 1px solid black;
+
+  }
+  */
+.stars ul{
+  width: 60%;
+  margin: auto !important;
+}
+
+  .stars ul li{
+    margin: auto;
+    text-align: center;
+  }
+  .inners{
+    font-size: 15px; 
+   }
+    .content{
+      width: 100%;
+      min-height: 100px;
+      border-top:1px dotted rgb(219, 213, 213);
+      vertical-align: middle;
+      text-align: left;
+     padding-top:20px;
+     padding-left:20px;
+  }
