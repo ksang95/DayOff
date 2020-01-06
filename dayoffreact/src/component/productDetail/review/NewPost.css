@@ -1,0 +1,28 @@
+
+.form{
+    margin-top: 50px;
+    padding:50px 200px 50px 200px;
+    left: 200px;
+   position: relative;
+   width : 80%;
+   height: 800px;
+   align-items: center;
+}
+h3{
+    width: auto;
+    text-align: center;
+    position: relative;
+    padding: 10px;
+    border-bottom: 1px solid #ced4da;
+    margin: 50px;
+}
+.textarea{
+    min-height: 300px;
+}
+form .addReview{
+    display: flex;
+    text-align: center;
+    align-items: center;
+    margin: auto;
+    padding: auto;
+}

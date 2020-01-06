@@ -23,17 +23,10 @@ class RefundReasonChart extends Component {
 
             const response = await axios.get(`/ordersAnalysis/order/refundReasons/${selected}`);
             
-            const data=response.data.refundReasons.map(element => {
-                let d={};
-                d.label=element[0];
-                for (let index = 1; index < this.state.size; index++) {
-                    d["col"+index]=element[index];
-                }
-                return d;
-            });
+            const data=response.data.refundReasons.map(d=>d[1]);
             
             this.setState({
-                data
+                data:data
             });
         } catch (e) {
             console.log(e);
@@ -44,7 +37,6 @@ class RefundReasonChart extends Component {
         const reasons=this.props.code.map(c=>c.content);
         const size=Object.keys(reasons).length;
         const data=this.props.data.map(d=>d[1]);
-        console.log(data);
         this.setState({
             data,
             selected:this.props.select[0],

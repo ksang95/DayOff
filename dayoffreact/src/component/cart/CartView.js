@@ -3,6 +3,7 @@ import axios from 'axios';
 import Cart from './Cart';
 import { Link } from 'react-router-dom';
 import LoginMenu from '../common/login/LoginMenu';
+import './CartView.css';
 
  class CartView extends Component {
    state = {
@@ -25,8 +26,8 @@ import LoginMenu from '../common/login/LoginMenu';
            });
          });
        this.setState({
-         cartView: [],
-         realTotal: this.state.realTotal + this.state.cartView.totalPrice
+         cartView: []
+        
        });
      } else {
        const output = localStorage.getItem("cart1");
@@ -34,8 +35,7 @@ import LoginMenu from '../common/login/LoginMenu';
        console.log(cart1);
        if (cart1) {
          this.setState({
-           cartView: this.state.cartView.concat(cart1),
-           realTotal: this.state.realTotal + this.state.cartView.totalPrice
+           cartView: this.state.cartView.concat(cart1)
          });
        }
      }
@@ -135,17 +135,19 @@ import LoginMenu from '../common/login/LoginMenu';
            price={cart.price}
            totalPrice={cart.totalPrice}
            realTotal={cart.realTotal}
+           productId={cart.productId}
            onChange={this.onChange}
          />
        );
      });
+     console.log(this.state.realTotal)
      return (
        <div>
          <table className="n-table">
            <colgroup>
              <col style={{ width: +5 + "%" }}></col>
              <col style={{ width: +10 + "%" }}></col>
-             <col style={{ width: +10 + "%" }}></col>
+             <col style={{ width: +15 + "%" }}></col>
              <col style={{ width: +10 + "%" }}></col>
              <col style={{ width: +10 + "%" }}></col>
              <col style={{ width: +10 + "%" }}></col>
@@ -160,7 +162,8 @@ import LoginMenu from '../common/login/LoginMenu';
                  onChange={this.onChange}
                ></input>
              </th>
-             <th>상품정보</th>
+             <th>  {" "}  </th>
+             <th>상품명</th>
              <th>색깔</th>
              <th>사이즈</th>
              <th>수 량</th>
@@ -169,7 +172,8 @@ import LoginMenu from '../common/login/LoginMenu';
            </tr>
            <tbody>{cartView}</tbody>
          </table>
-         <button onClick={this.handleDeleteItem}>선택상품 삭제</button>
+         <div className="buttons">
+         <button className="deleteBtn" onClick={this.handleDeleteItem}>선택상품 삭제</button>
          <Link
            onClick={this.handleOrder}
            to={{
@@ -179,8 +183,8 @@ import LoginMenu from '../common/login/LoginMenu';
              }
            }}
          >
-           <button >선택상품 주문하기</button>
-         </Link>
+           <button className="orderBtn" >선택상품 주문하기</button>
+         </Link></div>
          <div
            className="loginFrame"
            id="loginFrame"

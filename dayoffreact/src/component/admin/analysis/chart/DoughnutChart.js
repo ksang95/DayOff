@@ -62,6 +62,11 @@ class DoughnutChart extends Component {
                             lineHeight: 1.6,
                             size:16
                         },
+                        display: function(context) {
+                            var index = context.dataIndex;
+                            var value = context.dataset.data[index];
+                            return value > 0; // display labels with a value greater than 0
+                        },
                         formatter: function(value, ctx) {
                             return ctx.chart.data.labels[ctx.dataIndex] + '\n' + value+'명';
                         }
