@@ -110,8 +110,8 @@ public class AdminProductController {
                     productImageRepository.save(productImage);
                     System.out.println("image saved");
                     Category category = categoryRepository.findById(product.getCategory().getId()).get();
-                    writeCsv.write('"' + uriname + '"' + "," + '"' + productImage.getName() + '"' + "," + '"' + "ourProduct" + '"' + ","
-                            + '"' + product.getName() + '"' + "," + '"' + "apparel" + '"' + "," + '"' + name + '"'
+                    writeCsv.write('"' + uriname + '"' + "," + '"' + productImage.getName() + '"' + "," + '"' + "lastData" + '"' + ","
+                            + '"' + product.getName() + '"' + "," + '"' + "apparel" + '"' + "," + '"' + product.getId() + '"'
                             + "," + '"' + "category=" + category.getEngName() + '"' + ",");
 
                 }
@@ -177,8 +177,8 @@ public class AdminProductController {
                     productImage.setProduct(savedProduct);
                     productImageRepository.save(productImage);
                     Category category = categoryRepository.findById(product.getCategory().getId()).get();
-                    writeCsv.write('"' + uriname + '"' + "," + '"' + productImage.getName() + '"' + "," + '"' + "ourProduct" + '"' + ","
-                            + '"' + product.getName() + '"' + "," + '"' + "apparel" + '"' + "," + '"' + name + '"'
+                    writeCsv.write('"' + uriname + '"' + "," + '"' + productImage.getName() + '"' + "," + '"' + "lastData" + '"' + ","
+                            + '"' + product.getName() + '"' + "," + '"' + "apparel" + '"' + "," + '"' + product.getId() + '"'
                             + "," + '"' + "category=" +category.getEngName() + '"' + ",");
                     System.out.println(product.getCategory().getEngName());
                 }
@@ -254,8 +254,8 @@ public class AdminProductController {
                         productImage.setProduct(savedProduct);
                         productImageRepository.save(productImage);
                         Category category = categoryRepository.findById(product.getCategory().getId()).get();
-                        writeCsv.write('"' + uriname + '"' + "," + '"' + productImage.getName() + '"' + "," + '"' + "ourProduct" + '"' + ","
-                                + '"' + product.getName() + '"' + "," + '"' + "apparel" + '"' + "," + '"' + iname
+                        writeCsv.write('"' + uriname + '"' + "," + '"' + productImage.getName() + '"' + "," + '"' + "lastData" + '"' + ","
+                                + '"' + product.getName() + '"' + "," + '"' + "apparel" + '"' + "," + '"' + product.getId()
                                 + '"' + "," + '"' + "category=" + category.getEngName() + '"' + ",");
                         break;
                     }

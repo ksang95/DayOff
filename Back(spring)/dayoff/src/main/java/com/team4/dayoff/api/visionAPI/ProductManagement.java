@@ -41,20 +41,22 @@ public class ProductManagement {
 	public static void main(String[] args) throws IOException {
 		listProducts("strong-kit-252505", "asia-east1");
 		// listProductSets("strong-kit-252505", "asia-east1");
-		// deleteProductSet("strong-kit-252505", "asia-east1", "product");
+		//  deleteProductSet("strong-kit-252505", "asia-east1", "'드디어 마지막 테스트'");
+		// deleteProduct("'asdas'");
+		// listReferenceImagesOfProduct("Faux leather coat with shearling");
 	}
 	public static void deleteProductSet(String projectId, String computeRegion, String productSetId)
-	    throws IOException {
-	  try (ProductSearchClient client = ProductSearchClient.create()) {
+      throws IOException {
+    try (ProductSearchClient client = ProductSearchClient.create()) {
 
-	    // Get the full path of the product set.
-	    String formattedName =
-	        ProductSearchClient.formatProductSetName(projectId, computeRegion, productSetId);
-	    // Delete the product set.
-	    client.deleteProductSet(formattedName);
-	    System.out.println(String.format("Product set deleted"));
-	  }
-	}
+      // Get the full path of the product set.
+      String formattedName =
+          ProductSearchClient.formatProductSetName(projectId, computeRegion, productSetId);
+      // Delete the product set.
+      client.deleteProductSet(formattedName);
+      System.out.println(String.format("Product set deleted"));
+    }
+  }
     public static void createProductSet(
         String projectId, String computeRegion, String productSetId, String productSetDisplayName)
         throws IOException {
@@ -179,7 +181,8 @@ public class ProductManagement {
 
       // Get the full path of the product set.
       String productSetPath =
-          ProductSearchClient.formatProductSetName("strong-kit-252505", "asia-east1", "ourProduct");
+		  ProductSearchClient.formatProductSetName("strong-kit-252505", "asia-east1", "lastData");
+		  //ourProduct
 
       // Read the image as a stream of bytes.
       File imgPath = new File(filePath);

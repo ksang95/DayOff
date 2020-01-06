@@ -95,7 +95,7 @@ public ClientRegistrationRepository clientRegistrationRepository(OAuth2ClientPro
   .clientSecret("")
   .redirectUriTemplate("https://localhost:8443/login/oauth2/code/facebook")
   .userInfoUri("https://graph.facebook.com/me?fields=id,name,email,link")
-  .scope("email","profile")
+  .scope("email","public_profile")
   .build());
   //user_birthday,user_gender
 
