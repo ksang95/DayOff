@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import './nav.css';
+import './Ad_MyNav.css';
 import { NavLink } from 'react-router-dom';
 
 export default class Nav extends Component {
@@ -7,7 +7,8 @@ export default class Nav extends Component {
   render() {
       return (
         <div className="Nav">
-          <h1 className='Nav_Title'> ADMIN</h1>
+        <div className='Nav_Info10'>
+          <h1 className='Nav_Title'> ADMIN</h1></div>
           <div className='Nav_Info10'>
           <h3>회원관리</h3>
           <NavLink activeStyle={{fontWeight:'bold'}} to={'/admin/userList'} className='Nav_Info_List'>회원정보리스트</NavLink>
@@ -16,7 +17,6 @@ export default class Nav extends Component {
           <div className='Nav_Info9'>
           <h3>주문관리</h3>
           <NavLink activeStyle={{fontWeight:'bold'}} to={'/admin/orders'} className='Nav_Info_List'>주문 내역</NavLink><br></br>
-          <NavLink activeStyle={{fontWeight:'bold'}} to={'/'} className='Nav_Info_List'>환불 내역</NavLink>
           </div>
   
           <div className='Nav_Info8'>

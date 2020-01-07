@@ -29,6 +29,8 @@ import ProductListPage from './component/productList/ProductListPage';
 import AdminNav from './component/common/nav/AdminNav';
 import MypageNav from './component/common/nav/MypageNav';
 import Map from './component/common/Map/Map';
+import MainHeader from './component/common/header/MainHeader';
+import MainFooter from './component/common/footer/MainFooter';
 
 class App extends Component {
   render() {
@@ -37,7 +39,9 @@ class App extends Component {
 
         <Switch>
           <Route path="/loginSuccess" component={LoginSuccess} />
-          <Route path="/" component={Header} />
+          <Route path="/productList" component={Header} />
+          <Route path="/" component={MainHeader} />
+
         </Switch>
           <Route exact path="/" component={MainPage} />
           <Route path="/login" component={LoginPage} />
@@ -74,7 +78,10 @@ class App extends Component {
           <Route path="/cart" component={CartView} />
           <Route path="/product/:productId" component={Product} />
           <ProtectedRoute path="/payInfoList" component={ListCartComponent} />
-        <Footer></Footer>
+          <Switch>
+          <Route path="/productList" component={Footer} />
+          <Route path="/" component={MainFooter} />
+          </Switch>
       </div>
     );
   }
