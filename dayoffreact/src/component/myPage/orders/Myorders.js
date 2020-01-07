@@ -106,7 +106,7 @@ shouldComponentUpdate(nextProps,nextState){
 
     
     return (
-      <div className="orderTable">
+      <div className="TotalTable">
       <div className="pageTitle"> 
         <div>주문 내역</div>
         </div>

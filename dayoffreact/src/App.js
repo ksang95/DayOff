@@ -63,7 +63,7 @@ class App extends Component {
           <ProtectedRouteAdmin path="/admin/orders/orderDetail/:groupId" component={OrderDetail} />
           <ProtectedRouteAdmin path="/admin/orders" component={Orders} />
           </Switch>
-          <Route exact path="/mypage" component={MypageNav} />
+          <Route  path="/mypage" component={MypageNav} />
           <Switch>
           <ProtectedRoute path="/mypage/myorders/orderDetail/:groupId" component={OrderDetail} />
           <ProtectedRoute path="/mypage/refundRequest" component={RefundRequest} />
