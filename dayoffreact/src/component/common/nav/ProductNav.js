@@ -23,7 +23,7 @@ class ProductNav extends Component {
 
   ClickCategory() {
     const category=this.state.category;
-    if(category !=='BEST' && category !=='OUTER' && category !=='TOP' && category !=='BOTTOM' && category !=='DRESS' && category !=='Acc'){
+    if(category !=='BEST' && category !=='OUTER' && category !=='TOP' && category !=='BOTTOM' && category !=='DRESS' && category !=='ACC'){
     ApiService.CategorySubList(category).then(res =>{
       this.setState({categorySub : res.data});
       console.log(this.state.categorySub);
@@ -58,7 +58,7 @@ class ProductNav extends Component {
           </div>
       </div>)
     }
-    else if(this.state.category !=='BEST' && this.state.category !=='OUTER' && this.state.category !=='TOP' && this.state.category !=='BOTTOM' && this.state.category !=='DRESS' && this.state.category !=='Acc'){
+    else if(this.state.category !=='BEST' && this.state.category !=='OUTER' && this.state.category !=='TOP' && this.state.category !=='BOTTOM' && this.state.category !=='DRESS' && this.state.category !=='ACC'){
       return (
           <div className='ProductNav'>
           <div className='NavInfo_Box'>
