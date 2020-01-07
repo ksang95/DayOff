@@ -49,9 +49,6 @@ class visionCrop extends Component {
               <div>인공지능 상품검색</div>
               <br></br>
             </div>
-           <div style={{textAlign : "center"}}>
-             
-           </div>
            <br></br>
            <br></br>
            <div className="visionbody">
@@ -76,7 +73,9 @@ class visionCrop extends Component {
           </div>
           
           </div>
+          <div style={{width : '93%', margin: 'auto'}}>
           <VisionList recommendlist={this.state.recommendlist} list={this.state.list}></VisionList>
+          </div>
             </div>
         );
     }

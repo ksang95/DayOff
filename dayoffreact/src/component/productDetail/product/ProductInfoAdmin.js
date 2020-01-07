@@ -114,7 +114,7 @@ async TogetherBuy(productId){
     const colorOp = product.color.map((c, index) => (
       <span>
         <img
-          className="color"
+          className="colorBtn"
           key={index}
           name={c.color}
           src={"/images/" + c.image}
@@ -152,19 +152,43 @@ async TogetherBuy(productId){
               </div>
               </div>
             <div className="topRight">
-              <p>
-                카테고리:{product.category.name}/{product.category.subName}
-              </p>
-              <p>상품명:{product.name}</p>
-              <p>
-                가격:
-                {product.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-              </p>
-              <div>{sizeOp}</div>
-              <div> {colorOp}</div>
-              {this.state.color}
-
-              <Select cart={cart} subtract={this.subtract} add={this.add} />
+            <div>
+                <p>
+                {product.category.name}/{product.category.subName}
+                </p>
+                <h1 style={{"margin-bottom":"20px"}}>{product.name}</h1>
+                <h2>
+                  {product.price
+                    .toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                  원
+                </h2>
+                    </div>
+                <h4 style={{"border-top":"1px solid #989898","padding-top":"27px"}}>
+                  {" "}
+                  색상
+                  <div className="colorOpt">
+                    {" "}
+                    {colorOp}
+                    <span className="colorName">{this.state.color}</span>{" "}
+                  </div>
+                </h4>
+                <h4>
+                  {" "}
+                  사이즈
+                  <div className="sizeOpt">{sizeOp}</div>
+                </h4>
+                <h4>
+                  {" "}
+                  수량
+                  <div className="sizeOpt">
+                    <Select
+                      cart={cart}
+                      subtract={this.subtract}
+                      add={this.add}
+                    />
+                  </div>
+                </h4>
 
               <Total cart={cart} />
               <div>

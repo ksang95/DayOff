@@ -33,8 +33,8 @@ class visionList extends Component {
            <Display cookieList={this.props.list}></Display> 
           </div> : ''}
           {this.props.recommendlist ?  <div className="imgbox">
-            <h1 style={{color : "red"}}>일치하는 상품없음</h1>
-            <h2>유사한 카테고리 상품추천-{this.props.recommendlist[0].categoryName}</h2>
+            <h2 style={{color : "red"}}>일치하는 상품이 없습니다</h2>
+            <h2>유사한 카테고리 상품추천-{this.props.recommendlist[0].categorysubName}</h2>
             <hr></hr>
             <Display cookieList={this.props.recommendlist}></Display> 
           </div> : ''}

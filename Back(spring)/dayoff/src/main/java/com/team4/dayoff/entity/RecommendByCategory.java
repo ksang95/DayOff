@@ -24,6 +24,9 @@ public class RecommendByCategory {
     private String categoryName;
 
     @Column
+    private String categorysubName;
+
+    @Column
     private int price;
     @Id
     private int productId;
