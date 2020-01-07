@@ -1,3 +1,11 @@
+.ProductUpdate{
+    width:85%;
+    display: inline-block;
+    min-height: 800px;
+    margin-left: 11%;
+    margin-top: 15%;
+}
+
 .ProductUpdate .error{
     text-align: center;
     color:#c92a2a;

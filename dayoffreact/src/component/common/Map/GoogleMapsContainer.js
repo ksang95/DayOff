@@ -93,7 +93,7 @@ class GoogleMapsContainer extends React.Component {
                 initialCenter = {this.state.location}
               >
                 <Marker
-                  onClick = { this.onMarkerClick }
+                  onMouseover = { this.onMarkerClick }
                   title = { 'Changing Colors Garage' }
                   position = {this.state.location}
                   name = { 'Changing Colors Garage' }
@@ -136,7 +136,7 @@ class GoogleMapsContainer extends React.Component {
                           initialCenter = {this.state.location}
                         >
                           <Marker
-                            onClick = { this.onMarkerClick }
+                            onMouseover = { this.onMarkerClick }
                             title = { 'Changing Colors Garage' }
                             position = {this.state.location}
                             name = { 'Changing Colors Garage' }
@@ -179,7 +179,7 @@ class GoogleMapsContainer extends React.Component {
                               initialCenter = {this.state.location}
                               >
                               <Marker
-                                onClick = { this.onMarkerClick }
+                                onMouseover = { this.onMarkerClick }
                                 title = { 'Changing Colors Garage' }
                                 position = {this.state.location}
                                 name = { 'Changing Colors Garage' }
@@ -205,5 +205,5 @@ class GoogleMapsContainer extends React.Component {
                                 }
 
 export default GoogleApiWrapper({
-    api: (process.env.AIzaSyDaoXIFRMxnwJ0IVGSXlkTW9k8gzuV0LnI)
+    apiKey: (process.env.AIzaSyCs88hJR2Tmb7lpqU6LGRHEdeSScXyNBag)
 })(GoogleMapsContainer)
