@@ -74,13 +74,15 @@ import './CartView.css';
            checkGroup[i].checked = true;
          }
          this.setState({
-           checkedItem: this.state.cartView
+           checkedItem: this.state.cartView,
+           realTotal:this.state.realTotal+this.state.cartView.reduce((p,c)=>p+c.totalPrice,0)
          });
        } else {
          this.setState({
            checkedItem: this.state.checkedItem.concat(
              this.state.cartView[e.target.value]
-           )
+           ),
+           realTotal:this.state.realTotal+this.state.cartView[e.target.value].totalPrice
          });
        }
      } else {
@@ -90,13 +92,15 @@ import './CartView.css';
            checkGroup[i].checked = false;
          }
          this.setState({
-           checkedItem: []
+           checkedItem: [],
+           realTotal:0
          });
        } else {
          this.setState({
            checkedItem: this.state.checkedItem.filter(c => {
              return this.state.cartView[e.target.value] !== c;
-           })
+            }),
+            realTotal:this.state.realTotal-this.state.cartView[e.target.value].totalPrice
          });
        }
      }
@@ -116,8 +120,7 @@ import './CartView.css';
    };
 
    render() {
-     console.log(this.state.checkedItem);
-     console.log(this.state.cartView)
+     console.log(this.state.realTotal);
      const cartView = this.state.cartView.map((cart, index) => {
        return (
          <Cart
@@ -141,7 +144,6 @@ import './CartView.css';
          />
        );
      });
-     console.log(this.state.realTotal)
      return (
        <div>
          <h1 className="cartHeader">장바구니</h1>
@@ -177,6 +179,9 @@ import './CartView.css';
            <tbody>{cartView}</tbody>
          </table>
          </div>
+         <div className ="totalCover">
+         <h2 className="realTotal">총 주문가격:{this.state.realTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원</h2>
+         </div>
          <div className="buttons">
          <button className="deleteBtn" onClick={this.handleDeleteItem}>선택상품 삭제</button>
          <Link
@@ -185,8 +190,8 @@ import './CartView.css';
              pathname: "/payInfoList",
              state: {
                cartList: this.state.checkedItem
-             }
-           }}
+              }
+            }}
          >
            <button className="orderBtn" > 주문하기</button>
          </Link></div>

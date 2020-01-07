@@ -37,13 +37,25 @@
     margin: 100px auto;
 }
 .cartHeader{
+    width: 93%;
     margin: auto;
-    text-align: center;
-    padding: 50px;
+    padding-top: 50px;
+    letter-spacing: 0.1em;
 }
 .cartTable{
     width: 93%;
     margin: auto;
     text-align: center;
     min-height: 200px;
+}
+.totalCover{
+    width: 95%;
+    margin-top: 100px auto;
+    
+
+}
+.totalCover .realTotal{
+    float: right;
+    margin-top: 20px;
+
 }
