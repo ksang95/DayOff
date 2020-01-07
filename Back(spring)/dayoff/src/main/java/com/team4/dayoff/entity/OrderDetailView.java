@@ -46,7 +46,7 @@ public class OrderDetailView {
 
     private Integer gradeDiscount;
     private Integer pointUse;
-    private Integer invoice;
+    private String invoice;
 
     @Temporal(TemporalType.TIMESTAMP)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone =  "Asia/Seoul")
