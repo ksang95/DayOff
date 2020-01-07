@@ -83,7 +83,7 @@
   .Toplogin_Info li{
   float: left;;
   padding:0px;
-  margin-right: 20px;
+  margin-right: 10px;
   cursor: pointer;
   font-weight: 400;
   }
@@ -198,7 +198,7 @@
     .MToplogin_Info li{
     float: left;;
     padding:0px;
-    margin-right: 20px;
+    margin-right: 10px;
     cursor: pointer;
     font-weight: 400;
     }

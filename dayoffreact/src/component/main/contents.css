@@ -8,6 +8,7 @@
   display: inline-block;
   width: 100%;
   margin-top: 20px;
+  margin-left : 100px;
 }
 .PContentItem:hover{
   text-decoration-line: none;
@@ -96,8 +97,6 @@
 }
 
 .PDropButton {
-  border-bottom: 1px solid #c9c9c9;
-  border-top: 1px solid #c9c9c9;
   position: relative;
   margin-top: 17%;
 }
