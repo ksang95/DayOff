@@ -110,7 +110,7 @@ public class AdminProductController {
                     productImageRepository.save(productImage);
                     System.out.println("image saved");
                     Category category = categoryRepository.findById(product.getCategory().getId()).get();
-                    writeCsv.write('"' + uriname + '"' + "," + '"' + productImage.getName() + '"' + "," + '"' + "lastData" + '"' + ","
+                    writeCsv.write('"' + uriname + '"' + "," + '"' + productImage.getName() + '"' + "," + '"' + "dayoff" + '"' + ","
                             + '"' + product.getName() + '"' + "," + '"' + "apparel" + '"' + "," + '"' + product.getId() + '"'
                             + "," + '"' + "category=" + category.getEngName() + '"' + ",");
 
@@ -129,8 +129,8 @@ public class AdminProductController {
         }
         try {
             File file = new File("./visionInsert.csv");
-            GoogleCloudStorageUpload.saveFile(file);
-            productManagement.importProductSets("gs://bit-jaehoon/visionInsert.csv");
+            // GoogleCloudStorageUpload.saveFile(file);
+            // productManagement.importProductSets("gs://bit-jaehoon/visionInsert.csv");
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -177,7 +177,7 @@ public class AdminProductController {
                     productImage.setProduct(savedProduct);
                     productImageRepository.save(productImage);
                     Category category = categoryRepository.findById(product.getCategory().getId()).get();
-                    writeCsv.write('"' + uriname + '"' + "," + '"' + productImage.getName() + '"' + "," + '"' + "lastData" + '"' + ","
+                    writeCsv.write('"' + uriname + '"' + "," + '"' + productImage.getName() + '"' + "," + '"' + "dayoff" + '"' + ","
                             + '"' + product.getName() + '"' + "," + '"' + "apparel" + '"' + "," + '"' + product.getId() + '"'
                             + "," + '"' + "category=" +category.getEngName() + '"' + ",");
                     System.out.println(product.getCategory().getEngName());
@@ -203,8 +203,8 @@ public class AdminProductController {
         }
         try {
             File file = new File("./visionInsert.csv");
-            GoogleCloudStorageUpload.saveFile(file);
-            productManagement.importProductSets("gs://bit-jaehoon/visionInsert.csv");
+            // GoogleCloudStorageUpload.saveFile(file);
+            // productManagement.importProductSets("gs://bit-jaehoon/visionInsert.csv");
            
         } catch (Exception e) {
             // TODO Auto-generated catch block
@@ -254,7 +254,7 @@ public class AdminProductController {
                         productImage.setProduct(savedProduct);
                         productImageRepository.save(productImage);
                         Category category = categoryRepository.findById(product.getCategory().getId()).get();
-                        writeCsv.write('"' + uriname + '"' + "," + '"' + productImage.getName() + '"' + "," + '"' + "lastData" + '"' + ","
+                        writeCsv.write('"' + uriname + '"' + "," + '"' + productImage.getName() + '"' + "," + '"' + "dayoff" + '"' + ","
                                 + '"' + product.getName() + '"' + "," + '"' + "apparel" + '"' + "," + '"' + product.getId()
                                 + '"' + "," + '"' + "category=" + category.getEngName() + '"' + ",");
                         break;
@@ -265,9 +265,9 @@ public class AdminProductController {
 
         }
         File file = new File("./visionInsert.csv");
-        GoogleCloudStorageUpload.saveFile(file);
+        // GoogleCloudStorageUpload.saveFile(file);
         try {
-            productManagement.importProductSets("gs://bit-jaehoon/visionInsert.csv");
+            // productManagement.importProductSets("gs://bit-jaehoon/visionInsert.csv");
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
