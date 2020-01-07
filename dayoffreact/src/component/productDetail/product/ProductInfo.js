@@ -161,7 +161,7 @@ class ProductInfo extends Component {
     for(let i=0; i<sizes.length;i++){
       sizes[i].style.backgroundColor='white';
     }
-    e.target.style.backgroundColor = 'black';
+    e.target.style.backgroundColor = ' #333030';
   };
   selectColor = e => {
     this.setState({
@@ -277,7 +277,7 @@ class ProductInfo extends Component {
       <div className={this.state.product.isAvailable == 0 && "modalroot"}>
         <div className="modal">
           <div className="popup">
-            선택 불가 상품입니다...<Link to="/"> 메인으로 돌아가기 </Link>
+            판매 중지된 상품입니다...<Link to="/"> 메인으로 돌아가기 </Link>
           </div>
         </div>
 
@@ -291,18 +291,19 @@ class ProductInfo extends Component {
                 </div>
               </div>
               <div className="topRight">
+                <div>
                 <p>
-                  카테고리:{product.category.name}/{product.category.subName}
+                {product.category.name}/{product.category.subName}
                 </p>
-                <h1>{product.name}</h1>
+                <h1 style={{"margin-bottom":"20px"}}>{product.name}</h1>
                 <h2>
-                  가격:
                   {product.price
                     .toString()
                     .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                   원
                 </h2>
-                <h4>
+                    </div>
+                <h4 style={{"border-top":"1px solid #989898","padding-top":"27px"}}>
                   {" "}
                   색상
                   <div className="colorOpt">
@@ -329,7 +330,7 @@ class ProductInfo extends Component {
                 </h4>
 
                 <Total cart={cart} />
-                <div>
+                <div className="btns">
                   <Link
                     onClick={this.handleOrder}
                     to={{
@@ -389,8 +390,8 @@ class ProductInfo extends Component {
                     onClick={toggle}
                   >
                     <div className="title1">
-                      <h2>상세상품정보</h2>
-                      <span className="toggleBtn">&or;</span>
+                      <h2 className="title2">상세상품정보    <span>&#9662;	</span></h2>
+                   
                     </div>
                   </div>
                   <div
@@ -420,11 +421,9 @@ class ProductInfo extends Component {
               ></ProductTogetherBuy>
             </div>
 
-            <div>
               {this.state.product.id > 0 && (
                 <Reviews productId={this.state.product.id}></Reviews>
               )}
-            </div>
           </div>
         </div>
       </div>

@@ -117,6 +117,7 @@ import './CartView.css';
 
    render() {
      console.log(this.state.checkedItem);
+     console.log(this.state.cartView)
      const cartView = this.state.cartView.map((cart, index) => {
        return (
          <Cart
@@ -135,7 +136,7 @@ import './CartView.css';
            price={cart.price}
            totalPrice={cart.totalPrice}
            realTotal={cart.realTotal}
-           productId={cart.productId}
+           productId={cart.product.id}
            onChange={this.onChange}
          />
        );
@@ -143,6 +144,8 @@ import './CartView.css';
      console.log(this.state.realTotal)
      return (
        <div>
+         <h1 className="cartHeader">장바구니</h1>
+         <div className="cartTable">
          <table className="n-table">
            <colgroup>
              <col style={{ width: +5 + "%" }}></col>
@@ -160,18 +163,20 @@ import './CartView.css';
                  type="checkbox"
                  value="-1"
                  onChange={this.onChange}
+                 style={{"transform":"scale(1.5)"}}
                ></input>
              </th>
              <th>  {" "}  </th>
-             <th>상품명</th>
-             <th>색깔</th>
+             <th>상품정보</th>
+             <th>색상</th>
              <th>사이즈</th>
              <th>수 량</th>
              <th>상품금액</th>
-             <th>총금액</th>
+             <th>주문금액</th>
            </tr>
            <tbody>{cartView}</tbody>
          </table>
+         </div>
          <div className="buttons">
          <button className="deleteBtn" onClick={this.handleDeleteItem}>선택상품 삭제</button>
          <Link
@@ -183,7 +188,7 @@ import './CartView.css';
              }
            }}
          >
-           <button className="orderBtn" >선택상품 주문하기</button>
+           <button className="orderBtn" > 주문하기</button>
          </Link></div>
          <div
            className="loginFrame"

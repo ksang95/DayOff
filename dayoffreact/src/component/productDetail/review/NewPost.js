@@ -42,7 +42,7 @@ import './NewPost.css';
         return (
           <div className="form">
             <Form >
-            <h3>후기 작성</h3>
+            <h3 className="reviewWrite">후기 작성</h3>
               <Form.Group as={Row} className="FormGroup">
                 <Form.Label >
                   제목
@@ -52,6 +52,7 @@ import './NewPost.css';
                     name="title"
                     placeholder="제목을 입력해주세요"
                     minLength={5}
+                    maxLength={20}
                     value={title}
                     onChange={handleChange}
                     required

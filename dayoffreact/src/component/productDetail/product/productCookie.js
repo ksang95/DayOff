@@ -21,10 +21,10 @@ class productCookie extends Component {
         // )
         // }
         return (
-            <div>
+            <div style={{width:"93%", margin:"auto"}} >
                 <h2>최근 본 상품</h2>
 
-                <hr width="93%" style={{marginLeft : "50px",borderTop : "1px solid black"}}></hr>
+                <hr style={{borderTop : "1px solid black"}}></hr>
                 {/* <Slider heading="Example Slider" slides={cookieList} />    */}
             {this.props.cookieList ? <Display cookieList={this.props.cookieList}></Display> : ''}
             </div>

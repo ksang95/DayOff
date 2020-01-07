@@ -15,18 +15,19 @@ const Review = props => (
       <React.Fragment>
           <tr
             className={
-              "my-collapsible__toggle SeveralProductSlideToggle toggle_" +
+              "toggleReview" +
               toggleState
             }
             onClick={toggle}
+            style={{"border-bottom":"1px solid black","margin":"auto"}}
           >
        
        
             {/* <div className="title1"> */}
-          <td>{props.id}</td>
-          <td>{props.title}</td>
-           <td>{props.user}</td> 
-           <td>{props.date}</td> 
+          <td style={{"padding":"10px","border-right":"1px solid black"}}>{props.id}</td>
+          <td style={{"padding":"10px","border-right":"1px solid black"}}>{props.title}</td>
+           <td style={{"padding":"10px","border-right":"1px solid black"}}>{props.user}</td> 
+           <td style={{"padding":"10px","border-right":"1px solid black"}}>{props.date}</td> 
            <td className="stars"><BeautyStars
           value={props.rating}
           size={"15px"}
@@ -34,14 +35,12 @@ const Review = props => (
           
          
         /></td> 
-              {/* <span className="toggleBtn" >&or;</span> */}
-            {/* </div> */}
           </tr>
           <tr className="reviewContent" ref={setCollapsibleElement}>
-            <td colSpan={5} className="inners">
-              <div style={{"textAlign":"left"}}>
-           <span style={{"padding-left":"20px"}}>키:{props.height}</span> 
-           <span style={{"padding-left":"20px"}}>몸무게:{props.weight}</span> 
+            <td colSpan={5}>
+              <div style={{"textAlign":"left","padding":"15px"}}>
+           <span style={{"padding-left":"10px"}}>키:{props.height}  cm</span> 
+           <span style={{"padding-left":"20px"}}>몸무게:{props.weight}  kg</span> 
            </div>
             <article className="content">{props.content}</article>
             </td>
@@ -49,19 +48,6 @@ const Review = props => (
         </React.Fragment>
       )}
     />
-    /* <Accordion atomic={true}>
-      <AccordionItem title={props.title}>
-        {props.user}
-        {props.date}
-        <BeautyStars
-          value={props.rating}
-          size={"20px"}
-          inactiveColor={"gray"}
-        />
-        {props.content}
-        {props.height}
-        {props.weight}
-      </AccordionItem>
-    </Accordion> */
+ 
 );
 export default Review;
