@@ -212,7 +212,7 @@ export default class orders extends Component {
 
     
     return (
-      <div className="orderTable">
+      <div className="TotalTable">
       <div className="pageTitle"> 
         <div>주문 내역</div>
         </div>
