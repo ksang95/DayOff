@@ -38,9 +38,9 @@ class ProductsFileForm extends Component {
             const firstSheet = workbook.Sheets[firstSheetName];
             const json = XLSX.utils.sheet_to_json(firstSheet);
             const products = json.map(product => {
-                let sizes = product.size.toString().split(";").filter(s => s.length > 0).map(s => s.toUpperCase().trim()).reduce((prev, curr) => { return prev.concat({ size: curr }) }, []);
-                let colors = product.color.toString().split(";").filter(c => c.length > 0).map(c => c.trim()).reduce((prev, curr) => { return prev.concat({ id: curr }) }, []);
-                let productImages = product.productImage.split(";").filter(i => i.length > 0).map(i => i.trim()).reduce((prev, curr) => { return prev.concat({ originalName: curr }) }, []);
+                let sizes = product.size.toString().split(";").map(s => s.toUpperCase().trim()).filter(s => s.length > 0&&s!=" ").reduce((prev, curr) => { return prev.concat({ size: curr }) }, []);
+                let colors = product.color.toString().split(";").map(c => c.trim()).filter(c => c.length > 0).reduce((prev, curr) => { return prev.concat({ id: curr }) }, []);
+                let productImages = product.productImage.split(";").map(i => i.trim()).filter(i => i.length > 0).reduce((prev, curr) => { return prev.concat({ originalName: curr }) }, []);
                 return { category: { id: product.category }, name: product.name, price: product.price, productSize: sizes, color: colors, detailImage: product.detailImage, productImage: productImages }
             })
             console.log(products);
