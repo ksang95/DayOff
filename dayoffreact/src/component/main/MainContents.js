@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './MainContents.css';
 import axios from 'axios';
 import MainContentsHeader from './MainContentsHeader';
+import {Link} from 'react-router-dom';
 
 export default class MainContentItem extends Component {
   state = {
@@ -76,12 +77,14 @@ export default class MainContentItem extends Component {
         <div className='MContentItem_box'>
         {this.state.products.map(product => {
           return (
-          <div className='MContentItem'>
+            <Link to={"/product/"+product.id}>
+            <div className='MContentItem'>
           <img src={"https://storage.googleapis.com/bit-jaehoon/" + product.productThumbnailName} alt='' />
           <p>{product.id}</p>
           <h4>{product.name}</h4>
           <h2>{product.price}원</h2>
           </div>
+          </Link>
           )
         })}
 

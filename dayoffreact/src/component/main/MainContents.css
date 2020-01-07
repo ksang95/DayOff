@@ -3,11 +3,11 @@
   width: 100%;
 }
 .MContentItem_box {
-  margin-left: 130px;
+  margin-left: 50px;
   display: inline-block;
 }
 .MContentItem {
-  width: 710px;
+  width: 672px;
   height: 790px;
   border: 1px solid #c9c9c9;
   display: inline-block;
@@ -49,7 +49,7 @@
 }
 
 .MDropButton {
-  margin-left: 1530px;
+  margin-left: 1375px;
 }
 
 .MDropButton select{
@@ -75,8 +75,8 @@
   border-Bottom: 5px solid #EAEAEA;
   display: inline-block;
   height: 70px;
-  width: 1470px;
-  margin-left: 180px;
+  width: 1394px;
+  margin-left: 100px;
 }
 
 .MeditButton{
