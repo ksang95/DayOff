@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ContactInfo from './ContactInfo';
 import './contact.css';
-import { Link } from "react-router-dom"
+import { Link , withRouter } from "react-router-dom"
 
 class Contact extends Component {
     constructor(props) {
@@ -21,6 +21,7 @@ class Contact extends Component {
 handleKeyPress(e){
     console.log(e.keyCode)
     if(e.keyCode === 0){ 
+        // this.props.history.push("/productList/search?keyword="+this.state.keyword)
         
     }
 }
@@ -71,4 +72,4 @@ handleKeyPress(e){
     }
 }
 
-export default Contact;
+export default withRouter(Contact);

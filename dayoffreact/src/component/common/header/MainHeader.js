@@ -45,6 +45,7 @@ export default class MainHeader extends Component {
             <ul className='MToplogin_Info1'>
             <li><Link><Login history={this.props.history}></Login></Link></li> &nbsp;&nbsp;&nbsp;
             <li><Link to='/cart'> <img className='Mcartlogo' src='/images/cartlogo.png'/> 장바구니</Link></li>
+              <li><HeaderSearch /></li>
             </ul>
             <div  className='MimgHeader' style={{display : window.location.pathname==="/" ? 'block' : 'none'}}> </div> 
               <div className='MHeader_Top'>
@@ -53,7 +54,6 @@ export default class MainHeader extends Component {
 
           <div className="MHeader">
               <MainCategory />
-              <HeaderSearch />
           </div>
           </div>
       )
@@ -66,6 +66,7 @@ export default class MainHeader extends Component {
           <li><Link><Login history={this.props.history}></Login></Link></li>  &nbsp;&nbsp;&nbsp;
           <li>{sessionStorage.getItem("userRole")==="admin"?<Link to='/admin/orders'>ADMIN</Link>:<Link to='/mypage/myorders'>마이페이지</Link>}</li>
           <li><Link to='/cart'> <img className='Mcartlogo' src='/images/cartlogo.png' /> 장바구니</Link></li>
+              <li><HeaderSearch /></li>
           </ul>
           <div  className='MimgHeader' style={{display : window.location.pathname==="/" ? 'block' : 'none'}}> </div> 
            <div className='MHeader_Top'>
@@ -73,7 +74,6 @@ export default class MainHeader extends Component {
           </div>
           <div className="MHeader">
               <MainCategory />
-              <HeaderSearch />
           </div>
           </div>
       )

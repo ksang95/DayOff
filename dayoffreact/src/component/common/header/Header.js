@@ -42,6 +42,7 @@ export default class Header extends Component {
             <ul className='Toplogin_Info1'>
             <li><Link><Login history={this.props.history}></Login></Link></li> &nbsp;&nbsp;&nbsp;
             <li><Link to='/cart'> <img className='cartlogo' src='/images/cartlogo.png'/> 장바구니</Link></li>
+            <li><HeaderSearch></HeaderSearch></li>
             </ul>
             <div className='imgHeader'>
               </div>
@@ -50,8 +51,8 @@ export default class Header extends Component {
           </div>
 
           <div className="Header">
+              
               <Category />
-              <HeaderSearch />
           </div>
           </div>
       )
@@ -64,6 +65,8 @@ export default class Header extends Component {
           <li><Link><Login history={this.props.history}></Login></Link></li>  &nbsp;&nbsp;&nbsp;
           <li>{sessionStorage.getItem("userRole")==="admin"?<Link to='/admin/orders'>ADMIN</Link>:<Link to='/mypage/myorders'>마이페이지</Link>}</li>
           <li><Link to='/cart'> <img className='cartlogo' src='/images/cartlogo.png' /> 장바구니</Link></li>
+          <li><HeaderSearch></HeaderSearch></li>
+
           </ul>
           <div className='imgHeader'>
           </div>
@@ -72,7 +75,6 @@ export default class Header extends Component {
           </div>
           <div className="Header">
               <Category />
-              <HeaderSearch />
           </div>
           </div>
       )

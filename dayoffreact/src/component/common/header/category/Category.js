@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './category.css';
 import {Link} from 'react-router-dom';
+
 export default class Category extends Component {
   constructor(props) {
     super(props);
@@ -69,7 +70,8 @@ refreshPage() {
 
             </ul>
             </li>
-            
+            <li>
+            </li>
             </ul>
       </div>
     )

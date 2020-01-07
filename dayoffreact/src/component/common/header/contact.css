@@ -2,7 +2,6 @@
 .Csearch_box {
   width: 100%;
   height: 100px;
-  margin-top: 5px;
 }
 
 .Csearch_input {
@@ -10,21 +9,20 @@
   height: 30px;
   border-radius: 3px;
   padding: 4px;
-  margin-top: 17px;
+  position: relative;
+  top : 0%;
 }
   
 .Csearch_Link {
-  height: 40px;
-  background: #fff;
+  max-height: 20px;
   padding: 4px 12px;
   border-radius: 4px;
   position: absolute;
-  margin-top: 7px;
   margin-left: -1px;
   width: 10px;
+  top : 0%;
 }
   .SearchImg {
     width: 15px;
     height: 15px;
-    margin-top: 8px;
   }
