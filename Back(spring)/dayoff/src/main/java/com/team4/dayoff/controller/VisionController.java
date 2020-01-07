@@ -92,7 +92,7 @@ public class VisionController {
 		List<String> List = productManagement.getSimilarProductsFile("apparel",
 		"./newfile");
 		System.out.println(List.get(0));
-		if(List.get(1).equals("category")){
+		if(List.size()==2&&List.get(1).equals("category")){
 			System.out.println("11111111111111111111111111111111111111");
 			System.out.println(recommendRepository.findByCategoryName(List.get(0)));
 			map.put("recommend", recommendRepository.findByCategoryName(List.get(0)));

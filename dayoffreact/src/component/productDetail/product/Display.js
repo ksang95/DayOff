@@ -23,9 +23,9 @@ import './cards.css'
       let margin = window.getComputedStyle(document.getElementById("card")).marginRight;
       margin = JSON.parse(margin.replace(/px/i, '')); 
   
-      const cardWidth = 222; // the card's width
+      const cardWidth = 244; // the card's width
       const cardMargin = margin; // the card's margin
-      const cardNumber = (this.props.cookieList.length-7); // the number of cards
+      const cardNumber = (this.props.cookieList.length-6); // the number of cards
       let currentCard = this.state.currentCard; // the index of the current card
       let position = this.state.position; // the position of the cards
   

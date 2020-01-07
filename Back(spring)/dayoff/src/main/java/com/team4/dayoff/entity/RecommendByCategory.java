@@ -23,7 +23,8 @@ public class RecommendByCategory {
     @Column
     private String categoryName;
 
-
+    @Column
+    private int price;
     @Id
     private int productId;
 

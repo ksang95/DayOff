@@ -17,7 +17,7 @@
 
 .card {
   float: left !important;
-	text-align: left;
+	text-align: center;
   background: #fff;
   width: 180px;
 	max-width: 180px !important;
@@ -34,16 +34,19 @@
 
 .card .title {
   overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   max-width : 220px !important;
-  font-weight: 600;
+  font-weight: 250;
   font-size: 15px;
-  word-wrap: break-word;
-  white-space: pre-wrap;
-  max-height: 50px;
-  min-height: 50px;
   margin-bottom : 0 !important;
   color : black;
   
+}
+.card .price{
+  font-size : 15px;
+  font-weight: 500;
+
 }
 .card a{
   text-decoration-line: none;

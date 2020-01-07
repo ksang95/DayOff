@@ -41,7 +41,7 @@ public class ProductManagement {
 	public static void main(String[] args) throws IOException {
 		listProducts("strong-kit-252505", "asia-east1");
 		// listProductSets("strong-kit-252505", "asia-east1");
-		//  deleteProductSet("strong-kit-252505", "asia-east1", "'드디어 마지막 테스트'");
+		//  deleteProductSet("strong-kit-252505", "asia-east1", "lastData");
 		// deleteProduct("'asdas'");
 		// listReferenceImagesOfProduct("Faux leather coat with shearling");
 	}
@@ -231,7 +231,7 @@ public class ProductManagement {
         System.out.println(String.format("Score(Confidence): %s", product.getScore()));
 		System.out.println(String.format("Image name: %s", product.getImage()));
 		System.out.println(product.getProduct().getProductCategory());
-        if(product.getScore() > 0.3) {
+        if(product.getScore() > 0.55) {
         	System.out.println(product.getScore());
 			String name = product.getProduct().getDisplayName();
         imageList.add(name);

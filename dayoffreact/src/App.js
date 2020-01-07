@@ -29,6 +29,7 @@ import ProductListPage from './component/productList/ProductListPage';
 import AdminNav from './component/common/nav/AdminNav';
 import MypageNav from './component/common/nav/MypageNav';
 import Map from './component/common/Map/Map';
+import NewPost from './component/productDetail/review/NewPost'
 
 class App extends Component {
   render() {
@@ -57,7 +58,7 @@ class App extends Component {
           <ProtectedRouteAdmin path="/admin/orders/orderDetail/:groupId" component={OrderDetail} />
           <ProtectedRouteAdmin path="/admin/orders" component={Orders} />
           </Switch>
-          <Route path="/mypage" component={MypageNav} />
+          <Route exact path="/mypage" component={MypageNav} />
           <Switch>
           <ProtectedRoute path="/mypage/myorders/orderDetail/:groupId" component={OrderDetail} />
           <ProtectedRoute path="/mypage/refundRequest" component={RefundRequest} />
@@ -66,7 +67,7 @@ class App extends Component {
           <ProtectedRoute path="/mypage/myGrade" component={UserGrade} />
           <ProtectedRoute exact path="/mypage/myorders" component={Myorders} />
           <ProtectedRoute exact path="/mypage/map" component={Map} />
-          
+          <ProtectedRoute exact path="/mypage/review/:productId" component={NewPost} />
           {/* <ProtectedRoute path="/mypage/myorders" component={Myorders} /> */}
           </Switch>
           <Route path="/signUp" component={SignUp} />

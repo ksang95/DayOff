@@ -62,6 +62,7 @@ public class ProductViewController {
 	
 	@GetMapping("/SubCategory/category/{name}")
 	public List<ProductView> SubCateogry(@PathVariable String name, @PageableDefault(size=1000, page=0, sort="registerDate", direction=Direction.DESC) Pageable pageable){
+		System.out.println(name);
 		return productRepository.SubCategory(name,pageable);
 	}
 	
