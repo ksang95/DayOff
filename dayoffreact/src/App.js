@@ -28,6 +28,7 @@ import MainPage from './component/main/MainPage';
 import ProductListPage from './component/productList/ProductListPage';
 import AdminNav from './component/common/nav/AdminNav';
 import MypageNav from './component/common/nav/MypageNav';
+import Map from './component/common/Map/Map';
 
 class App extends Component {
   render() {
@@ -64,6 +65,8 @@ class App extends Component {
           <ProtectedRoute path="/mypage/withdraw" component={Withdraw} />
           <ProtectedRoute path="/mypage/myGrade" component={UserGrade} />
           <ProtectedRoute exact path="/mypage/myorders" component={Myorders} />
+          <ProtectedRoute exact path="/mypage/map" component={Map} />
+          
           {/* <ProtectedRoute path="/mypage/myorders" component={Myorders} /> */}
           </Switch>
           <Route path="/signUp" component={SignUp} />

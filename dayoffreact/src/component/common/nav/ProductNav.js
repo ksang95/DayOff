@@ -71,17 +71,18 @@ class ProductNav extends Component {
           { this.state.categorySub.map(categorySubs => <div className='NavCate'><NavLink activeStyle={{fontWeight:'bold'}} className="Nava" to={"/productList/category/"+categorySubs.subName}>{categorySubs.subName}<br></br><br></br></NavLink></div>)}
           </div>
           <div className='NavColor'>
+            <br></br>
           <h3>Color</h3>
-          <NavLink to={"/productList/category/RED"}><button className='NavColor1' value='RED'/></NavLink>
-          <NavLink to={"/productList/category/BLACK"}><button className='NavColor2' value='BLACK'/></NavLink>
-          <NavLink to={"/productList/category/GRAY"}><button className='NavColor3' value='GRAY'/></NavLink><br></br>
-          <NavLink to={"/productList/category/BLUE"}><button className='NavColor4' value='BLUE'/></NavLink>
-          <NavLink to={"/productList/category/PINK"}><button className='NavColor5' vale='PINK'/></NavLink>
-          <NavLink to={"/productList/category/WHITE"}><button className='NavColor6' vale='WHITE'/></NavLink><br></br>
-          <NavLink to={"/productList/category/GREEN"}><button className='NavColor7' value='GREEN'/></NavLink>
-          <NavLink to={"/productList/category/PURPLE"}><button className='NavColor8' value='PURPLE'/></NavLink>
-          <NavLink to={"/productList/category/ORANGE"}><button className='NavColor9' value='ORANGE'/></NavLink><br></br>
-          <NavLink to={"/productList/category/YELLOW"}><button className='NavColor10' value='YELLOW'/></NavLink>
+          <NavLink to={"/productList/category/RED"}><img className='colorImage' src='/images/red.jpg' value='RED'/></NavLink>
+          <NavLink to={"/productList/category/BLACK"}><img className='colorImage'  src='/images/black.jpg' value='BLACK'/></NavLink>
+          <NavLink to={"/productList/category/GRAY"}><img className='colorImage' src='/images/gray.jpg' value='GRAY'/></NavLink><br></br>
+          <NavLink to={"/productList/category/BLUE"}><img className='colorImage' src='/images/blue.jpg' value='BLUE'/></NavLink>
+          <NavLink to={"/productList/category/PINK"}><img className='colorImage' src='/images/pink.jpg' vale='PINK'/></NavLink>
+          <NavLink to={"/productList/category/WHITE"}><img className='colorImage' src='/images/white.jpg' vale='WHITE'/></NavLink><br></br>
+          <NavLink to={"/productList/category/GREEN"}><img className='colorImage' src='/images/green.jpg' value='GREEN'/></NavLink>
+          <NavLink to={"/productList/category/PURPLE"}><img className='colorImage' src='/images/purple.jpg' value='PURPLE'/></NavLink>
+          <NavLink to={"/productList/category/ORANGE"}><img className='colorImage' src='/images/orange.jpg' value='ORANGE'/></NavLink><br></br>
+          <NavLink to={"/productList/category/YELLOW"}><img className='colorImage' src='/images/yellow.jpg' value='YELLOW'/></NavLink>
           </div>
           </div>
           </div>
@@ -99,17 +100,18 @@ class ProductNav extends Component {
       { this.state.categoryName.map(categoryNames => <div className='NavCate'><NavLink activeStyle={{fontWeight:'bold'}} className="Nava" to={"/productList/category/"+categoryNames.subName}>{categoryNames.subName}<br></br><br></br></NavLink></div>)}
       </div>
       <div className='NavColor'>
+        <br></br>
       <h3>Color</h3>
-      <NavLink to={"/productList/category/RED"}><button className='NavColor1' value='RED'/></NavLink>
-      <NavLink to={"/productList/category/BLACK"}><button className='NavColor2' value='BLACK'/></NavLink>
-      <NavLink to={"/productList/category/GRAY"}><button className='NavColor3' value='GRAY'/></NavLink><br></br>
-      <NavLink to={"/productList/category/BLUE"}><button className='NavColor4' value='BLUE'/></NavLink>
-      <NavLink to={"/productList/category/PINK"}><button className='NavColor5' vale='PINK'/></NavLink>
-      <NavLink to={"/productList/category/WHITE"}><button className='NavColor6' vale='WHITE'/></NavLink><br></br>
-      <NavLink to={"/productList/category/GREEN"}><button className='NavColor7' value='GREEN'/></NavLink>
-      <NavLink to={"/productList/category/PURPLE"}><button className='NavColor8' value='PURPLE'/></NavLink>
-      <NavLink to={"/productList/category/ORANGE"}><button className='NavColor9' value='ORANGE'/></NavLink><br></br>
-      <NavLink to={"/productList/category/YELLOW"}><button className='NavColor10' value='YELLOW'/></NavLink>
+          <NavLink to={"/productList/category/RED"}><img className='colorImage' src='/images/red.jpg' value='RED'/></NavLink>
+          <NavLink to={"/productList/category/BLACK"}><img className='colorImage'  src='/images/black.jpg' value='BLACK'/></NavLink>
+          <NavLink to={"/productList/category/GRAY"}><img className='colorImage' src='/images/gray.jpg' value='GRAY'/></NavLink><br></br>
+          <NavLink to={"/productList/category/BLUE"}><img className='colorImage' src='/images/blue.jpg' value='BLUE'/></NavLink>
+          <NavLink to={"/productList/category/PINK"}><img className='colorImage' src='/images/pink.jpg' vale='PINK'/></NavLink>
+          <NavLink to={"/productList/category/WHITE"}><img className='colorImage' src='/images/white.jpg' vale='WHITE'/></NavLink><br></br>
+          <NavLink to={"/productList/category/GREEN"}><img className='colorImage' src='/images/green.jpg' value='GREEN'/></NavLink>
+          <NavLink to={"/productList/category/PURPLE"}><img className='colorImage' src='/images/purple.jpg' value='PURPLE'/></NavLink>
+          <NavLink to={"/productList/category/ORANGE"}><img className='colorImage' src='/images/orange.jpg' value='ORANGE'/></NavLink><br></br>
+          <NavLink to={"/productList/category/YELLOW"}><img className='colorImage' src='/images/yellow.jpg' value='YELLOW'/></NavLink>
       </div>
       </div>
       </div>

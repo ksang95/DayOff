@@ -25,7 +25,7 @@ class ApiService {
         const sort=selected&&selected.substring(0,selected.lastIndexOf("_"));
         const direction=selected&&selected.substring(selected.lastIndexOf("_")+1);
         console.log(selected)
-        return axios.get('/MainCategory/category/' +name+"?sort="+sort+","+direction)
+        return axios.get('/MainCategory/category/' + name+"?sort="+sort+","+direction)
     }
 
     SubCategoryList(name,selected) {

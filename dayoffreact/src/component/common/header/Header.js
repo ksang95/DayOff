@@ -4,6 +4,7 @@ import HeaderSearch from './HeaderSearch';
 import Category from './category/Category';
 import Login from '../login/Login'
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 export default class Header extends Component {
   state = {
@@ -23,14 +24,25 @@ export default class Header extends Component {
       }
     }
 
+    logout= async ()=>{
+      const res = await axios.get("logout")
+      sessionStorage.removeItem("userId")
+      sessionStorage.removeItem("userRole")
+      sessionStorage.removeItem("userName")
+
+      this.setState({
+        login:false
+      })
+    }
+
   render() {
       if(this.state.login===false) {
       return (
           <div className='TotalHeader'>
-            <div className='Toplogin_Info'>
-            <Login history={this.props.history}></Login>
-            <Link to='/cart'> <img className='cartlogo' src='https://i.pinimg.com/474x/a1/9b/e9/a19be91f8b17de33ff7dbe40f6a796ce.jpg' alt='' /> 장바구니</Link>
-            </div>
+            <ul className='Toplogin_Info'>
+            <li><Link><Login history={this.props.history}></Login></Link></li> &nbsp;&nbsp;&nbsp;
+            <li><Link to='/cart'> <img className='cartlogo' src='https://i.pinimg.com/474x/a1/9b/e9/a19be91f8b17de33ff7dbe40f6a796ce.jpg'/> 장바구니</Link></li>
+            </ul>
             <div className='imgHeader'>
               </div>
               <div className='Header_Top'>
@@ -44,28 +56,23 @@ export default class Header extends Component {
           </div>
       )
 
-
-
-      
-  }else {
+    }else {
       return (
           <div className='TotalHeader'>
-          <div className='Toplogin_Info'>
-          <a>{sessionStorage.getItem("userId")}</a>&nbsp;&nbsp;&nbsp;&nbsp;
-          <Link to={"/"}> 로그아웃</Link> &nbsp;&nbsp;
-          <Link to={"/"}> <img className='cartlogo' src='https://i.pinimg.com/474x/a1/9b/e9/a19be91f8b17de33ff7dbe40f6a796ce.jpg' alt='' /> 장바구니</Link>
-          </div>
+          <ul className='Toplogin_Info'>
+          <li><Link><Login history={this.props.history}></Login></Link></li>  &nbsp;&nbsp;&nbsp;
+          <li><Link to='/cart'> <img className='cartlogo' src='https://i.pinimg.com/474x/a1/9b/e9/a19be91f8b17de33ff7dbe40f6a796ce.jpg' /> 장바구니</Link></li>
+          </ul>
           <div className='imgHeader'>
           </div>
            <div className='Header_Top'>
-           <Link to={"/"}><img className='logo' src='/images/DAYOFF_logo3.png'></img></Link>
+          <Link to={"/"}><img className='logo' src='/images/DAYOFF_logo3.png'></img></Link>
           </div>
-
           <div className="Header">
               <Category />
               <HeaderSearch />
           </div>
-              </div>
+          </div>
       )
   }
 }
