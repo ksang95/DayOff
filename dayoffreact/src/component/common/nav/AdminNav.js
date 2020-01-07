@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import './Ad_MyNav.css';
+import './AdminNav.css';
 import { NavLink } from 'react-router-dom';
 
 export default class Nav extends Component {
@@ -31,9 +31,9 @@ export default class Nav extends Component {
           </div>
   
           <div className='Nav_Info4'>
-          <h3>DayOff 고객센터</h3>
-            <h3>Tel.02-1234-5678</h3>
-            <h6>근무시간 9:00~18:00 <br></br>(점심시간 12:00~13:00)</h6>
+          <h5>DayOff 고객센터</h5>
+          <h6>Tel.02-1234-5678</h6>
+          <h6>근무시간 9:00~18:00 <br></br>(점심시간 12:00~13:00)</h6>
           </div>
         </div>
       )

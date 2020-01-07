@@ -41,6 +41,8 @@ class App extends Component {
         <Switch>
           <Route path="/loginSuccess" component={LoginSuccess} />
           <Route path="/productList" component={Header} />
+          <Route path="/mypage" component={Header} />
+          <Route path="/admin" component={Header} />
           <Route path="/" component={MainHeader} />
         </Switch>
           <Route exact path="/" component={MainPage} />
@@ -80,6 +82,8 @@ class App extends Component {
           <ProtectedRoute path="/payInfoList" component={ListCartComponent} />
           <Switch>
           <Route path="/productList" component={Footer} />
+          <Route path="/admin" component={Footer} />
+          <Route path="/mypage" component={Footer} />
           <Route path="/" component={MainFooter} />
           </Switch>
       </div>
