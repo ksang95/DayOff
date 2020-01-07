@@ -37,6 +37,7 @@ class visionCrop extends Component {
       
       onChange = value => {
         this.setState(value);
+        document.getElementById("searchbutton").disabled = false;
       };
 
 
@@ -64,15 +65,14 @@ class visionCrop extends Component {
           분석하여 같은 종류의 의류들을 추천해줍니다.
 
 
-          {this.state.result ? <div className="previewDiv">
+          {/* {this.state.result ? <div className="previewDiv"> */}
           <div className="buttonDiv">
              <Button className="buttonVision" onClick={() => window.location.reload(false)}>다시하기</Button>
           <br></br>
-          <Button className="buttonVision" onClick={this.aaaa.bind(this)}>검색하기</Button>
-         
+          <Button className="buttonVision" id="searchbutton"  onClick={this.aaaa.bind(this)}>검색하기</Button>
           
           </div>
-          </div> : ""}
+          {/* </div> : ""} */}
           </div>
           
           </div>

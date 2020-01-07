@@ -239,6 +239,7 @@ public class ProductManagement {
 		if(imageList.size()==0){
 			String category = product.getProduct().getProductLabels(0).getValue();
 			imageList.add(category);
+			imageList.add("category");
 			return imageList;
 		}
       }

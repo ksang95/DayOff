@@ -92,7 +92,7 @@ public class VisionController {
 		List<String> List = productManagement.getSimilarProductsFile("apparel",
 		"./newfile");
 		System.out.println(List.get(0));
-		if(!List.get(0).contains("2020")){
+		if(List.get(1).equals("category")){
 			System.out.println("11111111111111111111111111111111111111");
 			System.out.println(recommendRepository.findByCategoryName(List.get(0)));
 			map.put("recommend", recommendRepository.findByCategoryName(List.get(0)));
@@ -102,8 +102,8 @@ public class VisionController {
 
 		System.out.println(List+"22222222222222222222222222222222222222222222222");
 		for (String data : List) {
-			// realList.add(recommendRepository.findByProductId(Integer.parseInt(data)));
-			realList.add(recommendRepository.findByProductThumbnailName(data));
+			realList.add(recommendRepository.findByProductId(Integer.parseInt(data)));
+			// realList.add(recommendRepository.findByProductThumbnailName(data));
 		}
 		System.out.println(realList+"=====================================");
 		// for (String data : realList) {
