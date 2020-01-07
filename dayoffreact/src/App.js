@@ -42,7 +42,6 @@ class App extends Component {
           <Route path="/loginSuccess" component={LoginSuccess} />
           <Route path="/productList" component={Header} />
           <Route path="/" component={MainHeader} />
-
         </Switch>
           <Route exact path="/" component={MainPage} />
           <Route path="/login" component={LoginPage} />

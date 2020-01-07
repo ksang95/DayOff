@@ -1,6 +1,7 @@
 .orderTable{
-    position: relative;
-    left: 5%;
+    width:85%;
+    display: inline-block;
+    min-height: 1000px;
 }
 
 .pagenate1{
@@ -102,6 +103,6 @@
     
 }
 .orderMain{
-    width: 70%;
+    width: 90%;
     margin: 40px auto;
 }

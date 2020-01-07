@@ -77,6 +77,7 @@
   display: inline-block;
   list-style:none;
   font-weight: 700;
+  min-width: 400px;
 }
   
   .Toplogin_Info li{
@@ -102,6 +103,7 @@
     display: inline-block;
     list-style:none;
     font-weight: 700;
+    min-width : 400px
   }
     
     .Toplogin_Info1 li{
@@ -190,6 +192,8 @@
     display: inline-block;
     list-style:none;
     font-weight: 700;
+    min-width: 400px ;
+
   }
     
     .MToplogin_Info li{
@@ -215,6 +219,7 @@
       display: inline-block;
       list-style:none;
       font-weight: 700;
+      min-width: 400px ;
     }
       
       .MToplogin_Info1 li{

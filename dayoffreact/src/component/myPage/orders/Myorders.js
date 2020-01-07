@@ -106,11 +106,12 @@ shouldComponentUpdate(nextProps,nextState){
 
     
     return (
-      <div>
-      <div className="orderTable"> 
+      <div className="orderTable">
+      <div className="pageTitle"> 
+        <div>주문 내역</div>
+        </div>
         
       <MyordersTable orderList={this.change} list={this.state.list}></MyordersTable>
-      </div>
       <div className="pagenate1">
       <ReactPaginate
             previousLabel={'이전'}

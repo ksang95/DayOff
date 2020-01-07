@@ -10,8 +10,10 @@ export default class MainHeader extends Component {
   state = {
       login: false
     }
-  
+   
+    
     componentDidMount() {
+     
       if(sessionStorage.getItem("userId")){
         this.setState({
           login:true
@@ -34,8 +36,9 @@ export default class MainHeader extends Component {
         login:false
       })
     }
-
+    
   render() {
+    console.log(this.state.url)
       if(this.state.login===false) {
       return (
           <div className='MTotalHeader'>
@@ -43,8 +46,7 @@ export default class MainHeader extends Component {
             <li><Link><Login history={this.props.history}></Login></Link></li> &nbsp;&nbsp;&nbsp;
             <li><Link to='/cart'> <img className='Mcartlogo' src='/images/cartlogo.png'/> 장바구니</Link></li>
             </ul>
-            <div className='MimgHeader'>
-              </div>
+            <div  className='MimgHeader' style={{display : window.location.pathname==="/" ? 'block' : 'none'}}> </div> 
               <div className='MHeader_Top'>
               <Link to={"/"}><img className='Mlogo' src={"/images/DAYOFF_logo3.png"}></img></Link>
           </div>
@@ -65,8 +67,7 @@ export default class MainHeader extends Component {
           <li>{sessionStorage.getItem("userRole")==="admin"?<Link to='/admin/orders'>ADMIN</Link>:<Link to='/mypage/myorders'>마이페이지</Link>}</li>
           <li><Link to='/cart'> <img className='Mcartlogo' src='/images/cartlogo.png' /> 장바구니</Link></li>
           </ul>
-          <div className='MimgHeader'>
-          </div>
+          <div  className='MimgHeader' style={{display : window.location.pathname==="/" ? 'block' : 'none'}}> </div> 
            <div className='MHeader_Top'>
           <Link to={"/"}><img className='Mlogo' src='/images/DAYOFF_logo3.png'></img></Link>
           </div>

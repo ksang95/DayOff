@@ -60,10 +60,6 @@ class MyordersTable extends Component {
 
         return (
             <div>
-            <div >
-              <h2>주문 내역</h2>
-              <hr style={{width : '70%', borderTop: '1px solid black'}}></hr>
-            </div>
             <div className="orderMain">
            <table className="n-table">
           <colgroup>

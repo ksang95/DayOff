@@ -212,10 +212,11 @@ export default class orders extends Component {
 
     
     return (
-      <div>
-      <div className="orderTable"> 
-        <h2>주문 내역</h2>
-              <hr style={{width : '70%', borderTop: '1px solid black'}}></hr>
+      <div className="orderTable">
+      <div className="pageTitle"> 
+        <div>주문 내역</div>
+        </div>
+
         <div className="orderMain">
 
       <Form.Group as={Row} className="p-3 m-auto">
@@ -268,7 +269,6 @@ export default class orders extends Component {
             </div>
 
       {/* <button id="next" className="next" disabled={false} onClick={()=>this.orderList.bind(this)(this.state.value,this.state.page+1,this.state.name)}>다음페이지</button> */}
-      </div>
       </div>
       <div className="pagenate1">
       <ReactPaginate
