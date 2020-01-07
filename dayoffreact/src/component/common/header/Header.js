@@ -39,14 +39,14 @@ export default class Header extends Component {
       if(this.state.login===false) {
       return (
           <div className='TotalHeader'>
-            <ul className='Toplogin_Info'>
+            <ul className='Toplogin_Info1'>
             <li><Link><Login history={this.props.history}></Login></Link></li> &nbsp;&nbsp;&nbsp;
-            <li><Link to='/cart'> <img className='cartlogo' src='https://i.pinimg.com/474x/a1/9b/e9/a19be91f8b17de33ff7dbe40f6a796ce.jpg'/> 장바구니</Link></li>
+            <li><Link to='/cart'> <img className='cartlogo' src='/images/cartlogo.png'/> 장바구니</Link></li>
             </ul>
             <div className='imgHeader'>
               </div>
               <div className='Header_Top'>
-              <Link to={"/"}><img className='logo' src={"/images/DAYOFF_logo3.png"}></img></Link>
+              <Link to={"/"}><img className='logo1' src={"/images/DAYOFF_logo3.png"}></img></Link>
           </div>
 
           <div className="Header">
@@ -60,13 +60,15 @@ export default class Header extends Component {
       return (
           <div className='TotalHeader'>
           <ul className='Toplogin_Info'>
+          <li>{sessionStorage.getItem("userName")}</li>
           <li><Link><Login history={this.props.history}></Login></Link></li>  &nbsp;&nbsp;&nbsp;
-          <li><Link to='/cart'> <img className='cartlogo' src='https://i.pinimg.com/474x/a1/9b/e9/a19be91f8b17de33ff7dbe40f6a796ce.jpg' /> 장바구니</Link></li>
+          <li>{sessionStorage.getItem("userRole")==="admin"?<Link to='/admin/orders'>ADMIN</Link>:<Link to='/mypage/myorders'>마이페이지</Link>}</li>
+          <li><Link to='/cart'> <img className='cartlogo' src='/images/cartlogo.png' /> 장바구니</Link></li>
           </ul>
           <div className='imgHeader'>
           </div>
            <div className='Header_Top'>
-          <Link to={"/"}><img className='logo' src='/images/DAYOFF_logo3.png'></img></Link>
+          <Link to={"/"}><img className='logo1' src='/images/DAYOFF_logo3.png'></img></Link>
           </div>
           <div className="Header">
               <Category />

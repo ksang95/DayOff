@@ -1,10 +1,19 @@
 .reviewboard{
-    padding: 50px;
-    height: auto;
-    padding-bottom: 100px;
-    margin:auto;
+    min-height: 300px;
+    margin:100px auto;
+    align-items: center;
+    width: 100%;
 }
-h1{
+.reviewTh{
+    margin:10px;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}
+.reviewTable{
     
     border-bottom: 1px solid black;
+    width: 93%;
+    text-align: center;
+    align-items: center;
+    margin: auto;
 }

@@ -33,8 +33,8 @@ import './NewPost.css';
         })
         
       })
-      window.alert("후기작성이 완료되었습니다.")
-      // window.history.back();
+      window.alert("후기작성이 완료되었습니다.");
+      window.location.href='/mypage/myorders';
     }
   render() {
    const {title,content,rating} =this.state;
@@ -42,7 +42,7 @@ import './NewPost.css';
         return (
           <div className="form">
             <Form >
-            <h3>후기 작성</h3>
+            <h2 className="reviewWrite">후기 작성</h2>
               <Form.Group as={Row} className="FormGroup">
                 <Form.Label >
                   제목
@@ -52,6 +52,7 @@ import './NewPost.css';
                     name="title"
                     placeholder="제목을 입력해주세요"
                     minLength={5}
+                    maxLength={20}
                     value={title}
                     onChange={handleChange}
                     required
@@ -60,7 +61,7 @@ import './NewPost.css';
               <Form.Group as={Row} className="FormGroup">
                 
                 <Form.Label>
-                        별점       
+                        평점      
                 </Form.Label><Col sm="10">
                   <BeautyStars
                     value={rating}
@@ -87,7 +88,7 @@ import './NewPost.css';
                     onChange={handleChange}
                   />
               </Form.Group >
-            <Button className="addReview" onClick={handlePostData}>후기 등록</Button>
+            <Button className="addReviewBtn" onClick={handlePostData}>후기 등록</Button>
             </Form >
             </div>
         );

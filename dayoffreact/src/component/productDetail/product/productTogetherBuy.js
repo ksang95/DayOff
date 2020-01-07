@@ -20,9 +20,9 @@ class productTogetherBuy extends Component {
         // )
         // }
         return (
-            <div>
+            <div style={{width:"93%", margin:"auto"}}>
                 <h2>이 상품을 구매한 회원이 함께 구매한 상품</h2>
-                <hr width="93%" style={{marginLeft : "50px",borderTop : "1px solid black"}}></hr>  
+                <hr  style={{margin:"auto",borderTop : "1px solid black"}}></hr>  
                 {this.props.Togetherlist ? <Display cookieList={this.props.Togetherlist}></Display> : ''} 
             </div>
         );

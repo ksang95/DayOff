@@ -48,26 +48,24 @@ class Reviews extends Component {
           
            } ).reverse();
         return (
+
           <div className="reviewboard">
-            <h1>후기게시판</h1>
-            
-           
-     <table className="n-table">
+            <h2 style={{"margin":"60px"}}>후기게시판</h2>
+     <table  className="reviewTable">
      <colgroup>
        <col style={{ width: +5 + "%" }}></col>
-       <col style={{ width: +10 + "%" }}></col>
-       <col style={{ width: +10 + "%" }}></col>
-       <col style={{ width: +10 + "%" }}></col>
-       <col style={{ width: +10 + "%" }}></col>
+       <col style={{ width: +20 + "%" }}></col>
+       <col style={{ width: +5 + "%" }}></col>
+       <col style={{ width: +5 + "%" }}></col>
+       <col style={{ width: +5 + "%" }}></col>
      </colgroup>
-     <thead>
+     <thead className="reviewTh">
      <tr>
-       
-       <th>글번호</th>
-       <th>제목</th>
-       <th>작성자</th>
-       <th>작성일</th>
-       <th>별점</th>
+       <th style={{"padding":"10px","border-right":"1px solid black"}}>글번호</th>
+       <th style={{"padding":"10px","border-right":"1px solid black"}}>제목</th>
+       <th style={{"padding":"10px","border-right":"1px solid black"}}>작성자</th>
+       <th style={{"padding":"10px","border-right":"1px solid black"}}>작성일</th>
+       <th>평점</th>
      </tr>
      </thead>
      <tbody>{reviews}</tbody>

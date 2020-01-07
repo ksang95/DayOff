@@ -14,12 +14,14 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import com.team4.dayoff.api.kakaoPayAPI.KakaoPay;
 import com.team4.dayoff.entity.Code;
 import com.team4.dayoff.entity.Grade;
 import com.team4.dayoff.entity.OrderDetailView;
 import com.team4.dayoff.entity.OrderGroup;
 import com.team4.dayoff.entity.OrderView;
 import com.team4.dayoff.entity.Orders;
+import com.team4.dayoff.entity.Refunds;
 import com.team4.dayoff.entity.Users;
 import com.team4.dayoff.repository.OrderDetailViewRepository;
 import com.team4.dayoff.repository.OrderGroupRepository;
@@ -72,6 +74,8 @@ public class OrderController {
     @Autowired
     private UsersRepository usersRepository;
 
+    @Autowired
+	private KakaoPay kakaopay;
 
     private static String readAll(Reader rd) throws IOException {
         StringBuilder sb = new StringBuilder();
@@ -516,10 +520,14 @@ public class OrderController {
         switch(nextCode){
             case "0004":
             orders.setCode(new Code(nextCode,"픽업완료"));
+            orders.setDeliverDate(new Date());
             break;
             case "0006":
             orders.setCode(new Code(nextCode,"환불완료"));
             refundsRepository.giveRefunds(orderId);
+            Refunds refunds=refundsRepository.findById(orderId).get();
+            kakaopay.kakaoCancel(Integer.toString(refunds.getRefundAmount()), refunds.getOrders().getOrderGroup().getTid());
+
             break;
         }
         orderRepository.save(orders);

@@ -238,7 +238,7 @@ public class PayController {
 			order.setProduct(product);
 			order.setColor(list.get(i).getColor());
 			order.setOrderGroup(ordergroup);
-			order.setPrice(list.get(i).getPrice());
+			order.setPrice(list.get(i).getTotalPrice());
 			order.setQuantity(list.get(i).getQuantity());
 			order.setSize(list.get(i).getSize());
 			System.out.println("dfsdfs"+service);
