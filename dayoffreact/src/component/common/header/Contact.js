@@ -18,6 +18,13 @@ class Contact extends Component {
     window.history.go(0);
 }
 
+handleKeyPress(e){
+    console.log(e.keyCode)
+    if(e.keyCode === 0){ 
+        
+    }
+}
+
  
 
     handelChange(e) {
@@ -48,11 +55,12 @@ class Contact extends Component {
     }
         return (
             <div className= "Csearch_box">
-                <input className="Csearch_input"
+                <input className="Csearch_input"    
                 name ="keyword"
                 placeholder="  Search"
                 value={this.state.keyword}
                 onChange={this.handelChange}
+                onKeyPress={this.handleKeyPress.bind(this)}
                 >
                 </input>
                 <Link className='Csearch_Link' to={"/productList/search?keyword="+this.state.keyword} ><img className='SearchImg' src='https://cdn.pixabay.com/photo/2016/03/31/19/14/magnifying-glass-1294834_960_720.png'></img></Link>

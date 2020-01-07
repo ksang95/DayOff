@@ -37,12 +37,12 @@ export default class Content extends Component {
     }
     else {
       const category = this.state.category;
-      if (category === 'RED' || category === 'BLACK' || category === 'GRAY' || category === 'BLUE' || category === 'PINK' || category === 'WHITE' || category === 'GREEN'
+      if (category === 'RED' || category === 'BLACK' ||  category === 'GRAY' || category === 'BLUE' || category === 'PINK' || category === 'WHITE' || category === 'GREEN'
         || category === 'PURPLE' || category === 'ORANGE' || category === 'YELLOW') {
         ApiService.ColorProductList(category, this.state.selected).then(res => {
           this.setState({ errorMessage: false, products: res.data })
         })
-      } else if (category === '아우터' || category === '상의' || category === '셔츠_블라우스' || category === '팬츠' || category === '원피스' || category === '악세사리') {
+      } else if (category === 'OUTER' || category === 'TOP' || category === 'BOTTOM' || category === 'DRESS' || category === 'ACC') {
         ApiService.MainCategoryList(category, this.state.selected).then(res => {
           this.setState({ errorMessage: false, products: res.data })
         });
@@ -84,7 +84,7 @@ export default class Content extends Component {
           console.log(res)
           this.setState({ errorMessage: false, AdminProducts: res.data })
         })
-      } else if (category === '아우터' || category === '상의' || category === '셔츠_블라우스' || category === '팬츠' || category === '원피스' || category === '악세사리') {
+      } else if (category === 'OUTER' || category === 'TOP' || category === 'BOTTOM' || category === 'DRESS' || category === 'ACC') {
         ApiService.AdminMainCategoryList(category, this.state.selected).then(res => {
           console.log(res)
 

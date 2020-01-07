@@ -1,5 +1,6 @@
 .ProductNav {
-    height: 100vh;
+    min-height: 1120px;
+    height: auto;
     width: 180px;
     display: inline-block;
     border-right: 1px solid #c9c9c9;
@@ -32,9 +33,8 @@
 
   .NavColor {
     height: 300px;
-    border-top: 2px solid #c9c9c9;
-    margin-top: 50px;
     width: 150px;
+    border-top: 2px solid #c9c9c9;
   }
 
   .Nava {
@@ -54,112 +54,11 @@
     margin-bottom: 15px;
   }
 
-.NavColor1{
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background-color: red;
-    border: white;
-    margin-right: 20px;
-    margin-bottom: 15px;
-    cursor: pointer;
-}
-
-.NavColor2{
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background-color:black;
-    border: white;
-    margin-right: 20px;
-    margin-bottom: 15px;
-    cursor: pointer;
-}
-
-.NavColor3{
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background-color:gray;
-    border: white;
-    margin-right: 20px;
-    margin-bottom: 15px;
-    cursor: pointer;
-}
-
-.NavColor4{    
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background-color:blue;
-    border: white;
-    margin-right: 20px;
-    margin-bottom: 15px;
-    cursor: pointer;
-}
-
-.NavColor5{    
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background-color:pink;
-    border: white;
-    margin-right: 20px;
-    margin-bottom: 15px;
-    cursor: pointer;
-}
-
-.NavColor6{    
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background-color: #F8F8FF;
-    border: white;
-    margin-right: 20px;
-    margin-bottom: 15px;
-    cursor: pointer;
-}
-
-.NavColor7{    
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background-color: green;
-    border: white;
-    margin-right: 20px;
-    margin-bottom: 15px;
-    cursor: pointer;
-}
-
-.NavColor8{    
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background-color: purple;
-    border: white;
-    margin-right: 20px;
-    margin-bottom: 15px;
-    cursor: pointer;
-}
-
-.NavColor9{    
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background-color: orange;
-    border: white;
-    margin-right: 20px;
-    margin-bottom: 15px;
-    cursor: pointer;
-}
-
-.NavColor10{    
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background-color: yellow;
-    border: white;
-    margin-right: 20px;
-    margin-bottom: 15px;
-    cursor: pointer;
-}
+  .colorImage {
+    width: 35px;
+    height: 35px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    border-radius: 10%;
+  }

@@ -46,12 +46,6 @@
   background-size: 100%;
 }
 
-.Toplogin_Info {
-  height: 40px;
-  margin-top: 20px;
-  margin-left: 87%;
-}
-
 .Toplogin_Info > a{
   text-decoration:none;
   color: black;
@@ -63,3 +57,29 @@
 .TotalHeader{
   width: 100%;
 }
+
+
+.Toplogin_Info {
+  float: left;
+  height: 40px;
+  margin-top: 20px;
+  margin-left: 87%;
+  font-size: 15px;
+  display: inline-block;
+  list-style:none;
+  font-weight: 700;
+}
+  
+  .Toplogin_Info li{
+  float: left;;
+  padding:0px;
+  margin-right: 20px;
+  cursor: pointer;
+  font-weight: 400;
+  }
+
+
+  .Toplogin_Info li a{
+    color: black;
+    text-decoration: none;
+  }

@@ -74,12 +74,15 @@ class GoogleMapsContainer extends React.Component {
     if(this.state.value==='강남점'){
     return (
             <div className='wrapper'>
-            <a href  className='storesInfotitle'> 매장정보</a><br></br><br></br>
+            <div className='storesInfotitle'> 매장 정보</div>
+            <div class="selectbox">
+            <label for="ex_select">{this.state.selected}</label>
             <select value={this.state.selected} onChange={this.Change.bind(this)}> 
             <option value='강남점' className='locationButton'> 강남점 </option>
             <option value='역삼점' className='locationButton'> 역삼점 </option>
             <option value='선릉점' className='locationButton'> 선릉점 </option>
             </select>
+            </div>
               <Map
                 item
                 xs = { 12 }
@@ -114,12 +117,15 @@ class GoogleMapsContainer extends React.Component {
                       }else if(this.state.value==='역삼점'){
                             return (
                               <div className='wrapper'>
-                              <a href  className='storesInfotitle'> 매장정보</a><br></br><br></br>
+                              <div className='storesInfotitle'> 매장 정보</div>
+                              <div class="selectbox">
+                              <label for="ex_select">{this.state.selected}</label>
                               <select value={this.state.selected} onChange={this.Change.bind(this)}> 
                               <option value='강남점' className='locationButton'> 강남점 </option>
                               <option value='역삼점' className='locationButton'> 역삼점 </option>
                               <option value='선릉점' className='locationButton'> 선릉점 </option>
                               </select>
+                              </div>
                         <Map
                           item
                           xs = { 12 }
@@ -154,12 +160,15 @@ class GoogleMapsContainer extends React.Component {
                               }else if(this.state.value==='선릉점'){
                                 return (
                                   <div className='wrapper'>
-                                  <a href  className='storesInfotitle'> 매장정보</a><br></br><br></br>
+                                  <div className='storesInfotitle'> 매장 정보</div>
+                                  <div class="selectbox">
+                                  <label for="ex_select">{this.state.selected}</label>
                                   <select value={this.state.selected} onChange={this.Change.bind(this)}> 
                                   <option value='강남점' className='locationButton'> 강남점 </option>
                                   <option value='역삼점' className='locationButton'> 역삼점 </option>
                                   <option value='선릉점' className='locationButton'> 선릉점 </option>
                                   </select>
+                                  </div>
                               <Map
                               item
                               xs = { 12 }

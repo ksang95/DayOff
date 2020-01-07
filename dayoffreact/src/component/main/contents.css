@@ -1,6 +1,6 @@
 .PContents {
-  display: inline-block;
   width: 88%;
+  overflow: auto;
 }
 .PContentItem_box {
   display: inline-block;
@@ -87,6 +87,7 @@
 
 .PDropButton {
   border-bottom: 1px solid #c9c9c9;
+  border-top: 1px solid #c9c9c9;
 }
 
 .PDropButton select{
