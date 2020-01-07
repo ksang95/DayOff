@@ -28,7 +28,9 @@
 .Withdraw{
     width: 85%;
     display: inline-block;
-    min-height: 1000px;
+    min-height: 800px;
+    margin-left: 11%;
+    margin-top: 15%;
 }
 
 .Withdraw .error{
@@ -68,5 +70,7 @@
 .UpdateUserWrapper{
     width:85%;
     display: inline-block;
-    min-height: 1000px;
+    min-height: 800px;
+    margin-left: 11%;
+    margin-top: 15%;
 }

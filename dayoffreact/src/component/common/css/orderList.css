@@ -1,6 +1,22 @@
+.TotalTable{
+    width:85%;
+    display: inline-block;
+    min-height: 1000px;
+    margin-left: 11%;
+    margin-top: 15%;
+}
+
 .orderTable{
     position: relative;
     left: 5%;
+}
+
+.UserTotalTable{
+    width:85%;
+    display: inline-block;
+    min-height: 1000px;
+    margin-left: 11%;
+    margin-top: 15%;
 }
 
 .pagenate1{

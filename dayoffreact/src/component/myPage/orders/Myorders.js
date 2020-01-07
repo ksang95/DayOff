@@ -106,7 +106,7 @@ shouldComponentUpdate(nextProps,nextState){
 
     
     return (
-      <div>
+      <div className="UserTotalTable">
       <div className="orderTable"> 
         
       <MyordersTable orderList={this.change} list={this.state.list}></MyordersTable>

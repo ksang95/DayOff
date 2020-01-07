@@ -31,6 +31,8 @@
     width:85%;
     display: inline-block;
     min-height: 1000px;
+    margin-left: 11%;
+    margin-top: 15%;
 }
 
 .ProductAdd .my-collapsible{
