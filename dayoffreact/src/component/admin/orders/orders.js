@@ -5,13 +5,17 @@ import '../../common/css/orderList.css'
 import { Button,Col, Form , Row} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Deliver from '../../myPage/orders/Deliver';
-import SlideToggle from "react-slide-toggle";
 import ReactPaginate from 'react-paginate';
 import OrderCancel from '../../myPage/orders/OrderCancel';
+import UpdateInvoice from './updateInvoice';
+import PickUpConfirm from './pickUpConfirm';
 
 
 export default class orders extends Component {
-
+  constructor(props) {
+    super(props);
+    this.change = this.change.bind(this);
+  }
   
 
   state ={
@@ -19,7 +23,8 @@ export default class orders extends Component {
     page : 0,
     list : [],
     name : '',
-    invoice : ''
+    invoice : '',
+    change : 0
   }
 
   numberWithCommas(x) {
@@ -27,40 +32,11 @@ export default class orders extends Component {
 }
 
 
-  async updateInvoice(invoice, groupId,orderId){
-    console.log(invoice)
-    const params = new URLSearchParams();
-    params.append("invoice", invoice);
-    params.append("groupId", groupId);
-    params.append("orderId", orderId)
-    await Axios({
-      method : "post",
-      data : params,
-      url : "/updateInvoice"
-    }).then((res)=>{
-      this.orderList(this.state.value,this.state.page,this.state.name)
-      
-    })
-  }
+  
 
-  async pickUpConfirm(groupId){
-    const params = new URLSearchParams();
-    params.append("groupId", groupId)
-    await Axios({
-      method : "post",
-      data : params,
-      url : "/pickUpConfirm"
-    }).then((res)=>{
-      this.orderList(this.state.value,this.state.page,this.state.name)
-      
-    })
-  }
+ 
 
-  handleChangeInput2(e) {
-    this.setState({
-      [e.target.name] : e.target.value
-    })
-  }
+ 
   async orderList(code,page,name){
     const params = new URLSearchParams();
     params.append("code", code)
@@ -78,23 +54,16 @@ export default class orders extends Component {
         list : res.data.content,
         totalPages: res.data.totalPages
       })
-      // if(page === res.data.totalPages-1 || page === res.data.totalPages){
-      //   document.getElementById("next").setAttribute('disabled','true');
-      // }else{
-      //   document.getElementById("next").removeAttribute('disabled')
-
-      // }
       
-      // if(page === 0){
-      //   document.getElementById("prev").setAttribute('disabled','true');
-      // }else{
-      //   document.getElementById("prev").removeAttribute('disabled')
-
-      // }
     })
   }
 
-  
+  change(){
+    this.setState({
+      change : 1
+    })
+    console.log(111)
+  }
 
 
 
@@ -119,7 +88,7 @@ export default class orders extends Component {
   
   handleKeyPress(e){
     console.log(e.keyCode)
-    if(e.keyCode === 0){ 
+    if(e.keyCode === 13){ 
       console.log(this.state.name)
       this.orderList(this.state.value, 0, this.state.name);
     }
@@ -149,6 +118,15 @@ export default class orders extends Component {
       this.orderList(this.state.value,this.state.page,this.state.name)
     });
   };
+
+  shouldComponentUpdate(nextProps,nextState){
+    console.log(nextState.change)
+    if(nextState.change!==this.state.change){
+      console.log(this.state.change)
+      this.orderList(this.state.value,this.state.page,this.state.name)
+    }
+    return true;
+  }
 
   render() {
     const {list} = this.state
@@ -184,28 +162,11 @@ export default class orders extends Component {
 
     <br></br>
 
-    {data.codeContent === "배송준비중" ?  
-
-    <SlideToggle collapsed="true" render={({toggle, setCollapsibleElement})=>(
-      <div className="my-collapsible">
-        <Button variant="outline-dark" className="jaehoon" onClick={toggle}>
-        송장번호등록
-        </Button>
-        <div className="my-collapsible__content" ref={setCollapsibleElement}>
-          <div className="my-collapsible__content-inner">
-          <div>
-        <input type="text" onChange={this.handleChangeInput2.bind(this)} name="invoice" value={this.state.invoice}></input>
-              <Button className="jaehoon" variant="outline-dark" onClick={()=>this.updateInvoice.bind(this)(this.state.invoice, data.groupId, data.orderId)}>등록</Button>
-      </div>
-          </div>
-        </div>
-    </div>
-    )}></SlideToggle>
-    : ""}
+    {data.codeContent === "배송준비중" ? <UpdateInvoice orderList={this.change} groupId={data.groupId} orderId={data.orderId}></UpdateInvoice>: ""}
 
     {data.codeContent === "배송중" ? <Deliver></Deliver> : ""}
-    {data.codeContent === "환불대기중" ? <OrderCancel order={data}></OrderCancel> : ""}
-    {data.codeContent === "픽업예정" ? <Button className="jaehoon" variant="outline-dark" onClick={()=>this.pickUpConfirm.bind(this)(data.groupId)}>픽업완료</Button> : ""}
+    {data.codeContent === "환불대기중" ? <OrderCancel orderList={this.change} order={data}></OrderCancel> : ""}
+    {data.codeContent === "픽업예정" ? <PickUpConfirm orderList={this.change}></PickUpConfirm>: ""}
     </td>
   </tr>))
 
@@ -247,12 +208,12 @@ export default class orders extends Component {
       <div>
          <table className="n-table">
           <colgroup>
-            <col style={{width: + 40+'%'}}></col>
+            <col style={{width: + 35+'%'}}></col>
             <col style={{width: + 9+'%'}}></col>
             <col style={{width: + 12+'%'}}></col>
             <col style={{width: + 9+'%'}}></col>
             <col style={{width: + 12+'%'}}></col>
-            <col style={{width: + 23+'%'}}></col>
+            <col style={{width: + 27+'%'}}></col>
           </colgroup>
           <tr >
               <th>상품정보</th>

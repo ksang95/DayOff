@@ -16,4 +16,5 @@ public class ProductList {
     private int productId;
     private String productName;
     private String productThumbnailName;
+    private int price;
 }

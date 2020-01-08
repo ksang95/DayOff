@@ -231,7 +231,7 @@ public class ProductManagement {
         System.out.println(String.format("Score(Confidence): %s", product.getScore()));
 		System.out.println(String.format("Image name: %s", product.getImage()));
 		System.out.println(product.getProduct().getProductCategory());
-        if(product.getScore() > 0.55) {
+        if(product.getScore() > 0.5) {
         	System.out.println(product.getScore());
 			String name = product.getProduct().getDisplayName();
         imageList.add(name);

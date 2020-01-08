@@ -140,7 +140,7 @@ import './CartView.css';
            price={cart.price}
            totalPrice={cart.totalPrice}
            realTotal={cart.realTotal}
-           productId={cart.product.id}
+           productId={cart.productId}
            onChange={this.onChange}
          />
        );

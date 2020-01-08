@@ -5,13 +5,12 @@
   margin-left: 20px;
 }
 .cards-slider {
-  overflow: hidden;
+  /* overflow: hidden; */
 	white-space: nowrap;
 	width: 100%;
 	height: 100%;
 	position: relative;
 	display: inline-block;
-  background: #e3e3e3;
   margin: 5px 0;
 }
 
@@ -46,6 +45,7 @@
 .card .price{
   font-size : 15px;
   font-weight: 500;
+  color : black
 
 }
 .card a{
@@ -58,15 +58,12 @@
   white-space: pre-wrap;
 }
 
-.card img {
+/* .card img {
   display: block;
   position: relative;
   width: 100%;
   height : 250px;
-}
-.card img:hover{
-  opacity: 0.5;
-}
+} */
 .slider-btn {
   padding: 0;
   font-size: 20px;

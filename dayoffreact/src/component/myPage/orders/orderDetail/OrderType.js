@@ -34,7 +34,7 @@ class OrderType extends Component {
                                 <th>연락처</th><td>{deliverPhone}</td>
                             </tr>
                             <tr>
-                                <th>송장번호</th><td>CJ대한통운 {invoice} <Button onClick={this.onClick}>배송조회</Button></td>
+                                <th>송장번호</th><td>우체국택배 {invoice} <Button onClick={this.onClick}>배송조회</Button></td>
                             </tr>
                         </tbody>
                     </Table>
