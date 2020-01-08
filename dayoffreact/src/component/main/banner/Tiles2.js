@@ -175,7 +175,7 @@ class Tile extends React.Component {
             <div  className='TotalTilejh' >
                 <div id="Total"className="tilejh" style={this.props.change}>
                     {/* <Link to={"/product/"+this.props.product.id}> */}
-                    <img
+                    <img className="tileImg"
                         // src={"https://storage.googleapis.com/bit-jaehoon/"+product.productThumbnailName}
                         src={"https://storage.googleapis.com/bit-jaehoon/"+ this.props.product.productThumbnailName}
                         id={this.props.product.productId}
@@ -186,7 +186,7 @@ class Tile extends React.Component {
                 <p className="price">{this.props.product.price}원</p>
                 </Link>
                     {/* </Link> */}
-                    <button id={"tileBtn"+this.props.product.productId} style={this.props.changeBtn} onClick={this._clickHandler} className='jhBtn'>ddfadsfa</button>
+                    <img id={"tileBtn"+this.props.product.id} style={this.props.changeBtn} onClick={this._clickHandler} className='jhBtn' src='/images/enlargement.png'></img>
                 </div>
             </div>
         )
