@@ -41,7 +41,7 @@ public class KakaoPay {
 		String userId = Integer.toString(list.get(0).getUserId());
 		// 서버로 요청할 Header
 		HttpHeaders headers = new HttpHeaders();
-		headers.add("Authorization", "KakaoAK " + "8921a420fe7e75c1306abfe0fc7e5b52");
+		headers.add("Authorization", "KakaoAK " + "");
 		headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
 		headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
 		String s = Integer.toString(sum);
@@ -91,7 +91,7 @@ public class KakaoPay {
 		String userId = Integer.toString(list.get(0).getUserId());
 		// 서버로 요청할 Header
 		HttpHeaders headers = new HttpHeaders();
-		headers.add("Authorization", "KakaoAK " + "8921a420fe7e75c1306abfe0fc7e5b52");
+		headers.add("Authorization", "KakaoAK " + "");
 		headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
 		headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
 		System.out.println(kakaoPayReadyVO.getTid());
@@ -131,7 +131,7 @@ public class KakaoPay {
 		RestTemplate restTemplate = new RestTemplate();
 		// 서버로 요청할 Header
 		HttpHeaders headers = new HttpHeaders();
-		headers.add("Authorization", "KakaoAK " + "8921a420fe7e75c1306abfe0fc7e5b52");
+		headers.add("Authorization", "KakaoAK " + "");
 		headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
 		headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
 		// 서버로 요청할 Body
@@ -160,7 +160,7 @@ public class KakaoPay {
 		RestTemplate restTemplate = new RestTemplate();
 		// 서버로 요청할 Header
 		HttpHeaders headers = new HttpHeaders();
-		headers.add("Authorization", "KakaoAK " + "8921a420fe7e75c1306abfe0fc7e5b52");
+		headers.add("Authorization", "KakaoAK " + "");
 		headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
 		headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
 		// 서버로 요청할 Body
