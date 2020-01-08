@@ -221,7 +221,7 @@ class ListCartComponent extends Component {
         return (
         
                 
-                <div>
+                <div className="payinfo">
                     <h2>{this.state.selectValue}</h2>
                     <div>
                 <h4 className="titlea">ORDER</h4>
@@ -301,7 +301,7 @@ class ListCartComponent extends Component {
                     </tbody>  */}
                 </table>
                 
-    <h4 className="right">총주문금액{this.state.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</h4>
+    <h4 className="right">총주문금액{this.state.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원</h4>
     
   
 
