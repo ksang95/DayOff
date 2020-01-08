@@ -34,13 +34,16 @@
 }
 .buttons{
     width: 90%;
-    margin: 100px auto;
+    margin: 120px auto;
 }
 .cartHeader{
     width: 93%;
     margin: auto;
     padding-top: 50px;
+    padding-bottom: 50px;
     letter-spacing: 0.1em;
+    vertical-align: center;
+    align-items: center;
 }
 .cartTable{
     width: 93%;
@@ -56,6 +59,6 @@
 }
 .totalCover .realTotal{
     float: right;
-    margin-top: 20px;
+    margin-top: 50px;
 
 }
