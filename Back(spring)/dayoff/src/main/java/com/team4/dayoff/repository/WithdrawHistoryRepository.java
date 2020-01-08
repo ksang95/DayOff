@@ -13,7 +13,7 @@ import org.springframework.data.repository.query.Param;
  */
 public interface WithdrawHistoryRepository extends JpaRepository<WithdrawHistory,Integer> {
     
-    @Query(value="SELECT sex, (TIMESTAMPDIFF(year, birth, CURDATE()) DIV 10)*10  ageGroup, COUNT(IF(DATE_FORMAT(signUpDate,'%Y-%m')=:yearMonth, u.id, null)) signUp, COUNT(IF(DATE_FORMAT(withdrawDate,'%Y-%m')=:yearMonth, u.id, null)) withdraw FROM users u LEFT JOIN withdrawHistory w ON w.userId=u.id GROUP BY sex, ageGroup HAVING ageGroup>=10 AND ageGroup<=60 ORDER BY ageGroup, sex",nativeQuery=true)
+    @Query(value="SELECT sex, (TIMESTAMPDIFF(year, birth, DATE(CONCAT(:yearMonth,'-01'))) DIV 10)*10  ageGroup, COUNT(IF(DATE_FORMAT(signUpDate,'%Y-%m')=:yearMonth, u.id, null)) signUp, COUNT(IF(DATE_FORMAT(withdrawDate,'%Y-%m')=:yearMonth, u.id, null)) withdraw FROM users u LEFT JOIN withdrawHistory w ON w.userId=u.id GROUP BY sex, ageGroup HAVING ageGroup>=10 AND ageGroup<=60 ORDER BY ageGroup, sex",nativeQuery=true)
     List<String[]> countUserSexAndAgeGroupByYearMonth(@Param("yearMonth") String yearMonth);
 
     @Query(value="SELECT * FROM ( "+
@@ -49,9 +49,9 @@ public interface WithdrawHistoryRepository extends JpaRepository<WithdrawHistory
     List<String[]> countReasonByYear(@Param("year") String year);
 
     @Query(value="SELECT yearMonth FROM ( "+
-        "SELECT DISTINCT DATE_FORMAT(signUpDate,'%Y-%m') yearMonth FROM users  WHERE (TIMESTAMPDIFF(year, birth, CURDATE()) DIV 10)*10 BETWEEN 10 AND 60 "+
+        "SELECT DISTINCT DATE_FORMAT(signUpDate,'%Y-%m') yearMonth FROM users  WHERE (TIMESTAMPDIFF(year, birth, DATE(CONCAT(DATE_FORMAT(signUpDate,'%Y-%m'),'-01'))) DIV 10)*10 BETWEEN 10 AND 60 "+
         "UNION "+
-        "SELECT DISTINCT DATE_FORMAT(withdrawDate,'%Y-%m') yearMonth FROM withdrawHistory LEFT JOIN users ON withdrawHistory.userId=users.id WHERE (TIMESTAMPDIFF(year, birth, CURDATE()) DIV 10)*10 BETWEEN 10 AND 60) u ORDER BY yearMonth DESC",nativeQuery = true)
+        "SELECT DISTINCT DATE_FORMAT(withdrawDate,'%Y-%m') yearMonth FROM withdrawHistory LEFT JOIN users ON withdrawHistory.userId=users.id WHERE (TIMESTAMPDIFF(year, birth, DATE(CONCAT(DATE_FORMAT(withdrawDate,'%Y-%m'),'-01'))) DIV 10)*10 BETWEEN 10 AND 60) u ORDER BY yearMonth DESC",nativeQuery = true)
     List<String> findYearMonthOfUsers();
 
     @Query(value="SELECT year FROM ( "+

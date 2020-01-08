@@ -187,7 +187,7 @@ import './CartView.css';
          <Link
            onClick={this.handleOrder}
            to={{
-             pathname: "/payInfoList",
+             pathname: "/payment",
              state: {
                cartList: this.state.checkedItem
               }
