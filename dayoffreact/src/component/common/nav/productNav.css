@@ -12,9 +12,12 @@
   }
   
   .Product_NavTitle {
-    font-size: 13px;
     width: 160px;
     margin-top: 30px;
+}
+
+.Product_NavTitle > h3{
+  font-size: 23px;
 }
 
 .NavInfo_Box {
@@ -27,9 +30,9 @@
       width: 150px;
   }
 
-  .Product_NavCategory_1{
+  .Product_NavCategory1{
     border-top: 2px solid #c9c9c9;
-    height: 337px;
+    height: 390px;
     width: 150px;
   }
 
@@ -40,10 +43,8 @@
   }
 
   .Nava {
-      font-size: 20px;
-      font-weight: 400;
-      color: black;
-      text-decoration: none !important;
+    text-decoration: none !important;
+    color: black;
     }
 
   .Nava:hover {

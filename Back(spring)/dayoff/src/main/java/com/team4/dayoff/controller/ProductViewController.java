@@ -52,6 +52,11 @@ public class ProductViewController {
 		return productRepository.MonthProductList();
 	}
 
+	@GetMapping("/MonthProductListmax5")
+	public List<ProductView> MonthProductListmax5(){
+		return productRepository.MonthProductListMax5();
+	}
+
 	@GetMapping("/TopBannerList")
 	public List<ProductView> TopBannerList(){
 		return productRepository.TopBannerList();

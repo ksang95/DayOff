@@ -1,22 +1,20 @@
 
 .form{
-    /* margin-top: 50px;
-    padding:50px 200px 50px 200px;
-    left: 200px;
-   position: relative; */
-   width : 60%;
-   min-height: 800px;
-   align-items: center;
-   text-align: center;
-   margin:auto;
+    width: 60%;
+    min-height: 1044px;
+    /* align-items: center; */
+    /* text-align: center; */
+    /* margin: auto; */
+    /* left: 17%; */
+    position: sticky;
+    left: 20%;
+    top: 44%;
 }
 .reviewWrite{
     width: 100%;
     text-align: center;
-    padding: 20px;
+    padding: 41px;
     border-bottom: 1px solid #ced4da;
-    margin: 50px auto;
-
 }
 .textarea{
     min-height: 300px;

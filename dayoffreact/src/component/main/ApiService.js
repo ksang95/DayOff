@@ -8,6 +8,10 @@ class ApiService {
         return axios.get('/MonthProductList')
     }
 
+    MonthProductListmax5(){
+        return axios.get('/MonthProductListmax5')
+    }
+
     RegisterProduct(){
         return axios.get('/productRegister')
     }
@@ -78,24 +82,6 @@ class ApiService {
 
     isAvailableDown(id){
         return axios.get('/isAvailableDown/'+id);
-    }
-
-
-    
-    fetchUserById(id) {
-        return axios.get(USER_API_BASE_URL + '/' + id);
-    }
-
-    deleteUser(id) {
-        return axios.delete(USER_API_BASE_URL + '/' + id);
-    }
-
-    addUser(user) {
-        return axios.post(USER_API_BASE_URL, user);
-    }
-
-    editUser(user) {
-        return axios.put(USER_API_BASE_URL + '/' + user.id, user);
     }
 
 }

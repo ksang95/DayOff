@@ -24,7 +24,7 @@ refreshPage() {
 
             <li className='category__item'><Link to={"/productList/category/OUTER"}>OUTER</Link>
             <ul>
-            <li><Link to={"/productList/category/점퍼"}>점퍼</Link></li>
+            <li><Link to={"/productList/category/블레이저"}>블레이저</Link></li>
             <li><Link to={"/productList/category/패딩"}>패딩</Link></li>
             <li><Link to={"/productList/category/재킷"}>재킷</Link></li>
             <li><Link to={"/productList/category/코트"}>코트</Link></li>
@@ -38,7 +38,7 @@ refreshPage() {
             <li><Link to={"/productList/category/티셔츠"}>티셔츠</Link></li>
             <li><Link to={"/productList/category/블라우스"}>블라우스 & 셔츠</Link></li>
             <li><Link to={"/=productList/category/니트"}>니트</Link></li>
-            <li><Link to={"/productList/category/조끼"}>조끼</Link></li>
+            <li><Link to={"/productList/category/탑"}>탑</Link></li>
             </ul>
             </li>
 
@@ -64,9 +64,9 @@ refreshPage() {
             <li><Link to={"/productList/category/쥬얼리"}>쥬얼리</Link></li>
             <li><Link to={"/productList/category/벨트"}>벨트</Link></li>
             <li><Link to={"/productList/category/모자"}>모자</Link></li>
-            <li><Link to={"/productList/category/양말 & 레깅스"}>양말 & 레깅스</Link></li>
+            <li><Link to={"/productList/category/양말"}>양말</Link></li>
             <li><Link to={"/productList/category/스카프"}>스카프</Link></li>
-            <li><Link to={"/productList/category/헤어액세서리"}>헤어 액세서리</Link></li>
+            <li><Link to={"/productList/category/헤어 액세서리"}>헤어 액세서리</Link></li>
 
             </ul>
             </li>
