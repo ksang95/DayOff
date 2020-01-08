@@ -58,15 +58,12 @@
   white-space: pre-wrap;
 }
 
-.card img {
+/* .card img {
   display: block;
   position: relative;
   width: 100%;
   height : 250px;
-}
-.card img:hover{
-  opacity: 0.5;
-}
+} */
 .slider-btn {
   padding: 0;
   font-size: 20px;

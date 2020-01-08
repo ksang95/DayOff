@@ -62,7 +62,7 @@ export class Tiles2 extends Component {
         return (
             <div className="card" id="card" style={this.props.cardStyle}>
                 {this.props.list.map(product => 
-                 <Tile Left={this.props.Left} history={this.props.history} changeFunc={this.stateChange} changeBtn={changeBtn} change={change} product={product} key={product.productId}/>)}
+                 <Tile kind={this.props.kind} Left={this.props.Left} history={this.props.history} changeFunc={this.stateChange} changeBtn={changeBtn} change={change} product={product} key={this.props.kind+product.productId}/>)}
             </div>
         );
     }
@@ -110,7 +110,8 @@ class Tile extends React.Component {
                     });
                 } else {
                     let id = this.props.product.productId
-                    document.getElementById(this.props.product.productId).onclick = function(){
+                    let kind = this.props.kind
+                    document.getElementById(kind+id).onclick = function(){
                         window.location.href = "/product/"+ id;
                     }
                     this.setState({
@@ -128,7 +129,8 @@ class Tile extends React.Component {
     
             componentDidMount(){
                 let id = this.props.product.productId
-                document.getElementById(id).onclick = function(){
+                let kind = this.props.kind
+                document.getElementById(kind+id).onclick = function(){
                     window.location.href = "/product/"+ id;
                 }
             }
@@ -143,8 +145,12 @@ class Tile extends React.Component {
         // When tile clicked
         if (this.state.open) {
             let id = this.props.product.productId
-            document.getElementById(this.props.product.productId).onclick = function(){
-                document.getElementById("tileBtn"+id).click();
+            let kind = this.props.kind
+
+            document.getElementById(kind+id).onclick = function(){
+                console.log(id)
+                document.getElementById(kind+"btn"+id).click();
+                console.log(id)
             }
             tileStyle = {
                 
@@ -178,7 +184,7 @@ class Tile extends React.Component {
                     <img className="tileImg"
                         // src={"https://storage.googleapis.com/bit-jaehoon/"+product.productThumbnailName}
                         src={"https://storage.googleapis.com/bit-jaehoon/"+ this.props.product.productThumbnailName}
-                        id={this.props.product.productId}
+                        id={this.props.kind+this.props.product.productId}
                         style={tileStyle}
                     />
                     <Link to={"/product/"+this.props.product.productId}>
@@ -186,7 +192,7 @@ class Tile extends React.Component {
                 <p className="price">{this.props.product.price}원</p>
                 </Link>
                     {/* </Link> */}
-                    <img id={"tileBtn"+this.props.product.id} style={this.props.changeBtn} onClick={this._clickHandler} className='jhBtn' src='/images/enlargement.png'></img>
+                    <img id={this.props.kind+"btn"+this.props.product.productId} style={this.props.changeBtn} onClick={this._clickHandler} className='jhBtn' src='/images/enlargement.png'></img>
                 </div>
             </div>
         )

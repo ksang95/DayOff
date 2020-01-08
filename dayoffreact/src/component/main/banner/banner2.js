@@ -166,7 +166,9 @@ class Tile extends React.Component {
         if (this.state.open) {
             let id = this.props.product.id
             document.getElementById(this.props.product.id).onclick = function(){
+                console.log(id)
                 document.getElementById("tileBtn"+id).click();
+                console.log(id)
             }
             tileStyle = {
                 width: '50vw',

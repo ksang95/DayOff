@@ -19,11 +19,12 @@ class productTogetherBuy extends Component {
         //     (data1,index) => (<div className="listDiv"><Link to={detail+data1.productId}><img className="imglist" width="200px" height="250px" alt="" src={"https://storage.googleapis.com/bit-jaehoon/"+data1.productThumbnailName}></img><p>{data1.productName}</p></Link></div>)
         // )
         // }
+        console.log(this.props.Togetherlist)
         return (
             <div style={{width:"93%", margin:"auto"}}>
                 <h2>이 상품을 구매한 회원이 함께 구매한 상품</h2>
                 <hr  style={{margin:"auto",borderTop : "1px solid black"}}></hr>  
-                {this.props.Togetherlist ? <Display List={this.props.Togetherlist}></Display> : ''} 
+                {this.props.Togetherlist ? <Display kind="together" List={this.props.Togetherlist}></Display> : ''} 
             </div>
         );
     }

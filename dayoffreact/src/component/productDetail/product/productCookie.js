@@ -26,7 +26,7 @@ class productCookie extends Component {
 
                 <hr style={{borderTop : "1px solid black"}}></hr>
                 {/* <Slider heading="Example Slider" slides={cookieList} />    */}
-            {this.props.cookieList ? <Display List={this.props.cookieList}></Display> : ''}
+            {this.props.cookieList ? <Display kind="cookie" List={this.props.cookieList}></Display> : ''}
             </div>
         );
     }

@@ -76,8 +76,9 @@ public class ProductDetailController{
         ProductList productList = new ProductList();
         productRepository.togetherBuy(id).forEach(i->{
             productList.setProductId((Integer)i[0]);
-            productList.setProductName((String)i[1]);
-            productList.setProductThumbnailName((String)i[2]);
+            productList.setPrice((Integer)i[1]);
+            productList.setProductName((String)i[2]);
+            productList.setProductThumbnailName((String)i[3]);
             list.add(productList);
         });
         System.out.println(list+"222222222222333333333333333333333");

@@ -66,7 +66,7 @@ import { Tiles2 } from '../../main/banner/Tiles2';
             <button className="slider-btn btn-r" onClick={() => this.handleClick('next')}>&gt;</button>
           </div>
           {/* <Cards cardStyle={this.state.cardStyle} cookieList={this.props.cookieList} /> */}
-          <Tiles2 Left={this.state.Left} cardStyle={this.state.cardStyle} list={this.props.List}></Tiles2>
+          <Tiles2 kind={this.props.kind} Left={this.state.Left} cardStyle={this.state.cardStyle} list={this.props.List}></Tiles2>
         </div>
       )
     }
