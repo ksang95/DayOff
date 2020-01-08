@@ -259,8 +259,8 @@ class ListCartComponent extends Component {
                             <td>{cart.color}</td>
                             <td>{cart.size}</td>
                             <td>{cart.quantity}</td>
-                            <td>{cart.price}</td>
-                            <td>{cart.totalPrice}</td>
+                            <td><div>{cart.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원</div></td>
+                            <td>{cart.totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원</td>
                             {/* <td>{cart.id}</td>
                             <td>{cart.userId}</td>
                             <td>{cart.productId}</td>
@@ -433,10 +433,10 @@ class ListCartComponent extends Component {
                     </thead>
                      
                     <tbody>
-                            <td>{this.state.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
-                            <td>{this.state.discount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
-                            <td>{this.state.cdemoney}</td>
-                            <td>{this.state.transpay.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>                       
+                            <td><div>{this.state.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원</div></td>
+                            <td><div>{this.state.discount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원</div></td>
+                            <td><div>{this.state.cdemoney.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원</div></td>
+                            <td><div>{this.state.transpay.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원</div></td>                       
                     </tbody> </table>
 
 
@@ -447,7 +447,7 @@ class ListCartComponent extends Component {
           <InputGroupText>적립금할인</InputGroupText>
         </InputGroupAddon>
         <input placeholder="useEmoney" name="useEmoney" className="f" value={this.state.useEmoney} onChange={this.onChange}/> 
-        <button className="c" onClick={this.use.bind(this)}>사용</button> <h5 className="o">적립금:{this.state.emoney}</h5>
+        <button className="c" onClick={this.use.bind(this)}>사용</button> <h5 className="o">적립금:{this.state.emoney}원</h5>
 </InputGroup>
       <br />
 <div className="q">
