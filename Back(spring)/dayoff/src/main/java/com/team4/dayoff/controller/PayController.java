@@ -210,7 +210,7 @@ public class PayController {
 		users = userRepository.findById(userId);
 		ordergroup.setAid(info.getAid());
 		ordergroup.setCid(info.getCid());
-		ordergroup.setOrderDate(info.getApproved_at());
+		//ordergroup.setOrderDate(info.getApproved_at());
 		ordergroup.setGradeDiscount(discount);
 		ordergroup.setPointUse(useEmoney);
 //		ordergroup.setPointUser(0);
