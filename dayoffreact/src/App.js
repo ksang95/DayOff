@@ -79,7 +79,7 @@ class App extends Component {
           <Route path="/vision" component={Vision} />
           <Route path="/cart" component={CartView} />
           <Route path="/product/:productId" component={Product} />
-          <ProtectedRoute path="/payInfoList" component={ListCartComponent} />
+          <ProtectedRoute path="/payment" component={ListCartComponent} />
           <Switch>
           <Route path="/productList" component={Footer} />
           <Route path="/admin" component={Footer} />

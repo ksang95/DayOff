@@ -221,7 +221,7 @@ class ListCartComponent extends Component {
         return (
         
                 
-                <div className="paylist">
+                <div>
                     <h2>{this.state.selectValue}</h2>
                     <div>
                 <h4 className="titlea">ORDER</h4>
