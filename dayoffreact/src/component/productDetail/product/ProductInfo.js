@@ -287,7 +287,7 @@ class ProductInfo extends Component {
               <div className="topLeft">
                 {/* <div className="images">{image}</div> */}
                 <div className="images">
-                  <CenterMode images={product.productImage}></CenterMode>
+                {product.productImage.length>0&&<CenterMode images={product.productImage}></CenterMode>}
                 </div>
               </div>
               <div className="topRight">

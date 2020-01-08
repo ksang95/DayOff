@@ -13,25 +13,28 @@ export default class CenterMode extends Component {
     };
   }
 
-  componentDidMount() {
+  componentDidMount(){
     this.setState({
       nav1: this.slider1,
       nav2: this.slider2
     });
   }
 
+
   render() {
       const images=this.props.images;
       const baseUrl="https://storage.googleapis.com/bit-jaehoon/";
-      const imageDiv=images.map(i=><div  key={i.id}><img src={baseUrl+i.name}></img></div>);
+      const imageDiv=images.map(i=><div  key={i.id} id={i.id}><img src={baseUrl+i.name}></img></div>);
     return (
       <div>
         <Slider
-          asNavFor={this.state.nav2}
-          ref={slider => (this.slider1 = slider)}
-          arrows={false}
-          initialSlide={0}
-          className="largeSlide"
+        asNavFor={this.state.nav2}
+        ref={slider => (this.slider1 = slider)}
+        arrows={false}
+        swipeToSlide={true}
+        focusOnSelect={true}
+        // initialSlide={0}
+        className="largeSlide"
         >
           {imageDiv}
         </Slider>
@@ -46,8 +49,8 @@ export default class CenterMode extends Component {
           focusOnSelect={true}
           centerMode={true}
           className="slick-thumb"
-        >
-         {imageDiv}
+          >
+          {imageDiv}
         </Slider>
       </div>
     );
