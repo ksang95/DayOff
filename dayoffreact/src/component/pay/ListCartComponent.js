@@ -221,7 +221,7 @@ class ListCartComponent extends Component {
         return (
         
                 
-                <div>
+                <div className="payinfo">
                     <h2>{this.state.selectValue}</h2>
                     <div>
                 <h4 className="titlea">ORDER</h4>
@@ -251,16 +251,16 @@ class ListCartComponent extends Component {
                         </tr>
                     </thead>
                      
-                    <tbody>
+                    <tbody >
                   {  this.state.carts.map(
             cart =>
                         <tr key={cart.id}>
-    <td><img height="100px"width="100px" src={"https://storage.googleapis.com/bit-jaehoon/"+cart.productThumbnailName} alt="image"></img>{cart.name}</td>
+    <td ><div style={{ wordBreak: "break-all" }}><img height="100px"width="100px" src={"https://storage.googleapis.com/bit-jaehoon/"+cart.productThumbnailName} alt="image"></img></div>{cart.name}</td>
                             <td>{cart.color}</td>
                             <td>{cart.size}</td>
                             <td>{cart.quantity}</td>
-                            <td>{cart.price}</td>
-                            <td>{cart.totalPrice}</td>
+                            <td><div>{cart.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원</div></td>
+                            <td>{cart.totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원</td>
                             {/* <td>{cart.id}</td>
                             <td>{cart.userId}</td>
                             <td>{cart.productId}</td>
@@ -301,7 +301,7 @@ class ListCartComponent extends Component {
                     </tbody>  */}
                 </table>
                 
-    <h4 className="right">총주문금액{this.state.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</h4>
+    <h4 className="right">총주문금액{this.state.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원</h4>
     
   
 
@@ -433,10 +433,10 @@ class ListCartComponent extends Component {
                     </thead>
                      
                     <tbody>
-                            <td>{this.state.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
-                            <td>{this.state.discount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
-                            <td>{this.state.cdemoney}</td>
-                            <td>{this.state.transpay.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>                       
+                            <td><div>{this.state.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원</div></td>
+                            <td><div>{this.state.discount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원</div></td>
+                            <td><div>{this.state.cdemoney.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원</div></td>
+                            <td><div>{this.state.transpay.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원</div></td>                       
                     </tbody> </table>
 
 
@@ -447,7 +447,7 @@ class ListCartComponent extends Component {
           <InputGroupText>적립금할인</InputGroupText>
         </InputGroupAddon>
         <input placeholder="useEmoney" name="useEmoney" className="f" value={this.state.useEmoney} onChange={this.onChange}/> 
-        <button className="c" onClick={this.use.bind(this)}>사용</button> <h5 className="o">적립금:{this.state.emoney}</h5>
+        <button className="c" onClick={this.use.bind(this)}>사용</button> <h5 className="o">적립금:{this.state.emoney}원</h5>
 </InputGroup>
       <br />
 <div className="q">

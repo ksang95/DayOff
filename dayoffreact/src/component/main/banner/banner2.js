@@ -3,8 +3,7 @@ import './banner2.scss';
 import ApiService from '../ApiService';
 import Axios from 'axios';
 import { Link, withRouter } from 'react-router-dom'
-import jQuery from "jquery";
-window.$ = window.jQuery = jQuery;
+
 
 
 
