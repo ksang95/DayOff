@@ -128,7 +128,7 @@ class ListCartComponent extends Component {
             if(this.state.grade=='골드'){
                 discountprice=Math.ceil(sum*0.97);
             }
-            if(this.state.grade=='플레티넘'){
+            if(this.state.grade=='플래티넘'){
                 discountprice=Math.ceil(sum*0.96);
             }
             this.setState({totalPay:Math.round(Math.ceil(discountprice)/10)*10})
