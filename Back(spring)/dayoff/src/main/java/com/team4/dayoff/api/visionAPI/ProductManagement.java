@@ -39,9 +39,9 @@ import org.springframework.stereotype.Service;
 public class ProductManagement {
 
 	public static void main(String[] args) throws IOException {
-		listProducts("strong-kit-252505", "asia-east1");
+		// listProducts("strong-kit-252505", "asia-east1");
 		// listProductSets("strong-kit-252505", "asia-east1");
-		//  deleteProductSet("strong-kit-252505", "asia-east1", "lastData");
+		//  deleteProductSet("strong-kit-252505", "asia-east1", "bitDayOff");
 		// deleteProduct("'asdas'");
 		// listReferenceImagesOfProduct("Faux leather coat with shearling");
 	}
@@ -181,7 +181,7 @@ public class ProductManagement {
 
       // Get the full path of the product set.
       String productSetPath =
-		  ProductSearchClient.formatProductSetName("strong-kit-252505", "asia-east1", "jaehoon");
+		  ProductSearchClient.formatProductSetName("strong-kit-252505", "asia-east1", "DayOffProject");
 		  //ourProduct
 
       // Read the image as a stream of bytes.

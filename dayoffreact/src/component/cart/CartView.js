@@ -10,6 +10,7 @@ import './CartView.css';
      cartView: [],
      realTotal: 0,
      checkedItem: []
+     
    };
 
    handleCartView = () => {
@@ -66,7 +67,7 @@ import './CartView.css';
      });
    };
    onChange = e => {
-     console.log(e.target.checked);
+
      if (e.target.checked) {
        if (e.target.value === "-1") {
          const checkGroup = document.getElementsByClassName("checkGroup");
@@ -120,7 +121,7 @@ import './CartView.css';
    };
 
    render() {
-     console.log(this.state.realTotal);
+     
      const cartView = this.state.cartView.map((cart, index) => {
        return (
          <Cart
@@ -187,7 +188,7 @@ import './CartView.css';
          <Link
            onClick={this.handleOrder}
            to={{
-             pathname: "/payInfoList",
+             pathname: "/payment",
              state: {
                cartList: this.state.checkedItem
               }

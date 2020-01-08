@@ -334,7 +334,7 @@ class ProductInfo extends Component {
                   <Link
                     onClick={this.handleOrder}
                     to={{
-                      pathname: "/payInfoList",
+                      pathname: "/payment",
                       state: {
                         cartList: [
                           {

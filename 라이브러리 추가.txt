@@ -19,6 +19,8 @@ yarn add react-slick
 yarn add slick-carousel
 yarn add reactstrap
 yarn add beauty-stars
+yarn add google-maps-react
+
 =====================================
 
 back (dependency)
