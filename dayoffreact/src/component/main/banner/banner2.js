@@ -170,9 +170,9 @@ class Tile extends React.Component {
             }
             tileStyle = {
                 width: '50vw',
-                height: '23vw',
+                height: '37vw',
                 position: 'absolute',
-                top: '130%',
+                top: '104%',
                 left: '55%',
                 margin: '0',
                 marginTop: '-31vw',
@@ -202,7 +202,7 @@ class Tile extends React.Component {
                         style={tileStyle}
                     />
                     {/* </Link> */}
-                    <button id={"tileBtn"+this.props.product.id} style={this.props.changeBtn} onClick={this._clickHandler} className='titititi'>ddfadsfa</button>
+                    <img id={"tileBtn"+this.props.product.id} style={this.props.changeBtn} onClick={this._clickHandler} className='titititi' src='/images/enlargement.png'></img>
                 </div>
             </div>
         )
