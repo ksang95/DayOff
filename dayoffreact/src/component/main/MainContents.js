@@ -12,7 +12,7 @@ export default class MainContentItem extends Component {
   }
   
   test1() {
-    axios.get('/productRegister').then(res=>{
+    axios.get('/productTop').then(res=>{
       const products =res.data;
       this.setState({ products });
     });

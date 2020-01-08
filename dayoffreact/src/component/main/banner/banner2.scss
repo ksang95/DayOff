@@ -10,13 +10,13 @@ body {
 }
 .tiles {
     padding: 6vh 10vw;
-    display: flex;
     flex-wrap: wrap;
     flex-direction: row;
     justify-content: center;
     position: relative;
 }
 .tile {
+    display: inline-block;
     margin: 15px;
     cursor: pointer;
     overflow: hidden;
@@ -29,4 +29,17 @@ body {
             transform: scale(1.1);
         }
     }
+}
+
+.Banners{
+    min-width: 1500px;
+}
+
+.TotalTile{
+    display: inline-block;
+    width: 316px;
+}
+.titititi{
+    position: absolute;
+    right : 5%;
 }

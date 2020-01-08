@@ -51,6 +51,11 @@ public class ProductViewController {
 	public List<ProductView> MonthProductList(){
 		return productRepository.MonthProductList();
 	}
+
+	@GetMapping("/TopBannerList")
+	public List<ProductView> TopBannerList(){
+		return productRepository.TopBannerList();
+	}
 	
 //	
 	@GetMapping("/MainCategory/category/{name}")

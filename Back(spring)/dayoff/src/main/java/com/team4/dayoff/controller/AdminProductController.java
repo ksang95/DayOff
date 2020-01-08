@@ -265,9 +265,9 @@ public class AdminProductController {
 
         }
         File file = new File("./visionInsert.csv");
-        GoogleCloudStorageUpload.saveFile(file);
+        // GoogleCloudStorageUpload.saveFile(file);
         try {
-            productManagement.importProductSets("gs://bit-jaehoon/visionInsert.csv");
+            // productManagement.importProductSets("gs://bit-jaehoon/visionInsert.csv");
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
