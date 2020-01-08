@@ -251,11 +251,11 @@ class ListCartComponent extends Component {
                         </tr>
                     </thead>
                      
-                    <tbody>
+                    <tbody >
                   {  this.state.carts.map(
             cart =>
                         <tr key={cart.id}>
-    <td><img height="100px"width="100px" src={"https://storage.googleapis.com/bit-jaehoon/"+cart.productThumbnailName} alt="image"></img>{cart.name}</td>
+    <td ><div style={{ wordBreak: "break-all" }}><img height="100px"width="100px" src={"https://storage.googleapis.com/bit-jaehoon/"+cart.productThumbnailName} alt="image"></img></div>{cart.name}</td>
                             <td>{cart.color}</td>
                             <td>{cart.size}</td>
                             <td>{cart.quantity}</td>
