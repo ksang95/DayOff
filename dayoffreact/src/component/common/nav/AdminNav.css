@@ -1,6 +1,6 @@
 .Nav {
   height: 100%;
-  width: 10%;
+  width: 15% !important;
   border-right: 1px solid #c9c9c9;
   padding: 10px;
   float: left;
