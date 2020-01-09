@@ -53,4 +53,10 @@ public class CartController{
       cartRepository.deleteById(i);
     });
   }
+
+  @PostMapping("/addCartList")
+  public void addCartList(@RequestBody List<Cart> cart){
+    System.out.println(cart);
+      cartRepository.saveAll(cart);
+  }
 }

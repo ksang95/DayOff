@@ -9,7 +9,13 @@ class LoginSuccess extends Component {
         sessionStorage.setItem("userId", users.id);
         sessionStorage.setItem("userRole", users.role);
         sessionStorage.setItem("userName", users.name);
-        console.log(sessionStorage.getItem("currentUrl"))
+        const cart=JSON.parse(localStorage.getItem("cart1"));
+        if(cart&&users.role==="user"){
+            const finalCart=cart.map(c=>c={...c,users:{id:users.id}});
+            await axios.post("/addCartList",finalCart).then((res)=>{
+                localStorage.removeItem("cart1");
+          })
+        }
         this.props.history.push(sessionStorage.getItem("currentUrl"));
     }
 
