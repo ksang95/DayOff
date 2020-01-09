@@ -12,7 +12,8 @@ class GoNextState extends Component {
           data : params,
           url : "/goNextState"
         }).then((res)=>{
-            window.location.reload(false)
+            //window.location.reload(false)
+            this.props.getData();
         })
       
       }

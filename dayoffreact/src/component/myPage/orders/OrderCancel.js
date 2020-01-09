@@ -44,7 +44,8 @@ class OrderCancel extends Component {
             if(this.props.orderList){
             this.props.orderList();
             }else{
-                window.location.reload(false);
+                // window.location.reload(false);
+                this.props.getData();
             }
         })
     }
