@@ -10,15 +10,14 @@ class RefundInfo extends Component {
 
     render() {
         const { orderId, productName, refundAmount, refundRequestDate, refundDate, productThumbnailName, productId } = this.props.order;
-        const className = this.props.thisOrder ? "orderBold" : "orderLight";
         return (
-            <tr className={className}>
+            <tr>
             <td style={{width:"5%"}}>{orderId}</td>
             <td style={{width:"50%"}}>
-                <Link to={"/product/" + productId}><div className="infoDiv"><img width="100px" height="100px" src={"https://storage.googleapis.com/bit-jaehoon/" + productThumbnailName}></img>
-                    <div style={{ maxWidth:"90%", padding:"0px 20px", wordBreak:"break-all" }} className="nameColor">
+                <Link to={"/product/" + productId}><div className="orderProduct"><img width="100px" height="100px" src={"https://storage.googleapis.com/bit-jaehoon/" + productThumbnailName}></img>
+                    <span className="orderProductName">
                         {productName}
-                    </div>
+                    </span>
                 </div></Link>
             </td>            
                 <td>{this.numberWithCommas(refundAmount)}원</td>

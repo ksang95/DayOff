@@ -93,6 +93,7 @@ class OrderInfo extends Component {
                     userCodeButton = <Link to={"/mypage/review/" + productId}><Button variant="secondary">후기 작성</Button></Link>;
                     break;
                 case "배송완료":
+                    case "픽업완료":
                     userCodeButton = (<div><OrderConfirm orderId={orderId} userId={userId} groupId={groupId} getData={this.props.getData}></OrderConfirm><br></br><Link to={{
                         pathname: "/mypage/refundRequest",
                         state: {
@@ -101,7 +102,6 @@ class OrderInfo extends Component {
                         }
                     }}><Button variant="secondary">환불 신청</Button></Link></div>);
                     break;
-
             }
         }
 
@@ -109,10 +109,10 @@ class OrderInfo extends Component {
             <tr>
                 <td style={{ width: "5%" }}>{orderId}</td>
                 <td style={{ width: "50%" }}>
-                    <Link to={"/product/" + productId}><div className="infoDiv"><img width="100px" height="100px" src={"https://storage.googleapis.com/bit-jaehoon/" + productThumbnailName}></img>
-                        <div style={{ maxWidth: "90%", padding: "0px 20px", wordBreak: "break-all" }} className="nameColor">
+                    <Link to={"/product/" + productId}><div className="orderProduct"><img width="100px" height="100px" src={"https://storage.googleapis.com/bit-jaehoon/" + productThumbnailName}></img>
+                        <span className="orderProductName">
                             {productName}
-                        </div>
+                        </span>
                     </div></Link>
                 </td>
                 <td>{orderColor}</td>
