@@ -9,7 +9,8 @@ class ProductNav extends Component {
     category:'',
       categorySub:[],
       categoryName:[],
-      MonthData:[]
+      MonthData:[],
+      color:[]
     }
 
     //   ApiService.CategoryList(keyword).then(res => {
@@ -29,16 +30,17 @@ class ProductNav extends Component {
       this.setState({categorySub : res.data});
       console.log(this.state.categorySub);
     });
-  // } else if(category ==='ACC'){
-  //   ApiService.CategorySubList(category).then(res =>{
-  //     this.setState({categorySub : res.data});
-  //     console.log(this.state.categorySub);
-  //   });
+  } else if(category ==='BEST'){
+    ApiService.CategorySubList(category).then(res =>{
+      this.setState({categorySub : res.data});
+      console.log(this.state.categorySub);
+    });
   } else {
     ApiService.CategoryNameList(category).then(res =>{
       this.setState({categoryName : res.data});
       console.log(this.state.categoryName);
     });
+    
   }
 }
 
@@ -47,6 +49,10 @@ class ProductNav extends Component {
         this.setState({ MonthData: res.data })
         this.setState({category : this.props.category},this.ClickCategory);
       });
+
+      ApiService.ColorProductList().then(res=> {
+        this.setState({color : res.data});
+      })
     }
 
     componentWillReceiveProps(nextProps){
@@ -180,7 +186,7 @@ class ProductNav extends Component {
             <br></br>
             <div className='Product_NavCategory'>
             <br></br>
-            {/* { this.state.MonthData.map(MonthDatas => <div className='NavCate'><div className="Nava" >&nbsp;&nbsp;{MonthDatas.categoryName}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br></br><br></br></div></div>)} */}
+          { this.state.MonthData.map(MonthDatas => <div className='NavCate'><div activeStyle={{fontWeight:'bold'}} className="Nava" to=''>&nbsp;&nbsp;{MonthDatas.categoryName}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br></br><br></br></div></div>)}
             </div>
             <div className='NavColor'>
               <br></br>
