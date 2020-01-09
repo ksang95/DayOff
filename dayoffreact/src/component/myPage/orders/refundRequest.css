@@ -3,6 +3,9 @@
     width: 85%;
     display: inline-block;
     min-height: 1000px;
+    position: relative;
+    left: 15%;
+    margin-top: 14%;
 }
 
 .RefundRequest table{

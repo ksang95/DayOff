@@ -8,7 +8,8 @@ export default class Nav extends Component {
     return (
       <div className="Nav">
         <div className='Nav_Title'>
-        <h3><img className='Face' src='/images/face.png'></img> My PAGE</h3>
+        <h5>DayOff</h5>
+        <h3>My PAGE</h3>
         </div>
         <div className='Nav_Info1'>
           <h5>쇼핑정보</h5>
