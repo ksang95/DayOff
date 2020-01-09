@@ -1,13 +1,12 @@
+import axios from 'axios';
 import React, { Component } from 'react';
-import './orderInfo.css';
+import { Button, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import SlideToggle from "react-slide-toggle";
-import axios from 'axios';
-import OrderCancel from '../OrderCancel';
-import Deliver from '../Deliver';
-import OrderConfirm from '../OrderConfirm';
-import { Button, Form, Col, Row } from 'react-bootstrap';
 import GoNextState from '../GoNextState';
+import OrderCancel from '../OrderCancel';
+import OrderConfirm from '../OrderConfirm';
+import './orderInfo.css';
 
 class OrderInfo extends Component {
 
@@ -76,10 +75,10 @@ class OrderInfo extends Component {
                 //     adminCodeButton = <Deliver invoice={invoice}></Deliver>;
                 //     break;
                 case "환불대기중":
-                    adminCodeButton = (<GoNextState orderId={orderId} buttonName="환불 승인"></GoNextState>);
+                    adminCodeButton = (<GoNextState orderId={orderId} buttonName="환불 승인" getData={this.props.getData}></GoNextState>);
                     break;
                 case "픽업예정":
-                    adminCodeButton = (<GoNextState orderId={orderId} buttonName="픽업 완료"></GoNextState>);
+                    adminCodeButton = (<GoNextState orderId={orderId} buttonName="픽업 완료" getData={this.props.getData}></GoNextState>);
                     break;
             }
         }
@@ -87,16 +86,16 @@ class OrderInfo extends Component {
         if (!this.props.isAdmin) {
             switch (codeContent) {
                 case "배송준비중":
-                    userCodeButton = <OrderCancel order={this.props.order} orderCount={orderCount}></OrderCancel>;
+                    userCodeButton = <OrderCancel order={this.props.order} orderCount={orderCount} getData={this.props.getData}></OrderCancel>;
                     break;
                 // case "배송중":
                 //     userCodeButton = <Deliver invoice={invoice}></Deliver>;
                 //     break;
                 case "구매확정":
-                    userCodeButton = <Link to={"/reviewInsert/" + productId}><Button variant="secondary">후기 작성</Button></Link>;
+                    userCodeButton = <Link to={"/mypage/review/" + productId}><Button variant="secondary">후기 작성</Button></Link>;
                     break;
                 case "배송완료":
-                    userCodeButton = (<div><OrderConfirm orderId={orderId} userId={userId} groupId={groupId}></OrderConfirm><br></br><Link to={{
+                    userCodeButton = (<div><OrderConfirm orderId={orderId} userId={userId} groupId={groupId} getData={this.props.getData}></OrderConfirm><br></br><Link to={{
                         pathname: "/mypage/refundRequest",
                         state: {
                             orderView: this.props.order,
