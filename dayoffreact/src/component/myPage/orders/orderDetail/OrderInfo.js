@@ -6,7 +6,6 @@ import SlideToggle from "react-slide-toggle";
 import GoNextState from '../GoNextState';
 import OrderCancel from '../OrderCancel';
 import OrderConfirm from '../OrderConfirm';
-import './orderInfo.css';
 
 class OrderInfo extends Component {
 
@@ -51,7 +50,6 @@ class OrderInfo extends Component {
 
     render() {
         const { orderId, userId, productName, orderPrice, orderColor, orderSize, orderQuantity, productThumbnailName, productId, codeContent, orderCount, groupId, invoice } = this.props.order;
-        const className = this.props.thisOrder ? "orderBold" : "orderLight";
         let adminCodeButton = null;
         if (this.props.isAdmin) {
             switch (codeContent) {
@@ -108,7 +106,7 @@ class OrderInfo extends Component {
         }
 
         return (
-            <tr className={className}>
+            <tr>
                 <td style={{ width: "5%" }}>{orderId}</td>
                 <td style={{ width: "50%" }}>
                     <Link to={"/product/" + productId}><div className="infoDiv"><img width="100px" height="100px" src={"https://storage.googleapis.com/bit-jaehoon/" + productThumbnailName}></img>
