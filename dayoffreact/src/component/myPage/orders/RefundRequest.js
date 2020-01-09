@@ -86,6 +86,7 @@ class RefundRequest extends Component {
     }
 
     componentDidMount() {
+        window.scrollTo(0, 0);
         if (!this.props.location.state.orderCount) this.orderCount();
         else this.calculateRefundAmount(this.props.location.state.orderCount);
         this.getCode();

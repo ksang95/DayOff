@@ -29,6 +29,7 @@ export default class UserList extends Component {
 
 
   componentDidMount() {
+    window.scrollTo(0, 0);
     console.log(this.props)
     if (this.props.match.params.userId) {
       this.setState({

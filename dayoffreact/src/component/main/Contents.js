@@ -111,6 +111,7 @@ export default class Content extends Component {
   }
 
   componentDidMount() {
+    window.scrollTo(0, 0);
     this.setState({
       keyword: this.props.keyword,
       category: this.props.category

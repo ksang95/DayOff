@@ -26,6 +26,7 @@ class OrderAnalysis extends Component {
 
     componentDidMount() {
         //첫 로딩시에 getData 호출
+        window.scrollTo(0, 0);
         this.getData();
     }
 

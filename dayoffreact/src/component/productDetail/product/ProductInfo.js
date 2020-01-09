@@ -215,6 +215,7 @@ class ProductInfo extends Component {
   }
 
   componentDidMount() {
+    window.scrollTo(0, 0);
     this.getProductDetail(this.props.productId);
     this.showCookie();
     this.TogetherBuy(this.props.productId);

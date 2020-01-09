@@ -113,6 +113,7 @@ import './CartView.css';
      document.getElementById("loginFrame").style.visibility = "hidden";
    };
    componentDidMount() {
+    window.scrollTo(0, 0);
      this.handleCartView();
    }
    handleOrder = e => {

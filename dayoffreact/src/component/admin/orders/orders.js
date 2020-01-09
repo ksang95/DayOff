@@ -75,6 +75,7 @@ export default class orders extends Component {
   }
 
   componentDidMount(){
+    window.scrollTo(0, 0);
     this.orderList("all",this.state.page, this.state.name)
   }
 

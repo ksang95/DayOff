@@ -30,6 +30,7 @@ class UserAnalysis extends Component {
     }
 
     componentDidMount() {
+        window.scrollTo(0, 0);
         //첫 로딩시에 getData 호출
         this.getData();
     }

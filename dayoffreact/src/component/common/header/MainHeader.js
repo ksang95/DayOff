@@ -13,7 +13,7 @@ export default class MainHeader extends Component {
    
     
     componentDidMount() {
-     
+     window.scrollTo(0, 0);
       if(sessionStorage.getItem("userId")){
         this.setState({
           login:true
