@@ -152,8 +152,7 @@ import './CartView.css';
          <table className="n-table">
            <colgroup>
              <col style={{ width: +5 + "%" }}></col>
-             <col style={{ width: +10 + "%" }}></col>
-             <col style={{ width: +15 + "%" }}></col>
+             <col style={{ width: +20 + "%" }}></col>
              <col style={{ width: +10 + "%" }}></col>
              <col style={{ width: +10 + "%" }}></col>
              <col style={{ width: +10 + "%" }}></col>
@@ -169,7 +168,6 @@ import './CartView.css';
                  style={{"transform":"scale(1.5)"}}
                ></input>
              </th>
-             <th>  {" "}  </th>
              <th>상품정보</th>
              <th>색상</th>
              <th>사이즈</th>

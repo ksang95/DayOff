@@ -186,7 +186,7 @@ class ProductNav extends Component {
             <br></br>
             <div className='Product_NavCategory'>
             <br></br>
-          { this.state.MonthData.map(MonthDatas => <div className='NavCate'><div activeStyle={{fontWeight:'bold'}} className="Nava" to=''>&nbsp;&nbsp;{MonthDatas.categoryName}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br></br><br></br></div></div>)}
+          { this.state.MonthData.map(MonthDatas => <div className='NavCate'><div activeStyle={{fontWeight:'bold'}} className="Nava" to=''><br></br><br></br></div></div>)}
             </div>
             <div className='NavColor'>
               <br></br>
