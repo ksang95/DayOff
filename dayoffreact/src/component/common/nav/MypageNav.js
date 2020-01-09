@@ -8,6 +8,7 @@ export default class Nav extends Component {
     return (
       <div className="Nav">
         <div className='Nav_Title'>
+        <h5>DayOff</h5>
         <h3>My PAGE</h3>
         </div>
         <div className='Nav_Info1'>
