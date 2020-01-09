@@ -12,7 +12,7 @@
   font-size: 15px;
   display: inline-block;
   margin-right: 5%;
-  margin-left: 29%;
+  margin-left: 24%;
 }
   
   .dropmenu ul{
@@ -55,6 +55,7 @@
   color: black;
   text-decoration:none;
   text-align: left;
+  height: 100%;
   }
   
   .dropmenu li ul{
@@ -67,7 +68,7 @@
   
   .dropmenu li:hover ul{
   display:block;
-  width: 200px;
+  width: 143px;
   height: 55px;
   }
   
@@ -78,7 +79,7 @@
   margin:0px;
   padding:0px;
   width:100%;
-  height: 57px;
+  height: 70px;
 }
   
   .dropmenu li:hover li a{
@@ -124,7 +125,7 @@
   margin-left: 24%;
 }
   
-  .Mdropmenu ul{
+.Mdropmenu ul{
   background: #ffffff;;
   height:50px;
   list-style:none;
@@ -164,6 +165,7 @@
   color: black;
   text-decoration:none;
   text-align: left;
+  height: 100%;
   }
   
   .Mdropmenu li ul{
@@ -176,7 +178,7 @@
   
   .Mdropmenu li:hover ul{
   display:block;
-  width: 200px;
+  width: 143px;
   height: 55px;
   }
   
@@ -187,7 +189,7 @@
   margin:0px;
   padding:0px;
   width:100%;
-  height: 57px;
+  height: 70px;
 }
   
   .Mdropmenu li:hover li a{
