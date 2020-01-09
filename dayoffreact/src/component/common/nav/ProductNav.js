@@ -63,7 +63,7 @@ class ProductNav extends Component {
     if(!this.state.category){
       return ( <div className='ProductNav'>
       <div className='Product_NavTitle'>
-        <h3> 검색: {this.props.keyword} </h3>
+        <h3> {this.props.keyword} </h3>
           </div>
       </div>)
     }
@@ -77,7 +77,7 @@ class ProductNav extends Component {
           <br></br>
           <div className='Product_NavCategory'>
           <br></br>
-          { this.state.categoryName.map(categoryNames => <div className='NavCate'><NavLink activeStyle={{fontWeight:'bold'}} className="Nava" to={"/productList/category/"+categoryNames.name}>{categoryNames.subName}<br></br><br></br></NavLink></div>)}
+          { this.state.categoryName.map(categoryNames => <div className='NavCate'><NavLink activeStyle={{fontWeight:'bold'}} className="Nava" to={"/productList/category/"+categoryNames.subName}>{categoryNames.subName}<br></br><br></br></NavLink></div>)}
           </div>
           <div className='NavColor'>
             <br></br>
@@ -164,7 +164,7 @@ class ProductNav extends Component {
             <br></br>
             <div className='Product_NavCategory'>
             <br></br>
-            { this.state.MonthData.map(MonthDatas => <div className='NavCate'><div activeStyle={{fontWeight:'bold'}} className="Nava" to=''>&nbsp;&nbsp;{MonthDatas.categoryName}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br></br><br></br></div></div>)}
+            {/* { this.state.MonthData.map(MonthDatas => <div className='NavCate'><div className="Nava" >&nbsp;&nbsp;{MonthDatas.categoryName}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br></br><br></br></div></div>)} */}
             </div>
             <div className='NavColor'>
               <br></br>

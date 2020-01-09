@@ -14,6 +14,14 @@ class ContentsProduct extends Component {
             product:this.props.product
         })
     }
+    componentWillReceiveProps(nextProps){
+        if(nextProps.product!==this.props.product){
+          this.setState({
+            product:this.props.product
+          })
+        }
+    }
+
     changeAvailability=(availability)=>{
         this.setState({
             product:{
