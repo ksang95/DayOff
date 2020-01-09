@@ -111,8 +111,8 @@ public class AdminProductController {
                     System.out.println("image saved");
                     Category category = categoryRepository.findById(product.getCategory().getId()).get();
                     writeCsv.write('"' + uriname + '"' + "," + '"' + productImage.getName() + '"' + "," + '"' + "DayOffProject" + '"' + ","
-                            + '"' + product.getName()+"productName" + '"' + "," + '"' + "apparel" + '"' + "," + '"' + product.getId() + '"'
-                            + "," + '"' + "category=" + category.getEngName() + '"' + ",");
+                    + '"' + product.getName()+"productName" + '"' + "," + '"' + "apparel" + '"' + "," + '"' + product.getId()
+                    + '"' + "," + '"' + "category=" + category.getEngName() + '"' + ",");
 
                 }
 
@@ -178,8 +178,8 @@ public class AdminProductController {
                     productImageRepository.save(productImage);
                     Category category = categoryRepository.findById(product.getCategory().getId()).get();
                     writeCsv.write('"' + uriname + '"' + "," + '"' + productImage.getName() + '"' + "," + '"' + "DayOffProject" + '"' + ","
-                            + '"' + product.getName()+"productName" + '"' + "," + '"' + "apparel" + '"' + "," + '"' + product.getId() + '"'
-                            + "," + '"' + "category=" +category.getEngName() + '"' + ",");
+                                + '"' + product.getName()+"productName" + '"' + "," + '"' + "apparel" + '"' + "," + '"' + product.getId()
+                                + '"' + "," + '"' + "category=" + category.getEngName() + '"' + ",");
                     System.out.println(product.getCategory().getEngName());
                 }
 
@@ -203,8 +203,8 @@ public class AdminProductController {
         }
         try {
             File file = new File("./visionInsert.csv");
-            // GoogleCloudStorageUpload.saveFile(file);
-            // productManagement.importProductSets("gs://bit-jaehoon/visionInsert.csv");
+            GoogleCloudStorageUpload.saveFile(file);
+            productManagement.importProductSets("gs://bit-jaehoon/visionInsert.csv");
            
         } catch (Exception e) {
             // TODO Auto-generated catch block
@@ -266,8 +266,8 @@ public class AdminProductController {
         }
         File file = new File("./visionInsert.csv");
         try {
-            // GoogleCloudStorageUpload.saveFile(file);
-            // productManagement.importProductSets("gs://bit-jaehoon/visionInsert.csv");
+            GoogleCloudStorageUpload.saveFile(file);
+            productManagement.importProductSets("gs://bit-jaehoon/visionInsert.csv");
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

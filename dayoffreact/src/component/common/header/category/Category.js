@@ -70,8 +70,10 @@ refreshPage() {
 
             </ul>
             </li>
-            <li>
+            <li style={{marginTop : '4px'}}>
+              <Link to="/vision">A.I Search</Link>
             </li>
+      
             </ul>
       </div>
     )
