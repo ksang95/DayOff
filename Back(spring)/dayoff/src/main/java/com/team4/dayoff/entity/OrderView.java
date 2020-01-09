@@ -39,6 +39,7 @@ public class OrderView {
     private Integer pointUse;
     private Integer totalPay;
 
+    
     private String deliverDate;
 
     @Temporal(TemporalType.TIMESTAMP)

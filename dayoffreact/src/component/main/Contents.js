@@ -38,7 +38,7 @@ export default class Content extends Component {
     else {
       const category = this.state.category;
       if (category === 'RED' || category === 'BLACK' ||  category === 'GRAY' || category === 'BLUE' || category === 'PINK' || category === 'WHITE' || category === 'GREEN'
-        || category === 'PURPLE' || category === 'ORANGE' || category === 'YELLOW') {
+        || category === 'PURPLE' || category === 'ORANGE' || category === 'YELLOW' || category ==='BEIGE'|| category ==='BROWN'|| category ==='CREAM'|| category ==='SILVER'|| category ==='GOLD') {
         ApiService.ColorProductList(category, this.state.selected).then(res => {
           this.setState({ errorMessage: false, products: res.data })
         })
@@ -77,9 +77,9 @@ export default class Content extends Component {
     }
     else {
       const category = this.state.category;
-      console.log(category)
+      console.log(category);
       if (category === 'RED' || category === 'BLACK' || category === 'GRAY' || category === 'BLUE' || category === 'PINK' || category === 'WHITE' || category === 'GREEN'
-        || category === 'PURPLE' || category === 'ORANGE' || category === 'YELLOW') {
+        || category === 'PURPLE' || category === 'ORANGE' || category === 'YELLOW' || category ==='BEIGE'|| category ==='BROWN'|| category ==='CREAM'|| category ==='SILVER'|| category ==='GOLD') {
         ApiService.AdminColorProductList(category, this.state.selected).then(res => {
           console.log(res)
           this.setState({ errorMessage: false, AdminProducts: res.data })

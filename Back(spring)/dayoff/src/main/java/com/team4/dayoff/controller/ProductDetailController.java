@@ -65,13 +65,16 @@ public class ProductDetailController{
     @PostMapping("/togetherBuy")
     public List<ProductList> togetherBuy(@RequestParam("id") Integer id){
         List<ProductList> list = new ArrayList<>();
-        ProductList productList = new ProductList();
+        System.out.println(productRepository.togetherBuy(id));
         productRepository.togetherBuy(id).forEach(i->{
+            ProductList productList = new ProductList();
             System.out.println(i);
+            System.out.println(i[2]);
             productList.setProductId((Integer)i[0]);
             productList.setPrice((Integer)i[1]);
             productList.setProductName((String)i[2]);
             productList.setProductThumbnailName((String)i[3]);
+            System.out.println(productList);
             list.add(productList);
         });
         System.out.println(list+"222222222222333333333333333333333");
