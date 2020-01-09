@@ -66,13 +66,13 @@ public class ProductViewController {
 	@GetMapping("/MainCategory/category/{name}")
 	public List<ProductView> MainCategory(@PathVariable String name, @PageableDefault(size=1000, page=0, sort="registerDate", direction=Direction.DESC) Pageable pageable){
 		System.out.println(pageable);
-		System.out.println(productRepository.MainCategory(name,pageable));
+		System.out.println(productRepository.MainCategory(name+"+++++++++++++++++",pageable));
 		return productRepository.MainCategory(name,pageable);
 	}
 	
 	@GetMapping("/SubCategory/category/{name}")
 	public List<ProductView> SubCateogry(@PathVariable String name, @PageableDefault(size=1000, page=0, sort="registerDate", direction=Direction.DESC) Pageable pageable){
-		System.out.println(name);
+		System.out.println(name+"12312312312312");
 		return productRepository.SubCategory(name,pageable);
 	}
 	

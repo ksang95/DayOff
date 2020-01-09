@@ -28,7 +28,7 @@ refreshPage() {
             <li><Link to={"/productList/category/패딩"}>패딩</Link></li>
             <li><Link to={"/productList/category/재킷"}>재킷</Link></li>
             <li><Link to={"/productList/category/코트"}>코트</Link></li>
-            <li><Link to={"//productList/category/가디건"}>가디건</Link></li>
+            <li><Link to={"/productList/category/가디건"}>가디건</Link></li>
             </ul>
             </li>
 
@@ -36,8 +36,8 @@ refreshPage() {
             <ul>
             <li><Link to={"/productList/category/후드 & 맨투맨"}>후드 & 맨투맨</Link></li>
             <li><Link to={"/productList/category/티셔츠"}>티셔츠</Link></li>
-            <li><Link to={"/productList/category/블라우스"}>블라우스 & 셔츠</Link></li>
-            <li><Link to={"/=productList/category/니트"}>니트</Link></li>
+            <li><Link to={"/productList/category/블라우스 & 셔츠"}>블라우스 & 셔츠</Link></li>
+            <li><Link to={"/productList/category/니트"}>니트</Link></li>
             <li><Link to={"/productList/category/탑"}>탑</Link></li>
             </ul>
             </li>
