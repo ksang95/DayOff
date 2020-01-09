@@ -166,7 +166,7 @@ export default class orders extends Component {
 
     {data.codeContent === "배송중" ? <Deliver></Deliver> : ""}
     {data.codeContent === "환불대기중" ? <OrderCancel orderList={this.change} order={data}></OrderCancel> : ""}
-    {data.codeContent === "픽업예정" ? <PickUpConfirm orderList={this.change}></PickUpConfirm>: ""}
+    {data.codeContent === "픽업예정" ? <PickUpConfirm groupId={data.groupId} orderList={this.change}></PickUpConfirm>: ""}
     </td>
   </tr>))
 

@@ -17,7 +17,7 @@ export default class pickUpConfirm extends Component{
     render() {
         return (
              <div>
-                 <Button className="jaehoon" variant="outline-dark" onClick={()=>this.pickUpConfirm.bind(this)(data.groupId)}>픽업완료</Button>
+                 <Button className="jaehoon" variant="outline-dark" onClick={()=>this.pickUpConfirm.bind(this)(this.props.groupId)}>픽업완료</Button>
              </div>
         );
     }

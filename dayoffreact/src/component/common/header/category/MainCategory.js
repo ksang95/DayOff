@@ -23,7 +23,7 @@ refreshPage() {
 
             <li className='Mcategory__item'><Link to={"/productList/category/OUTER"}>OUTER</Link>
             <ul>
-            <li><Link to={"/productList/category/점퍼"}>점퍼</Link></li>
+            <li><Link to={"/productList/category/블레이저"}>블레이저</Link></li>
             <li><Link to={"/productList/category/패딩"}>패딩</Link></li>
             <li><Link to={"/productList/category/재킷"}>재킷</Link></li>
             <li><Link to={"/productList/category/코트"}>코트</Link></li>
@@ -37,7 +37,7 @@ refreshPage() {
             <li><Link to={"/productList/category/티셔츠"}>티셔츠</Link></li>
             <li><Link to={"/productList/category/블라우스"}>블라우스 & 셔츠</Link></li>
             <li><Link to={"/=productList/category/니트"}>니트</Link></li>
-            <li><Link to={"/productList/category/조끼"}>조끼</Link></li>
+            <li><Link to={"/productList/category/탑"}>탑</Link></li>
             </ul>
             </li>
 

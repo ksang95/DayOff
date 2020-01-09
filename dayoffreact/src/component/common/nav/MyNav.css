@@ -18,7 +18,7 @@
   }
   
   .Nav_Info1{
-    height: 155px;
+    /* height: 155px; */
     border-bottom: 1px solid #c9c9c9;
     margin-bottom: 17px;
     font-size: 14px;
@@ -31,7 +31,7 @@
   }
   
   .Nav_Info2{
-    height: 134px;
+    /* height: 134px; */
     border-bottom: 1px solid #c9c9c9;
     margin-bottom: 17px;
     font-size: 14px;
@@ -42,7 +42,7 @@
   }
   
   .Nav_Info3{
-    height: 147px;
+    /* height: 147px; */
     border-bottom: 1px solid #c9c9c9;
     margin-bottom: 17px;
     font-size: 14px;
@@ -50,22 +50,21 @@
   }
   
   .Nav_Info4{
-    height: 130px;
+    /* height: 130px; */
     font-size: 14px;
   
   }
   
   .Nav_Info_List{
     color: dimgray;
-    font-weight: bold;
+    /* font-weight: bold; */
     margin-left: 18px;
-    font-size: 21px;
-
+    font-size: 12pt;
   }
   
   .Nav_Info_List:hover {
     color:black;
-    font-weight: 300;
+    /* font-weight: 300; */
     text-decoration: none;
   }
   

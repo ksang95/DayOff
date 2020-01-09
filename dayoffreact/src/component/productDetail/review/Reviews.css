@@ -17,3 +17,7 @@
     align-items: center;
     margin: auto;
 }
+.reviewName{
+    width: 93%;
+    margin:30px auto;
+}
