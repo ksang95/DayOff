@@ -147,7 +147,7 @@ import './CartView.css';
      });
      return (
        <div>
-         <h1 className="cartHeader">장바구니</h1>
+         <h2 className="cartHeader">장바구니</h2>
          <div className="cartTable">
          <table className="n-table">
            <colgroup>
@@ -181,7 +181,7 @@ import './CartView.css';
          </table>
          </div>
          <div className ="totalCover">
-         <h2 className="realTotal">총 주문가격:{this.state.realTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원</h2>
+         <h2 className="realTotal">총 주문금액:{this.state.realTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}원</h2>
          </div>
          <div className="buttons">
          <button className="deleteBtn" onClick={this.handleDeleteItem}>선택상품 삭제</button>

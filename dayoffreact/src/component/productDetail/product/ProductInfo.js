@@ -240,18 +240,26 @@ class ProductInfo extends Component {
   render() {
     console.log(this.state.product.id);
     const { product, cart } = this.state;
-    const sizeOp = product.productSize
+    
+    let productSize=product.productSize.map(p=>p.size);
+    if (productSize.includes("M")){
+      console.log("1")
+      const sizeOrder=["XS","S","M","L","XL"];
+      productSize=sizeOrder.filter(s=>productSize.includes(s));
+    }
+    console.log(productSize)
+    const sizeOp = productSize
       .map((s, index) => (
         <button
           onClick={this.selectSize.bind(this)}
           className="sizeBtn"
           key={index}
-          value={s.size}
+          value={s}
         >
-          {s.size}
+          {s}
         </button>
       ))
-      .reverse();
+      
     const colorOp = product.color.map((c, index) => (
       <span>
         <img
@@ -292,9 +300,9 @@ class ProductInfo extends Component {
               </div>
               <div className="topRight">
                 <div>
-                <p>
+                <div>
                 {product.category.name}/{product.category.subName}
-                </p>
+                </div>
                 <h1 style={{"margin-bottom":"20px"}}>{product.name}</h1>
                 <h2>
                   {product.price
@@ -303,7 +311,7 @@ class ProductInfo extends Component {
                   원
                 </h2>
                     </div>
-                <h4 style={{"border-top":"1px solid #989898","padding-top":"27px"}}>
+                <h4 style={{"borderTop":"1px solid #989898","paddingTop":"27px"}}>
                   {" "}
                   색상
                   <div className="colorOpt">
@@ -381,26 +389,26 @@ class ProductInfo extends Component {
                 if (item) item.click();
               }}
               render={({ toggle, setCollapsibleElement, toggleState }) => (
-                <div className="my-collapsible">
+               
                   <div
                     className={
-                      "my-collapsible__toggle SeveralProductSlideToggle toggle_" +
-                      toggleState
+                     "justToggle"+toggleState
                     }
                     onClick={toggle}
                   >
                     <div className="title1">
-                      <h2 className="title2">상세상품정보    <span>&#9662;	</span></h2>
+                      <h2 className="title2">상세상품정보    <span className="pointer"> &#9662;	</span></h2>
                    
-                    </div>
+                   
                   </div>
                   <div
-                    className="my-collapsible__content"
+                    className="collapsibleInfo"
                     ref={setCollapsibleElement}
                   >
-                    <div className="my-collapsible__content-inner">
+                    <div className="collapsibleInfoInner">
                       {" "}
                       <img
+                      className="toggleImg"
                         src={
                           "https://storage.googleapis.com/bit-jaehoon/" +
                           product.detailImage

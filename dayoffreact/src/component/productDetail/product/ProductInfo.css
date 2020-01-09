@@ -1,7 +1,4 @@
-h1,h2{
-  font-family: serif;
-  font: inherit;
-}
+
 .top{
   margin: auto;
   width:85%;
@@ -17,7 +14,7 @@ h1,h2{
 .topRight{
   float: right;
   position: relative;
-  top:80px;
+  top:65px;
   /* right:300px; */
   display: block;
   width: 35%;
@@ -27,11 +24,11 @@ h1,h2{
     position: relative;
   flex-shrink: 0;
   display: inline-block;
-  width: 35px;
-  height: 35px;
+  width: 40px;
+  height: 40px;
   margin: 0rem 0.75rem;
   border-radius: 15rem;
-  padding:3px;
+  padding:5px;
 }
   .colorBtn:hover {
     cursor: pointer;
@@ -39,30 +36,40 @@ h1,h2{
     border:1px solid #626262;
     
   }
-h4{
-  font-size: 1.15em;
-    padding-bottom: 0.5em;
+/* p,h1,h2,h4{
     font-weight: 600;
-    color: #626262;
-    font-style: italic;
+    color: #333030;
 
+  } */
+  h4{
+    font-size: 1.15em;
+
+  }
+  .sizeOpt{
+    /* border-top: 1px solid #ccc; */
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 10px;
+    position: relative;
+
+  
   }
   .colorOpt{
     display: flex;
     align-items: center;
-    padding: 1.5em 0;
-    border-top: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 10px;
+
+    /* border-top: 1px solid #ccc; */
 }
 .colorName{
-  font-size: 1.00em;
-
-  margin:0;
+  line-height: 100%;
+  font-size: 0.9em;
+  vertical-align: middle;
     font-style: normal;
-    font-weight: 300;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+    font-weight: 200;
+    margin-left: 20px;
 }
 .productImage{
     width: 300px;
@@ -72,16 +79,15 @@ h4{
 }
 
 .sizeBtn {
-    width: 3em;
-    height: 3em;
+    width: 2.5em;
+    height: 2.5em;
     display: inline-flex;
     align-items: center;
     justify-content: center;
    background-color:white;
    color: #989898;
    border:1px solid #989898;
-    margin-right: 1em;
-    margin-bottom: 1em;
+   margin: 0rem 0.75rem;
   }
     .sizeBtn:hover {
       color: #585858;
@@ -89,36 +95,36 @@ h4{
     cursor: pointer;
     }
   .btnBuy{
-    width: auto;
+    width: 95%;
     text-align: center;
     vertical-align: middle;
     cursor: pointer;
     border: 1px solid transparent;
     border-radius: 2px;
-    padding: 8px 15px;
-    background-color: /*!setting.color_button{*/#557b97/*}*/;
+    padding: 15px ;
+    background-color: /*!setting.color_button{*/#585858/*}*/;
     color: /*!setting.color_button_text{*/white/*}*/;
     font-style: normal;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    font-size: 14px;
+    font-weight: 500;
+    font-size: 20px;
+    margin-top: 40px;
   }
 
   .btnCart{
-    width: auto;
+    width: 95%;
     text-align: center;
     vertical-align: middle;
     cursor: pointer;
     border: 1px solid transparent;
     border-radius: 2px;
-    padding: 8px 15px;
-    color: /*!setting.color_button{*/#557b97/*}*/;
+    padding: 15px;
+    color: /*!setting.color_button{*/#585858/*}*/;
     background-color: /*!setting.color_button_text{*/white/*}*/;
     font-style: normal;
-    font-weight: 600;
+    font-weight: 500;
     letter-spacing: 0.08em;
-    font-size: 14px;
-    border-color: /*!setting.color_button{*/#557b97/*}*/;
+    font-size: 20px;
+    border-color: /*!setting.color_button{*/#585858/*}*/;
   }
 .productDetail{
   width: 90%;
@@ -134,6 +140,11 @@ h4{
   
   
 } */
+.pointer{
+margin-left: 10px;
+vertical-align: 8%;
+
+}
 .modal2 {
   z-index: 999;
   background-color: rgba(0,0,0,0.5);
@@ -191,4 +202,25 @@ h4{
   background-color: rgb(255, 249, 249);
   color:rgb(192, 51, 51);
   
+}
+.title2{
+  border-top:1px solid black;
+  border-bottom:1px solid black;
+  vertical-align: middle;
+  width:93%;
+  margin:100px auto;
+  padding-top:20px;
+  padding-bottom:20px;
+}
+.btns{
+  margin: auto;
+  padding-left: 10px;
+}
+
+
+.collapsibleInfoInner{
+vertical-align: center;
+width: 93%;
+padding-bottom: 100px;
+margin:auto;
 }
