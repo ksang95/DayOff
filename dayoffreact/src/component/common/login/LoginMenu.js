@@ -3,7 +3,6 @@ import '../css/login.css';
 import SocialLogin from './SocialLogin';
 
 const LoginMenu = ({onExit}) => {
-    console.log(document.location.href.substring(document.location.href.lastIndexOf(":")+5))
     return (
         <div className="login-container">
             <div className="login-content">
