@@ -263,7 +263,7 @@ public class PayController {
 		}
 		System.out.println("approvalvo   " + info);
 		// return new ModelAndView("redirct:?pg_token=");
-		response.sendRedirect("https://localhost:3000/mypage/myorders");
+		response.sendRedirect("https://bit-dayoff.tk:3000/mypage/myorders");
 
 	}
 
@@ -279,7 +279,7 @@ public class PayController {
 		// URI uri = new URI("http://localhost:3000/");
 		KakaoPayApprovalVO a = kakaopay.kakaoPayInfo(pg_token, sum);
 		HttpHeaders headers = new HttpHeaders();
-		headers.setLocation(URI.create("https://localhost:3000/"));
+		headers.setLocation(URI.create("https://bit-dayoff.tk:3000/"));
 		ResponseEntity<KakaoPayApprovalVO> r = new ResponseEntity<KakaoPayApprovalVO>(a, headers, HttpStatus.OK);
 		System.out.println(r);
 		// r.created(uri);

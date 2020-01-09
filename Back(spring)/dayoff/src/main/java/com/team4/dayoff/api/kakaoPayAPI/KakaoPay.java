@@ -41,7 +41,7 @@ public class KakaoPay {
 		String userId = Integer.toString(list.get(0).getUserId());
 		// 서버로 요청할 Header
 		HttpHeaders headers = new HttpHeaders();
-		headers.add("Authorization", "KakaoAK " + "");
+		headers.add("Authorization", "KakaoAK " + "70e809158e47b64d3429b518ab5b03c7");
 		headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
 		headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
 		String s = Integer.toString(sum);
@@ -55,9 +55,9 @@ public class KakaoPay {
 		params.add("total_amount", s);
 		params.add("tax_free_amount", "0");
 		params.add("vat_amount", "0");
-		params.add("approval_url", "https://localhost:8443/kakaoPaySuccess");
-		params.add("cancel_url", "https://localhost:8443/kakaoPayCancel");
-		params.add("fail_url", "https://localhost:8443/kakaoPaySuccessFail");
+		params.add("approval_url", "https://bit-dayoff.tk:8443/kakaoPaySuccess");
+		params.add("cancel_url", "https://bit-dayoff.tk:8443/kakaoPayCancel");
+		params.add("fail_url", "https://bit-dayoff.tk:8443/kakaoPaySuccessFail");
 	
 		HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
 
@@ -91,7 +91,7 @@ public class KakaoPay {
 		String userId = Integer.toString(list.get(0).getUserId());
 		// 서버로 요청할 Header
 		HttpHeaders headers = new HttpHeaders();
-		headers.add("Authorization", "KakaoAK " + "");
+		headers.add("Authorization", "KakaoAK " + "70e809158e47b64d3429b518ab5b03c7");
 		headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
 		headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
 		System.out.println(kakaoPayReadyVO.getTid());
@@ -160,7 +160,7 @@ public class KakaoPay {
 		RestTemplate restTemplate = new RestTemplate();
 		// 서버로 요청할 Header
 		HttpHeaders headers = new HttpHeaders();
-		headers.add("Authorization", "KakaoAK " + "");
+		headers.add("Authorization", "KakaoAK " + "70e809158e47b64d3429b518ab5b03c7");
 		headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
 		headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
 		// 서버로 요청할 Body

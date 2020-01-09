@@ -55,8 +55,9 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://localhost:8443",
+  "proxy": "https://192.168.0.111:8443",
   "devDependencies": {
     "cross-env": "^6.0.3"
   }
+  
 }

@@ -36,7 +36,7 @@ public class KakaoAPI implements LoginAPI {
 			StringBuilder sb = new StringBuilder();
 			sb.append("grant_type=authorization_code");
 			sb.append("&client_id=");
-			sb.append("&redirect_uri=http://localhost:3000/login/process/kakao");
+			sb.append("&redirect_uri=http://bit-dayoff.tk:3000/login/process/kakao");
 			sb.append("&code=" + authorizeCode);
 			bw.write(sb.toString());
 			bw.flush();

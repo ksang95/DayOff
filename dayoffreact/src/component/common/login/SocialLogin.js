@@ -7,13 +7,13 @@ class SocialLogin extends Component {
         sessionStorage.setItem("currentUrl",this.props.currentUrl)
         switch (name) {
             case "google":
-                window.location.href = 'https://192.168.0.111:8443/oauth2/authorization/google'
+                window.location.href = 'https://bit-dayoff.tk:8443/oauth2/authorization/google'
                 break;
             case "facebook":
-                window.location.href = 'https://192.168.0.111:8443/oauth2/authorization/facebook'
+                window.location.href = 'https://bit-dayoff.tk:8443/oauth2/authorization/facebook'
                 break;
             case "kakao":
-                window.location.href = 'https://192.168.0.111:8443/oauth2/authorization/kakao'
+                window.location.href = 'https://bit-dayoff.tk:8443/oauth2/authorization/kakao'
                 break;
         }
     }

@@ -235,7 +235,7 @@ public class UsersController {
 		Users users = usersRepository.findBySocialIdAndRoleNot(socialId, "withdraw");
 		if (users == null) {
 
-			return new ModelAndView("redirect:https://192.168.0.111:3000/signUp");
+			return new ModelAndView("redirect:https://bit-dayoff.tk:3000/signUp");
 		} else {
 			String accessToken = client.getAccessToken().getTokenValue();
 			String refreshToken = client.getRefreshToken() != null ? client.getRefreshToken().getTokenValue() : null;
@@ -246,7 +246,7 @@ public class UsersController {
 			loginHistory.setUsers(users);
 			loginHistoryRepository.save(loginHistory);
 
-			return new ModelAndView("redirect:https://192.168.0.111:3000/loginSuccess");
+			return new ModelAndView("redirect:https://bit-dayoff.tk:3000/loginSuccess");
 		}
 
 	}
@@ -271,34 +271,34 @@ public class UsersController {
 		}
 	}
 
-	@RequestMapping("/callback")
-	public void GoogleSignCallback(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		// TODO Auto-generated method stub
-		String code = request.getParameter("code");
-		HttpHeaders headers = new HttpHeaders();
-		RestTemplate restTemplate = new RestTemplate();
-		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+	// @RequestMapping("/callback")
+	// public void GoogleSignCallback(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	// 	// TODO Auto-generated method stub
+	// 	String code = request.getParameter("code");
+	// 	HttpHeaders headers = new HttpHeaders();
+	// 	RestTemplate restTemplate = new RestTemplate();
+	// 	headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 
-		MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
-		parameters.add("code", code);
-		parameters.add("client_id", "191899458571-uk5f9j3d6hpt2vkds51301tvg263ueoh.apps.googleusercontent.com");
-		parameters.add("client_secret", "w_fZV-FqQ_QSalCrpSscLLTg");
-		parameters.add("redirect_uri", "https://localhost:8443/callback");
-		parameters.add("grant_type", "authorization_code");
+	// 	MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
+	// 	parameters.add("code", code);
+	// 	parameters.add("client_id", "191899458571-uk5f9j3d6hpt2vkds51301tvg263ueoh.apps.googleusercontent.com");
+	// 	parameters.add("client_secret", "w_fZV-FqQ_QSalCrpSscLLTg");
+	// 	parameters.add("redirect_uri", "https://localhost:8443/callback");
+	// 	parameters.add("grant_type", "authorization_code");
 
-		HttpEntity<MultiValueMap<String, String>> rest_request = new HttpEntity<>(parameters, headers);
+	// 	HttpEntity<MultiValueMap<String, String>> rest_request = new HttpEntity<>(parameters, headers);
 
-		URI uri = URI.create("https://www.googleapis.com/oauth2/v4/token");
+	// 	URI uri = URI.create("https://www.googleapis.com/oauth2/v4/token");
 
-		ResponseEntity<String> rest_reponse;
-		rest_reponse = restTemplate.postForEntity(uri, rest_request, String.class);
-		String bodys = rest_reponse.getBody();
-		System.out.println(bodys);
+	// 	ResponseEntity<String> rest_reponse;
+	// 	rest_reponse = restTemplate.postForEntity(uri, rest_request, String.class);
+	// 	String bodys = rest_reponse.getBody();
+	// 	System.out.println(bodys);
 
-		response.sendRedirect("https://localhost:8443/loginSuccess");
+	// 	response.sendRedirect("https://localhost:8443/loginSuccess");
 
-		return;
-	}
+	// 	return;
+	// }
 
 	@RequestMapping("/aaa")
 	public void aa() {

@@ -25,7 +25,7 @@ class ProductAdd extends Component {
         const response = await axios.get("/addProduct");
         if(response.data===1){
             //this.props.history.push("/login")
-            window.location.href="https://localhost:3000/login";
+            window.location.href="https://192.168.0.111:3000/login";
         }
         console.log(response)
         const { color, category } = response.data;
