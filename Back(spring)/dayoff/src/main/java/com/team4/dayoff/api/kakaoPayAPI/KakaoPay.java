@@ -131,7 +131,7 @@ public class KakaoPay {
 		RestTemplate restTemplate = new RestTemplate();
 		// 서버로 요청할 Header
 		HttpHeaders headers = new HttpHeaders();
-		headers.add("Authorization", "KakaoAK " + "");
+		headers.add("Authorization", "KakaoAK " + "70e809158e47b64d3429b518ab5b03c7");
 		headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
 		headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
 		// 서버로 요청할 Body

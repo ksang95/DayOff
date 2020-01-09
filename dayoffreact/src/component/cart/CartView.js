@@ -63,7 +63,9 @@ import './CartView.css';
        localStorage.setItem("cart1", JSON.stringify(cart1));
      }
      this.setState({
-       cartView: cart1
+       cartView: cart1,
+       realTotal:0,
+       checkedItem:[]
      });
    };
    onChange = e => {

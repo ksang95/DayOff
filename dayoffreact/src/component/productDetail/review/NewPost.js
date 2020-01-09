@@ -18,7 +18,11 @@ import './NewPost.css';
          [e.target.name]:e.target.value
       })
     }
-    handlePostData = () => {
+    handlePostData = async () => {
+
+      await axios.post("/changeCode" , )
+
+
         const review ={
             title: this.state.title,
             content: this.state.content,
@@ -26,7 +30,7 @@ import './NewPost.css';
             productId:this.props.match.params.productId,
             userId: sessionStorage.getItem("userId")
         }
-        axios.post("/addReview",review).then(res=>{
+        await axios.post("/addReview",review).then(res=>{
           console.log(res)
           this.setState({
           review:res.data

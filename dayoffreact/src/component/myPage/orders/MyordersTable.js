@@ -46,7 +46,7 @@ class MyordersTable extends Component {
       <br></br>
       {data.codeContent === "배송준비중" ? <OrderCancel orderList={this.props.orderList} order={data}></OrderCancel> : ""}
       {data.codeContent === "배송중" ?<Deliver invoice={data.invoice}></Deliver> : ""}
-      {data.codeContent === "구매확정" ? <Link to={"/mypage/review/"+data.productId}><Button variant="outline-dark" className="jaehoon">후기 작성</Button></Link> : ""}
+      {data.codeContent === "구매확정" ? <Link to={"/mypage/review/"+data.orderId}><Button variant="outline-dark" className="jaehoon">후기 작성</Button></Link> : ""}
       {data.codeContent === "배송완료" || data.codeContent ==="픽업완료" ? <OrderConfirm  orderList={this.props.orderList} orderId={data.orderId} userId={data.userId} groupId={data.groupId}></OrderConfirm>  : ""}
       <br></br>
       {data.codeContent === "배송완료" || data.codeContent ==="픽업완료" ? <Link to={{
