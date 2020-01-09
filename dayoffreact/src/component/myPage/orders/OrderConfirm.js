@@ -16,8 +16,11 @@ class OrderConfirm extends Component {
           data : params,
           url : "/confirm"
         }).then((res)=>{
-            // window.location.reload(false);
+          if(this.props.orderList){
             this.props.orderList();
+            }else{
+                window.location.reload(false);
+            }
         })
       
       }
