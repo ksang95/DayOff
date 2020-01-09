@@ -223,7 +223,6 @@ export default class Content extends Component {
                     <img src={"https://storage.googleapis.com/bit-jaehoon/" + product.productThumbnailName} alt='' />
                     <p>{product.id}</p>
                     <h4>{product.name}</h4>
-                    <br></br>
                     <h2>{product.price}원</h2>
                   </Link>
                 )

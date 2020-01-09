@@ -26,8 +26,13 @@ class banner2 extends Component {
 
     render() {
         return (
+            <div>
+            <div style={{marginLeft : '179px'}} className="MContentsHeader_box">
+             <a className="MContentsHeader_aa">BEST 4</a> 
+             </div>
             <div className='Banners'>
             <Tiles list={this.state.product}/>
+            </div>
             </div>
             );
     }

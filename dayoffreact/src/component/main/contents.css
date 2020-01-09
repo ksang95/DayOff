@@ -6,7 +6,7 @@
 }
 .PContentItem_box {
   display: inline-block;
-  width: 100%;
+  width: 95%;
   margin-top: 20px;
   margin-left : 100px;
 }
@@ -15,7 +15,7 @@
 }
 .PContentItem {
   width: 344px;
-  height: 470px;
+  height: 403px;
   border: 1px solid #c9c9c9;
   display: inline-block;
   border-radius: 4px;
@@ -75,6 +75,8 @@
   margin-left: 10px;
   overflow: hidden;
   color : black;
+  font-weight: 200;
+  padding-bottom: 26px;
 }
 
 

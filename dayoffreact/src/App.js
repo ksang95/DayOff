@@ -72,7 +72,7 @@ class App extends Component {
           <ProtectedRoute path="/mypage/myGrade" component={UserGrade} />
           <ProtectedRoute exact path="/mypage/myorders" component={Myorders} />
           <ProtectedRoute exact path="/mypage/map" component={Map} />
-          <ProtectedRoute exact path="/mypage/review/:productId" component={NewPost} />
+          <ProtectedRoute exact path="/mypage/review/:orderId" component={NewPost} />
           {/* <ProtectedRoute path="/mypage/myorders" component={Myorders} /> */}
           </Switch>
           <Route path="/signUp" component={SignUp} />

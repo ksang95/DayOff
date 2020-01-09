@@ -6,6 +6,7 @@ import java.util.List;
 import com.team4.dayoff.entity.Code;
 import com.team4.dayoff.entity.Orders;
 import com.team4.dayoff.entity.Review;
+import com.team4.dayoff.entity.Users;
 import com.team4.dayoff.repository.OrdersRepository;
 import com.team4.dayoff.repository.ReviewRepository;
 
@@ -34,7 +35,7 @@ public class ReviewController{
     }
 
     @PostMapping("/changeCode")
-    public int changeCode(@RequestParam("orderId") Integer orderId ){
+    public int changeCode(@RequestParam("orderId") Integer orderId){
             Orders orders = ordersRepository.findById(orderId).get();
         Code code = new Code();
         code.setCode("0008");    
@@ -48,7 +49,6 @@ public class ReviewController{
 
     @PostMapping("/addReview")
     public void addReview(@RequestBody Review review){
-        
         System.out.println("리뷰");
         System.out.println(review);
         reviewRepository.save(review);

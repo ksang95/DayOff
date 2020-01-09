@@ -19,17 +19,31 @@ import './NewPost.css';
       })
     }
     handlePostData = async () => {
-
-      await axios.post("/changeCode" , )
+      const orderId = this.props.match.params.orderId;
+      console.log(orderId)
+      const params = new URLSearchParams();
+      params.append("orderId",orderId)
+      await axios({
+        method : "post",
+        data : params,
+        url : "/changeCode"
+      }).then((response)=>{
+       this.setState({
+         productId : response.data
+       })
+      })
 
 
         const review ={
             title: this.state.title,
             content: this.state.content,
             rating:this.state.rating,
-            productId:this.props.match.params.productId,
-            userId: sessionStorage.getItem("userId")
+            productId: this.state.productId,
+            users : {
+            id : sessionStorage.getItem("userId")
+            }
         }
+
         await axios.post("/addReview",review).then(res=>{
           console.log(res)
           this.setState({
@@ -41,6 +55,8 @@ import './NewPost.css';
       window.location.href='/mypage/myorders';
     }
   render() {
+    console.log(123)
+    console.log(this.props.match.params.orderId)
    const {title,content,rating} =this.state;
    const {handleChange,handlePostData}=this;
         return (
