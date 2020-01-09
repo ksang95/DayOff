@@ -10,7 +10,7 @@ const Cart = (props) => (
  <td><input type="checkbox" style={{"transform":"scale(1.5)"}} className="checkGroup" name="check" onChange={props.onChange} value={props.id}></input></td>
     
     <td>
-    <Link to={"/product/" + props.productId}><div style={{ wordBreak: "break-all" }}><img height="120px"width="120px" src={props.productImage} alt="image"></img> &nbsp;&nbsp;&nbsp;{props.name}</div>
+    <Link to={"/product/" + props.productId}><div style={{ wordBreak: "break-all" ,textAlign:"left",paddingLeft:"30px"}}><img height="120px"width="120px" src={props.productImage} alt="image"></img> &nbsp;&nbsp;&nbsp;{props.name}</div>
   
 </Link>
     </td>
