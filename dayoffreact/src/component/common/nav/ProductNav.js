@@ -92,6 +92,12 @@ class ProductNav extends Component {
           <NavLink to={"/productList/category/PURPLE"}><img className='colorImage' src='/images/purple.jpg' value='PURPLE'/></NavLink>
           <NavLink to={"/productList/category/ORANGE"}><img className='colorImage' src='/images/orange.jpg' value='ORANGE'/></NavLink><br></br>
           <NavLink to={"/productList/category/YELLOW"}><img className='colorImage' src='/images/yellow.jpg' value='YELLOW'/></NavLink>
+          <NavLink to={"/productList/category/BEIGE"}><img className='colorImage' src='/images/beige.jpg' value='BEIGE'/></NavLink>
+          <NavLink to={"/productList/category/BROWN"}><img className='colorImage' src='/images/brown.jpg' value='BROWN'/></NavLink><br></br>
+          <NavLink to={"/productList/category/CREAM"}><img className='colorImage' src='/images/cream.jpg' value='CREAM'/></NavLink>
+          <NavLink to={"/productList/category/SILVER"}><img className='colorImage' src='/images/silver.jpg' value='SILVER'/></NavLink>
+          <NavLink to={"/productList/category/GOLD"}><img className='colorImage' src='/images/gold.jpg' value='GOLD'/></NavLink>
+
           </div>
           </div>
           </div>
@@ -121,6 +127,11 @@ class ProductNav extends Component {
             <NavLink to={"/productList/category/PURPLE"}><img className='colorImage' src='/images/purple.jpg' value='PURPLE'/></NavLink>
             <NavLink to={"/productList/category/ORANGE"}><img className='colorImage' src='/images/orange.jpg' value='ORANGE'/></NavLink><br></br>
             <NavLink to={"/productList/category/YELLOW"}><img className='colorImage' src='/images/yellow.jpg' value='YELLOW'/></NavLink>
+            <NavLink to={"/productList/category/BEIGE"}><img className='colorImage' src='/images/beige.jpg' value='BEIGE'/></NavLink>
+          <NavLink to={"/productList/category/BROWN"}><img className='colorImage' src='/images/brown.jpg' value='BROWN'/></NavLink><br></br>
+          <NavLink to={"/productList/category/CREAM"}><img className='colorImage' src='/images/cream.jpg' value='CREAM'/></NavLink>
+          <NavLink to={"/productList/category/SILVER"}><img className='colorImage' src='/images/silver.jpg' value='SILVER'/></NavLink>
+          <NavLink to={"/productList/category/GOLD"}><img className='colorImage' src='/images/gold.jpg' value='GOLD'/></NavLink>
             </div>
             </div>
             </div>
@@ -150,6 +161,11 @@ class ProductNav extends Component {
             <NavLink to={"/productList/category/PURPLE"}><img className='colorImage' src='/images/purple.jpg' value='PURPLE'/></NavLink>
             <NavLink to={"/productList/category/ORANGE"}><img className='colorImage' src='/images/orange.jpg' value='ORANGE'/></NavLink><br></br>
             <NavLink to={"/productList/category/YELLOW"}><img className='colorImage' src='/images/yellow.jpg' value='YELLOW'/></NavLink>
+            <NavLink to={"/productList/category/BEIGE"}><img className='colorImage' src='/images/beige.jpg' value='BEIGE'/></NavLink>
+          <NavLink to={"/productList/category/BROWN"}><img className='colorImage' src='/images/brown.jpg' value='BROWN'/></NavLink><br></br>
+          <NavLink to={"/productList/category/CREAM"}><img className='colorImage' src='/images/cream.jpg' value='CREAM'/></NavLink>
+          <NavLink to={"/productList/category/SILVER"}><img className='colorImage' src='/images/silver.jpg' value='SILVER'/></NavLink>
+          <NavLink to={"/productList/category/GOLD"}><img className='colorImage' src='/images/gold.jpg' value='GOLD'/></NavLink>
             </div>
             </div>
             </div>
@@ -179,6 +195,11 @@ class ProductNav extends Component {
             <NavLink to={"/productList/category/PURPLE"}><img className='colorImage' src='/images/purple.jpg' value='PURPLE'/></NavLink>
             <NavLink to={"/productList/category/ORANGE"}><img className='colorImage' src='/images/orange.jpg' value='ORANGE'/></NavLink><br></br>
             <NavLink to={"/productList/category/YELLOW"}><img className='colorImage' src='/images/yellow.jpg' value='YELLOW'/></NavLink>
+            <NavLink to={"/productList/category/BEIGE"}><img className='colorImage' src='/images/beige.jpg' value='BEIGE'/></NavLink>
+          <NavLink to={"/productList/category/BROWN"}><img className='colorImage' src='/images/brown.jpg' value='BROWN'/></NavLink><br></br>
+          <NavLink to={"/productList/category/CREAM"}><img className='colorImage' src='/images/cream.jpg' value='CREAM'/></NavLink>
+          <NavLink to={"/productList/category/SILVER"}><img className='colorImage' src='/images/silver.jpg' value='SILVER'/></NavLink>
+          <NavLink to={"/productList/category/GOLD"}><img className='colorImage' src='/images/gold.jpg' value='GOLD'/></NavLink>
             </div>
             </div>
             </div>
@@ -208,6 +229,11 @@ class ProductNav extends Component {
           <NavLink to={"/productList/category/PURPLE"}><img className='colorImage' src='/images/purple.jpg' value='PURPLE'/></NavLink>
           <NavLink to={"/productList/category/ORANGE"}><img className='colorImage' src='/images/orange.jpg' value='ORANGE'/></NavLink><br></br>
           <NavLink to={"/productList/category/YELLOW"}><img className='colorImage' src='/images/yellow.jpg' value='YELLOW'/></NavLink>
+          <NavLink to={"/productList/category/BEIGE"}><img className='colorImage' src='/images/beige.jpg' value='BEIGE'/></NavLink>
+          <NavLink to={"/productList/category/BROWN"}><img className='colorImage' src='/images/brown.jpg' value='BROWN'/></NavLink><br></br>
+          <NavLink to={"/productList/category/CREAM"}><img className='colorImage' src='/images/cream.jpg' value='CREAM'/></NavLink>
+          <NavLink to={"/productList/category/SILVER"}><img className='colorImage' src='/images/silver.jpg' value='SILVER'/></NavLink>
+          <NavLink to={"/productList/category/GOLD"}><img className='colorImage' src='/images/gold.jpg' value='GOLD'/></NavLink>
       </div>
       </div>
       </div>
