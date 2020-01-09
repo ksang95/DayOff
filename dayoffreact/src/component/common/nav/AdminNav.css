@@ -10,30 +10,34 @@
   background-color: white;
   }
   
+  .ANav h5{
+    margin-bottom: 20px;
+  }
+
   .ANav_Title{
     margin-top: 54px;
     font-size: 27px;
     border-bottom: 2px solid #c9c9c9;
     height: 111px;
   }
-  
+
+
   .ANav_Info_List{
     color: dimgray;
-    font-weight: bold;
+    /* font-weight: bold; */
     margin-left: 18px;
-    font-size: 21px;
-
+    font-size: 12pt;
   }
   
   .ANav_Info_List:hover {
     color:black;
-    font-weight: 300;
+    /* font-weight: 300; */
     text-decoration: none;
   }
   
   
   .ANav_Info10{
-    height: 79px;
+    /* height: 79px; */
     border-bottom: 1px solid #c9c9c9;
     margin-bottom: 17px;
   }
@@ -43,19 +47,19 @@
   }
   
   .ANav_Info9{
-    height: 79px;
+    /* height: 79px; */
     border-bottom: 1px solid #c9c9c9;
     margin-bottom: 17px;
   }
   
   .ANav_Info8{
-    height: 79px;
+    /* height: 79px; */
     border-bottom: 1px solid #c9c9c9;
     margin-bottom: 17px;
   }
 
   .ANav_Info7{
-    height: 120px;
+    /* height: 120px; */
     border-bottom: 1px solid #c9c9c9;
     margin-bottom: 17px;
   }

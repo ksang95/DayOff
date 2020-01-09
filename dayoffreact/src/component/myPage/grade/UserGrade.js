@@ -59,7 +59,7 @@ class UserGrade extends Component {
         return (
             <div className="UserGradeWrapper">
                 <div className="pageTitle">
-                    <div>회원등급 현황</div>
+                    <div>회원 등급 현황</div>
                 </div>
                 {currGrade && <div className="UserGrade">
                     <div className="state"><span>누적 구매금액: {this.numberWithCommas(accrue)}원</span><span>현재 등급 점수: {this.numberWithCommas(score)}점</span></div>

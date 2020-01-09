@@ -74,7 +74,7 @@ class GoogleMapsContainer extends React.Component {
     if(this.state.value==='강남점'){
     return (
             <div className='wrapper'>
-            <div className='storesInfotitle'> 매장 정보</div>
+            <div className='storesInfotitle'>매장 픽업 서비스</div>
             <div class="selectbox">
             <label for="ex_select">{this.state.selected}</label>
             <select value={this.state.selected} onChange={this.Change.bind(this)}> 
@@ -117,7 +117,7 @@ class GoogleMapsContainer extends React.Component {
                       }else if(this.state.value==='역삼점'){
                             return (
                               <div className='wrapper'>
-                              <div className='storesInfotitle'> 매장 정보</div>
+                              <div className='storesInfotitle'>매장 픽업 서비스</div>
                               <div class="selectbox">
                               <label for="ex_select">{this.state.selected}</label>
                               <select value={this.state.selected} onChange={this.Change.bind(this)}> 
@@ -160,7 +160,7 @@ class GoogleMapsContainer extends React.Component {
                               }else if(this.state.value==='선릉점'){
                                 return (
                                   <div className='wrapper'>
-                                  <div className='storesInfotitle'> 매장 정보</div>
+                                  <div className='storesInfotitle'>매장 픽업 서비스</div>
                                   <div class="selectbox">
                                   <label for="ex_select">{this.state.selected}</label>
                                   <select value={this.state.selected} onChange={this.Change.bind(this)}> 
