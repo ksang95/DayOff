@@ -110,9 +110,9 @@ class OrderInfo extends Component {
                 <td style={{ width: "5%" }}>{orderId}</td>
                 <td style={{ width: "50%" }}>
                     <Link to={"/product/" + productId}><div className="orderProduct"><img width="100px" height="100px" src={"https://storage.googleapis.com/bit-jaehoon/" + productThumbnailName}></img>
-                        <span className="orderProductName">
+                        <div className="orderProductName">
                             {productName}
-                        </span>
+                        </div>
                     </div></Link>
                 </td>
                 <td>{orderColor}</td>
