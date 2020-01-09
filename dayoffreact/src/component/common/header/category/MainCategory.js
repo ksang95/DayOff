@@ -23,7 +23,7 @@ refreshPage() {
 
             <li className='Mcategory__item'><Link to={"/productList/category/OUTER"}>OUTER</Link>
             <ul>
-            <li><Link to={"/productList/category/점퍼"}>점퍼</Link></li>
+            <li><Link to={"/productList/category/블레이저"}>블레이저</Link></li>
             <li><Link to={"/productList/category/패딩"}>패딩</Link></li>
             <li><Link to={"/productList/category/재킷"}>재킷</Link></li>
             <li><Link to={"/productList/category/코트"}>코트</Link></li>

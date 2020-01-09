@@ -93,7 +93,7 @@ class OrderInfo extends Component {
                 //     userCodeButton = <Deliver invoice={invoice}></Deliver>;
                 //     break;
                 case "구매확정":
-                    userCodeButton = <Link to={"/reviewInsert/" + productId}><Button variant="secondary">후기 작성</Button></Link>;
+                    userCodeButton = <Link to={"/mypage/review/" + productId}><Button variant="secondary">후기 작성</Button></Link>;
                     break;
                 case "배송완료":
                     userCodeButton = (<div><OrderConfirm orderId={orderId} userId={userId} groupId={groupId}></OrderConfirm><br></br><Link to={{
