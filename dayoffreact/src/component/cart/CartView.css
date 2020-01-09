@@ -13,7 +13,6 @@
     font-style: normal;
     letter-spacing: 0.08em;
     font-weight: 500;
-    font-size: 15px;
 }
 .orderBtn{
     width: 200px;
@@ -29,18 +28,17 @@
     font-style: normal;
     font-weight: 500;
     letter-spacing: 0.08em;
-    font-size: 15px;
     float: right;
 }
 .buttons{
     width: 90%;
-    margin: 120px auto;
+    margin: 150px auto;
 }
 .cartHeader{
-    width: 93%;
+    width: 89%;
     margin: auto;
     padding-top: 50px;
-    padding-bottom: 50px;
+    padding-bottom: 40px;
     letter-spacing: 0.1em;
     vertical-align: center;
     align-items: center;

@@ -50,7 +50,7 @@ class Reviews extends Component {
         return (
 
           <div className="reviewboard">
-            <h2 style={{"margin":"60px"}}>후기게시판</h2>
+      <h2 className="reviewName">후기게시판({reviews.length})</h2>
      <table  className="reviewTable">
      <colgroup>
        <col style={{ width: +5 + "%" }}></col>
