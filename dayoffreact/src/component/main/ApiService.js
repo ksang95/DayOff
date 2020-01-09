@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const USER_API_BASE_URL = 'http://192.168.0.111:8443';
+const USER_API_BASE_URL = 'http://bit-dayoff.tk:8443';
 
 class ApiService {
 
@@ -36,6 +36,8 @@ class ApiService {
         const sort=selected&&selected.substring(0,selected.lastIndexOf("_"));
         const direction=selected&&selected.substring(selected.lastIndexOf("_")+1);
         console.log(selected)
+        console.log(name)
+        
         return axios.get('/SubCategory/category/' + name+"?sort="+sort+","+direction)
     }
 

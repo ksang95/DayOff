@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Gallery, GalleryImage } from "react-gesture-gallery";
 import './banner.css';
+import { Link } from "react-router-dom"
  
 function Banner() {
   const [index, setIndex] = React.useState(0);
@@ -12,7 +13,7 @@ function Banner() {
     },
     {
       src:
-      'https://cdn-cms.f-static.com/ready_uploads/media/18871/1600_5cdba55e204eb.jpg'
+      'https://i.imgur.com/udvJZxe.png'
     },
     {
       src:
@@ -29,7 +30,7 @@ function Banner() {
         }}
       >
         {images.map(img => (
-          <GalleryImage objectFit="contain" key={img.src} src={img.src} />
+          <Link to="/vision"><GalleryImage objectFit="contain" key={img.src} src={img.src} /></Link>
         ))}
       </Gallery>
     </div>

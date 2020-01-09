@@ -55,7 +55,7 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://192.168.0.111:8443",
+  "proxy": "https://bit-dayoff.tk:8443",
   "devDependencies": {
     "cross-env": "^6.0.3"
   }

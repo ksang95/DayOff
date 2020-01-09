@@ -14,7 +14,9 @@ export default class Content extends Component {
     selected: '',
     style: '',
     role: false,
-    errorMessage: false
+    errorMessage: false,
+    keyword : '',
+    category : ''
   }
 
   SearchProduct = () => {
@@ -43,6 +45,7 @@ export default class Content extends Component {
           this.setState({ errorMessage: false, products: res.data })
         })
       } else if (category === 'OUTER' || category === 'TOP' || category === 'BOTTOM' || category === 'DRESS' || category === 'ACC') {
+        console.log(category)
         ApiService.MainCategoryList(category, this.state.selected).then(res => {
           this.setState({ errorMessage: false, products: res.data })
         });
@@ -117,14 +120,14 @@ export default class Content extends Component {
   componentWillReceiveProps(nextProps) {
     console.log(nextProps.keyword + "sfas")
     if (this.props.keyword !== nextProps.keyword) {
-      if (nextProps.keyword !== this.props.keyword) {
+      
         this.setState({ keyword: nextProps.keyword }, sessionStorage.getItem("userRole") === "admin" ? this.SearchAdminProduct : this.SearchProduct);
-      }
+      
       window.scrollTo(0, 0);
     } else if (nextProps.category !== this.props.category) {
-      if (nextProps.category !== this.props.category) {
+      
         this.setState({ category: nextProps.category }, sessionStorage.getItem("userRole") === "admin" ? this.SearchAdminProduct : this.SearchProduct);
-      }
+      
       window.scrollTo(0, 0);
     }
   }
