@@ -303,7 +303,7 @@ class ProductInfo extends Component {
                 <div>
                 {product.category.name}/{product.category.subName}
                 </div>
-                <h1 style={{"margin-bottom":"20px"}}>{product.name}</h1>
+                <h1 style={{"margin-top":"20px","margin-bottom":"30px","fontWeight":"500"}}>{product.name}</h1>
                 <h2>
                   {product.price
                     .toString()
@@ -311,7 +311,7 @@ class ProductInfo extends Component {
                   원
                 </h2>
                     </div>
-                <h4 style={{"borderTop":"1px solid #989898","paddingTop":"27px"}}>
+                <h4 style={{"borderTop":"1px solid #989898","paddingTop":"20px"}}>
                   {" "}
                   색상
                   <div className="colorOpt">

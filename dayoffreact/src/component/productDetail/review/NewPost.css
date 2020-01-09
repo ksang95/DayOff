@@ -1,19 +1,21 @@
 
 .form{
     width: 60%;
-    min-height: 1044px;
+    min-height: 1500px;
     /* align-items: center; */
-    /* text-align: center; */
+    text-align: center;
     /* margin: auto; */
     /* left: 17%; */
     position: sticky;
-    left: 20%;
+    left: 25%;
     top: 44%;
 }
 .reviewWrite{
+    
     width: 100%;
-    text-align: center;
-    padding: 41px;
+    text-align: left;
+    padding-top: 100px;
+    padding-bottom: 50px;
     border-bottom: 1px solid #ced4da;
 }
 .textarea{
@@ -22,9 +24,8 @@
 form .addReviewBtn{
     text-align: center;
     align-items: center;
-    margin-top: 30px;
-    margin-bottom: 70px;
-      width: 200px;
+    margin: 30px auto;
+    width: 30%;
     vertical-align: middle;
     cursor: pointer;
     border: 1px solid transparent;
