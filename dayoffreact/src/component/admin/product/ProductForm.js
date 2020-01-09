@@ -188,8 +188,8 @@ class ProductForm extends Component {
 
     componentWillReceiveProps(nextProps) {
         this.setState({
-            colors: this.props.colors,
-            categories: this.props.categories
+            colors: nextProps.colors,
+            categories: nextProps.categories
         })
     }
 
