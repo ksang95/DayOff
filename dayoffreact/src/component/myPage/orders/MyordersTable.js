@@ -54,7 +54,7 @@ class MyordersTable extends Component {
                         state:{
                             orderView:data
                         }
-                      }}>환불 신청</Link>  : ""}
+                      }}><Button variant="outline-dark" className="jaehoon"> 환불신청</Button></Link>  : ""}
       </td>
     </tr>))
 

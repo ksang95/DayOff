@@ -9,7 +9,7 @@ class LoginSuccess extends Component {
         sessionStorage.setItem("userId", users.id);
         sessionStorage.setItem("userRole", users.role);
         sessionStorage.setItem("userName", users.name);
-
+        console.log(sessionStorage.getItem("currentUrl"))
         this.props.history.push(sessionStorage.getItem("currentUrl"));
     }
 

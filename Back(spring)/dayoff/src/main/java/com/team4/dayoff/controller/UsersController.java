@@ -235,7 +235,7 @@ public class UsersController {
 		Users users = usersRepository.findBySocialIdAndRoleNot(socialId, "withdraw");
 		if (users == null) {
 
-			return new ModelAndView("redirect:https://localhost:3000/signUp");
+			return new ModelAndView("redirect:https://192.168.0.111:3000/signUp");
 		} else {
 			String accessToken = client.getAccessToken().getTokenValue();
 			String refreshToken = client.getRefreshToken() != null ? client.getRefreshToken().getTokenValue() : null;
@@ -246,7 +246,7 @@ public class UsersController {
 			loginHistory.setUsers(users);
 			loginHistoryRepository.save(loginHistory);
 
-			return new ModelAndView("redirect:https://localhost:3000/loginSuccess");
+			return new ModelAndView("redirect:https://192.168.0.111:3000/loginSuccess");
 		}
 
 	}
