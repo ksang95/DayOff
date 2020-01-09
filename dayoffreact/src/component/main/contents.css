@@ -138,10 +138,6 @@
 }
 
 .nullImg{
-  margin-left: 200px;
-}
-
-.nullImg > img {
-  width: 500px;
-  height: 500px;
+  margin-left: 27%;
+  width: 39%;
 }

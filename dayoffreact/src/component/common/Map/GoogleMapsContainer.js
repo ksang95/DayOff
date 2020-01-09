@@ -26,21 +26,21 @@ class GoogleMapsContainer extends React.Component {
     switch(e.target.value){
       case '강남점':
                 this.setState({
-                  location : {lat: 37.499547, lng: 127.029580},
-                  value : '강남점',
-                });
+                  location : {lat: 37.499160, lng: 127.028910},
+                  value : '강남점'
+        });
               break;      
 
       case '역삼점' :
         this.setState({
-          location:{lat: 37.500578, lng: 127.038132},
+          location:{lat: 37.499868, lng: 127.035740},
           value : '역삼점'
         });
       break;    
 
       case '선릉점' :
         this.setState({
-          location:{lat: 37.505103, lng: 127.048997},
+          location:{lat: 37.505189, lng: 127.049150},
           value : '선릉점'
         });
         break;

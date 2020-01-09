@@ -16,9 +16,11 @@ import org.springframework.data.domain.Pageable;
  */
 @Repository
 public interface ProductViewRepository extends JpaRepository<ProductView,Integer>{
-
+    //한달간 베스트
+    @Query(value="select * from productView where isAvailable!=0 && registerDate BETWEEN DATE_ADD(NOW(),INTERVAL -1 MONTH ) AND now() ORDER BY orderCount Asc limit 4" , nativeQuery=true)
+    List<ProductView> TopBannerList();
     //상품 판매 베스트
-    @Query(value="select * from productView where isAvailable!=0 ORDER BY orderCount Asc" , nativeQuery=true)
+    @Query(value="select * from productView where isAvailable!=0 && registerDate BETWEEN DATE_ADD(NOW(),INTERVAL -1 MONTH ) AND now() ORDER BY orderCount Asc limit 12" , nativeQuery=true)
     List<ProductView> TopproductList();
     
     //낮은가격순
@@ -38,6 +40,9 @@ public interface ProductViewRepository extends JpaRepository<ProductView,Integer
     //한달간 베스트
     @Query(value="select * from productView where isAvailable!=0 && registerDate BETWEEN DATE_ADD(NOW(),INTERVAL -1 MONTH ) AND now() ORDER BY orderCount Asc" , nativeQuery=true)
     List<ProductView> MonthProductList();
+
+    @Query(value="select * from productView where isAvailable!=0 && registerDate BETWEEN DATE_ADD(NOW(),INTERVAL -1 MONTH ) AND now() ORDER BY orderCount Asc limit 5" , nativeQuery=true)
+    List<ProductView> MonthProductListMax5();
     
     @Query(value="select * from productView where isAvailable!=0 && categoryName=:name" , nativeQuery=true)
     List<ProductView> MainCategory(@Param("name") String name, Pageable pageable);

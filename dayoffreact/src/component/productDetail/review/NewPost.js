@@ -40,8 +40,7 @@ import './NewPost.css';
    const {title,content,rating} =this.state;
    const {handleChange,handlePostData}=this;
         return (
-          <div className="form">
-            <Form >
+            <Form className="form">
             <h2 className="reviewWrite">후기 작성</h2>
               <Form.Group as={Row} className="FormGroup">
                 <Form.Label >
@@ -90,7 +89,6 @@ import './NewPost.css';
               </Form.Group >
             <Button className="addReviewBtn" onClick={handlePostData}>후기 등록</Button>
             </Form >
-            </div>
         );
     }
 }

@@ -8,7 +8,8 @@ class ProductNav extends Component {
   state = {
     category:'',
       categorySub:[],
-      categoryName:[]
+      categoryName:[],
+      MonthData:[]
     }
 
     //   ApiService.CategoryList(keyword).then(res => {
@@ -28,6 +29,11 @@ class ProductNav extends Component {
       this.setState({categorySub : res.data});
       console.log(this.state.categorySub);
     });
+  // } else if(category ==='ACC'){
+  //   ApiService.CategorySubList(category).then(res =>{
+  //     this.setState({categorySub : res.data});
+  //     console.log(this.state.categorySub);
+  //   });
   } else {
     ApiService.CategoryNameList(category).then(res =>{
       this.setState({categoryName : res.data});
@@ -37,7 +43,10 @@ class ProductNav extends Component {
 }
 
     componentDidMount() {
-      this.setState({category : this.props.category},this.ClickCategory);
+      ApiService.MonthProductListmax5().then(res => {
+        this.setState({ MonthData: res.data })
+        this.setState({category : this.props.category},this.ClickCategory);
+      });
     }
 
     componentWillReceiveProps(nextProps){
@@ -58,17 +67,17 @@ class ProductNav extends Component {
           </div>
       </div>)
     }
-    else if(this.state.category !=='BEST' && this.state.category !=='OUTER' && this.state.category !=='TOP' && this.state.category !=='BOTTOM' && this.state.category !=='DRESS' && this.state.category !=='ACC'){
-      return (
+      else if(this.state.category ==='OUTER' || this.state.category ==='TOP' || this.state.category ==='BOTTOM' || this.state.category ==='DRESS'){
+        return (
           <div className='ProductNav'>
           <div className='NavInfo_Box'>
           <div className='Product_NavTitle'>
-            <h3>{this.state.categorySub.length>0&&this.state.categorySub[0].name}</h3>
+          <h3>{this.state.categoryName.length>0&&this.state.categoryName[0].name}</h3>
           </div>
           <br></br>
           <div className='Product_NavCategory'>
           <br></br>
-          { this.state.categorySub.map(categorySubs => <div className='NavCate'><NavLink activeStyle={{fontWeight:'bold'}} className="Nava" to={"/productList/category/"+categorySubs.subName}>{categorySubs.subName}<br></br><br></br></NavLink></div>)}
+          { this.state.categoryName.map(categoryNames => <div className='NavCate'><NavLink activeStyle={{fontWeight:'bold'}} className="Nava" to={"/productList/category/"+categoryNames.name}>{categoryNames.subName}<br></br><br></br></NavLink></div>)}
           </div>
           <div className='NavColor'>
             <br></br>
@@ -87,17 +96,104 @@ class ProductNav extends Component {
           </div>
           </div>
       );
-      } else {
+      }else if(this.state.category ==='슈즈' || this.state.category ==='가방' || this.state.category ==='쥬얼리' || this.state.category ==='벨트' || this.state.category ==='모자' || this.state.category ==='양말' || this.state.category ==='스카프' || this.state.category ==='헤어 액세서리' ){
+        return (
+            <div className='ProductNav'>
+            <div className='NavInfo_Box'>
+            <div className='Product_NavTitle'>
+              <h3>{this.state.categorySub.length>0&&this.state.categorySub[0].name}</h3>
+            </div>
+            <br></br>
+            <div className='Product_NavCategory1'>
+            <br></br>
+            { this.state.categorySub.map(categorySubs => <div className='NavCate'><NavLink activeStyle={{fontWeight:'bold'}} className="Nava" to={"/productList/category/"+categorySubs.subName}>{categorySubs.subName}<br></br><br></br></NavLink></div>)}
+            </div>
+            <div className='NavColor'>
+              <br></br>
+            <h3>Color</h3>
+            <NavLink to={"/productList/category/RED"}><img className='colorImage' src='/images/red.jpg' value='RED'/></NavLink>
+            <NavLink to={"/productList/category/BLACK"}><img className='colorImage'  src='/images/black.jpg' value='BLACK'/></NavLink>
+            <NavLink to={"/productList/category/GRAY"}><img className='colorImage' src='/images/gray.jpg' value='GRAY'/></NavLink><br></br>
+            <NavLink to={"/productList/category/BLUE"}><img className='colorImage' src='/images/blue.jpg' value='BLUE'/></NavLink>
+            <NavLink to={"/productList/category/PINK"}><img className='colorImage' src='/images/pink.jpg' vale='PINK'/></NavLink>
+            <NavLink to={"/productList/category/WHITE"}><img className='colorImage' src='/images/white.jpg' vale='WHITE'/></NavLink><br></br>
+            <NavLink to={"/productList/category/GREEN"}><img className='colorImage' src='/images/green.jpg' value='GREEN'/></NavLink>
+            <NavLink to={"/productList/category/PURPLE"}><img className='colorImage' src='/images/purple.jpg' value='PURPLE'/></NavLink>
+            <NavLink to={"/productList/category/ORANGE"}><img className='colorImage' src='/images/orange.jpg' value='ORANGE'/></NavLink><br></br>
+            <NavLink to={"/productList/category/YELLOW"}><img className='colorImage' src='/images/yellow.jpg' value='YELLOW'/></NavLink>
+            </div>
+            </div>
+            </div>
+        );
+        } else if(this.state.category ==='ACC'){
+          return (
+            <div className='ProductNav'>
+            <div className='NavInfo_Box'>
+            <div className='Product_NavTitle'>
+              <h3>{this.state.categoryName.length>0&&this.state.categoryName[0].name}</h3>
+            </div>
+            <br></br>
+            <div className='Product_NavCategory1'>
+            <br></br>
+            { this.state.categoryName.map(categoryNames => <div className='NavCate'><NavLink activeStyle={{fontWeight:'bold'}} className="Nava" to={"/productList/category/"+categoryNames.name}>{categoryNames.subName}<br></br><br></br></NavLink></div>)}
+            </div>
+            <div className='NavColor'>
+              <br></br>
+            <h3>Color</h3>
+            <NavLink to={"/productList/category/RED"}><img className='colorImage' src='/images/red.jpg' value='RED'/></NavLink>
+            <NavLink to={"/productList/category/BLACK"}><img className='colorImage'  src='/images/black.jpg' value='BLACK'/></NavLink>
+            <NavLink to={"/productList/category/GRAY"}><img className='colorImage' src='/images/gray.jpg' value='GRAY'/></NavLink><br></br>
+            <NavLink to={"/productList/category/BLUE"}><img className='colorImage' src='/images/blue.jpg' value='BLUE'/></NavLink>
+            <NavLink to={"/productList/category/PINK"}><img className='colorImage' src='/images/pink.jpg' vale='PINK'/></NavLink>
+            <NavLink to={"/productList/category/WHITE"}><img className='colorImage' src='/images/white.jpg' vale='WHITE'/></NavLink><br></br>
+            <NavLink to={"/productList/category/GREEN"}><img className='colorImage' src='/images/green.jpg' value='GREEN'/></NavLink>
+            <NavLink to={"/productList/category/PURPLE"}><img className='colorImage' src='/images/purple.jpg' value='PURPLE'/></NavLink>
+            <NavLink to={"/productList/category/ORANGE"}><img className='colorImage' src='/images/orange.jpg' value='ORANGE'/></NavLink><br></br>
+            <NavLink to={"/productList/category/YELLOW"}><img className='colorImage' src='/images/yellow.jpg' value='YELLOW'/></NavLink>
+            </div>
+            </div>
+            </div>
+        );
+        }else if(this.state.category ==='BEST'){
+          return (
+            <div className='ProductNav'>
+            <div className='NavInfo_Box'>
+            <div className='Product_NavTitle'>
+              <h3>BEST</h3>
+            </div>
+            <br></br>
+            <div className='Product_NavCategory'>
+            <br></br>
+            { this.state.MonthData.map(MonthDatas => <div className='NavCate'><div activeStyle={{fontWeight:'bold'}} className="Nava" to=''>&nbsp;&nbsp;{MonthDatas.categoryName}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br></br><br></br></div></div>)}
+            </div>
+            <div className='NavColor'>
+              <br></br>
+            <h3>Color</h3>
+            <NavLink to={"/productList/category/RED"}><img className='colorImage' src='/images/red.jpg' value='RED'/></NavLink>
+            <NavLink to={"/productList/category/BLACK"}><img className='colorImage'  src='/images/black.jpg' value='BLACK'/></NavLink>
+            <NavLink to={"/productList/category/GRAY"}><img className='colorImage' src='/images/gray.jpg' value='GRAY'/></NavLink><br></br>
+            <NavLink to={"/productList/category/BLUE"}><img className='colorImage' src='/images/blue.jpg' value='BLUE'/></NavLink>
+            <NavLink to={"/productList/category/PINK"}><img className='colorImage' src='/images/pink.jpg' vale='PINK'/></NavLink>
+            <NavLink to={"/productList/category/WHITE"}><img className='colorImage' src='/images/white.jpg' vale='WHITE'/></NavLink><br></br>
+            <NavLink to={"/productList/category/GREEN"}><img className='colorImage' src='/images/green.jpg' value='GREEN'/></NavLink>
+            <NavLink to={"/productList/category/PURPLE"}><img className='colorImage' src='/images/purple.jpg' value='PURPLE'/></NavLink>
+            <NavLink to={"/productList/category/ORANGE"}><img className='colorImage' src='/images/orange.jpg' value='ORANGE'/></NavLink><br></br>
+            <NavLink to={"/productList/category/YELLOW"}><img className='colorImage' src='/images/yellow.jpg' value='YELLOW'/></NavLink>
+            </div>
+            </div>
+            </div>
+        );
+        }else{
     return (
       <div className='ProductNav'>
       <div className='NavInfo_Box'>
       <div className='Product_NavTitle'>
-      <h3>{this.state.category}</h3>
+      <h3>{this.state.categorySub.length>0&&this.state.categorySub[0].name}</h3>
       </div>
       <br></br>
       <div className='Product_NavCategory'>
       <br></br>
-      { this.state.categoryName.map(categoryNames => <div className='NavCate'><NavLink activeStyle={{fontWeight:'bold'}} className="Nava" to={"/productList/category/"+categoryNames.subName}>{categoryNames.subName}<br></br><br></br></NavLink></div>)}
+      { this.state.categorySub.map(categorySubs => <div className='NavCate'><NavLink activeStyle={{fontWeight:'bold'}} className="Nava" to={"/productList/category/"+categorySubs.subName}>{categorySubs.subName}<br></br><br></br></NavLink></div>)}
       </div>
       <div className='NavColor'>
         <br></br>

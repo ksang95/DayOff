@@ -6,33 +6,8 @@ import { Link, withRouter } from 'react-router-dom'
 
 
 
-class banner2 extends Component {
-    state = {
-        product : []
-    }
 
-
-    test1() {
-        Axios.get('/TopBannerList').then(res=>{
-          const product =res.data;
-          console.log(res.data)
-          this.setState({ product });
-        });
-    }
-    
-    componentDidMount(){
-        this.test1();
-    }
-
-    render() {
-        return (
-            <div className='Banners'>
-            <Tiles list={this.state.product}/>
-            </div>
-            );
-    }
-}
-export class Tiles extends React.Component {
+export class Tiles2 extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -65,7 +40,9 @@ export class Tiles extends React.Component {
         let changeBtn = {};
         if(this.state.change){
             change = {
-                position : "unset"
+                position : "unset",
+                
+                
             }
             changeBtn = {
                 display : "none"
@@ -83,9 +60,9 @@ export class Tiles extends React.Component {
         // Create tile for each item in data array
         // Pass data to each tile and assign a key
         return (
-            <div className="tiles">
+            <div className="card" id="card" style={this.props.cardStyle}>
                 {this.props.list.map(product => 
-                 <Tile history={this.props.history} changeFunc={this.stateChange} changeBtn={changeBtn} change={change} product={product} key={product.id}/>)}
+                 <Tile kind={this.props.kind} Left={this.props.Left} history={this.props.history} changeFunc={this.stateChange} changeBtn={changeBtn} change={change} product={product} key={this.props.kind+product.productId}/>)}
             </div>
         );
     }
@@ -97,43 +74,44 @@ class Tile extends React.Component {
         super(props);
         this.state = {
             open: false,
-            mouseOver: false,
+            // mouseOver: false,
         };
         // Bind properties to class instance
         this._clickHandler = this._clickHandler.bind(this);
-        this._mouseEnter = this._mouseEnter.bind(this);
-        this._mouseLeave = this._mouseLeave.bind(this);
+        // this._mouseEnter = this._mouseEnter.bind(this);
+        // this._mouseLeave = this._mouseLeave.bind(this);
         this.changeFalse = this.changeFalse.bind(this)
     }
 
             // Event handlers to modify state values
-            _mouseEnter(e) {
-                e.preventDefault();
-                if (this.state.mouseOver === false) {
-                    this.setState({
-                        mouseOver: true
-                    })
-                }
-            }
-            _mouseLeave(e) {
-                e.preventDefault();
-                if (this.state.mouseOver === true) {
-                    this.setState({
-                        mouseOver: false
-                    })
-                }
-            }
+            // _mouseEnter(e) {
+            //     e.preventDefault();
+            //     if (this.state.mouseOver === false) {
+            //         this.setState({
+            //             mouseOver: true
+            //         })
+            //     }
+            // }
+            // _mouseLeave(e) {
+            //     e.preventDefault();
+            //     if (this.state.mouseOver === true) {
+            //         this.setState({
+            //             mouseOver: false
+            //         })
+            //     }
+            // }
             _clickHandler(e) {
                 e.preventDefault();
                 this.props.changeFunc()
                 if (this.state.open === false) {
-                    console.log(this.props.product.id)
+                    console.log(this.props.product.productId)
                     this.setState({
                         open: true
                     });
                 } else {
-                    let id = this.props.product.id
-                    document.getElementById(this.props.product.id).onclick = function(){
+                    let id = this.props.product.productId
+                    let kind = this.props.kind
+                    document.getElementById(kind+id).onclick = function(){
                         window.location.href = "/product/"+ id;
                     }
                     this.setState({
@@ -150,65 +128,73 @@ class Tile extends React.Component {
             }    
     
             componentDidMount(){
-                let id = this.props.product.id
-                document.getElementById(id).onclick = function(){
+                let id = this.props.product.productId
+                let kind = this.props.kind
+                document.getElementById(kind+id).onclick = function(){
                     window.location.href = "/product/"+ id;
                 }
             }
     render() {
-
+        console.log(this.props.Left)
         console.log(this.state.open)
 
         let tileStyle = {};
         let divStyle = {};
         let zoom = {};
+        let position = this.props.Left+'px'
         // When tile clicked
         if (this.state.open) {
-            let id = this.props.product.id
-            document.getElementById(this.props.product.id).onclick = function(){
+            let id = this.props.product.productId
+            let kind = this.props.kind
+
+            document.getElementById(kind+id).onclick = function(){
                 console.log(id)
-                document.getElementById("tileBtn"+id).click();
+                document.getElementById(kind+"btn"+id).click();
                 console.log(id)
             }
             tileStyle = {
-                width: '50vw',
-                height: '37vw',
+                
+                width: '37vw',
+                height: '31vw',
                 position: 'absolute',
-                top: '104%',
-                left: '55%',
+                top: '94%',
+                left: position,
                 margin: '0',
                 marginTop: '-31vw',
                 marginLeft: '-31vw',
                 boxShadow: '0 0 40px 5px rgba(0, 0, 0, 0.3)',
-                transform: 'none'
+                transform: 'none',
+                zIndex : '1',
+            
             };
         } else {
             tileStyle = {
-                width: '18vw',
-                height: '18vw'
+                width: '220px',
+                height: '80%',
+            
             };
         }
 
        
                
         return (
-            <div  className='TotalTile' >
-                <div id="Total"className="tile" style={this.props.change}>
+            <div  className='TotalTilejh' >
+                <div id="Total"className="tilejh" style={this.props.change}>
                     {/* <Link to={"/product/"+this.props.product.id}> */}
-                    <img
-                        onMouseEnter={this._mouseEnter}
-                        onMouseLeave={this._mouseLeave}
+                    <img className="tileImg"
                         // src={"https://storage.googleapis.com/bit-jaehoon/"+product.productThumbnailName}
                         src={"https://storage.googleapis.com/bit-jaehoon/"+ this.props.product.productThumbnailName}
-                        id={this.props.product.id}
+                        id={this.props.kind+this.props.product.productId}
                         style={tileStyle}
                     />
+                    <Link to={"/product/"+this.props.product.productId}>
+                <p className="title">{this.props.product.productName}</p>
+                <p className="price">{this.props.product.price}원</p>
+                </Link>
                     {/* </Link> */}
-                    <img id={"tileBtn"+this.props.product.id} style={this.props.changeBtn} onClick={this._clickHandler} className='titititi' src='/images/enlargement.png'></img>
+                    <img id={this.props.kind+"btn"+this.props.product.productId} style={this.props.changeBtn} onClick={this._clickHandler} className='jhBtn' src='/images/enlargement.png'></img>
                 </div>
             </div>
         )
     }
 }
-
-export default banner2;

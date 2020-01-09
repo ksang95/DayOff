@@ -18,6 +18,8 @@ class visionCrop extends Component {
       };
      
       aaaa() {
+        document.getElementById("severalProductLoading").style.visibility = "visible";
+
         axios.post('/crop', {
           result : this.state.result
           
@@ -28,6 +30,8 @@ class visionCrop extends Component {
             list : response.data.list,
             recommendlist : response.data.recommend
           })
+          document.getElementById("severalProductLoading").style.visibility = "hidden";
+
         })
         .catch(error => {
             console.log(error.response)
@@ -66,7 +70,8 @@ class visionCrop extends Component {
           <div className="buttonDiv">
              <Button className="buttonVision" onClick={() => window.location.reload(false)}>다시하기</Button>
           <br></br>
-          <Button className="buttonVision" id="searchbutton"  onClick={this.aaaa.bind(this)}>검색하기</Button>
+          <Button style={{display : 'inline'}} className="buttonVision" id="searchbutton"  onClick={this.aaaa.bind(this)}>검색하기</Button>
+          <div style={{visibility : 'hidden', display : 'inline'}} className="loading pt-4" id="severalProductLoading"><img src="/images/loading25.gif"></img></div>
           
           </div>
           {/* </div> : ""} */}

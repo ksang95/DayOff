@@ -10,13 +10,15 @@ body {
 }
 .tiles {
     padding: 6vh 10vw;
-    display: flex;
     flex-wrap: wrap;
     flex-direction: row;
     justify-content: center;
     position: relative;
+    width : 2000px;
+    display: inline-block;
 }
 .tile {
+    display: inline-block;
     margin: 15px;
     cursor: pointer;
     overflow: hidden;
@@ -29,4 +31,48 @@ body {
             transform: scale(1.1);
         }
     }
+}
+.tilejh {
+    display: inline-block;
+    margin: 15px;
+    margin-right: 0px;
+    cursor: pointer;
+    // overflow: hidden;
+    width: 216px;
+    height: 18vw;
+    
+}
+.tileImg{
+    width: 100%;
+    height : 80%;
+    transition: transform 500ms ease;
+    &:hover {
+        transform: scale(1.1);
+        opacity: 1;
+    }
+}
+.tile img {
+    width: 12%;
+}
+
+.Banners{
+    min-width: 1500px;
+}
+
+.TotalTilejh{
+    display: inline-block;
+}
+.TotalTile{
+    display: inline-block;
+
+}
+.titititi{
+    position: absolute;
+    right : 5%;
+}
+.jhBtn{
+    position: absolute;
+    right : 0%;
+    top : 1%;
+    width: 20px;
 }

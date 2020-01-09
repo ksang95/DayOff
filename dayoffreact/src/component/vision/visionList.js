@@ -3,7 +3,7 @@ import axios from 'axios';
 import {Link} from 'react-router-dom';
 import VisionMain from  './visionMain';
 import Display from '../productDetail/product/Display'
-
+import { Tiles2 } from '../main/banner/Tiles2';
 class visionList extends Component {
     state = {
       };
@@ -30,13 +30,14 @@ class visionList extends Component {
           {this.props.list ?  <div className="imgbox">
             <h1>상품검색 결과</h1>
             <hr></hr>
-           <Display cookieList={this.props.list}></Display> 
+           {/* <Display cookieList={this.props.list}></Display>  */}
+           <Display List={this.props.list}></Display>
           </div> : ''}
           {this.props.recommendlist ?  <div className="imgbox">
             <h2 style={{color : "red"}}>일치하는 상품이 없습니다</h2>
             <h2>유사한 카테고리 상품추천-{this.props.recommendlist[0].categorysubName}</h2>
             <hr></hr>
-            <Display cookieList={this.props.recommendlist}></Display> 
+            <Display List={this.props.recommendlist}></Display> 
           </div> : ''}
           
           </div>

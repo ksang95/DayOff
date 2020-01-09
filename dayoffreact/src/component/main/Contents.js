@@ -226,7 +226,7 @@ export default class Content extends Component {
                 )
               })}
 
-            </div> : <div>{errorMessage && <h1 className='nullImg'><img src='http://file3.instiz.net/data/file3/2019/11/06/9/7/c/97c015a880b59f53280159a08fc0d357.jpg'></img><br></br>일치하는 상품이 없습니다. 다시 검색해주세요!</h1>}</div>}
+            </div> : <div>{errorMessage} <img className='nullImg' src='/images/SearchImg.png'></img></div>}
         </div>
       )
     } else {
