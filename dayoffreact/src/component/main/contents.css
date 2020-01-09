@@ -74,7 +74,7 @@
   /* min-height: 40px; */
   margin-left: 10px;
   overflow: hidden;
-
+  color : black;
 }
 
 
@@ -82,7 +82,7 @@
   margin: 4px 0px;
   margin-left: 10px;
   font-size : 1em;
-
+  color: black;
 }
 
 .PContentItem p {
@@ -107,7 +107,7 @@
   width: 120px;
   height: 40px;
   font-size: 18px;
-  margin-left: 1250px;
+  margin-left: 1139px;
 }
 
 .PDropButton select option {
