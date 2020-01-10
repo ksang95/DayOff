@@ -8,7 +8,7 @@
   display: inline-block;
 }
 .MContentItem {
-  width: 689px;
+  width: 603px;
   height: 723px;
   border: 1px solid #c9c9c9;
   display: inline-block;
@@ -54,7 +54,7 @@
 }
 
 .MDropButton {
-  margin-left: 1379px;  
+  margin-left: 1238px;  
 }
 
 .MDropButton select{
@@ -80,7 +80,7 @@
   border-Bottom: 5px solid #EAEAEA;
   display: inline-block;
   height: 70px;
-  width: 1428px;
+  width: 1263px;
   margin-left: 100px;
 }
 

@@ -20,19 +20,19 @@ public interface ProductViewRepository extends JpaRepository<ProductView,Integer
     @Query(value="select * from productView where isAvailable!=0 && registerDate BETWEEN DATE_ADD(NOW(),INTERVAL -1 MONTH ) AND now() ORDER BY orderCount desc limit 4" , nativeQuery=true)
     List<ProductView> TopBannerList();
     //상품 판매 베스트
-    @Query(value="select * from productView where isAvailable!=0 && registerDate BETWEEN DATE_ADD(NOW(),INTERVAL -1 MONTH ) AND now() ORDER BY orderCount desc limit 12" , nativeQuery=true)
+    @Query(value="select * from productView where isAvailable!=0 && registerDate BETWEEN DATE_ADD(NOW(),INTERVAL -1 MONTH ) AND now() ORDER BY orderCount desc limit 8" , nativeQuery=true)
     List<ProductView> TopproductList();
     
     //낮은가격순
-    @Query(value="select * from productView where isAvailable!=0 ORDER BY price Asc" , nativeQuery=true)
+    @Query(value="select * from productView where isAvailable!=0 ORDER BY price Asc limit 8" , nativeQuery=true)
     List<ProductView> AscpriceList();
     
     //높은가격순
-    @Query(value="select * from productView where isAvailable!=0 ORDER BY price Desc" , nativeQuery=true)
+    @Query(value="select * from productView where isAvailable!=0 ORDER BY price Desc limit 8" , nativeQuery=true)
     List<ProductView> DescpriceList();
     
     //날짜순
-    @Query(value="select * from productView where isAvailable!=0 ORDER BY registerDate desc" , nativeQuery=true)
+    @Query(value="select * from productView where isAvailable!=0 ORDER BY registerDate desc limit 8" , nativeQuery=true)
     List<ProductView> RegisterList();
      
     /////////////////////////

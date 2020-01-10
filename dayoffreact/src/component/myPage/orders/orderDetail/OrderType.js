@@ -8,7 +8,7 @@ class OrderType extends Component {
 
 
     onClick = () => {
-        window.open("https://tracker.delivery/#/kr.epost/" + this.props.info.invoice, '', 'width=700px, height=500px, left=500px ,top=200px');
+        window.open("http://service.epost.go.kr/trace.RetrieveRegiPrclDeliv.postal?sid1=" + this.props.info.invoice, '', 'width=700px, height=500px, left=500px ,top=200px');
     }
     render() {
         const { info } = this.props;

@@ -7,7 +7,7 @@ class Deliver extends Component {
         window.open(url,"name","width=700px, height=500px, left=500px ,top=200px")
       }
     render() {
-        const delivery = "https://tracker.delivery/#/kr.epost/"
+        const delivery = "http://service.epost.go.kr/trace.RetrieveRegiPrclDeliv.postal?sid1="
         return (
             <div>
                 <Button className="jaehoon" variant="outline-dark" onClick={()=>this.openPopup.bind(this)(delivery+this.props.invoice)}>배송조회</Button>

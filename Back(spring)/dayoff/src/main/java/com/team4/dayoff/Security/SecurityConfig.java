@@ -78,7 +78,7 @@ public OAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest>
 }
 
 @Bean
-public ClientRegistrationRepository clientRegistrationRepository(OAuth2ClientProperties oAuth2ClientProperties,@Value("6e489d6a40ced2894a89a17f260b14ad") String kakaoClientId, @Value("6Mm2iW8cCLzOrKFT073ptfy8dVdGm16c") String kakaoClientSecret){
+public ClientRegistrationRepository clientRegistrationRepository(OAuth2ClientProperties oAuth2ClientProperties,@Value("") String kakaoClientId, @Value("") String kakaoClientSecret){
   List<ClientRegistration> registrations=new ArrayList<ClientRegistration>();
   registrations.add(CustomOAuth2Provider.KAKAO.getBuilder("kakao")
   .clientId(kakaoClientId)
@@ -86,13 +86,13 @@ public ClientRegistrationRepository clientRegistrationRepository(OAuth2ClientPro
   .jwkSetUri("temp")
   .build());
  registrations.add(CustomOAuth2Provider.GOOGLE.getBuilder("google")
-  .clientId("191899458571-uk5f9j3d6hpt2vkds51301tvg263ueoh.apps.googleusercontent.com")
-  .clientSecret("w_fZV-FqQ_QSalCrpSscLLTg")
+  .clientId("")
+  .clientSecret("")
   .scope("email","profile","https://www.googleapis.com/auth/user.phonenumbers.read","https://www.googleapis.com/auth/user.birthday.read")
   .build());
   registrations.add(CommonOAuth2Provider.FACEBOOK.getBuilder("facebook")
-  .clientId("2473764549612950")
-  .clientSecret("2dd047a9afaf5fe157e09d41f8676ae1")
+  .clientId("")
+  .clientSecret("")
   .redirectUriTemplate("https://bit-dayoff.tk:8443/login/oauth2/code/facebook")
   .userInfoUri("https://graph.facebook.com/me?fields=id,name,email,link")
   .scope("email","public_profile")

@@ -65,7 +65,7 @@ refreshPage() {
             <li><Link to={"/productList/category/모자"}>모자</Link></li>
             <li><Link to={"/productList/category/양말 & 레깅스"}>양말 & 레깅스</Link></li>
             <li><Link to={"/productList/category/스카프"}>스카프</Link></li>
-            <li><Link to={"/productList/category/헤어액세서리"}>헤어 액세서리</Link></li>
+            <li><Link to={"/productList/category/헤어 액세서리"}>헤어 액세서리</Link></li>
 
             </ul>
             </li>

@@ -72,7 +72,7 @@ class ProductInfo extends Component {
     });
   }
 
-  addToCart = () => {
+  addToCart = async () => {
     const userId = sessionStorage.getItem("userId");
     if (userId !== null) {
       const cart = {
@@ -86,7 +86,7 @@ class ProductInfo extends Component {
       if (cart.quantity == 0 || cart.color == null || cart.size == null) {
         alert("상품 선택을 완료해주세요");
       } else {
-        axios
+        await axios
           .post("/addToCart", cart)
           .then(res =>
             this.setState({
